@@ -7,6 +7,5 @@
 //
 
 import IntervalTools
-import ArithmeticTools
 
 public typealias MetricalDurationInterval = Interval<MetricalDuration>

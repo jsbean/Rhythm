@@ -13,10 +13,12 @@
 		077554781E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */; };
 		0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554791E1B163600CF4A8A /* RhythmTree.swift */; };
 		0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554791E1B163600CF4A8A /* RhythmTree.swift */; };
-		0775547D1E1B168000CF4A8A /* TieOrNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547C1E1B168000CF4A8A /* TieOrNote.swift */; };
-		0775547E1E1B168000CF4A8A /* TieOrNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547C1E1B168000CF4A8A /* TieOrNote.swift */; };
-		077554801E1B175700CF4A8A /* RestOrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547F1E1B175700CF4A8A /* RestOrEvent.swift */; };
-		077554811E1B175700CF4A8A /* RestOrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547F1E1B175700CF4A8A /* RestOrEvent.swift */; };
+		0775547D1E1B168000CF4A8A /* ContinualOrInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547C1E1B168000CF4A8A /* ContinualOrInstance.swift */; };
+		0775547E1E1B168000CF4A8A /* ContinualOrInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547C1E1B168000CF4A8A /* ContinualOrInstance.swift */; };
+		077554801E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */; };
+		077554811E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */; };
+		077554841E1B1DC900CF4A8A /* MetricDurationalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554831E1B1DC900CF4A8A /* MetricDurationalContext.swift */; };
+		077554851E1B1DC900CF4A8A /* MetricDurationalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554831E1B1DC900CF4A8A /* MetricDurationalContext.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
 		9EADF804BC73FCC4A2700E36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
@@ -46,8 +48,9 @@
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationInterval.swift; path = Rhythm/MetricalDurationInterval.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
-		0775547C1E1B168000CF4A8A /* TieOrNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TieOrNote.swift; path = Rhythm/TieOrNote.swift; sourceTree = "<group>"; };
-		0775547F1E1B175700CF4A8A /* RestOrEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestOrEvent.swift; path = Rhythm/RestOrEvent.swift; sourceTree = "<group>"; };
+		0775547C1E1B168000CF4A8A /* ContinualOrInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinualOrInstance.swift; path = Rhythm/ContinualOrInstance.swift; sourceTree = "<group>"; };
+		0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbsenceOrEvent.swift; path = Rhythm/AbsenceOrEvent.swift; sourceTree = "<group>"; };
+		077554831E1B1DC900CF4A8A /* MetricDurationalContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricDurationalContext.swift; path = Rhythm/MetricDurationalContext.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,8 +157,9 @@
 			children = (
 				825F35607C284149FAAA3A72 /* Supporting Files */,
 				077554731E1B12A700CF4A8A /* MetricalDuration.swift */,
-				0775547C1E1B168000CF4A8A /* TieOrNote.swift */,
-				0775547F1E1B175700CF4A8A /* RestOrEvent.swift */,
+				0775547C1E1B168000CF4A8A /* ContinualOrInstance.swift */,
+				0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */,
+				077554831E1B1DC900CF4A8A /* MetricDurationalContext.swift */,
 				077554791E1B163600CF4A8A /* RhythmTree.swift */,
 				077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */,
 			);
@@ -355,9 +359,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077554811E1B175700CF4A8A /* RestOrEvent.swift in Sources */,
+				077554811E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
+				077554851E1B1DC900CF4A8A /* MetricDurationalContext.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
-				0775547E1E1B168000CF4A8A /* TieOrNote.swift in Sources */,
+				0775547E1E1B168000CF4A8A /* ContinualOrInstance.swift in Sources */,
 				077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
 				077554781E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */,
 			);
@@ -374,9 +379,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077554801E1B175700CF4A8A /* RestOrEvent.swift in Sources */,
+				077554801E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
+				077554841E1B1DC900CF4A8A /* MetricDurationalContext.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
-				0775547D1E1B168000CF4A8A /* TieOrNote.swift in Sources */,
+				0775547D1E1B168000CF4A8A /* ContinualOrInstance.swift in Sources */,
 				077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
 				077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */,
 			);

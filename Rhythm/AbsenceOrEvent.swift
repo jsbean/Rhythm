@@ -1,12 +1,12 @@
 //
-//  RestOrEvent.swift
+//  AbsenceOrEvent.swift
 //  Rhythm
 //
 //  Created by James Bean on 1/3/17.
 //
 //
 
-public enum RestOrEvent <T> {
-    case rest
+public enum AbsenceOrEvent <T> {
+    case absence
     case event(T)
 }

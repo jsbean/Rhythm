@@ -8,4 +8,12 @@
 
 import Collections
 
-public typealias RhythmTree<T> = Tree<TieOrNote<RestOrEvent<T>>>
+public typealias RhythmTree<T> = Tree<
+    ContinualOrInstance<
+        AbsenceOrEvent<
+            MetricDurationalContext<
+                T
+            >
+        >
+    >
+>
