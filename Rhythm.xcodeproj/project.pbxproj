@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0775546B1E1B0F9400CF4A8A /* Beats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775546A1E1B0F9400CF4A8A /* Beats.swift */; };
+		0775546C1E1B0F9400CF4A8A /* Beats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775546A1E1B0F9400CF4A8A /* Beats.swift */; };
+		077554711E1B120700CF4A8A /* Subdivision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554701E1B120700CF4A8A /* Subdivision.swift */; };
+		077554721E1B120700CF4A8A /* Subdivision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554701E1B120700CF4A8A /* Subdivision.swift */; };
+		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
+		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
 		9EADF804BC73FCC4A2700E36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
@@ -33,11 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0775546A1E1B0F9400CF4A8A /* Beats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Beats.swift; path = Rhythm/Beats.swift; sourceTree = "<group>"; };
+		077554701E1B120700CF4A8A /* Subdivision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subdivision.swift; path = Rhythm/Subdivision.swift; sourceTree = "<group>"; };
+		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		35C8F3A68AE9F3053FAD5640 /* Rhythm macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Rhythm macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		440D58FF94D68D665C14BF01 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		4816E5E4EE43ABE036DA477E /* Rhythm iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Rhythm iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4816E5E4EE43ABE036DA477E /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840AEDEC877EEF60D4CBCEB9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Rhythm/Info.plist; sourceTree = "<group>"; };
 		866599FF1C901214B2310164 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		958460755AA3BA157F8A2C64 /* Rhythm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Rhythm.h; path = Rhythm/Rhythm.h; sourceTree = "<group>"; };
@@ -83,9 +92,9 @@
 		0C2F3BB7816215EB53BF9C87 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4816E5E4EE43ABE036DA477E /* Rhythm iOS.framework */,
+				4816E5E4EE43ABE036DA477E /* Rhythm.framework */,
 				1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */,
-				35C8F3A68AE9F3053FAD5640 /* Rhythm macOS.framework */,
+				35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */,
 				1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */,
 			);
 			name = Products;
@@ -138,6 +147,9 @@
 			isa = PBXGroup;
 			children = (
 				825F35607C284149FAAA3A72 /* Supporting Files */,
+				0775546A1E1B0F9400CF4A8A /* Beats.swift */,
+				077554701E1B120700CF4A8A /* Subdivision.swift */,
+				077554731E1B12A700CF4A8A /* MetricalDuration.swift */,
 			);
 			name = Rhythm;
 			sourceTree = "<group>";
@@ -187,6 +199,7 @@
 			buildPhases = (
 				0CBE76DEDA9EE61A028BAA49 /* Sources */,
 				425B23C3A15B25D9DDBA85B6 /* Frameworks */,
+				97103780CBF2792481211C52 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -212,7 +225,7 @@
 			);
 			name = "Rhythm macOS";
 			productName = "Rhythm macOS";
-			productReference = 35C8F3A68AE9F3053FAD5640 /* Rhythm macOS.framework */;
+			productReference = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7F7654363AEF32DECBCAE8D6 /* Rhythm iOS Tests */ = {
@@ -221,6 +234,7 @@
 			buildPhases = (
 				8A821272CBD25E9F50C1B459 /* Sources */,
 				012259655719E3A164B3049C /* Frameworks */,
+				039816C25DB8229C97D2D1F3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -246,7 +260,7 @@
 			);
 			name = "Rhythm iOS";
 			productName = "Rhythm iOS";
-			productReference = 4816E5E4EE43ABE036DA477E /* Rhythm iOS.framework */;
+			productReference = 4816E5E4EE43ABE036DA477E /* Rhythm.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -257,6 +271,14 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					7EF7B0C01CC0815146897070 = {
+						LastSwiftMigration = 0820;
+					};
+					C71D451456D5E3D35993189B = {
+						LastSwiftMigration = 0820;
+					};
+				};
 			};
 			buildConfigurationList = 7267F298D182FAB103C95406 /* Build configuration list for PBXProject "Rhythm" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -278,6 +300,41 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		039816C25DB8229C97D2D1F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ArithmeticTools.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Collections.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/IntervalTools.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		97103780CBF2792481211C52 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/ArithmeticTools.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Collections.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/IntervalTools.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0CBE76DEDA9EE61A028BAA49 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -290,6 +347,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
+				0775546C1E1B0F9400CF4A8A /* Beats.swift in Sources */,
+				077554721E1B120700CF4A8A /* Subdivision.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +364,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
+				0775546B1E1B0F9400CF4A8A /* Beats.swift in Sources */,
+				077554711E1B120700CF4A8A /* Subdivision.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,9 +434,11 @@
 		309D89806C469E949F4459AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -386,9 +451,11 @@
 		39A137DC80520943BDDCD303 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -438,6 +505,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -446,6 +514,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Rhythm/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -456,6 +525,8 @@
 				PRODUCT_NAME = Rhythm;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -466,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -476,6 +548,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
 				FRAMEWORK_VERSION = A;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Rhythm/Info.plist;
@@ -487,6 +560,8 @@
 				PRODUCT_NAME = Rhythm;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -495,9 +570,11 @@
 		78FDD55B52455FFB057B6952 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
@@ -511,6 +588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -519,6 +597,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Rhythm/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -529,6 +608,7 @@
 				PRODUCT_NAME = Rhythm;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -539,6 +619,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -549,6 +630,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
 				FRAMEWORK_VERSION = A;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Rhythm/Info.plist;
@@ -560,6 +642,7 @@
 				PRODUCT_NAME = Rhythm;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -568,9 +651,11 @@
 		D5B34DFCE5CBF200839CAE50 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
