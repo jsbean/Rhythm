@@ -8,6 +8,7 @@
 
 import ArithmeticTools
 
+/// `MetricalDuration`.
 public struct MetricalDuration: Rational {
 
     /// Numerator.
@@ -16,6 +17,9 @@ public struct MetricalDuration: Rational {
     /// Denominator.
     public var denominator: Int
     
+    // MARK: - Initializers
+    
+    /// Create a `MetricalDuration` with a `numerator` and `denominator`.
     public init(_ numerator: Int, _ denominator: Int) {
         
         guard denominator.isPowerOfTwo else {
