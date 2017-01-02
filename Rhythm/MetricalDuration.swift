@@ -12,10 +12,10 @@ import ArithmeticTools
 public struct MetricalDuration: Rational {
 
     /// Numerator.
-    public var numerator: Int
+    public let numerator: Int
 
     /// Denominator.
-    public var denominator: Int
+    public let denominator: Int
     
     // MARK: - Initializers
     
