@@ -1,0 +1,21 @@
+language: objective-c
+osx_image: xcode8
+env:
+  matrix:
+    - DESTINATION="platform=iOS Simulator,OS=9.3,name=iPad 2"
+      SCHEME="Rhythm iOS"
+    - DESTINATION="platform=iOS Simulator,OS=10.0,name=iPad Pro (12.9 inch)"
+      SCHEME="Rhythm iOS"
+    - DESTINATION="platform=OS X"
+      SCHEME="Rhythm macOS"
+
+before_script: if [ -f ./Cartfile ]; then carthage update; fi;
+
+script: travis_retry xcodebuild test
+  -project Rhythm.xcodeproj
+  -scheme "${SCHEME}"
+  -destination "${DESTINATION}"
+  TOOLCHAINS=swift
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
