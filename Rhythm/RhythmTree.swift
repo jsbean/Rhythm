@@ -10,5 +10,3 @@ import Collections
 
 /// Tree structure representing rhythm, parameratized over `T`.
 public typealias RhythmTree<T> = Tree<MetricalLeaf<T>>
-
-
