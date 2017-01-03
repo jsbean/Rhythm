@@ -6,7 +6,12 @@
 //
 //
 
+/// Whether a context is a "rest" or an actual event of type `T`.
 public enum AbsenceOrEvent <T> {
+    
+    /// "Rest".
     case absence
+    
+    /// Actual event of type `T`.
     case event(T)
 }

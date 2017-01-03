@@ -8,4 +8,5 @@
 
 import IntervalTools
 
+/// Interval between two `MetricalDuration` values.
 public typealias MetricalDurationInterval = Interval<MetricalDuration>

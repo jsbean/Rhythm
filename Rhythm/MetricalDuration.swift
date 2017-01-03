@@ -11,6 +11,12 @@ import ArithmeticTools
 /// `MetricalDuration`.
 public struct MetricalDuration: Rational {
 
+    // MARK: - Type Properties
+    
+    public static let zero = MetricalDuration(0,1)
+    
+    // MARK: - Instance Properties
+    
     /// Numerator.
     public let numerator: Int
 

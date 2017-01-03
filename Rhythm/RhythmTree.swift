@@ -8,12 +8,7 @@
 
 import Collections
 
-public typealias RhythmTree<T> = Tree<
-    ContinualOrInstance<
-        AbsenceOrEvent<
-            MetricDurationalContext<
-                T
-            >
-        >
-    >
->
+/// Tree structure representing rhythm, parameratized over `T`.
+public typealias RhythmTree<T> = Tree<MetricalLeaf<T>>
+
+
