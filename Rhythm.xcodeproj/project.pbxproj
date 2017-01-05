@@ -114,8 +114,8 @@
 				0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */,
 				077554831E1B1DC900CF4A8A /* MetricalValue.swift */,
 				0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */,
-				0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */,
 				0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */,
+				0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */,
 			);
 			name = RhythmTree;
 			sourceTree = "<group>";
