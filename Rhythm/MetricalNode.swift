@@ -1,5 +1,5 @@
 //
-//  Leaf.swift
+//  MetricalNode.swift
 //  Rhythm
 //
 //  Created by James Bean on 1/3/17.

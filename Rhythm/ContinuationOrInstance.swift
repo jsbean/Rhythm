@@ -16,3 +16,18 @@ public enum ContinuationOrInstance <T> {
     /// New instance of generic `T`.
     case instance(T)
 }
+
+extension ContinuationOrInstance: CustomStringConvertible {
+    
+    // MARK: - CustomStringConvertible
+    
+    /// Printed description.
+    public var description: String {
+        switch self {
+        case .continuation:
+            return "-"
+        case .instance(let value):
+            return "\(value)"
+        }
+    }
+}

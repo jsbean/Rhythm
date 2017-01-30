@@ -15,3 +15,18 @@ public enum AbsenceOrEvent <T> {
     /// Actual event of type `T`.
     case event(T)
 }
+
+extension AbsenceOrEvent: CustomStringConvertible {
+    
+    // MARK: - CustomStringConvertible
+    
+    /// Printed description.
+    public var description: String {
+        switch self {
+        case .absence:
+            return "()"
+        case .event(let value):
+            return "\(value)"
+        }
+    }
+}
