@@ -7,8 +7,8 @@
 //
 
 import XCTest
-import Rhythm
 import Collections
+import Rhythm
 
 class RhythmTreeTests: XCTestCase {
 
