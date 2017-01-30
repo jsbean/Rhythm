@@ -22,8 +22,18 @@ public struct MetricalValue <T> {
     // MARK: - Initializers
     
     /// Create a `MetricalValue` with a given `context` and `metricalDuration`.
-    public init(_ payload: T, metricalDuration: MetricalDuration) {
+    public init(_ payload: T, _ metricalDuration: MetricalDuration) {
         self.payload = payload
         self.metricalDuration = metricalDuration
+    }
+}
+
+extension MetricalValue: CustomStringConvertible {
+    
+    // MARK: - CustomStringConvertible
+    
+    /// Printed description.
+    public var description: String {
+        return "\(metricalDuration): \(payload)"
     }
 }
