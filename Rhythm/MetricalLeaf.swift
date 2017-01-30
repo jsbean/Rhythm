@@ -7,5 +7,5 @@
 //
 
 /// The leaf type of a `RhythmTree`, parameratized over `T`.
-/// The `MetricalLeaf` wraps a `MetricalContext<T>` and a `MetricalDuration`.
-public typealias MetricalLeaf <T> = MetricalValue<MetricalContext<T>>
+/// The `MetricalNode` wraps a `MetricalContext<T>` and a `MetricalDuration`.
+public typealias MetricalNode <T> = MetricalValue<MetricalContext<T>>
