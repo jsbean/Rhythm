@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0708C2F61E429FBB00098684 /* ArithmeticTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2F31E429FBB00098684 /* ArithmeticTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C2F71E429FBB00098684 /* Collections.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2F41E429FBB00098684 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C2F81E429FBB00098684 /* IntervalTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2F51E429FBB00098684 /* IntervalTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C2F91E429FBF00098684 /* Rhythm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4816E5E4EE43ABE036DA477E /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C2FA1E42A04900098684 /* ArithmeticTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2F31E429FBB00098684 /* ArithmeticTools.framework */; };
+		0708C2FB1E42A04900098684 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2F41E429FBB00098684 /* Collections.framework */; };
+		0708C2FC1E42A04900098684 /* IntervalTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2F51E429FBB00098684 /* IntervalTools.framework */; };
+		0708C2FD1E42A04F00098684 /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4816E5E4EE43ABE036DA477E /* Rhythm.framework */; };
+		0708C3011E42A06900098684 /* ArithmeticTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2FE1E42A06900098684 /* ArithmeticTools.framework */; };
+		0708C3021E42A06900098684 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2FF1E42A06900098684 /* Collections.framework */; };
+		0708C3031E42A06900098684 /* IntervalTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C3001E42A06900098684 /* IntervalTools.framework */; };
+		0708C3051E42A1DC00098684 /* ArithmeticTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2FE1E42A06900098684 /* ArithmeticTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C3061E42A1DC00098684 /* Collections.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2FF1E42A06900098684 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C3071E42A1DC00098684 /* IntervalTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C3001E42A06900098684 /* IntervalTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C3081E42A1DE00098684 /* Rhythm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0708C3091E42A25600098684 /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; };
 		073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
 		073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
 		073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
@@ -54,7 +70,42 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0708C2F21E429F9D00098684 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				0708C2F91E429FBF00098684 /* Rhythm.framework in CopyFiles */,
+				0708C2F61E429FBB00098684 /* ArithmeticTools.framework in CopyFiles */,
+				0708C2F71E429FBB00098684 /* Collections.framework in CopyFiles */,
+				0708C2F81E429FBB00098684 /* IntervalTools.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0708C3041E42A1D700098684 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				0708C3081E42A1DE00098684 /* Rhythm.framework in CopyFiles */,
+				0708C3051E42A1DC00098684 /* ArithmeticTools.framework in CopyFiles */,
+				0708C3061E42A1DC00098684 /* Collections.framework in CopyFiles */,
+				0708C3071E42A1DC00098684 /* IntervalTools.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0708C2F31E429FBB00098684 /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/iOS/ArithmeticTools.framework; sourceTree = "<group>"; };
+		0708C2F41E429FBB00098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
+		0708C2F51E429FBB00098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/iOS/IntervalTools.framework; sourceTree = "<group>"; };
+		0708C2FE1E42A06900098684 /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/Mac/ArithmeticTools.framework; sourceTree = "<group>"; };
+		0708C2FF1E42A06900098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/Mac/Collections.framework; sourceTree = "<group>"; };
+		0708C3001E42A06900098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/Mac/IntervalTools.framework; sourceTree = "<group>"; };
 		073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationIntervalTests.swift; path = RhythmTests/MetricalDurationIntervalTests.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
@@ -83,6 +134,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9DD5E2F03C34B3A482DC660 /* Foundation.framework in Frameworks */,
+				0708C2FD1E42A04F00098684 /* Rhythm.framework in Frameworks */,
+				0708C2FA1E42A04900098684 /* ArithmeticTools.framework in Frameworks */,
+				0708C2FB1E42A04900098684 /* Collections.framework in Frameworks */,
+				0708C2FC1E42A04900098684 /* IntervalTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +154,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */,
+				0708C3011E42A06900098684 /* ArithmeticTools.framework in Frameworks */,
+				0708C3021E42A06900098684 /* Collections.framework in Frameworks */,
+				0708C3031E42A06900098684 /* IntervalTools.framework in Frameworks */,
+				0708C3091E42A25600098684 /* Rhythm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +199,9 @@
 		1F79C94A9A2A0C653DF1A308 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0708C2F31E429FBB00098684 /* ArithmeticTools.framework */,
+				0708C2F41E429FBB00098684 /* Collections.framework */,
+				0708C2F51E429FBB00098684 /* IntervalTools.framework */,
 				440D58FF94D68D665C14BF01 /* Foundation.framework */,
 			);
 			name = iOS;
@@ -197,6 +259,9 @@
 		B2E4F8ACCB967228B9DC0010 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
+				0708C2FE1E42A06900098684 /* ArithmeticTools.framework */,
+				0708C2FF1E42A06900098684 /* Collections.framework */,
+				0708C3001E42A06900098684 /* IntervalTools.framework */,
 				866599FF1C901214B2310164 /* Cocoa.framework */,
 			);
 			name = "OS X";
@@ -237,9 +302,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71A562C48AC0F48C2BD6D45B /* Build configuration list for PBXNativeTarget "Rhythm macOS Tests" */;
 			buildPhases = (
+				97103780CBF2792481211C52 /* ShellScript */,
 				0CBE76DEDA9EE61A028BAA49 /* Sources */,
 				425B23C3A15B25D9DDBA85B6 /* Frameworks */,
-				97103780CBF2792481211C52 /* ShellScript */,
+				0708C3041E42A1D700098684 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -275,6 +341,7 @@
 				8A821272CBD25E9F50C1B459 /* Sources */,
 				012259655719E3A164B3049C /* Frameworks */,
 				039816C25DB8229C97D2D1F3 /* ShellScript */,
+				0708C2F21E429F9D00098684 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -501,7 +568,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(SRCROOT)/Carthage/Build/Mac";
@@ -522,7 +592,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(SRCROOT)/Carthage/Build/Mac";
@@ -575,7 +648,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -645,7 +718,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
@@ -663,10 +739,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -731,7 +808,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
