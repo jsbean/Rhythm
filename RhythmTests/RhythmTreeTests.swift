@@ -12,54 +12,46 @@ import Rhythm
 
 class RhythmTreeTests: XCTestCase {
 
-    func testLeaf() {
+        func testLeaf() {
         let duration = MetricalDuration(1,8)
         let context = MetricalContext<Int>.instance(.event(1))
-        let node = MetricalNode<Int>(context, duration)
+        let node = MetricalLeaf<Int>(duration, context)
         _ = RhythmTree<Int>.leaf(node)
     }
     
     func testRest() {
         let duration = MetricalDuration(1,8)
         let context = MetricalContext<Int>.instance(.absence)
-        let node = MetricalNode<Int>(context, duration)
+        let node = MetricalLeaf<Int>(duration, context)
         _ = RhythmTree.leaf(node)
     }
-    
+
     func testTreeWithRestsAndTiesAndEvents() {
         
         // rest event tie rest event
         // ()    | --  |   ()    |
         
         // All events are one eighth note
-        let duration = MetricalDuration(1,8)
+        let leafDuration = MetricalDuration(1,8)
         
         let rest = MetricalContext<Int>.instance(.absence)
         let event = MetricalContext<Int>.instance(.event(1))
         let tied = MetricalContext<Int>.continuation
         
-        let leaves = [rest, event, tied, rest, event].map { MetricalNode($0, duration) }
+        let leaves = [rest, event, tied, rest, event].map { MetricalLeaf(leafDuration, $0) }
         
-        let rootNode = MetricalNode(
-            MetricalContext<Int>.instance(.event(0)),
-            MetricalDuration(4,8)
-        )
-        
-        let tree = RhythmTree(rootNode, leaves)
+        let tree = RhythmTree(MetricalDuration(4,8), leaves)
         print(tree)
     }
-    
+
     func testSingleDepthTree() {
         let nodesCount = 5
         let contexts = (0..<nodesCount).map { _ in MetricalContext<Int>.instance(.event(1)) }
         let leaves = contexts.map { context in
-            MetricalNode<Int>(context, MetricalDuration(1,8))
+            MetricalLeaf<Int>(MetricalDuration(1,8), context)
         }
-        
-        let rootContext = MetricalContext<Int>.instance(.event(1))
-        let rootNode = MetricalNode(rootContext, MetricalDuration(4,8))
-        
-        let tree = RhythmTree(rootNode, leaves)
+
+        let tree = RhythmTree(MetricalDuration(4,8), leaves)
         print("Rhythm Tree: \(tree)")
     }
 }

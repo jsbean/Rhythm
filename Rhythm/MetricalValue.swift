@@ -6,25 +6,25 @@
 //
 //
 
-/// Wraps a `MetricalDuration` with some `context` of type `T`.
+/// Wraps a `MetricalDuration` with some `payload` of type `T`.
 ///
 /// Rename `context` to `payload`.
 public struct MetricalValue <T> {
     
     // MARK: - Instance Properties
     
-    /// Generic context of `MetricalValue`.
-    public let payload: T
-    
     /// Metrical duration of `MetricalValue`.
     public let metricalDuration: MetricalDuration
+    
+    /// Generic payload of `MetricalValue`.
+    public let payload: T
     
     // MARK: - Initializers
     
     /// Create a `MetricalValue` with a given `context` and `metricalDuration`.
-    public init(_ payload: T, _ metricalDuration: MetricalDuration) {
-        self.payload = payload
+    public init(_ metricalDuration: MetricalDuration, _ payload: T) {
         self.metricalDuration = metricalDuration
+        self.payload = payload
     }
 }
 
