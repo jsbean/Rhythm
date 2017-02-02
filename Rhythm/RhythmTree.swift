@@ -63,6 +63,14 @@ public enum RhythmTree {
             return .branch(metricalDuration, left + tree + right)
         }
     }
+    
+    public func replacing(tree: RhythmTree, forTreeAt index: Int) -> RhythmTree {
+        fatalError("Not yet implemented!")
+    }
+    
+    public func inserting(tree: RhythmTree, indexPath: [Int]) -> RhythmTree {
+        fatalError("Not yet implemented!")
+    }
 }
 
 extension RhythmTree: CustomStringConvertible {
