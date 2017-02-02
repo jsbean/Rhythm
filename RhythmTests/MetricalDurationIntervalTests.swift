@@ -29,4 +29,8 @@ class MetricalDurationIntervalTests: XCTestCase {
         let b = MetricalDurationInterval(MetricalDuration(1,16), MetricalDuration(7,16))
         XCTAssertEqual(b.relationship(with: a), .contains)
     }
+    
+    func testInitOperator() {
+        _ = 1/>2 => 8/>16
+    }
 }

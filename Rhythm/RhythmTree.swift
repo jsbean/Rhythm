@@ -17,6 +17,12 @@ import Collections
 
 public enum RhythmTree {
     
+    /// - TODO: Enbiggen
+    public enum Error: Swift.Error {
+        case indexOutOfBounds
+    }
+    
+    // MetricalBranch = (MetricalDuration, [RhythmTree]) ?
     indirect case branch(MetricalDuration, [RhythmTree])
     
     case leaf(MetricalLeaf<Int>)
@@ -49,7 +55,7 @@ public enum RhythmTree {
         return flattened(accum: [], tree: self)
     }
     
-    public func inserting(tree: RhythmTree, at index: Int) -> RhythmTree {
+    public func inserting(tree: RhythmTree, at index: Int) throws -> RhythmTree {
 
         switch self {
         case .leaf(let value):
@@ -57,19 +63,83 @@ public enum RhythmTree {
         case .branch(let metricalDuration, let trees):
             
             guard let (left, right) = trees.split(at: index) else {
-                fatalError("Index out of range")
+                throw Error.indexOutOfBounds
             }
 
             return .branch(metricalDuration, left + tree + right)
         }
     }
     
-    public func replacing(tree: RhythmTree, forTreeAt index: Int) -> RhythmTree {
+    // make try?
+    public func replacing(tree: RhythmTree, forTreeAt index: Int) throws -> RhythmTree {
         fatalError("Not yet implemented!")
     }
     
-    public func inserting(tree: RhythmTree, indexPath: [Int]) -> RhythmTree {
+    public func inserting(tree: RhythmTree, indexPath: [Int]) throws -> RhythmTree {
+        
+        // traverse to get new container branch
+        func traverse(tree: RhythmTree, indexPath: [Int]) -> RhythmTree? {
+            
+            guard let (head, tail) = indexPath.destructured else {
+                return nil
+            }
+            
+            switch tree {
+            case .leaf(let value):
+                return nil
+            case .branch(let duration, let trees):
+                
+                
+                if indexPath.count > 1 {
+                    traverse(tree: tree, indexPath: tail)
+                }
+                
+                break
+            }
+
+
+            
+            fatalError("Not yet implemented")
+        }
+        
+        guard indexPath.count > 0 else {
+            fatalError("Must provide at least index in index path")
+        }
+        
+        guard let container = traverse(tree: self, indexPath: indexPath) else {
+            throw Error.indexOutOfBounds
+        }
+        
         fatalError("Not yet implemented!")
+    }
+    
+    // [RhythmTree]?
+    private func path(indexPath: [Int]) throws -> [RhythmTree] {
+        
+        func traverse(_ tree: RhythmTree, result: [RhythmTree], indexPath: [Int])
+            throws -> [RhythmTree]
+        {
+            
+            print("traverse: \(tree); result: \(result); indexPath: \(indexPath)")
+            
+            guard let (head, tail) = indexPath.destructured else {
+                return result + [tree]
+            }
+            
+            switch tree {
+            case .leaf:
+                throw Error.indexOutOfBounds
+            case .branch(_, let trees):
+                
+                guard trees.indices.contains(head) else {
+                    throw Error.indexOutOfBounds
+                }
+                
+                return try traverse(trees[head], result: result + [tree], indexPath: tail)
+            }
+        }
+        
+        return try traverse(self, result: [], indexPath: indexPath)
     }
 }
 

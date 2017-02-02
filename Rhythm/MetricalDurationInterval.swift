@@ -10,3 +10,16 @@ import IntervalTools
 
 /// `Interval` between two `MetricalDuration` values.
 public typealias MetricalDurationInterval = Interval<MetricalDuration>
+
+precedencegroup MetricalDurationIntervalInitializationPrecedence {
+    associativity: left
+    higherThan: AdditionPrecedence
+}
+
+infix operator =>: MetricalDurationIntervalInitializationPrecedence
+
+/// Create a `MetricalDurationInterval` with the `=>` operator between two `MetricalDuration`
+/// values.
+public func => (start: MetricalDuration, stop: MetricalDuration) -> MetricalDurationInterval {
+    return MetricalDurationInterval(start, stop)
+}

@@ -32,7 +32,7 @@ class RhythmTreeTests: XCTestCase {
         let rt = RhythmTree.leaf(MetricalValue(duration, context))
         
         let leafToInsert = rt
-        let newRT = rt.inserting(tree: leafToInsert, at: 0)
+        let newRT = try! rt.inserting(tree: leafToInsert, at: 0)
         XCTAssertEqual(newRT.leaves.count, 1)
     }
     
@@ -48,7 +48,7 @@ class RhythmTreeTests: XCTestCase {
         let context = MetricalContext<Int>.instance(.event(1))
         let leafToInsert = RhythmTree.leaf(MetricalValue(duration, context))
         
-        let newRT = rt.inserting(tree: leafToInsert, at: 0)
+        let newRT = try! rt.inserting(tree: leafToInsert, at: 0)
         
         print("new: \(newRT)")
         
@@ -67,7 +67,7 @@ class RhythmTreeTests: XCTestCase {
         let context = MetricalContext<Int>.instance(.event(1))
         let leafToInsert = RhythmTree.leaf(MetricalValue(duration, context))
         
-        let newRT = rt.inserting(tree: leafToInsert, at: 1)
+        let newRT = try! rt.inserting(tree: leafToInsert, at: 1)
         
         print("new: \(newRT)")
         XCTAssertEqual(newRT.leaves.count, 4)
@@ -85,7 +85,7 @@ class RhythmTreeTests: XCTestCase {
         let context = MetricalContext<Int>.instance(.event(1))
         let leafToInsert = RhythmTree.leaf(MetricalValue(duration, context))
         
-        let newRT = rt.inserting(tree: leafToInsert, at: 3)
+        let newRT = try! rt.inserting(tree: leafToInsert, at: 3)
         
         print("new: \(newRT)")
         XCTAssertEqual(newRT.leaves.count, 4)
@@ -102,7 +102,7 @@ class RhythmTreeTests: XCTestCase {
         let duration = MetricalDuration(4,8)
         let branchToInsert = RhythmTree(duration, [1,2])
 
-        let newRT = rt.inserting(tree: branchToInsert, at: 0)
+        let newRT = try! rt.inserting(tree: branchToInsert, at: 0)
         
         print("new: \(newRT)")
         XCTAssertEqual(newRT.leaves.count, 4)
@@ -119,10 +119,17 @@ class RhythmTreeTests: XCTestCase {
         let duration = MetricalDuration(4,8)
         let branchToInsert = RhythmTree(duration, [2,3])
         
-        let newRT = rt.inserting(tree: branchToInsert, at: 1)
+        let newRT = try! rt.inserting(tree: branchToInsert, at: 1)
         
         print("new: \(newRT)")
         XCTAssertEqual(newRT.leaves.count, 4)
+    }
+    
+    func testPathForIndexPathSingleLeaf() {
+
+        let root = RhythmTree.leaf(MetricalLeaf<Int>(.zero, .instance(.absence)))
+        
+        
     }
     
 //    func testLeaf() {

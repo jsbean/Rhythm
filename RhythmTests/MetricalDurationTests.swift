@@ -16,4 +16,9 @@ class MetricalDurationTests: XCTestCase {
         let b = MetricalDuration(1,16)
         XCTAssertLessThan(b,a)
     }
+    
+    func testInitOperator() {
+        _ = 1/>2
+        _ = 1 /> 2
+    }
 }
