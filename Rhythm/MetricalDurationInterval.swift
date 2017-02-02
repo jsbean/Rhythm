@@ -13,7 +13,7 @@ public typealias MetricalDurationInterval = Interval<MetricalDuration>
 
 precedencegroup MetricalDurationIntervalInitializationPrecedence {
     associativity: left
-    higherThan: AdditionPrecedence
+    higherThan: BitwiseShiftPrecedence
 }
 
 infix operator =>: MetricalDurationIntervalInitializationPrecedence

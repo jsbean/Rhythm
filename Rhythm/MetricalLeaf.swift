@@ -11,3 +11,12 @@
 ///
 /// - TODO: Change back to `MetricalLeaf`.
 public typealias MetricalLeaf <T> = MetricalValue<MetricalContext<T>>
+
+
+// rest:
+// |1/>8|
+
+public prefix func - (metricalDuration: MetricalDuration) -> MetricalLeaf<Int> {
+    return MetricalLeaf(metricalDuration, MetricalContext<Int>.instance(.absence))
+}
+

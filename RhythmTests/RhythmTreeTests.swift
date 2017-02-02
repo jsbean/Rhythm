@@ -17,19 +17,86 @@ class RhythmTreeTests: XCTestCase {
     }
     
     func testSingleLeaf() {
-        let rt = RhythmTree(MetricalDuration(1,8), [1])
+        let rt = RhythmTree(1/>8, [1])
         XCTAssertEqual(rt.leaves.count, 1)
     }
     
     func testMultipleLeaves() {
-        let rt = RhythmTree(MetricalDuration(1,8), [1,2,3,4])
+        let rt = RhythmTree(1/>8, [1,2,3,4])
         XCTAssertEqual(rt.leaves.count, 4)
     }
     
+    func testInitWithRelativeDurations() {
+        let rt = 1/>8 << [1,2,3,4,1] // sum: 11, should turn container to 11:8[64]
+        switch rt {
+        case .leaf:
+            XCTFail()
+        case .branch(let duration, _):
+            XCTAssertEqual(duration, 8/>64)
+        }
+    }
+    
+    func testInitWithRelativeDurations13Over12() {
+        let rt = 3/>16 << [2,4,3,2,2]
+        switch rt {
+        case .leaf:
+            XCTFail()
+        case .branch(let duration, _):
+            XCTAssertEqual(duration, 12/>64)
+        }
+    }
+    
+    func testInitWithRelativeDurations8Over5() {
+        let rt = 5/>8 << [1,1]
+        switch rt {
+        case .leaf:
+            XCTFail()
+        case .branch(let duration, let trees):
+            
+            XCTAssertEqual(trees.map { $0.metricalDuration }, [2/>8, 2/>8])
+            
+            // assert leaf durations are matched upwards
+            break
+        }
+    }
+    
+    func testInitWithRelativeDurations5Over4() {
+        let rt = 8/>64 << [2,2,1]
+        switch rt {
+        case .leaf:
+            XCTFail()
+        case .branch(let duration, let trees):
+            
+            
+            
+            // assert 8 is matched downwards to 4/32
+            break
+        }
+    }
+    
+    func testWithMetricalDurationLeaf() {
+        
+        let originalDuration = 1/>8
+        let leaf = RhythmTree.leaf(originalDuration, .instance(.event(1)))
+        
+        let newDuration = 1/>8
+        let newLeaf = leaf.with(metricalDuration: newDuration)
+
+        switch newLeaf {
+        case .branch:
+            XCTFail()
+        case .leaf(let duration, let context):
+            XCTAssertEqual(duration, newDuration)
+        }
+    }
+    
+    func testWithMetricalDurationBranchSumLessThanNumerator() {
+        
+    }
+    
     func testInsertLeafInLeaf() {
-        let duration = MetricalDuration(1,8)
         let context = MetricalContext<Int>.instance(.event(1))
-        let rt = RhythmTree.leaf(MetricalValue(duration, context))
+        let rt = RhythmTree.leaf(1/>8, context)
         
         let leafToInsert = rt
         let newRT = try! rt.inserting(tree: leafToInsert, at: 0)
@@ -46,7 +113,7 @@ class RhythmTreeTests: XCTestCase {
         // Prepare leaf to insert into original
         let duration = MetricalDuration(0,8)
         let context = MetricalContext<Int>.instance(.event(1))
-        let leafToInsert = RhythmTree.leaf(MetricalValue(duration, context))
+        let leafToInsert = RhythmTree.leaf(duration, context)
         
         let newRT = try! rt.inserting(tree: leafToInsert, at: 0)
         
@@ -65,7 +132,7 @@ class RhythmTreeTests: XCTestCase {
         // Prepare leaf to insert into original
         let duration = MetricalDuration(2,8)
         let context = MetricalContext<Int>.instance(.event(1))
-        let leafToInsert = RhythmTree.leaf(MetricalValue(duration, context))
+        let leafToInsert = RhythmTree.leaf(duration, context)
         
         let newRT = try! rt.inserting(tree: leafToInsert, at: 1)
         
@@ -83,7 +150,7 @@ class RhythmTreeTests: XCTestCase {
         // Prepare leaf to insert into original
         let duration = MetricalDuration(4,8)
         let context = MetricalContext<Int>.instance(.event(1))
-        let leafToInsert = RhythmTree.leaf(MetricalValue(duration, context))
+        let leafToInsert = RhythmTree.leaf(duration, context)
         
         let newRT = try! rt.inserting(tree: leafToInsert, at: 3)
         
@@ -125,12 +192,6 @@ class RhythmTreeTests: XCTestCase {
         XCTAssertEqual(newRT.leaves.count, 4)
     }
     
-    func testPathForIndexPathSingleLeaf() {
-
-        let root = RhythmTree.leaf(MetricalLeaf<Int>(.zero, .instance(.absence)))
-        
-        
-    }
     
 //    func testLeaf() {
 //        let duration = MetricalDuration(1,8)
@@ -175,7 +236,12 @@ class RhythmTreeTests: XCTestCase {
 //        print("Rhythm Tree: \(tree)")
 //    }
     
-    //
+    func testMetricalLeafRestOperator() {
+        let rt = 1/>8 << [1,1,2,1]
+        XCTAssertEqual(rt.leaves.count, 4)
+    }
+    
+    // TODO: Move these to `Collections` with `split(at:)`
     func testSplitAtBeginning() {
         let array = [1,2,3,4,5]
         let (left, right) = array.split(at: 0)!
