@@ -69,7 +69,7 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
             // Update values in subtree
             let traversedSubTree = traverse(subTree)
             
-            // If there is a change in values, update all siblngs
+            // If there is a change in values, update all siblings
             if traversedSubTree.value != duration {
                 
                 normalizedBranch = injectTree(
