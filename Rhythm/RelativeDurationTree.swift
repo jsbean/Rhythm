@@ -57,7 +57,7 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
         }
         
         // Match the durations of the parent and children as appropriate
-        var normalizedBranch = locallyNormalize(branch)
+        var normalizedBranch = locallyNormalize(branch)        
         
         // Iterate over children, recursing into branches
         for (t, subTree) in trees.enumerated() {
