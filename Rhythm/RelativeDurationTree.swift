@@ -9,142 +9,101 @@
 import Collections
 import ArithmeticTools
 
+/// Representation of relative durations
 public typealias RelativeDurationTree = Tree<Int>
 
-
-//func _normalize(_ tree: RelativeDurationTree) -> RelativeDurationTree {
-//    
-//    
-//}
-
-
-func scale(_ tree: RelativeDurationTree, factor: Int) -> RelativeDurationTree {
-    switch tree {
-    case .leaf(let duration):
-        return .leaf(duration * factor)
-    case .branch(let duration, let trees):
-        return .branch(duration * factor, trees.map { scale($0, factor: factor) })
-    }
-}
-
-
-public func normalized(_ tree: RelativeDurationTree) throws -> RelativeDurationTree {
+/// Normalizes a `RelativeDurationTree` such that all values can be represented with the same
+/// subdivision values.
+public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     
-    func traverse(_ tree: RelativeDurationTree, path: [Int]) throws -> RelativeDurationTree {
-
-        switch tree {
-            
-        // This should never be called on a `leaf`.
-        case .leaf:
-            fatalError()
-            
-        case .branch(let duration, let trees):
-            
-            var normalizedBranch = try normalize(branch: tree)
-            for (t, subTree) in trees.enumerated() {
-                
-                print("t: \(t); subTree: \(subTree)")
-
-                switch subTree {
-                case .leaf:
-                    break
-                case .branch:
-                    
-                    let newNormalizedBranch = try replacingTree(
-                        at: t,
-                        with: traverse(subTree, path: path + [t]),
-                        of: normalizedBranch
-                    )
-                    
-                    print("new normalized branch: \(newNormalizedBranch)")
-                    normalizedBranch = newNormalizedBranch
-                }
-            }
-            
-            //return try! normalize(branch: tree)
-            return normalizedBranch
+    // Match the durations of the parent and children as appropriate
+    func locallyNormalize(_ branch: RelativeDurationTree) -> RelativeDurationTree {
+        
+        guard case .branch(let duration, let trees) = branch else {
+            fatalError("Branch operation called on a leaf")
         }
-    }
     
-    return try traverse(tree, path: [])
-}
-
-public func normalize(branch: RelativeDurationTree) throws -> RelativeDurationTree {
-    
-    switch branch {
-        
-    // This should never be called on a `leaf`
-    case .leaf:
-        throw TreeError.branchOperationPerformedOnLeaf
-    
-    
-    case .branch(let duration, let trees):
+        // Relative durations of subtrees
         let relativeDurations = trees.map { $0.value }
-        let sum = relativeDurations.sum
         
+        /// The sum of relative durations
+        let sum = relativeDurations.sum
+    
+        // Handle different relationships between parent duration and children durations
         switch compare(duration, sum) {
+            
+        // If the sum of the children is equal to the parent duration, our work is done
         case .equal:
             return branch
-            
+        
+        // Scale the parent up to get close to the sum of the children
         case .lessThan:
             let newDuration = closestPowerOfTwo(withCoefficient: duration, to: sum)!
             return .branch(newDuration, trees)
-            
+        
+        // Scale the durations of the children up to get close to the parent duration
         case .greaterThan:
             let newSum = closestPowerOfTwo(withCoefficient: sum, to: duration)!
             let quotient = newSum / trees.count
             return .branch(duration, trees.map { map($0) { quotient * $0 } })
         }
     }
+    
+    func traverse(_ branch: RelativeDurationTree) -> RelativeDurationTree {
+
+        // Blow up if programmer error got us here
+        guard case .branch(_, let trees) = branch else {
+            fatalError("Branch operation called on a leaf")
+        }
+        
+        // Match the durations of the parent and children as appropriate
+        var normalizedBranch = locallyNormalize(branch)
+        
+        // Iterate over children, recursing into branches
+        for (t, subTree) in trees.enumerated() {
+            
+            guard case .branch(let duration, _) = subTree else {
+                continue
+            }
+
+            // Update values in subtree
+            let traversedSubTree = traverse(subTree)
+            
+            // If there is a change in values, update all siblngs
+            if traversedSubTree.value != duration {
+                
+                normalizedBranch = replacingTree(
+                    at: t,
+                    with: traversedSubTree,
+                    of: normalizedBranch
+                )
+            }
+        }
+        
+        return normalizedBranch
+    }
+    
+    return traverse(tree)
 }
 
-public func replacingTree(
+/// - TODO: Make more descriptive name, because the consequences of this are pretty high
+private func replacingTree(
     at index: Int,
     with tree: RelativeDurationTree,
     of branch: RelativeDurationTree
-) throws -> RelativeDurationTree
+) -> RelativeDurationTree
 {
-    switch branch {
-        
-    case .leaf:
-        throw TreeError.branchOperationPerformedOnLeaf
-        
-    case .branch(let duration, let trees):
-        
-        guard let oldTree = trees[safe: index] else {
-            throw TreeError.indexOutOfBounds
-        }
-        
-        let quotient = tree.value / oldTree.value
-        
-        print("quotient: \(quotient)")
-        let trees = trees.map { map($0) { $0 * quotient } }
-        let newDuration = duration * quotient
-        return .branch(newDuration, trees)
+    
+    guard case .branch(let duration, let trees) = branch else {
+        fatalError("Branch operation called on a leaf")
     }
+    
+    let quotient = tree.value / trees[index].value
+    let newDuration = duration * quotient
+    let newTrees = trees.map { map($0) { $0 * quotient } }
+    return .branch(newDuration, newTrees)
 }
 
-public func updating(value: Int, ofTreeAt index: Int, of branch: RelativeDurationTree) throws
-    -> RelativeDurationTree
-{
-    switch branch {
-        
-    case .leaf:
-        throw TreeError.branchOperationPerformedOnLeaf
-        
-    case .branch(let duration, let trees):
-        
-        guard let oldTree = trees[safe: index] else {
-            throw TreeError.indexOutOfBounds
-        }
-        
-        let quotient = value / oldTree.value
-        //let newDuration = value >= oldTree.value ? duration * quotient : duration
-        return .branch(duration, trees.map { map($0) { $0 * quotient } })
-    }
-}
-
-/// Make generic
-public func map (_ tree: RelativeDurationTree, _ f: (Int) -> Int) -> RelativeDurationTree {
+private func map (_ tree: RelativeDurationTree, _ f: (Int) -> Int) -> RelativeDurationTree {
     return tree.updating(value: f(tree.value))
 }
