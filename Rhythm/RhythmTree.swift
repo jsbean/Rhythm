@@ -16,19 +16,17 @@ import ArithmeticTools
 /// `MetricalContext`).
 //public typealias RhythmTree <T> = Tree<MetricalDuration, MetricalLeaf<T>>
 
+
+
 public enum RhythmTree {
     
-    /// - TODO: make rich
     public enum Error: Swift.Error {
         case indexOutOfBounds
     }
-    
-    // MetricalBranch = (MetricalDuration, [RhythmTree]) ?
+
     indirect case branch(MetricalDuration, [RhythmTree])
     
     case leaf(MetricalDuration, MetricalContext<Int>)
-    
-    //case leaf(MetricalLeaf<Int>)
     
     public var normalized: RhythmTree {
         fatalError("Not yet implemented!")
@@ -220,22 +218,6 @@ extension RhythmTree: CustomStringConvertible {
         }
         
         return traverse(tree: self)
-    }
-}
-
-// TODO: Move down to `Collections`, abstract to a `Sequence` extension
-extension Array {
-    
-    public func split(at index: Index) -> ([Element], [Element])? {
-        
-        guard index >= startIndex && index <= endIndex else {
-            return nil
-        }
-        
-        let left = Array(self[startIndex ..< index])
-        let right = index == endIndex ? [] : Array(self[index ..< endIndex])
-        
-        return (left, right)
     }
 }
 

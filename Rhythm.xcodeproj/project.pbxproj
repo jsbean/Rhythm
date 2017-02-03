@@ -27,6 +27,10 @@
 		073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
 		073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
+		0743097A1E4419CB002B88A1 /* RelativeDurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* RelativeDurationTree.swift */; };
+		0743097B1E4419CB002B88A1 /* RelativeDurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* RelativeDurationTree.swift */; };
+		0743097D1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */; };
+		0743097E1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */; };
@@ -108,6 +112,8 @@
 		0708C3001E42A06900098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/Mac/IntervalTools.framework; sourceTree = "<group>"; };
 		073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationIntervalTests.swift; path = RhythmTests/MetricalDurationIntervalTests.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
+		074309791E4419CB002B88A1 /* RelativeDurationTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelativeDurationTree.swift; path = Rhythm/RelativeDurationTree.swift; sourceTree = "<group>"; };
+		0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelativeDurationTreeTests.swift; path = RhythmTests/RelativeDurationTreeTests.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationInterval.swift; path = Rhythm/MetricalDurationInterval.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 				0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */,
 				0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */,
 				0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */,
+				074309791E4419CB002B88A1 /* RelativeDurationTree.swift */,
 			);
 			name = RhythmTree;
 			sourceTree = "<group>";
@@ -239,6 +246,7 @@
 			children = (
 				283798028177368FC4F2756E /* Supporting Files */,
 				077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */,
+				0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */,
 				073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */,
 				073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */,
 			);
@@ -456,6 +464,7 @@
 				077554881E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
 				073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
 				073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
+				0743097E1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +474,7 @@
 			files = (
 				0775548C1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
 				077554811E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
+				0743097B1E4419CB002B88A1 /* RelativeDurationTree.swift in Sources */,
 				077554851E1B1DC900CF4A8A /* MetricalValue.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
 				0775547E1E1B168000CF4A8A /* ContinuationOrInstance.swift in Sources */,
@@ -481,6 +491,7 @@
 				077554871E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
 				073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
 				073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
+				0743097D1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +501,7 @@
 			files = (
 				0775548B1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
 				077554801E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
+				0743097A1E4419CB002B88A1 /* RelativeDurationTree.swift in Sources */,
 				077554841E1B1DC900CF4A8A /* MetricalValue.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
 				0775547D1E1B168000CF4A8A /* ContinuationOrInstance.swift in Sources */,
