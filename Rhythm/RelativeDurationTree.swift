@@ -72,7 +72,7 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
             // If there is a change in values, update all siblngs
             if traversedSubTree.value != duration {
                 
-                normalizedBranch = replacingTree(
+                normalizedBranch = injectTree(
                     at: t,
                     with: traversedSubTree,
                     of: normalizedBranch
@@ -86,22 +86,31 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     return traverse(tree)
 }
 
-/// - TODO: Make more descriptive name, because the consequences of this are pretty high
-private func replacingTree(
+/// - Updates the value of the tree at the given `index`
+/// - Compares its value to the previous value
+/// - Updates its siblings by the same Δ
+/// - Updates the parent by the same Δ
+private func injectTree(
     at index: Int,
     with tree: RelativeDurationTree,
     of branch: RelativeDurationTree
 ) -> RelativeDurationTree
 {
     
-    guard case .branch(let duration, let trees) = branch else {
+    guard case .branch(_, let trees) = branch else {
         fatalError("Branch operation called on a leaf")
     }
     
-    let quotient = tree.value / trees[index].value
-    let newDuration = duration * quotient
-    let newTrees = trees.map { map($0) { $0 * quotient } }
-    return .branch(newDuration, newTrees)
+    return scale(branch, by: tree.value / trees[index].value)
+}
+
+private func scale(_ tree: RelativeDurationTree, by factor: Int) -> RelativeDurationTree {
+    switch tree {
+    case .leaf(let duration):
+        return .leaf(duration * factor)
+    case .branch(let duration, let trees):
+        return .branch(duration * factor, trees.map { map($0) { $0 * factor } })
+    }
 }
 
 private func map (_ tree: RelativeDurationTree, _ f: (Int) -> Int) -> RelativeDurationTree {

@@ -66,8 +66,6 @@ class RhythmTreeTests: XCTestCase {
             XCTFail()
         case .branch(let duration, let trees):
             
-            
-            
             // assert 8 is matched downwards to 4/32
             break
         }
