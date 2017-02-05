@@ -16,8 +16,6 @@ import ArithmeticTools
 /// `MetricalContext`).
 //public typealias RhythmTree <T> = Tree<MetricalDuration, MetricalLeaf<T>>
 
-
-
 public enum RhythmTree {
     
     public enum Error: Swift.Error {

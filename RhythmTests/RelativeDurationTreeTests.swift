@@ -26,6 +26,28 @@ class RelativeDurationTreeTests: XCTestCase {
         XCTAssertEqual(normalized(tree).value, 4)
     }
     
+    func testNormalizedTripleBringParentUp() {
+        
+        let tree = RelativeDurationTree.branch(1, [
+            .leaf(1),
+            .leaf(1),
+            .leaf(1)
+        ])
+        
+        XCTAssertEqual(normalized(tree).value, 2)
+    }
+    
+//    func testNormalizedTripleBigParent() {
+//        
+//        let tree = RelativeDurationTree.branch(16, [
+//            .leaf(1),
+//            .leaf(1),
+//            .leaf(1)
+//        ])
+//        
+//        XCTAssertEqual(normalized(tree).value, 2)
+//    }
+    
     func testNormalizeNested() {
         
         let tree = RelativeDurationTree.branch(1, [

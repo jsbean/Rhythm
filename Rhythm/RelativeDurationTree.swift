@@ -57,33 +57,44 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
         }
         
         // Match the durations of the parent and children as appropriate
-        var normalizedBranch = locallyNormalize(branch)        
+        var normalizedBranch = locallyNormalize(branch)
+        
+        //trees.enumerated().filter { (i, subTree) in false }
         
         // Iterate over children, recursing into branches
         for (t, subTree) in trees.enumerated() {
             
-            guard case .branch(let duration, _) = subTree else {
-                continue
-            }
+            guard case .branch = subTree else { continue }
 
             // Update values in subtree
             let traversedSubTree = traverse(subTree)
             
-            // If there is a change in values, update all siblings
-            if traversedSubTree.value != duration {
-                
-                normalizedBranch = injectTree(
-                    at: t,
-                    with: traversedSubTree,
-                    of: normalizedBranch
-                )
-            }
+            //
+            normalizedBranch = update(
+                duration: traversedSubTree.value,
+                forTreeAt: t,
+                of: normalizedBranch
+            )
         }
         
         return normalizedBranch
     }
     
     return traverse(tree)
+}
+
+private func update(duration: Int, forTreeAt index: Int, of branch: RelativeDurationTree)
+    -> RelativeDurationTree
+{
+    
+    guard case .branch(_, let trees) = branch else {
+        fatalError("Branch operation called on a leaf")
+    }
+    
+    let quotient = duration / trees[index].value
+    
+    // Only scale the branch if there is a change in value
+    return quotient != 1 ? scale(branch, by: quotient) : branch
 }
 
 /// - Updates the value of the tree at the given `index`
