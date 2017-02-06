@@ -6,12 +6,107 @@
 //
 //
 
+import Foundation
 import Collections
 import ArithmeticTools
 
 /// Representation of relative durations
 public typealias RelativeDurationTree = Tree<Int>
 
+/// - returns: A new `RelativeDurationTree` in which each level of sub-trees is at its most
+/// reduced level (`[2,4,6] -> [1,2,3]`).
+public func reduced(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+    
+    func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+        
+        guard case .branch(let value, let trees) = tree, !trees.isEmpty else {
+            return tree
+        }
+        
+        let values = trees.map { $0.value }
+        let gcd = values.gcd!
+        let reduced = values.map { $0 / gcd }
+        
+        let newTrees = zip(trees, reduced).map { tree, newValue in
+            tree.updating(value: newValue)
+        }
+        
+        return .branch(value, newTrees.map(traverse))
+    }
+
+    return traverse(tree)
+}
+
+/// Normalized version of `RelativeDurationTree` where all values can be represented with the
+/// same subdivision level.
+///
+/// - TODO: Make instance method of `RelativeDurationTree` when this is possibe in Swift.
+public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+
+    // normalize parent to children
+    // propogate up: if change, keep propagating
+    func traverse(_ zippedTree: Zipper<Int>) -> Zipper<Int> {
+        
+        guard case .branch(let duration, let trees) = zippedTree.tree else {
+            return zippedTree
+        }
+        
+//        // Relative durations of subtrees
+//        let relativeDurations = trees.map { $0.value }
+//        
+//        /// The sum of relative durations
+//        let sum = relativeDurations.sum
+//        
+//        let newBranch: RelativeDurationTree
+//        switch compare(duration, sum) {
+//        case .equal:
+//            newBranch = zippedTree.tree
+//        case .lessThan:
+//            newBranch = zippedTree.tree
+//        case .greaterThan:
+//            newBranch = zippedTree.tree
+//        }
+        
+//        // Handle different relationships between parent duration and children durations
+//        switch compare(duration, sum) {
+//            
+//        // If the sum of the children is equal to the parent duration, our work is done
+//        case .equal:
+//            return branch
+//            
+//        // Scale the parent up to get close to the sum of the children
+//        case .lessThan:
+//            let newDuration = closestPowerOfTwo(withCoefficient: duration, to: sum)!
+//            return .branch(newDuration, trees)
+//            
+//        // Scale the durations of the children up to get close to the parent duration
+//        case .greaterThan:
+//            let newSum = closestPowerOfTwo(withCoefficient: sum, to: duration)!
+//            let quotient = newSum / trees.count
+//            return .branch(duration, trees.map { map($0) { quotient * $0 } })
+//        }
+//
+//        
+        // do operation
+        
+        // propagate up
+        
+
+        
+        for t in trees.indices {
+            let updated = zippedTree.update(value: 2)
+            //let subZipper = zippedTree.move(to: t).update(<#T##f: (Int) -> Int##(Int) -> Int#>)
+        }
+        
+        return zippedTree
+    }
+
+    
+    let zipper = Zipper(tree)
+    return traverse(zipper).tree
+}
+
+/*
 /// Normalizes a `RelativeDurationTree` such that all values can be represented with the same
 /// subdivision values.
 public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
@@ -127,3 +222,4 @@ private func scale(_ tree: RelativeDurationTree, by factor: Int) -> RelativeDura
 private func map (_ tree: RelativeDurationTree, _ f: (Int) -> Int) -> RelativeDurationTree {
     return tree.updating(value: f(tree.value))
 }
+*/
