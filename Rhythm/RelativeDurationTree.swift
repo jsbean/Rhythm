@@ -13,6 +13,38 @@ import ArithmeticTools
 /// Representation of relative durations
 public typealias RelativeDurationTree = Tree<Int>
 
+public func apply(_ distances: [Int], to tree: RelativeDurationTree) -> RelativeDurationTree {
+    
+    func traverse(_ tree: RelativeDurationTree, _ distances: [Int]) -> RelativeDurationTree {
+        
+        guard let (distance, remaining) = distances.destructured else {
+            fatalError("Ill-formed distances")
+        }
+        
+        switch tree {
+        case .leaf(let value):
+            return tree.updating(value: value * Int(pow(2, Double(distance))))
+        case .branch(let value, let trees):
+            return .branch(
+                value * Int(pow(2, Double(distance))),
+                trees.map { traverse($0, remaining) }
+            )
+        }
+    }
+    
+    return traverse(reduced(tree), distances)
+}
+
+// TODO: do this in foldr fashion rather than reduce, with `reversed()`
+public func propagate(_ array: [Int]) -> [Int] {
+    
+    return array
+        .lazy
+        .reversed()
+        .reduce([]) { accum, cur in accum + (cur + (accum.last ?? 0)) }
+        .reversed()
+}
+
 public func distanceByLevel(_ distanceTree: RelativeDurationTree) -> [Int] {
     
     func traverse(_ tree: RelativeDurationTree, accum: [Int]) -> [Int] {
@@ -59,7 +91,7 @@ public func distances(
             case .branch(let originalValue, let originalTrees) = original,
             case .branch(let matchedValue, let matchedTrees) = matched
         else {
-            return .leaf(-1)
+            return .leaf(0)
         }
 
         guard matchedTrees.count == originalTrees.count else {
@@ -67,7 +99,7 @@ public func distances(
         }
         
         let distance = Double(matchedValue) / Double(originalValue)
-        let unrolled = Int(log(distance))
+        let unrolled = Int(log(distance)) + 1
         
         return .branch(unrolled, zip(originalTrees, matchedTrees).map(traverse))
     }
