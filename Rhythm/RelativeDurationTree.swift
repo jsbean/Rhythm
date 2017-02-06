@@ -28,11 +28,9 @@ public func distanceByLevel(_ distanceTree: RelativeDurationTree) -> [Int] {
     return traverse(distanceTree, accum: [])
 }
 
-/// throw in higher-order function, generalize
+/// - TODO: throw in higher-order function, generalize
 public func maxByIndex <T: Comparable> (_ arrays: [[T]]) -> [T] {
-    
-    print("max by index)")
-    
+
     guard
         let startIndex = arrays.map({ $0.startIndex }).min(),
         let endIndex = arrays.map({ $0.endIndex }).max()
@@ -45,6 +43,7 @@ public func maxByIndex <T: Comparable> (_ arrays: [[T]]) -> [T] {
     }
 }
 
+/// - TODO: doc comment
 public func distances(
     between original: RelativeDurationTree,
     and matched: RelativeDurationTree
