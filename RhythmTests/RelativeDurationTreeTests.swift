@@ -41,6 +41,16 @@ class RelativeDurationTreeTests: XCTestCase {
         
         XCTAssertEqual(reduced(tree).leaves, [1,3,1,2,4])
     }
+    
+    func testMatchParentsToChildren() {
+        
+        let tree = Tree.branch(6, [
+            .leaf(1),
+            .leaf(1)
+        ])
+        
+        XCTAssertEqual(matchParentsToChildren(tree).value, 3)
+    }
 
     func testDistanceNested() {
         
@@ -64,7 +74,7 @@ class RelativeDurationTreeTests: XCTestCase {
             .leaf(0)
         ])
         
-        let result = distanceTree(original: tree, new: liftParentsToMatchChildren(tree))
+        let result = distanceTree(original: tree, new: matchParentsToChildren(tree))
         XCTAssert(result == expected)
     }
     

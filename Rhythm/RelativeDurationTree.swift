@@ -21,7 +21,7 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     let reducedTree = tree |> reduced
     
     // Matches parent values to the closest power-of-two to the sum of their children values.
-    let parentsMatched = reducedTree |> liftParentsToMatchChildren
+    let parentsMatched = reducedTree |> matchParentsToChildren
     
     // Tree containing values for power-of-two degree of distance of `parentsMatched` from 
     // original.
@@ -163,7 +163,7 @@ internal func distanceTree(
 
 /// - returns: `RelativeDurationTree` with the values of parents lifted to the closest 
 /// power-of-two of the sum of the values of their children.
-internal func liftParentsToMatchChildren(_ tree: RelativeDurationTree)
+internal func matchParentsToChildren(_ tree: RelativeDurationTree)
     -> RelativeDurationTree
 {
     
@@ -179,8 +179,17 @@ internal func liftParentsToMatchChildren(_ tree: RelativeDurationTree)
             
             let relativeDurations = trees.map { $0.value }
             let sum = relativeDurations.sum
-            let newDuration = closestPowerOfTwo(withCoefficient: duration, to: sum)!
-            return .branch(newDuration, trees.map(traverse))
+            
+            switch compare(duration, sum) {
+            case .equal:
+                return .branch(duration, trees.map(traverse))
+            case .lessThan:
+                let newDuration = closestPowerOfTwo(withCoefficient: duration, to: sum)!
+                return .branch(newDuration, trees.map(traverse))
+            case .greaterThan:
+                let newDuration = duration / gcd(duration, sum)
+                return .branch(newDuration, trees.map(traverse))
+            }
         }
     }
 
