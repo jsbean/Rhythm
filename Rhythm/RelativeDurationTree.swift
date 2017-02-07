@@ -154,20 +154,8 @@ internal func distanceTree(
             fatalError("Incompatible trees")
         }
         
-        // Possible to do with bit-shifting?
         let distance = Double(matchedValue) / Double(originalValue)
-        
-        print("distance: \(distance)")
-        
-        let unrolled = Int(log2(distance))
-        
-        print("unrolled: \(unrolled)")
-        
-        let logln = Int(log(distance))
-        
-        print("logln: \(logln)")
-        
-        return .branch(unrolled, zip(originalTrees, matchedTrees).map(traverse))
+        return .branch(Int(log2(distance)), zip(originalTrees, matchedTrees).map(traverse))
     }
     
     return traverse(original, new)
