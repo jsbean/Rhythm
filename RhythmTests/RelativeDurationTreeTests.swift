@@ -41,65 +41,6 @@ class RelativeDurationTreeTests: XCTestCase {
         
         XCTAssertEqual(reduced(tree).leaves, [1,3,1,2,4])
     }
-    
-    func testMatchLevelsSingleDepth() {
-        
-        let tree = RelativeDurationTree.branch(1, [
-            .leaf(2),
-            .leaf(4),
-            .leaf(6)
-        ])
-        
-        let expected = RelativeDurationTree.branch(4, [
-            .leaf(1),
-            .leaf(2),
-            .leaf(3)
-        ])
-        
-        XCTAssert(matchLevels(tree) == expected)
-    }
-    
-    func testMatchLevelsNested() {
-        
-        let tree = RelativeDurationTree.branch(1, [
-            .leaf(2),
-            .branch(4, [
-                .leaf(6),
-                .leaf(2),
-                .leaf(4)
-            ]),
-            .leaf(8)
-        ])
-    
-        let expected = RelativeDurationTree.branch(8, [
-            .leaf(1),
-            .branch(4, [
-                .leaf(3),
-                .leaf(1),
-                .leaf(2)
-            ]),
-            .leaf(4)
-        ])
-        
-        XCTAssert(matchLevels(tree) == expected)
-    }
-    
-    func testDistanceSingleDepth() {
-        
-        let tree = RelativeDurationTree.branch(1, [
-            .leaf(4),
-            .leaf(8),
-            .leaf(12)
-        ])
-        
-        let expected = RelativeDurationTree.branch(2, [
-            .leaf(0),
-            .leaf(0),
-            .leaf(0)
-        ])
-        
-        XCTAssert(distances(between: tree, and: matchLevels(tree)) == expected)
-    }
 
     func testDistanceNested() {
         

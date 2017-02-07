@@ -13,12 +13,18 @@ import ArithmeticTools
 /// Representation of relative durations
 public typealias RelativeDurationTree = Tree<Int>
 
+/// - returns: A new `RelativeDurationTree` in which the value of each node can be represented
+/// with the same subdivision-level (denominator).
 public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
-    let ds = distances(between: tree, and: matchLevels(tree)) |> distanceByLevel |> propagate
-    return apply(ds, to: tree) |> matchLeaves
+    let preprocessed = tree |> reduced |> matchLevels
+    let distanceTree = distances(between: tree, and: preprocessed)
+    let distanceList = distanceTree |> distanceByLevel |> propagate
+    let updatedTree = apply(distanceList, to: tree)
+    let postprocessed = updatedTree |> matchLeaves
+    return postprocessed
 }
 
-/// - TODO: doc comment / make private
+/// - returns: A new `RelativeDurationTree` in which
 public func matchLeaves(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 
     func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
@@ -163,7 +169,7 @@ public func matchLevels(_ tree: RelativeDurationTree) -> RelativeDurationTree {
         }
     }
 
-    return tree |> reduced |> traverse
+    return traverse(tree)
 }
 
 /// - TODO: Move to other framework ?
