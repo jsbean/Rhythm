@@ -12,6 +12,40 @@ import Collections
 
 class RelativeDurationTreeTests: XCTestCase {
     
+    var veryNested: RelativeDurationTree {
+        
+        return Tree.branch(1, [
+            .branch(2, [
+                .branch(16, [
+                    .leaf(1),
+                    .leaf(1)
+                ]),
+                .leaf(24)
+            ]),
+            .branch(4, [
+                .leaf(3),
+                .leaf(4),
+                .branch(6, [
+                    .leaf(1),
+                    .leaf(1)
+                ]),
+                .leaf(2),
+                .branch(2, [
+                    .leaf(3),
+                    .leaf(5)
+                ])
+            ]),
+            .branch(3, [
+                .leaf(2),
+                .leaf(4),
+                .branch(1, [
+                    .leaf(32),
+                    .leaf(34)
+                ])
+            ])
+        ])
+    }
+    
     func testInit() {
         _ = RelativeDurationTree.branch(1, [.leaf(1), .leaf(2), .leaf(2)])
     }
@@ -42,16 +76,102 @@ class RelativeDurationTreeTests: XCTestCase {
         XCTAssertEqual(reduced(tree).leaves, [1,3,1,2,4])
     }
     
-    func testMatchParentsToChildren() {
+    func testReducedVeryNested() {
+        
+        let result = veryNested |> reduced
+        
+        let expected = Tree.branch(1, [
+            .branch(2, [
+                .branch(2, [
+                    .leaf(1),
+                    .leaf(1)
+                ]),
+                .leaf(3)
+            ]),
+            .branch(4, [
+                .leaf(3),
+                .leaf(4),
+                .branch(6, [
+                    .leaf(1),
+                    .leaf(1)
+                ]),
+                .leaf(2),
+                .branch(2, [
+                    .leaf(3),
+                    .leaf(5)
+                ])
+            ]),
+            .branch(3, [
+                .leaf(2),
+                .leaf(4),
+                .branch(1, [
+                    .leaf(16),
+                    .leaf(17)
+                ])
+            ])
+        ])
+        
+        XCTAssert(result == expected)
+    }
+    
+    func testmatchingParentsToChildrenSingleDepthDown() {
         
         let tree = Tree.branch(6, [
             .leaf(1),
             .leaf(1)
         ])
         
-        XCTAssertEqual(matchParentsToChildren(tree).value, 3)
+        XCTAssertEqual(matchingParentsToChildren(tree).value, 3)
     }
+    
+    func testmatchingParentsToChildrenSingleDepthUp() {
+        
+        let tree = Tree.branch(1, [
+            .leaf(8),
+            .leaf(3)
+        ])
+        
+        XCTAssertEqual(matchingParentsToChildren(tree).value, 8)
+    }
+    
+    func testMatchParentsVeryNestedMultipleCases() {
+        
+        let result = veryNested |> reduced |> matchingParentsToChildren
+        
+        let expected = Tree.branch(8, [
+            .branch(4, [
+                .branch(2, [
+                    .leaf(1),
+                    .leaf(1)
+                ]),
+                .leaf(3)
+            ]),
+            .branch(16, [
+                .leaf(3),
+                .leaf(4),
+                .branch(3, [
+                    .leaf(1),
+                    .leaf(1)
+                ]),
+                .leaf(2),
+                .branch(8, [
+                    .leaf(3),
+                    .leaf(5)
+                ])
+            ]),
+            .branch(6, [
+                .leaf(2),
+                .leaf(4),
+                .branch(32, [
+                    .leaf(16),
+                    .leaf(17)
+                ])
+            ])
+        ])
 
+        XCTAssert(result == expected)
+    }
+    
     func testDistanceNested() {
         
         let tree = RelativeDurationTree.branch(1, [
@@ -74,8 +194,48 @@ class RelativeDurationTreeTests: XCTestCase {
             .leaf(0)
         ])
         
-        let result = distanceTree(original: tree, new: matchParentsToChildren(tree))
+        let result = distanceTree(original: tree, new: matchingParentsToChildren(tree))
         XCTAssert(result == expected)
+    }
+    
+    func testDistanceVeryNested() {
+        
+        let expected = Tree.branch(3, [
+            .branch(1, [
+                .branch(-3, [
+                    .leaf(0),
+                    .leaf(0)
+                ]),
+                .leaf(-3)
+            ]),
+            .branch(2, [
+                .leaf(0),
+                .leaf(0),
+                .branch(-1, [
+                    .leaf(0),
+                    .leaf(0)
+                ]),
+                .leaf(0),
+                .branch(2, [
+                    .leaf(0),
+                    .leaf(0)
+                ])
+            ]),
+            .branch(1, [
+                .leaf(0),
+                .leaf(0),
+                .branch(5, [
+                    .leaf(-1),
+                    .leaf(-1)
+                ])
+            ])
+        ])
+        
+        
+        let matchedParents = veryNested |> reduced |> matchingParentsToChildren
+        let result = distanceTree(original: veryNested, new: matchedParents)
+        XCTAssert(result == expected)
+        
     }
     
     func testDistanceByLevelSingleDepth() {
@@ -122,55 +282,41 @@ class RelativeDurationTreeTests: XCTestCase {
         XCTAssertEqual(maxByIndex([a,b,c,d,e]), expected)
     }
     
-    func testNormalizedReallyFucked() {
+    func testDistanceByLevelVeryNested() {
         
-        let tree = Tree.branch(1, [
-            .branch(2, [
-                .leaf(16),
-                .leaf(24)
-            ]),
-            .branch(4, [
-                .leaf(3),
-                .leaf(4),
-                .branch(6, [
-                    .leaf(1),
-                    .leaf(1)
-                ]),
-                .leaf(2),
-                .branch(2, [
-                    .leaf(3),
-                    .leaf(5)
-                ])
-            ]),
-            .branch(3, [
-                .leaf(2),
-                .leaf(4),
-                .branch(1, [
-                    .leaf(32),
-                    .leaf(34)
-                ])
-            ])
-        ])
+        let matchedParents = veryNested |> reduced |> matchingParentsToChildren
+        let distances = distanceTree(original: veryNested, new: matchedParents)
         
-        let expected = Tree.branch(1024, [
-            .branch(256, [
-                .leaf(128),
-                .leaf(192)
-            ]),
-            .branch(512, [
-                .leaf(96),
-                .leaf(128),
-                .branch(192, [
-                    .leaf(64),
-                    .leaf(64)
-                ]),
-                .leaf(64),
+        let result = distanceByLevel(distances)
+        //let expected =
+        
+//        /XCTAssert(result == expected)
+    }
+    
+    func testNormalizeVeryNested() {
+    
+        let expected = Tree.branch(512, [
+            .branch(128, [
                 .branch(64, [
-                    .leaf(24),
-                    .leaf(40)
+                    .leaf(32),
+                    .leaf(32)
+                ]),
+                .leaf(96)
+            ]),
+            .branch(256, [
+                .leaf(48),
+                .leaf(64),
+                .branch(96, [
+                    .leaf(32),
+                    .leaf(32)
+                ]),
+                .leaf(32),
+                .branch(32, [
+                    .leaf(12),
+                    .leaf(20)
                 ])
             ]),
-            .branch(384, [
+            .branch(192, [
                 .leaf(64),
                 .leaf(128),
                 .branch(32, [
@@ -179,9 +325,76 @@ class RelativeDurationTreeTests: XCTestCase {
                 ])
             ])
         ])
-
-        XCTAssert(normalized(tree) == expected)
+        
+        let result = normalized(veryNested)
+        
+        print("result:\n\(result)\nexpected:\n\(expected)")
+        
+        XCTAssert(result == expected)
     }
+    
+//    func testNormalizedReallyFucked() {
+//        
+//        let tree = Tree.branch(1, [
+//            .branch(2, [
+//                .leaf(16),
+//                .leaf(24)
+//            ]),
+//            .branch(4, [
+//                .leaf(3),
+//                .leaf(4),
+//                .branch(6, [
+//                    .leaf(1),
+//                    .leaf(1)
+//                ]),
+//                .leaf(2),
+//                .branch(2, [
+//                    .leaf(3),
+//                    .leaf(5)
+//                ])
+//            ]),
+//            .branch(3, [
+//                .leaf(2),
+//                .leaf(4),
+//                .branch(1, [
+//                    .leaf(32),
+//                    .leaf(34)
+//                ])
+//            ])
+//        ])
+//        
+//        let expected = Tree.branch(1024, [
+//            .branch(256, [
+//                .leaf(128),
+//                .leaf(192)
+//            ]),
+//            .branch(512, [
+//                .leaf(96),
+//                .leaf(128),
+//                .branch(192, [
+//                    .leaf(64),
+//                    .leaf(64)
+//                ]),
+//                .leaf(64),
+//                .branch(64, [
+//                    .leaf(24),
+//                    .leaf(40)
+//                ])
+//            ]),
+//            .branch(384, [
+//                .leaf(64),
+//                .leaf(128),
+//                .branch(32, [
+//                    .leaf(16),
+//                    .leaf(17)
+//                ])
+//            ])
+//        ])
+//        
+//        print("expected:\n\(expected)\nresult:\n\(normalized(tree))")
+//
+//        XCTAssert(normalized(tree) == expected)
+//    }
     
     func testNormalizedNested() {
         

@@ -20,8 +20,12 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     // Reduce each level of children by their `gcd`
     let reducedTree = tree |> reduced
     
+    print("reduced:\n\(reducedTree)\n")
+    
     // Matches parent values to the closest power-of-two to the sum of their children values.
-    let parentsMatched = reducedTree |> matchParentsToChildren
+    let parentsMatched = reducedTree |> matchingParentsToChildren
+    
+    print("reduced:\n\(parentsMatched)\n")
     
     // Tree containing values for power-of-two degree of distance of `parentsMatched` from 
     // original.
@@ -97,25 +101,13 @@ internal func apply(distanceTree: RelativeDurationTree, to tree: RelativeDuratio
         }
     }
 
-    return traverse(tree, distanceTree |> distanceByLevel |> propagate)
+    return traverse(tree, distanceTree |> distanceByLevel)
 }
 
-/// Records the distance required by each level.
-///
-/// - TODO: Generalize this with a higher-order function
+/// Records the distance required by each level. Propagates the changes up from the leaves to
+/// the root.
 internal func distanceByLevel(_ distanceTree: RelativeDurationTree) -> [Int] {
-    
-    func traverse(_ tree: RelativeDurationTree, accum: [Int]) -> [Int] {
-        
-        switch tree {
-        case .leaf(let value):
-            return accum + value
-        case .branch(let value, let trees):
-            return maxByIndex(trees.map { traverse($0, accum: accum + value) })
-        }
-    }
-    
-    return traverse(distanceTree, accum: [])
+    return merge(distanceTree.paths, compare: >) |> propagate
 }
 
 /// Accumulates distance up the tree.
@@ -132,6 +124,8 @@ internal func propagate(_ array: [Int]) -> [Int] {
 
 /// - returns: Tree containing values for power-of-two degree of distance of `parentsMatched`
 /// from original.
+///
+/// - TODO: Also apply to leaves
 internal func distanceTree(
     original: RelativeDurationTree,
     new: RelativeDurationTree
@@ -143,27 +137,43 @@ internal func distanceTree(
         _ matched: RelativeDurationTree
     ) -> RelativeDurationTree
     {
-        guard
-            case .branch(let originalValue, let originalTrees) = original,
-            case .branch(let matchedValue, let matchedTrees) = matched
-        else {
-            return .leaf(0)
-        }
-
-        guard matchedTrees.count == originalTrees.count else {
-            fatalError("Incompatible trees")
+        
+        func distance(_ a: Int, _ b: Int) -> Int {
+            return Int(log2(Double(b) / Double(a)))
         }
         
-        let distance = Double(matchedValue) / Double(originalValue)
-        return .branch(Int(log2(distance)), zip(originalTrees, matchedTrees).map(traverse))
+        switch (original, matched) {
+            
+        // In the case of a `leaves`, calculate the distance
+        case (.leaf(let original), .leaf(let matched)):
+            return .leaf(distance(original, matched))
+            
+        // In the case of `branches`, calculate the distance, then recurseu
+        case (.branch(let val0, let trees0), .branch(let val1, let trees1)):
+        
+            guard trees0.count == trees1.count else {
+                fatalError("Incompatible trees")
+            }
+            
+            return .branch(distance(val0, val1), zip(trees0, trees1).map(traverse))
+            
+        // Enforce same-shaped trees
+        default:
+            fatalError("Incompatible trees")
+        }
     }
     
     return traverse(original, new)
 }
 
-/// - returns: `RelativeDurationTree` with the values of parents lifted to the closest 
+/// - returns: `RelativeDurationTree` with the values of parents matched to the closest
 /// power-of-two of the sum of the values of their children.
-internal func matchParentsToChildren(_ tree: RelativeDurationTree)
+///
+/// There are two cases where action is required:
+///
+/// - Parent is scaled _up_ to match the sum of its children
+/// - Parent is scaled _down_ to match the sum of its children
+internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     -> RelativeDurationTree
 {
     
@@ -172,7 +182,6 @@ internal func matchParentsToChildren(_ tree: RelativeDurationTree)
         switch tree {
             
         case .leaf:
-            
             return tree
             
         case .branch(let duration, let trees):
@@ -220,21 +229,27 @@ internal func reduced(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     return traverse(tree)
 }
 
-/// - returns: Array containing the maximum value for each index of the given `arrays`.
-///
-/// - TODO: throw in higher-order function, generalize
-internal func maxByIndex <T: Comparable> (_ arrays: [[T]]) -> [T] {
+
+func merge <T> (_ arrays: [[T]], compare: @escaping (T, T) -> Bool) -> [T] {
     
     guard
         let startIndex = arrays.map({ $0.startIndex }).min(),
         let endIndex = arrays.map({ $0.endIndex }).max()
     else {
-        fatalError("You gave me an empty array!")
+        return []
     }
     
-    return (startIndex..<endIndex).map { index in
-        return arrays.flatMap { array in array[safe: index] }.max()!
+    return (startIndex ..< endIndex).map { index in
+        arrays.flatMap { $0[safe: index] }.sorted(by: compare).first!
     }
+}
+
+/// - returns: Array containing the maximum value for each index of the given `arrays`.
+///
+/// - TODO: throw in higher-order function, generalize
+/// - TODO: Change to: zip(compare: (T, T) -> Bool)
+internal func maxByIndex <T: Comparable> (_ arrays: [[T]]) -> [T] {
+    return merge(arrays, compare: >)
 }
 
 /// - TODO: Move to `Collections` or other framework
