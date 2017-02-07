@@ -14,11 +14,11 @@ import ArithmeticTools
 public typealias RelativeDurationTree = Tree<Int>
 
 public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
-    
     let ds = distances(between: tree, and: matchLevels(tree)) |> distanceByLevel |> propagate
-    return apply(ds, to: tree)
+    return apply(ds, to: tree) |> matchLeaves
 }
 
+/// - TODO: doc comment / make private
 public func matchLeaves(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 
     func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
@@ -112,7 +112,7 @@ public func maxByIndex <T: Comparable> (_ arrays: [[T]]) -> [T] {
     }
 }
 
-/// - TODO: doc comment
+/// - TODO: doc comment, make private
 public func distances(
     between original: RelativeDurationTree,
     and matched: RelativeDurationTree
@@ -135,6 +135,7 @@ public func distances(
             fatalError("Incompatible trees")
         }
         
+        // Possible to do with bit-shifting?
         let distance = Double(matchedValue) / Double(originalValue)
         let unrolled = Int(log(distance)) + 1
         

@@ -229,7 +229,35 @@ class RelativeDurationTreeTests: XCTestCase {
             ])
         ])
         
-        print(normalized(tree))
+        let expected = Tree.branch(512, [
+            .branch(128, [
+                .leaf(64),
+                .leaf(96)
+            ]),
+            .branch(256, [
+                .leaf(48),
+                .leaf(64),
+                .branch(96, [
+                    .leaf(32),
+                    .leaf(32)
+                ]),
+                .leaf(32),
+                .branch(32, [
+                    .leaf(12),
+                    .leaf(20)
+                ])
+            ]),
+            .branch(192, [
+                .leaf(32),
+                .leaf(64),
+                .branch(16, [
+                    .leaf(16),
+                    .leaf(17)
+                ])
+            ])
+        ])
+        
+        XCTAssert(normalized(tree) == expected)
     }
     
     func testNormalizedNested() {
