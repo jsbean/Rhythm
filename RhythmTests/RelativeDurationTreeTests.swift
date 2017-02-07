@@ -156,11 +156,6 @@ class RelativeDurationTreeTests: XCTestCase {
         XCTAssertEqual(propagate([1,0,2,4]), [7,6,6,4])
     }
     
-    func testApplyDistancesSingleDepth() {
-        
-        
-    }
-    
     func testApplyDistancesNested() {
         
         let tree = RelativeDurationTree.branch(1, [
@@ -204,31 +199,107 @@ class RelativeDurationTreeTests: XCTestCase {
         XCTAssertEqual(maxByIndex([a,b,c,d,e]), expected)
     }
     
-    func testNormalizeNested() {
+    func testNormalizedReallyFucked() {
         
-        let tree = RelativeDurationTree.branch(1, [
+        let tree = Tree.branch(1, [
             .branch(2, [
-                .leaf(2),
-                .leaf(3)
+                .leaf(16),
+                .leaf(24)
             ]),
             .branch(4, [
                 .leaf(3),
-                .branch(4, [
-                    .leaf(4),
-                    .leaf(3)
+                .leaf(4),
+                .branch(6, [
+                    .leaf(1),
+                    .leaf(1)
                 ]),
-                .leaf(6),
                 .leaf(2),
-                .leaf(2)
+                .branch(2, [
+                    .leaf(3),
+                    .leaf(5)
+                ])
             ]),
             .branch(3, [
                 .leaf(2),
                 .leaf(4),
+                .branch(1, [
+                    .leaf(32),
+                    .leaf(34)
+                ])
+            ])
+        ])
+        
+        print(normalized(tree))
+    }
+    
+    func testNormalizedNested() {
+        
+        let tree = Tree.branch(1, [
+            .branch(2, [
+                .leaf(3),
+                .leaf(2)
+            ]),
+            .leaf(4),
+            .branch(3, [
+                .leaf(2),
+                .branch(4, [
+                    .leaf(4),
+                    .leaf(3)
+                ]),
                 .leaf(1)
             ])
         ])
         
-        //let sanitized = try normalized(tree)
+        let expected = Tree.branch(32, [
+            .branch(8, [
+                .leaf(6),
+                .leaf(4)
+            ]),
+            .leaf(16),
+            .branch(12, [
+                .leaf(4),
+                .branch(8, [
+                    .leaf(4),
+                    .leaf(3)
+                ]),
+                .leaf(2)
+            ])
+        ])
+        
+        print(normalized(tree))
+        
+        XCTAssert(normalized(tree) == expected)
+    }
+    
+    func testMatchLeavesLeaf() {
+        XCTAssert(matchLeaves(.leaf(1)) == .leaf(1))
+    }
+    
+    func testMatchLeavesSingleDepth() {
+        
+        let tree = Tree.branch(32, [
+            .leaf(2),
+            .leaf(3)
+        ])
+        
+        XCTAssertEqual(matchLeaves(tree).leaves, [16,24])
+    }
+    
+    func testMatchLeavesNested() {
+        
+        let tree = Tree.branch(24, [
+            .branch(16, [
+                .leaf(2),
+                .leaf(3)
+            ]),
+            .branch(64, [
+                .leaf(1),
+                .leaf(4),
+                .leaf(2)
+            ])
+        ])
+        
+        XCTAssertEqual(matchLeaves(tree).leaves, [8,12,8,32,16])
     }
     
 //    func testNormalizeSingleDepth() {

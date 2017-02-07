@@ -13,22 +13,58 @@ import ArithmeticTools
 /// Representation of relative durations
 public typealias RelativeDurationTree = Tree<Int>
 
-public func apply(_ distances: [Int], to tree: RelativeDurationTree) -> RelativeDurationTree {
+public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     
+    let ds = distances(between: tree, and: matchLevels(tree)) |> distanceByLevel |> propagate
+    return apply(ds, to: tree)
+}
+
+public func matchLeaves(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+
+    func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+        
+        switch tree {
+        case .leaf:
+            return tree
+            
+        case .branch(let value, let trees):
+
+            guard tree.height == 1 else {
+                return .branch(value, trees.map(traverse))
+            }
+                
+            let sum = trees.map { $0.value }.sum
+            
+            guard value > sum else {
+                return tree
+            }
+            
+            let newSum = closestPowerOfTwo(withCoefficient: sum, to: value)!
+            let quotient = newSum / sum
+            let newLeaves = trees.map { $0.updating(value: $0.value * quotient) }
+            return .branch(value, newLeaves)
+        }
+    }
+    
+    return traverse(tree)
+}
+
+/// - TODO: Remove duplication
+public func apply(_ distances: [Int], to tree: RelativeDurationTree) -> RelativeDurationTree {
+
     func traverse(_ tree: RelativeDurationTree, _ distances: [Int]) -> RelativeDurationTree {
         
         guard let (distance, remaining) = distances.destructured else {
             fatalError("Ill-formed distances")
         }
         
+        let power = Int(pow(2, Double(distance)))
+        
         switch tree {
         case .leaf(let value):
-            return tree.updating(value: value * Int(pow(2, Double(distance))))
+            return tree.updating(value: value * power)
         case .branch(let value, let trees):
-            return .branch(
-                value * Int(pow(2, Double(distance))),
-                trees.map { traverse($0, remaining) }
-            )
+            return .branch(value * power, trees.map { traverse($0, remaining) })
         }
     }
     
@@ -45,6 +81,7 @@ public func propagate(_ array: [Int]) -> [Int] {
         .reversed()
 }
 
+/// Generalize this with a higher-order function
 public func distanceByLevel(_ distanceTree: RelativeDurationTree) -> [Int] {
     
     func traverse(_ tree: RelativeDurationTree, accum: [Int]) -> [Int] {
@@ -131,7 +168,7 @@ public func matchLevels(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 /// - TODO: Move to other framework ?
 infix operator |> : AdditionPrecedence
 
-public func |> <A,Z> (lhs: A, rhs: (A) -> Z) -> Z {
+public func |> <A, Z> (lhs: A, rhs: (A) -> Z) -> Z {
     return rhs(lhs)
 }
 
