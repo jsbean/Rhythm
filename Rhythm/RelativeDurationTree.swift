@@ -31,7 +31,7 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     let updatedTree = apply(distanceTree: distances, to: reducedTree)
 
     // Ensure that leaves are lifted to match parents that have been lifted due to activity
-    // in sibling branched
+    // in sibling branches
     let leavesMatched = updatedTree |> liftLeavesToMatchParent
     
     // gtfo
@@ -156,7 +156,16 @@ internal func distanceTree(
         
         // Possible to do with bit-shifting?
         let distance = Double(matchedValue) / Double(originalValue)
-        let unrolled = Int(log(distance)) + 1
+        
+        print("distance: \(distance)")
+        
+        let unrolled = Int(log2(distance))
+        
+        print("unrolled: \(unrolled)")
+        
+        let logln = Int(log(distance))
+        
+        print("logln: \(logln)")
         
         return .branch(unrolled, zip(originalTrees, matchedTrees).map(traverse))
     }
@@ -175,6 +184,7 @@ internal func liftParentsToMatchChildren(_ tree: RelativeDurationTree)
         switch tree {
             
         case .leaf:
+            
             return tree
             
         case .branch(let duration, let trees):

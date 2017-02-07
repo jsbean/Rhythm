@@ -54,7 +54,7 @@ class RelativeDurationTreeTests: XCTestCase {
             .leaf(8)
         ])
         
-        let expected = RelativeDurationTree.branch(3, [
+        let expected = RelativeDurationTree.branch(4, [
             .leaf(0),
             .branch(1, [
                 .leaf(0),
@@ -142,34 +142,34 @@ class RelativeDurationTreeTests: XCTestCase {
             ])
         ])
         
-        let expected = Tree.branch(512, [
-            .branch(128, [
-                .leaf(64),
-                .leaf(96)
-            ]),
+        let expected = Tree.branch(1024, [
             .branch(256, [
-                .leaf(48),
-                .leaf(64),
-                .branch(96, [
-                    .leaf(32),
-                    .leaf(32)
+                .leaf(128),
+                .leaf(192)
+            ]),
+            .branch(512, [
+                .leaf(96),
+                .leaf(128),
+                .branch(192, [
+                    .leaf(64),
+                    .leaf(64)
                 ]),
-                .leaf(32),
-                .branch(32, [
-                    .leaf(12),
-                    .leaf(20)
+                .leaf(64),
+                .branch(64, [
+                    .leaf(24),
+                    .leaf(40)
                 ])
             ]),
-            .branch(192, [
-                .leaf(32),
+            .branch(384, [
                 .leaf(64),
-                .branch(16, [
+                .leaf(128),
+                .branch(32, [
                     .leaf(16),
                     .leaf(17)
                 ])
             ])
         ])
-        
+
         XCTAssert(normalized(tree) == expected)
     }
     
