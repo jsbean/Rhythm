@@ -33,15 +33,9 @@ public enum RhythmTree {
         let tree = RelativeDurationTree(beats, relativeDurations)
         let normalizedTree = tree |> normalized
 
-        print("normalized tree: \(normalizedTree)")
-        
-        // TODO: cleanup
         let (old, new) = (beats, normalizedTree.value)
-        let quotient = Double(new) / Double(old)
-        
-        print("quotient: \(quotient)")
-        
-        let newSubdivision = Int(Double(subdivision) * quotient)
+        let multiplier = Double(new) / Double(old)
+        let newSubdivision = Int(Double(subdivision) * multiplier)
         
         self = RhythmTree(subdivision: newSubdivision, relativeDurationTree: normalizedTree)
     }
@@ -134,7 +128,6 @@ extension RhythmTree: CustomStringConvertible {
         return traverse(tree: self)
     }
 }
-
 
 /// - TODO: Refine
 public func << (metricalDuration: MetricalDuration, relativeDurations: [Int]) -> RhythmTree {
