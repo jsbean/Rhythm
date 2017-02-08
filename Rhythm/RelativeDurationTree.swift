@@ -66,31 +66,25 @@ internal func reducingSiblings(_ tree: RelativeDurationTree) -> RelativeDuration
 internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     -> RelativeDurationTree
 {
-    
-    func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
-        
-        guard case .branch(let duration, let trees) = tree else {
-            return tree
-        }
-        
-        let relativeDurations = trees.map { $0.value }
-        let sum = relativeDurations.sum
-        
-        var newDuration: Int {
-            switch compare(duration, sum) {
-            case .equal:
-                return duration
-            case .lessThan:
-                return closestPowerOfTwo(withCoefficient: duration, to: sum)!
-            case .greaterThan:
-                return duration / gcd(duration, sum)
-            }
-        }
-        
-        return .branch(newDuration, trees.map(traverse))
+    guard case .branch(let duration, let trees) = tree else {
+        return tree
     }
     
-    return traverse(tree)
+    let relativeDurations = trees.map { $0.value }
+    let sum = relativeDurations.sum
+    
+    var newDuration: Int {
+        switch compare(duration, sum) {
+        case .equal:
+            return duration
+        case .lessThan:
+            return closestPowerOfTwo(withCoefficient: duration, to: sum)!
+        case .greaterThan:
+            return duration / gcd(duration, sum)
+        }
+    }
+    
+    return .branch(newDuration, trees.map(matchingParentsToChildren))
 }
 
 /// - returns: Relative duration value scaled by the given `distance`.
