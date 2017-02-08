@@ -33,6 +33,7 @@ public enum RhythmTree {
         let tree = ProportionTree(beats, relativeDurations)
         let normalizedTree = tree |> normalized
 
+        // Update subdivision based on proportion tree normalization
         let (old, new) = (beats, normalizedTree.value)
         let multiplier = Double(new) / Double(old)
         let newSubdivision = Int(Double(subdivision) * multiplier)

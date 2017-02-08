@@ -46,9 +46,14 @@ public func normalized(_ tree: ProportionTree) -> ProportionTree {
 
 /// - returns: A new `ProportionTree` for which each level of sub-trees is at its most
 /// reduced level (e.g., `[2,4,6] -> [1,2,3]`).
+///
+/// - note: In the case of parents with a single child, no reduction occurs.
 internal func reducingSiblings(_ tree: ProportionTree) -> ProportionTree {
     
-    guard case .branch(let value, let trees) = tree else {
+    guard case
+        .branch(let value, let trees) = tree,
+        trees.count > 1
+    else {
         return tree
     }
     
@@ -63,8 +68,8 @@ internal func reducingSiblings(_ tree: ProportionTree) -> ProportionTree {
 ///
 /// There are two cases where action is required:
 ///
-/// - Parent is scaled _up_ to match the sum of its children
-/// - Parent is scaled _down_ to match the sum of its children
+/// - Parent is required scaled _up_ to match the sum of its children
+/// - Parent is required scaled _down_ to match the sum of its children
 internal func matchingParentsToChildren(_ tree: ProportionTree)
     -> ProportionTree
 {

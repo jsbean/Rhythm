@@ -1,5 +1,5 @@
 //
-//  RelativeDurationTreeTests.swift
+//  ProportionTreeTests.swift
 //  Rhythm
 //
 //  Created by James Bean on 2/2/17.
@@ -10,7 +10,7 @@ import XCTest
 import Collections
 @testable import Rhythm
 
-class RelativeDurationTreeTests: XCTestCase {
+class ProportionTreeTests: XCTestCase {
     
     var veryNested: ProportionTree {
         
@@ -322,5 +322,13 @@ class RelativeDurationTreeTests: XCTestCase {
         ])
         
         XCTAssertEqual((tree |> normalized).leaves, [2,2])
+    }
+    
+    func testNormalizeSingleDepthBranchOfSingleLeafOf3() {
+        
+        let tree = ProportionTree.branch(3, [.leaf(3)])
+        let normalizedTree = tree |> normalized
+        
+        XCTAssert(tree == normalizedTree)
     }
 }

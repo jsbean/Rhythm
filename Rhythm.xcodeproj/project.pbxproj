@@ -33,8 +33,8 @@
 		073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* ProportionTree.swift */; };
 		0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* ProportionTree.swift */; };
-		0743097D1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */; };
-		0743097E1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */; };
+		0743097D1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */; };
+		0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */; };
@@ -53,6 +53,10 @@
 		0775548C1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */; };
 		0775548E1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */; };
 		0775548F1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */; };
+		07F62EB71E4BB74500940E96 /* TreeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB61E4BB74500940E96 /* TreeExtensions.swift */; };
+		07F62EB81E4BB74500940E96 /* TreeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB61E4BB74500940E96 /* TreeExtensions.swift */; };
+		07F62EBA1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */; };
+		07F62EBB1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
 		9EADF804BC73FCC4A2700E36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
@@ -119,7 +123,7 @@
 		073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationIntervalTests.swift; path = RhythmTests/MetricalDurationIntervalTests.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		074309791E4419CB002B88A1 /* ProportionTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTree.swift; path = Rhythm/ProportionTree.swift; sourceTree = "<group>"; };
-		0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelativeDurationTreeTests.swift; path = RhythmTests/RelativeDurationTreeTests.swift; sourceTree = "<group>"; };
+		0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTreeTests.swift; path = RhythmTests/ProportionTreeTests.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationInterval.swift; path = Rhythm/MetricalDurationInterval.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 		077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTreeTests.swift; path = RhythmTests/RhythmTreeTests.swift; sourceTree = "<group>"; };
 		0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalContext.swift; path = Rhythm/MetricalContext.swift; sourceTree = "<group>"; };
 		0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalLeaf.swift; path = Rhythm/MetricalLeaf.swift; sourceTree = "<group>"; };
+		07F62EB61E4BB74500940E96 /* TreeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TreeExtensions.swift; path = Rhythm/TreeExtensions.swift; sourceTree = "<group>"; };
+		07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TreeExtensionTests.swift; path = RhythmTests/TreeExtensionTests.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +193,7 @@
 		077554891E1B41B700CF4A8A /* RhythmTree */ = {
 			isa = PBXGroup;
 			children = (
+				07F62EB61E4BB74500940E96 /* TreeExtensions.swift */,
 				077554791E1B163600CF4A8A /* RhythmTree.swift */,
 				072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */,
 				072CBDA91E4AC0EE00B5001B /* MetricalContextTree.swift */,
@@ -254,7 +261,8 @@
 			children = (
 				283798028177368FC4F2756E /* Supporting Files */,
 				077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */,
-				0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */,
+				07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */,
+				0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */,
 				073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */,
 				073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */,
 			);
@@ -469,10 +477,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07F62EBB1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */,
 				077554881E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
 				073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
 				073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
-				0743097E1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */,
+				0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +500,7 @@
 				0775548F1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */,
 				077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
 				077554781E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */,
+				07F62EB81E4BB74500940E96 /* TreeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,10 +508,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07F62EBA1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */,
 				077554871E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
 				073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
 				073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
-				0743097D1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */,
+				0743097D1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +531,7 @@
 				0775548E1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */,
 				077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
 				077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */,
+				07F62EB71E4BB74500940E96 /* TreeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
