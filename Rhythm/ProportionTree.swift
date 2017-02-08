@@ -12,13 +12,13 @@ import Collections
 import ArithmeticTools
 
 /// Representation of `MetricalDuration` without specific subdivision-value (denominator).
-public typealias RelativeDuration = Int
+public typealias Proportion = Int
 
 /// Representation of the power-of-two quotient between two `RelativeDuration` values.
 public typealias Distance = Int
 
 /// Representation of relative durations.
-public typealias ProportionTree = Tree<RelativeDuration>
+public typealias ProportionTree = Tree<Proportion>
 
 /// Representation of encoded distances between relative durational values.
 public typealias DistanceTree = Tree<Distance>
