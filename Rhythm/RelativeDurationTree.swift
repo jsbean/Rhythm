@@ -39,7 +39,9 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 
     /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the 
     /// `distanceTree`.
-    return zip(siblingsReduced, distanceTree, decodeDuration)
+    ///
+    /// Then, ensure there are no leaves dangling unmatched to their parents.
+    return zip(siblingsReduced, distanceTree, decodeDuration) |> matchingChildrenToParents
 }
 
 /// - returns: A new `RelativeDurationTree` for which each level of sub-trees is at its most
@@ -85,6 +87,27 @@ internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     }
     
     return .branch(newDuration, trees.map(matchingParentsToChildren))
+}
+
+internal func matchingChildrenToParents(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+    
+    guard case
+        .branch(let duration, let trees) = tree,
+        tree.height == 1
+    else {
+        return tree
+    }
+    
+    let sum = trees.map { $0.value }.sum
+    
+    guard sum < duration else {
+        return tree
+    }
+    
+    let newSum = closestPowerOfTwo(withCoefficient: sum, to: duration)!
+    let quotient = newSum / sum
+    let newTrees = trees.map { $0.value }.map { Tree.leaf($0 * quotient) }
+    return .branch(duration, newTrees)
 }
 
 /// - returns: `DistanceTree` with distances propagated up and down.

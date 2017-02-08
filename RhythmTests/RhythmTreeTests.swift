@@ -13,7 +13,7 @@ import Rhythm
 class RhythmTreeTests: XCTestCase {
 
     func testInit() {
-        _ = RhythmTree(MetricalDuration(1,8))
+        _ = RhythmTree(MetricalDuration(1,8), [1,2,3,4])
     }
     
     func testSingleLeaf() {
@@ -47,16 +47,16 @@ class RhythmTreeTests: XCTestCase {
     }
     
     func testInitWithRelativeDurations8Over5() {
+        
         let rt = 5/>8 << [1,1]
-        switch rt {
-        case .leaf:
+        
+        guard case .branch(_, let trees) = rt else {
             XCTFail()
-        case .branch(let duration, let trees):
-            
-            //XCTAssertEqual(trees.map { $0.metricalDuration }, [2/>8, 2/>8])
-            // assert leaf durations are matched upwards
-            break
+            return
         }
+        
+        XCTAssertEqual(trees.map { $0.metricalDuration }, [2/>8, 2/>8])
+        
     }
     
     func testInitWithRelativeDurations5Over4() {

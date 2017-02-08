@@ -23,6 +23,8 @@
 		0708C3071E42A1DC00098684 /* IntervalTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C3001E42A06900098684 /* IntervalTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3081E42A1DE00098684 /* Rhythm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3091E42A25600098684 /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; };
+		072CBDA71E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */; };
+		072CBDA81E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */; };
 		073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
 		073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
 		073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
@@ -110,6 +112,7 @@
 		0708C2FE1E42A06900098684 /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/Mac/ArithmeticTools.framework; sourceTree = "<group>"; };
 		0708C2FF1E42A06900098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/Mac/Collections.framework; sourceTree = "<group>"; };
 		0708C3001E42A06900098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/Mac/IntervalTools.framework; sourceTree = "<group>"; };
+		072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTree.swift; path = Rhythm/MetricalDurationTree.swift; sourceTree = "<group>"; };
 		073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationIntervalTests.swift; path = RhythmTests/MetricalDurationIntervalTests.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		074309791E4419CB002B88A1 /* RelativeDurationTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelativeDurationTree.swift; path = Rhythm/RelativeDurationTree.swift; sourceTree = "<group>"; };
@@ -182,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				077554791E1B163600CF4A8A /* RhythmTree.swift */,
+				072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */,
 				0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */,
 				077554831E1B1DC900CF4A8A /* MetricalValue.swift */,
 				0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */,
@@ -474,6 +478,7 @@
 			files = (
 				0775548C1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
 				077554811E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
+				072CBDA81E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
 				0743097B1E4419CB002B88A1 /* RelativeDurationTree.swift in Sources */,
 				077554851E1B1DC900CF4A8A /* MetricalValue.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
@@ -501,6 +506,7 @@
 			files = (
 				0775548B1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
 				077554801E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
+				072CBDA71E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* RelativeDurationTree.swift in Sources */,
 				077554841E1B1DC900CF4A8A /* MetricalValue.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,

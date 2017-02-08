@@ -10,27 +10,14 @@ import Collections
 import ArithmeticTools
 
 /// Tree structure representing rhythm, parameratized over `T`.
-///
-/// Each `branch` case carries with it a `MetricalDuration` payload, while each `leaf` case
-/// carries with it a `MetricalLeaf<T>` payload (the product of a `MetricalDuration` and a 
-/// `MetricalContext`).
-//public typealias RhythmTree <T> = Tree<MetricalDuration, MetricalLeaf<T>>
-
 public enum RhythmTree {
-    
-    public enum Error: Swift.Error {
-        case indexOutOfBounds
-    }
 
     indirect case branch(MetricalDuration, [RhythmTree])
     
     case leaf(MetricalDuration, MetricalContext<Int>)
     
-    public var normalized: RhythmTree {
-        fatalError("Not yet implemented!")
-    }
-    
     public var metricalDuration: MetricalDuration {
+        
         switch self {
         case .leaf(let duration, _):
             return duration
@@ -39,40 +26,42 @@ public enum RhythmTree {
         }
     }
     
-    public init(_ metricalDuration: MetricalDuration, _ trees: [RhythmTree] = []) {
-        self = .branch(metricalDuration, trees)
+    public init(_ metricalDuration: MetricalDuration, _ relativeDurations: [Int]) {
+        
+        let beats = metricalDuration.numerator
+        let subdivision = metricalDuration.denominator
+        let tree = RelativeDurationTree(beats, relativeDurations)
+        let normalizedTree = tree |> normalized
+
+        print("normalized tree: \(normalizedTree)")
+        
+        // TODO: cleanup
+        let (old, new) = (beats, normalizedTree.value)
+        let quotient = Double(new) / Double(old)
+        
+        print("quotient: \(quotient)")
+        
+        let newSubdivision = Int(Double(subdivision) * quotient)
+        
+        self = RhythmTree(subdivision: newSubdivision, relativeDurationTree: normalizedTree)
     }
     
-    public init(_ metricalDuration: MetricalDuration, _ relativeDurations: [Int]) {
-
-        guard !relativeDurations.isEmpty else {
-            fatalError("Have to provide relative durations")
+    public init(subdivision: Int, relativeDurationTree: RelativeDurationTree) {
+        
+        let relativeDurationTree = relativeDurationTree |> normalized
+        let metricalDurationTree = relativeDurationTree.map { $0 /> subdivision }
+        
+        func traverse(_ tree: MetricalDurationTree) -> RhythmTree {
+            
+            switch tree {
+            case .leaf(let value):
+                return .leaf(value, .instance(.event(0)))
+            case .branch(let value, let trees):
+                return .branch(value, trees.map(traverse))
+            }
         }
         
-        // 2 possibilities:
-        // (5/16): [1,1] (sum below numerator)
-        // (5,16): [1,2,3,4,5,6,7] (sum above numerator)
-        
-        // set MetricalDuration (and therefore denominator)
-        // normalize relative durations
-        
-        var metricalDuration = metricalDuration.reduced
-        print("metrical duration: \(metricalDuration)")
-        
-        let reducedDurations = relativeDurations.map { $0 / relativeDurations.gcd! }
-
-        let sum = reducedDurations.sum
-        let numerator = metricalDuration.numerator
-        
-        let newNumerator = closestPowerOfTwo(withCoefficient: numerator, to: sum)!
-        metricalDuration = metricalDuration.respelling(numerator: newNumerator)!
-        
-        let leaves = reducedDurations
-            .lazy
-            .map { MetricalDuration($0, metricalDuration.denominator) }
-            .map { RhythmTree.leaf($0, MetricalContext.instance(.event(1))) }
-        
-        self = RhythmTree.branch(metricalDuration, Array(leaves))
+        self = traverse(metricalDurationTree)
     }
     
     public func with(metricalDuration: MetricalDuration) -> RhythmTree {
@@ -80,7 +69,6 @@ public enum RhythmTree {
         case .leaf(_, let context):
             return .leaf(metricalDuration, context)
         case .branch(_, let trees):
-            // update trees metrical duration
             return .branch(metricalDuration, trees)
         }
     }
@@ -111,84 +99,12 @@ public enum RhythmTree {
         case .branch(let metricalDuration, let trees):
             
             guard let (left, right) = trees.split(at: index) else {
-                throw Error.indexOutOfBounds
+                fatalError("Index out of range")
             }
 
             return .branch(metricalDuration, left + tree + right)
         }
     }
-//
-//    // make try?
-//    public func replacing(tree: RhythmTree, forTreeAt index: Int) throws -> RhythmTree {
-//        fatalError("Not yet implemented!")
-//    }
-//    
-//    public func inserting(tree: RhythmTree, indexPath: [Int]) throws -> RhythmTree {
-//        
-//        // traverse to get new container branch
-//        func traverse(tree: RhythmTree, indexPath: [Int]) -> RhythmTree? {
-//            
-//            guard let (head, tail) = indexPath.destructured else {
-//                return nil
-//            }
-//            
-//            switch tree {
-//            case .leaf(let value):
-//                return nil
-//            case .branch(let duration, let trees):
-//                
-//                
-//                if indexPath.count > 1 {
-//                    traverse(tree: tree, indexPath: tail)
-//                }
-//                
-//                break
-//            }
-//
-//
-//            
-//            fatalError("Not yet implemented")
-//        }
-//        
-//        guard indexPath.count > 0 else {
-//            fatalError("Must provide at least index in index path")
-//        }
-//        
-//        guard let container = traverse(tree: self, indexPath: indexPath) else {
-//            throw Error.indexOutOfBounds
-//        }
-//        
-//        fatalError("Not yet implemented!")
-//    }
-//    
-//    // [RhythmTree]?
-//    private func path(indexPath: [Int]) throws -> [RhythmTree] {
-//        
-//        func traverse(_ tree: RhythmTree, result: [RhythmTree], indexPath: [Int])
-//            throws -> [RhythmTree]
-//        {
-//            
-//            print("traverse: \(tree); result: \(result); indexPath: \(indexPath)")
-//            
-//            guard let (head, tail) = indexPath.destructured else {
-//                return result + [tree]
-//            }
-//            
-//            switch tree {
-//            case .leaf:
-//                throw Error.indexOutOfBounds
-//            case .branch(_, let trees):
-//                
-//                guard trees.indices.contains(head) else {
-//                    throw Error.indexOutOfBounds
-//                }
-//                
-//                return try traverse(trees[head], result: result + [tree], indexPath: tail)
-//            }
-//        }
-//        
-//        return try traverse(self, result: [], indexPath: indexPath)
-//    }
 }
 
 extension RhythmTree: CustomStringConvertible {
@@ -218,6 +134,7 @@ extension RhythmTree: CustomStringConvertible {
         return traverse(tree: self)
     }
 }
+
 
 /// - TODO: Refine
 public func << (metricalDuration: MetricalDuration, relativeDurations: [Int]) -> RhythmTree {

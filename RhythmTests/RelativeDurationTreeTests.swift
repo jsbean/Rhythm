@@ -313,4 +313,14 @@ class RelativeDurationTreeTests: XCTestCase {
 
         XCTAssert(normalized(tree) == expected)
     }
+    
+    func testNormalizeSingleDepth() {
+        
+        let tree = RelativeDurationTree.branch(5, [
+            .leaf(1),
+            .leaf(1)
+        ])
+        
+        XCTAssertEqual((tree |> normalized).leaves, [2,2])
+    }
 }
