@@ -46,24 +46,14 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 /// reduced level (e.g., `[2,4,6] -> [1,2,3]`).
 internal func reducingSiblings(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     
-    func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
-        
-        guard case .branch(let value, let trees) = tree, !trees.isEmpty else {
-            return tree
-        }
-        
-        let values = trees.map { $0.value }
-        let gcd = values.gcd!
-        let reduced = values.map { $0 / gcd }
-        
-        let newTrees = zip(trees, reduced).map { tree, newValue in
-            tree.updating(value: newValue)
-        }
-        
-        return .branch(value, newTrees.map(traverse))
+    guard case .branch(let value, let trees) = tree else {
+        return tree
     }
     
-    return traverse(tree)
+    let values = trees.map { $0.value }
+    let reduced = values.map { $0 / values.gcd! }
+    let reducedTrees = zip(trees, reduced).map { $0.updating(value: $1) }
+    return .branch(value, reducedTrees.map(reducingSiblings))
 }
 
 /// - returns: Relative duration value scaled by the given `distance`.
