@@ -58,7 +58,7 @@ class RelativeDurationTreeTests: XCTestCase {
             .leaf(6)
         ])
         
-        XCTAssertEqual(reduced(tree).leaves, [1,2,3])
+        XCTAssertEqual(reducingSiblings(tree).leaves, [1,2,3])
     }
     
     func testReducedNested() {
@@ -73,12 +73,12 @@ class RelativeDurationTreeTests: XCTestCase {
             .leaf(8)
         ])
         
-        XCTAssertEqual(reduced(tree).leaves, [1,3,1,2,4])
+        XCTAssertEqual(reducingSiblings(tree).leaves, [1,3,1,2,4])
     }
     
     func testReducedVeryNested() {
         
-        let result = veryNested |> reduced
+        let result = veryNested |> reducingSiblings
         
         let expected = Tree.branch(1, [
             .branch(2, [
@@ -136,7 +136,7 @@ class RelativeDurationTreeTests: XCTestCase {
     
     func testMatchParentsVeryNestedMultipleCases() {
         
-        let result = veryNested |> reduced |> matchingParentsToChildren
+        let result = veryNested |> reducingSiblings |> matchingParentsToChildren
         
         let expected = Tree.branch(8, [
             .branch(4, [

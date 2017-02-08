@@ -10,37 +10,40 @@ import Foundation
 import Collections
 import ArithmeticTools
 
-/// Representation of relative durations
-public typealias RelativeDurationTree = Tree<Int>
-public typealias DistanceTree = Tree<Int>
+/// Representation of `MetricalDuration` without specific subdivision-value (denominator).
+public typealias RelativeDuration = Int
+
+/// Representation of the power-of-two quotient between two `RelativeDuration` values.
+public typealias Distance = Int
+
+/// Representation of relative durations.
+public typealias RelativeDurationTree = Tree<RelativeDuration>
+
+/// Representation of encoded distances between relative durational values.
+public typealias DistanceTree = Tree<Distance>
 
 /// - returns: A new `RelativeDurationTree` in which the value of each node can be represented
 /// with the same subdivision-level (denominator).
 public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 
     // Reduce each level of children by their `gcd`
-    let siblingsReduced = tree |> reduced
+    let siblingsReduced = tree |> reducingSiblings
     
     // Match parent values to the closest power-of-two to the sum of their children values.
     let parentsMatched = siblingsReduced |> matchingParentsToChildren
 
     // Generate a tree which contains the values necessary to multiply each node of a
     // `reduced` tree to properly match the values in a `parentsMatched` tree.
-    let distanceTree = distances(
-        betweenSiblingReduced: siblingsReduced,
-        andParentMatching: parentsMatched
-    )
+    let distanceTree = zip(siblingsReduced, parentsMatched, encodeDistance) |> propagated
 
-    /// Apply the given
-    return zip(distanceTree, siblingsReduced) { distance, original in
-        return original * Int(pow(2, Double(distance)))
-    }
+    /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the 
+    /// `distanceTree`.
+    return zip(siblingsReduced, distanceTree, decodeDuration)
 }
-
 
 /// - returns: A new `RelativeDurationTree` for which each level of sub-trees is at its most
 /// reduced level (e.g., `[2,4,6] -> [1,2,3]`).
-internal func reduced(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+internal func reducingSiblings(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     
     func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
         
@@ -61,6 +64,18 @@ internal func reduced(_ tree: RelativeDurationTree) -> RelativeDurationTree {
     
     return traverse(tree)
 }
+
+/// - returns: Relative duration value scaled by the given `distance`.
+func decodeDuration(_ original: Int, _ distance: Int) -> Int {
+    return original * Int(pow(2, Double(distance)))
+}
+
+/// - returns: Distance (in powers-of-two) from one relative durational value to another.
+func encodeDistance(_ original: Int, _ new: Int) -> Int {
+    return Int(log2(Double(new) / Double(original)))
+}
+
+
 
 /// - returns: `RelativeDurationTree` with the values of parents matched to the closest
 /// power-of-two of the sum of the values of their children.
@@ -116,46 +131,11 @@ func zip <T,U,V> (_ a: Tree<T>, _ b: Tree<U>, _ f: (T, U) -> V) -> Tree<V> {
     switch (a,b) {
     case (.leaf(let a), .leaf(let b)):
         return .leaf(f(a,b))
-        
     case (.branch(let a, let aTrees), .branch(let b, let bTrees)):
         return .branch(f(a,b), zip(aTrees, bTrees).map { a,b in zip(a,b,f) })
-        
     default:
         fatalError("Incompatible trees")
     }
-}
-
-/// - returns: `RelativeDuration` updated with the distances in the given `distanceTree`.
-internal func apply(_ distances: DistanceTree, to durations: RelativeDurationTree)
-    -> RelativeDurationTree
-{
- 
-    func traverse(_ durations: RelativeDurationTree, _ distances: DistanceTree)
-        -> RelativeDurationTree
-    {
-        
-        func multiplier(_ distance: Int) -> Int {
-            return Int(pow(2, Double(distance)))
-        }
-        
-        switch (durations, distances) {
-            
-        case (.leaf(let duration), .leaf(let distance)):
-            return .leaf(duration * multiplier(distance))
-            
-        case (.branch(let duration, let durTrees), .branch(let distance, let distTrees)):
-            
-            return .branch(
-                duration * multiplier(distance),
-                zip(durTrees, distTrees).map(traverse)
-            )
-            
-        default:
-            fatalError("Incompatible trees")
-        }
-    }
-    
-    return traverse(durations, distances)
 }
 
 /// - returns: `DistanceTree` with distances propagated up and down.
@@ -213,46 +193,6 @@ internal func propagated(_ tree: DistanceTree) -> DistanceTree {
     
     let propagatedUp = tree |> propagateUp
     return propagateDown(tree, propagatedUp, inherited: nil)
-}
-
-
-/// use zip :o !
-/// - returns: Tree containing values for power-of-two degree of distance of `parentsMatched`
-/// from original.
-internal func distances(
-    betweenSiblingReduced old: RelativeDurationTree,
-    andParentMatching new: RelativeDurationTree
-) -> DistanceTree
-{
-
-    func traverse(_ old: RelativeDurationTree, _ new: RelativeDurationTree) -> DistanceTree {
-        
-        func distance(_ old: Int, _ new: Int) -> Int {
-            return Int(log2(Double(new) / Double(old)))
-        }
-        
-        switch (old, new) {
-            
-        // In the case of a `leaves`, calculate the distance
-        case (.leaf(let old), .leaf(let new)):
-            return .leaf(distance(old, new))
-            
-        // In the case of `branches`, calculate the distance, then recurseu
-        case (.branch(let oldVal, let oldTrees), .branch(let newVal, let newTrees)):
-        
-            guard oldTrees.count == newTrees.count else {
-                fatalError("Incompatible trees")
-            }
-            
-            return .branch(distance(oldVal, newVal), zip(oldTrees, newTrees).map(traverse))
-            
-        // Enforce same-shaped trees
-        default:
-            fatalError("Incompatible trees")
-        }
-    }
-
-    return traverse(old, new) |> propagated
 }
 
 /// - TODO: Move to `Collections` or other framework
