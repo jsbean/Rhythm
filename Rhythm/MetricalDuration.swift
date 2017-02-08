@@ -36,3 +36,15 @@ public struct MetricalDuration: Rational {
         self.denominator = denominator
     }
 }
+
+precedencegroup MetricalDurationInitializationPrecedence {
+    associativity: left
+    higherThan: MetricalDurationIntervalInitializationPrecedence
+}
+
+infix operator /> : MetricalDurationInitializationPrecedence
+
+/// Create a `MetricalDuration` with the `=>` operator between two `Int` values.
+public func /> (numerator: Int, denominator: Int) -> MetricalDuration {
+    return MetricalDuration(numerator, denominator)
+}
