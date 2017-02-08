@@ -76,8 +76,6 @@ func encodeDistance(_ original: Int, _ new: Int) -> Int {
     return Int(log2(Double(new) / Double(original)))
 }
 
-
-
 /// - returns: `RelativeDurationTree` with the values of parents matched to the closest
 /// power-of-two of the sum of the values of their children.
 ///
@@ -91,36 +89,25 @@ internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     
     func traverse(_ tree: RelativeDurationTree) -> RelativeDurationTree {
         
-        switch tree {
-            
-        // Our work is done
-        case .leaf:
+        guard case .branch(let duration, let trees) = tree else {
             return tree
-        
-        // Either:
-        //
-        // - Parent is scaled _up_ to match the sum of its children, or
-        // - Parent is scaled _down_ to match the sum of its children
-        //
-        // Then, visit children
-        case .branch(let duration, let trees):
-            
-            let relativeDurations = trees.map { $0.value }
-            let sum = relativeDurations.sum
-            
-            var newDuration: Int {
-                switch compare(duration, sum) {
-                case .equal:
-                    return duration
-                case .lessThan:
-                    return closestPowerOfTwo(withCoefficient: duration, to: sum)!
-                case .greaterThan:
-                    return duration / gcd(duration, sum)
-                }
-            }
-            
-            return .branch(newDuration, trees.map(traverse))
         }
+
+        let relativeDurations = trees.map { $0.value }
+        let sum = relativeDurations.sum
+        
+        var newDuration: Int {
+            switch compare(duration, sum) {
+            case .equal:
+                return duration
+            case .lessThan:
+                return closestPowerOfTwo(withCoefficient: duration, to: sum)!
+            case .greaterThan:
+                return duration / gcd(duration, sum)
+            }
+        }
+        
+        return .branch(newDuration, trees.map(traverse))
     }
     
     return traverse(tree)
