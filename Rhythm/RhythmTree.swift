@@ -30,7 +30,7 @@ public enum RhythmTree {
         
         let beats = metricalDuration.numerator
         let subdivision = metricalDuration.denominator
-        let tree = RelativeDurationTree(beats, relativeDurations)
+        let tree = ProportionTree(beats, relativeDurations)
         let normalizedTree = tree |> normalized
 
         let (old, new) = (beats, normalizedTree.value)
@@ -40,7 +40,7 @@ public enum RhythmTree {
         self = RhythmTree(subdivision: newSubdivision, relativeDurationTree: normalizedTree)
     }
     
-    public init(subdivision: Int, relativeDurationTree: RelativeDurationTree) {
+    public init(subdivision: Int, relativeDurationTree: ProportionTree) {
         
         let relativeDurationTree = relativeDurationTree |> normalized
         let metricalDurationTree = relativeDurationTree.map { $0 /> subdivision }
