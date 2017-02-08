@@ -35,13 +35,13 @@ public func normalized(_ tree: ProportionTree) -> ProportionTree {
 
     // Generate a tree which contains the values necessary to multiply each node of a
     // `reduced` tree to properly match the values in a `parentsMatched` tree.
-    let distanceTree = zip(siblingsReduced, parentsMatched, encodeDistance) |> propagated
+    let distances = zip(siblingsReduced, parentsMatched, encodeDistance) |> propagated
 
     /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the 
     /// `distanceTree`.
     ///
     /// Then, ensure there are no leaves dangling unmatched to their parents.
-    return zip(siblingsReduced, distanceTree, decodeDuration) |> matchingChildrenToParents
+    return zip(siblingsReduced, distances, decodeDuration) |> matchingChildrenToParents
 }
 
 /// - returns: A new `ProportionTree` for which each level of sub-trees is at its most
