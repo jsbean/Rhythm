@@ -28,14 +28,10 @@ public enum RhythmTree {
     
     public init(_ metricalDuration: MetricalDuration, _ relativeDurations: [Int]) {
         
-        print("relative durations: \(relativeDurations)")
-        
         let beats = metricalDuration.numerator
         let subdivision = metricalDuration.denominator
         let tree = ProportionTree(beats, relativeDurations)
         let normalizedTree = tree |> normalized
-        
-        print("normalized tree:\n\(normalizedTree)")
 
         // Update subdivision based on proportion tree normalization
         let (old, new) = (beats, normalizedTree.value)

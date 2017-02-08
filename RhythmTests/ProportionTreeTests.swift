@@ -10,7 +10,7 @@ import XCTest
 import Collections
 @testable import Rhythm
 
-class ProportionDurationTreeTests: XCTestCase {
+class ProportionTreeTests: XCTestCase {
     
     var veryNested: ProportionTree {
         
