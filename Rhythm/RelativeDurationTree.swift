@@ -56,16 +56,6 @@ internal func reducingSiblings(_ tree: RelativeDurationTree) -> RelativeDuration
     return .branch(value, reducedTrees.map(reducingSiblings))
 }
 
-/// - returns: Relative duration value scaled by the given `distance`.
-func decodeDuration(_ original: Int, _ distance: Int) -> Int {
-    return original * Int(pow(2, Double(distance)))
-}
-
-/// - returns: Distance (in powers-of-two) from one relative durational value to another.
-func encodeDistance(_ original: Int, _ new: Int) -> Int {
-    return Int(log2(Double(new) / Double(original)))
-}
-
 /// - returns: `RelativeDurationTree` with the values of parents matched to the closest
 /// power-of-two of the sum of the values of their children.
 ///
@@ -82,7 +72,7 @@ internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
         guard case .branch(let duration, let trees) = tree else {
             return tree
         }
-
+        
         let relativeDurations = trees.map { $0.value }
         let sum = relativeDurations.sum
         
@@ -103,17 +93,14 @@ internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     return traverse(tree)
 }
 
-/// - TODO: move to `Collections`
-func zip <T,U,V> (_ a: Tree<T>, _ b: Tree<U>, _ f: (T, U) -> V) -> Tree<V> {
-    
-    switch (a,b) {
-    case (.leaf(let a), .leaf(let b)):
-        return .leaf(f(a,b))
-    case (.branch(let a, let aTrees), .branch(let b, let bTrees)):
-        return .branch(f(a,b), zip(aTrees, bTrees).map { a,b in zip(a,b,f) })
-    default:
-        fatalError("Incompatible trees")
-    }
+/// - returns: Relative duration value scaled by the given `distance`.
+func decodeDuration(_ original: Int, _ distance: Int) -> Int {
+    return original * Int(pow(2, Double(distance)))
+}
+
+/// - returns: Distance (in powers-of-two) from one relative durational value to another.
+func encodeDistance(_ original: Int, _ new: Int) -> Int {
+    return Int(log2(Double(new) / Double(original)))
 }
 
 /// - returns: `DistanceTree` with distances propagated up and down.

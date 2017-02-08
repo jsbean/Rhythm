@@ -313,38 +313,4 @@ class RelativeDurationTreeTests: XCTestCase {
 
         XCTAssert(normalized(tree) == expected)
     }
-    
-    /// - TODO: move to `Collections`
-    func testTreeZip() {
-        
-        let a = Tree.branch(0, [
-            .leaf(1),
-            .leaf(2),
-            .branch(3, [
-                .leaf(4),
-                .leaf(5)
-            ])
-        ])
-        
-        let b = Tree.branch(0, [
-            .leaf(1),
-            .leaf(2),
-            .branch(3, [
-                .leaf(4),
-                .leaf(5)
-            ])
-        ])
-        
-        let expected = Tree.branch(0, [
-            .leaf(1),
-            .leaf(4),
-            .branch(9, [
-                .leaf(16),
-                .leaf(25)
-            ])
-        ])
-        
-        let result = zip(a,b,*)
-        XCTAssert(result == expected)
-    }
 }
