@@ -33,8 +33,8 @@
 		073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* ProportionTree.swift */; };
 		0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* ProportionTree.swift */; };
-		0743097D1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */; };
-		0743097E1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */; };
+		0743097D1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */; };
+		0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */; };
@@ -119,7 +119,7 @@
 		073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationIntervalTests.swift; path = RhythmTests/MetricalDurationIntervalTests.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		074309791E4419CB002B88A1 /* ProportionTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTree.swift; path = Rhythm/ProportionTree.swift; sourceTree = "<group>"; };
-		0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelativeDurationTreeTests.swift; path = RhythmTests/RelativeDurationTreeTests.swift; sourceTree = "<group>"; };
+		0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTreeTests.swift; path = RhythmTests/ProportionTreeTests.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationInterval.swift; path = Rhythm/MetricalDurationInterval.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 			children = (
 				283798028177368FC4F2756E /* Supporting Files */,
 				077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */,
-				0743097C1E441A23002B88A1 /* RelativeDurationTreeTests.swift */,
+				0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */,
 				073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */,
 				073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */,
 			);
@@ -472,7 +472,7 @@
 				077554881E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
 				073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
 				073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
-				0743097E1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */,
+				0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +501,7 @@
 				077554871E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
 				073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
 				073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
-				0743097D1E441A23002B88A1 /* RelativeDurationTreeTests.swift in Sources */,
+				0743097D1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
