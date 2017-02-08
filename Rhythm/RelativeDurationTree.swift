@@ -104,9 +104,8 @@ internal func matchingChildrenToParents(_ tree: RelativeDurationTree) -> Relativ
         return tree
     }
     
-    let newSum = closestPowerOfTwo(withCoefficient: sum, to: duration)!
-    let quotient = newSum / sum
-    let newTrees = trees.map { $0.map { $0 * quotient } }
+    let multiplier = closestPowerOfTwo(withCoefficient: sum, to: duration)! / sum
+    let newTrees = trees.map { $0.map { $0 * multiplier } }
     return .branch(duration, newTrees)
 }
 
