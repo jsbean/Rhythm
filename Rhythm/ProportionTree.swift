@@ -89,6 +89,11 @@ internal func matchingParentsToChildren(_ tree: ProportionTree)
     return .branch(newDuration, trees.map(matchingParentsToChildren))
 }
 
+/// - returns: `ProportionTree` with the values of any leaves lifted to match any parents
+/// which have been lifted in previous stages of the normalization process.
+///
+/// - note: That this is required perhaps indicates that propagation is not being handled
+/// correctly for trees of `height` 1.
 internal func matchingChildrenToParents(_ tree: ProportionTree) -> ProportionTree {
     
     guard case
@@ -111,7 +116,7 @@ internal func matchingChildrenToParents(_ tree: ProportionTree) -> ProportionTre
 
 /// - returns: `DistanceTree` with distances propagated up and down.
 ///
-/// - TODO: Not convinced by implementeation of `propogateDown`.
+/// - TODO: Not convinced by implementation of `propogateDown`.
 internal func propagated(_ tree: DistanceTree) -> DistanceTree {
 
     /// Propagate up and accumulate the maximum of the sums of children values
