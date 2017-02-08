@@ -132,18 +132,13 @@ internal func propagated(_ tree: DistanceTree) -> DistanceTree {
     /// Propagate up and accumulate the maximum of the sums of children values
     func propagateUp(_ tree: DistanceTree) -> DistanceTree {
         
-        switch tree {
-            
-        case .leaf:
+        guard case .branch(let value, let trees) = tree else {
             return tree
-        
-        case .branch(let value, let trees):
-            
-            let newTrees = trees.map(propagateUp)
-            let max = newTrees.map { $0.value }.max()!
-            
-            return .branch(value + max, newTrees)
         }
+        
+        let newTrees = trees.map(propagateUp)
+        let max = newTrees.map { $0.value }.max()!
+        return .branch(value + max, newTrees)
     }
     
     /// Takes in the original distance tree, the distance tree which has already
