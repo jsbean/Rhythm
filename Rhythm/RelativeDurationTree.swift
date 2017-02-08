@@ -4,6 +4,7 @@
 //
 //  Created by James Bean on 2/2/17.
 //
+//  Formalized by Brian Heim.
 //
 
 import Foundation
