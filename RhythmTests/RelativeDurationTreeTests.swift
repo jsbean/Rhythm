@@ -12,7 +12,7 @@ import Collections
 
 class RelativeDurationTreeTests: XCTestCase {
     
-    var veryNested: RelativeDurationTree {
+    var veryNested: ProportionTree {
         
         return Tree.branch(1, [
             .branch(2, [
@@ -47,12 +47,12 @@ class RelativeDurationTreeTests: XCTestCase {
     }
     
     func testInit() {
-        _ = RelativeDurationTree.branch(1, [.leaf(1), .leaf(2), .leaf(2)])
+        _ = ProportionTree.branch(1, [.leaf(1), .leaf(2), .leaf(2)])
     }
     
     func testReducedSingleDepth() {
         
-        let tree = RelativeDurationTree.branch(1, [
+        let tree = ProportionTree.branch(1, [
             .leaf(2),
             .leaf(4),
             .leaf(6)
@@ -63,7 +63,7 @@ class RelativeDurationTreeTests: XCTestCase {
     
     func testReducedNested() {
         
-        let tree = RelativeDurationTree.branch(1, [
+        let tree = ProportionTree.branch(1, [
             .leaf(2),
             .branch(4, [
                 .leaf(6),
@@ -316,7 +316,7 @@ class RelativeDurationTreeTests: XCTestCase {
     
     func testNormalizeSingleDepth() {
         
-        let tree = RelativeDurationTree.branch(5, [
+        let tree = ProportionTree.branch(5, [
             .leaf(1),
             .leaf(1)
         ])

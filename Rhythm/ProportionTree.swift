@@ -1,5 +1,5 @@
 //
-//  RelativeDurationTree.swift
+//  ProportionTree.swift
 //  Rhythm
 //
 //  Created by James Bean on 2/2/17.
@@ -12,20 +12,20 @@ import Collections
 import ArithmeticTools
 
 /// Representation of `MetricalDuration` without specific subdivision-value (denominator).
-public typealias RelativeDuration = Int
+public typealias Proportion = Int
 
 /// Representation of the power-of-two quotient between two `RelativeDuration` values.
 public typealias Distance = Int
 
 /// Representation of relative durations.
-public typealias RelativeDurationTree = Tree<RelativeDuration>
+public typealias ProportionTree = Tree<Proportion>
 
 /// Representation of encoded distances between relative durational values.
 public typealias DistanceTree = Tree<Distance>
 
-/// - returns: A new `RelativeDurationTree` in which the value of each node can be represented
+/// - returns: A new `ProportionTree` in which the value of each node can be represented
 /// with the same subdivision-level (denominator).
-public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+public func normalized(_ tree: ProportionTree) -> ProportionTree {
 
     // Reduce each level of children by their `gcd`
     let siblingsReduced = tree |> reducingSiblings
@@ -35,18 +35,18 @@ public func normalized(_ tree: RelativeDurationTree) -> RelativeDurationTree {
 
     // Generate a tree which contains the values necessary to multiply each node of a
     // `reduced` tree to properly match the values in a `parentsMatched` tree.
-    let distanceTree = zip(siblingsReduced, parentsMatched, encodeDistance) |> propagated
+    let distances = zip(siblingsReduced, parentsMatched, encodeDistance) |> propagated
 
     /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the 
     /// `distanceTree`.
     ///
     /// Then, ensure there are no leaves dangling unmatched to their parents.
-    return zip(siblingsReduced, distanceTree, decodeDuration) |> matchingChildrenToParents
+    return zip(siblingsReduced, distances, decodeDuration) |> matchingChildrenToParents
 }
 
-/// - returns: A new `RelativeDurationTree` for which each level of sub-trees is at its most
+/// - returns: A new `ProportionTree` for which each level of sub-trees is at its most
 /// reduced level (e.g., `[2,4,6] -> [1,2,3]`).
-internal func reducingSiblings(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+internal func reducingSiblings(_ tree: ProportionTree) -> ProportionTree {
     
     guard case .branch(let value, let trees) = tree else {
         return tree
@@ -58,15 +58,15 @@ internal func reducingSiblings(_ tree: RelativeDurationTree) -> RelativeDuration
     return .branch(value, reducedTrees.map(reducingSiblings))
 }
 
-/// - returns: `RelativeDurationTree` with the values of parents matched to the closest
+/// - returns: `ProportionTree` with the values of parents matched to the closest
 /// power-of-two of the sum of the values of their children.
 ///
 /// There are two cases where action is required:
 ///
 /// - Parent is scaled _up_ to match the sum of its children
 /// - Parent is scaled _down_ to match the sum of its children
-internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
-    -> RelativeDurationTree
+internal func matchingParentsToChildren(_ tree: ProportionTree)
+    -> ProportionTree
 {
     guard case .branch(let duration, let trees) = tree else {
         return tree
@@ -89,7 +89,12 @@ internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     return .branch(newDuration, trees.map(matchingParentsToChildren))
 }
 
-internal func matchingChildrenToParents(_ tree: RelativeDurationTree) -> RelativeDurationTree {
+/// - returns: `ProportionTree` with the values of any leaves lifted to match any parents
+/// which have been lifted in previous stages of the normalization process.
+///
+/// - note: That this is required perhaps indicates that propagation is not being handled
+/// correctly for trees of `height` 1.
+internal func matchingChildrenToParents(_ tree: ProportionTree) -> ProportionTree {
     
     guard case
         .branch(let duration, let trees) = tree,
@@ -111,7 +116,7 @@ internal func matchingChildrenToParents(_ tree: RelativeDurationTree) -> Relativ
 
 /// - returns: `DistanceTree` with distances propagated up and down.
 ///
-/// - TODO: Not convinced by implementeation of `propogateDown`.
+/// - TODO: Not convinced by implementation of `propogateDown`.
 internal func propagated(_ tree: DistanceTree) -> DistanceTree {
 
     /// Propagate up and accumulate the maximum of the sums of children values
