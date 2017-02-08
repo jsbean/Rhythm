@@ -87,17 +87,9 @@ internal func matchingParentsToChildren(_ tree: RelativeDurationTree)
     return .branch(newDuration, trees.map(matchingParentsToChildren))
 }
 
-/// - returns: Relative duration value scaled by the given `distance`.
-func decodeDuration(_ original: Int, _ distance: Int) -> Int {
-    return original * Int(pow(2, Double(distance)))
-}
-
-/// - returns: Distance (in powers-of-two) from one relative durational value to another.
-func encodeDistance(_ original: Int, _ new: Int) -> Int {
-    return Int(log2(Double(new) / Double(original)))
-}
-
 /// - returns: `DistanceTree` with distances propagated up and down.
+///
+/// - TODO: Not convinced by implementeation of `propogateDown`.
 internal func propagated(_ tree: DistanceTree) -> DistanceTree {
 
     /// Propagate up and accumulate the maximum of the sums of children values
@@ -112,7 +104,7 @@ internal func propagated(_ tree: DistanceTree) -> DistanceTree {
         return .branch(value + max, newTrees)
     }
     
-    /// Takes in the original distance tree, the distance tree which has already
+    /// Takes in the original distance tree, and a distance tree which has already
     /// had its values propagated up to the root, as well as an inherited value which is passed
     /// along between levels.
     ///
@@ -147,6 +139,16 @@ internal func propagated(_ tree: DistanceTree) -> DistanceTree {
     
     let propagatedUp = tree |> propagateUp
     return propagateDown(tree, propagatedUp, inherited: nil)
+}
+
+/// - returns: Relative duration value scaled by the given `distance`.
+func decodeDuration(_ original: Int, _ distance: Int) -> Int {
+    return original * Int(pow(2, Double(distance)))
+}
+
+/// - returns: Distance (in powers-of-two) from one relative durational value to another.
+func encodeDistance(_ original: Int, _ new: Int) -> Int {
+    return Int(log2(Double(new) / Double(original)))
 }
 
 /// - TODO: Move to `Collections` or other framework
