@@ -76,17 +76,19 @@ internal func reducingSiblings(_ tree: ProportionTree) -> ProportionTree {
 internal func matchingParentsToChildren(_ tree: ProportionTree)
     -> ProportionTree
 {
+    
+    func updateDuration(_ original: Proportion, _ children: [ProportionTree]) -> Proportion {
+        let relativeDurations = children.map { $0.value }
+        let sum = relativeDurations.sum
+        let coefficient = original >> countTrailingZeros(original)
+        return closestPowerOfTwo(withCoefficient: coefficient, to: sum)!
+    }
+    
     guard case .branch(let duration, let trees) = tree else {
         return tree
     }
-    
-    let relativeDurations = trees.map { $0.value }
-    let sum = relativeDurations.sum
-    
-    let coefficient = duration >> countTrailingZeros(duration)
-    let newDuration: Int = closestPowerOfTwo(withCoefficient: coefficient, to: sum)!
-    
-    return .branch(newDuration, trees.map(matchingParentsToChildren))
+
+    return .branch(updateDuration(duration, trees), trees.map(matchingParentsToChildren))
 }
 
 /// - returns: `ProportionTree` with the values of any leaves lifted to match any parents
