@@ -16,7 +16,7 @@ precedencegroup MetricalDurationIntervalInitializationPrecedence {
     higherThan: BitwiseShiftPrecedence
 }
 
-infix operator =>: MetricalDurationIntervalInitializationPrecedence
+infix operator => : MetricalDurationIntervalInitializationPrecedence
 
 /// Create a `MetricalDurationInterval` with the `=>` operator between two `MetricalDuration`
 /// values.

@@ -50,17 +50,20 @@ public func normalized(_ tree: ProportionTree) -> ProportionTree {
 /// - note: In the case of parents with a single child, no reduction occurs.
 internal func reducingSiblings(_ tree: ProportionTree) -> ProportionTree {
     
+    func reduced(_ trees: [ProportionTree]) -> [ProportionTree] {
+        let values = trees.map { $0.value }
+        let reduced = values.map { $0 / values.gcd! }
+        return zip(trees, reduced).map { $0.updating(value: $1) }
+    }
+    
     guard case
         .branch(let value, let trees) = tree,
         trees.count > 1
     else {
         return tree
     }
-    
-    let values = trees.map { $0.value }
-    let reduced = values.map { $0 / values.gcd! }
-    let reducedTrees = zip(trees, reduced).map { $0.updating(value: $1) }
-    return .branch(value, reducedTrees.map(reducingSiblings))
+
+    return .branch(value, reduced(trees).map(reducingSiblings))
 }
 
 /// - returns: `ProportionTree` with the values of parents matched to the closest
@@ -80,7 +83,8 @@ internal func matchingParentsToChildren(_ tree: ProportionTree)
     let relativeDurations = trees.map { $0.value }
     let sum = relativeDurations.sum
     
-    let newDuration: Int = closestPowerOfTwo(withCoefficient: duration >> countTrailingZeros(duration), to: sum)!
+    let coefficient = duration >> countTrailingZeros(duration)
+    let newDuration: Int = closestPowerOfTwo(withCoefficient: coefficient, to: sum)!
     
     return .branch(newDuration, trees.map(matchingParentsToChildren))
 }
