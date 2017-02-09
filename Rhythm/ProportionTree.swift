@@ -166,7 +166,7 @@ internal func propagated(_ tree: DistanceTree) -> DistanceTree {
 
 /// - returns: Relative duration value scaled by the given `distance`.
 func decodeDuration(_ original: Int, _ distance: Int) -> Int {
-    return original * Int(pow(2, Double(distance)))
+    return Int(Double(original) * pow(2, Double(distance)))
 }
 
 /// - returns: Distance (in powers-of-two) from one relative durational value to another.
