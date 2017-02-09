@@ -116,14 +116,44 @@ class ProportionTreeTests: XCTestCase {
     
     func testmatchingParentsToChildrenSingleDepthDown() {
         
-        let tree = Tree.branch(6, [
+        var tree = Tree.branch(6, [
             .leaf(1),
             .leaf(1)
         ])
         
         XCTAssertEqual(matchingParentsToChildren(tree).value, 3)
+
+		tree = Tree.branch(6, [
+			.leaf(2),
+			.leaf(1)
+			])
+
+		XCTAssertEqual(matchingParentsToChildren(tree).value, 3)
+
+		tree = Tree.branch(6, [
+			.leaf(3),
+			.leaf(1)
+			])
+
+		XCTAssertEqual(matchingParentsToChildren(tree).value, 3)
+
+		tree = Tree.branch(6, [
+			.leaf(1),
+			.leaf(1),
+			.leaf(1)
+			])
+
+		XCTAssertEqual(matchingParentsToChildren(tree).value, 3)
+
+		tree = Tree.branch(6, [
+			.leaf(1),
+			.leaf(2),
+			.leaf(1)
+			])
+
+		XCTAssertEqual(matchingParentsToChildren(tree).value, 3)
     }
-    
+
     func testmatchingParentsToChildrenSingleDepthUp() {
         
         let tree = Tree.branch(1, [
