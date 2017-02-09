@@ -80,16 +80,7 @@ internal func matchingParentsToChildren(_ tree: ProportionTree)
     let relativeDurations = trees.map { $0.value }
     let sum = relativeDurations.sum
     
-    var newDuration: Int {
-        switch compare(duration, sum) {
-        case .equal:
-            return duration
-        case .lessThan:
-            return closestPowerOfTwo(withCoefficient: duration, to: sum)!
-        case .greaterThan:
-            return duration / gcd(duration, sum)
-        }
-    }
+    let newDuration: Int = closestPowerOfTwo(withCoefficient: duration >> countTrailingZeros(duration), to: sum)!
     
     return .branch(newDuration, trees.map(matchingParentsToChildren))
 }
