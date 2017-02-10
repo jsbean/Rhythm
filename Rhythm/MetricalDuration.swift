@@ -29,7 +29,10 @@ public struct MetricalDuration: Rational {
     public init(_ numerator: Int, _ denominator: Int) {
         
         guard denominator.isPowerOfTwo else {
-            fatalError("Cannot create MetricalDuration with non-power-of-two denominator: \(numerator)/\(denominator)")
+            fatalError(
+                "Cannot create MetricalDuration with non-power-of-two denominator: " +
+                "\(denominator)"
+            )
         }
         
         self.numerator = numerator
