@@ -11,7 +11,7 @@ import Foundation
 import Collections
 import ArithmeticTools
 
-/// Similar to the proportional aspect of the `OpenMusic` `Rhythm Tree` structure. 
+/// Similar to the proportional aspect of the `OpenMusic` `Rhythm Tree` structure.
 public typealias ProportionTree = Tree<Int>
 
 extension Tree where T == Int {
