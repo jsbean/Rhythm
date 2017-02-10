@@ -81,5 +81,6 @@ public func * (_ metricalDuration: MetricalDuration, _ proportions: [Int])
     
     let beats = metricalDuration.numerator
     let proportionTree = ProportionTree([beats, proportions])
+    
     return MetricalDurationTree(metricalDuration, proportionTree)
 }
