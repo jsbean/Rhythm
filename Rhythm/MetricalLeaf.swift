@@ -19,4 +19,3 @@ public typealias MetricalLeaf <T> = MetricalValue<MetricalContext<T>>
 public prefix func - (metricalDuration: MetricalDuration) -> MetricalLeaf<Int> {
     return MetricalLeaf(metricalDuration, MetricalContext<Int>.instance(.absence))
 }
-
