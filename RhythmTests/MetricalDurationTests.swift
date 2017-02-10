@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import ArithmeticTools
 import Rhythm
 
 class MetricalDurationTests: XCTestCase {
@@ -20,5 +21,13 @@ class MetricalDurationTests: XCTestCase {
     func testInitOperator() {
         _ = 1/>2
         _ = 1 /> 2
+    }
+    
+    func testRange() {
+        
+        let a = 1/>2...4/>8
+        let b = 3/>16...5/>4
+        
+        _ = a.relation(with: b)
     }
 }

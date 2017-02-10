@@ -11,173 +11,243 @@ import Foundation
 import Collections
 import ArithmeticTools
 
-/// Representation of `MetricalDuration` without specific subdivision-value (denominator).
-public typealias Proportion = Int
+/// Similar to the proportional aspect of the `OpenMusic` `Rhythm Tree` structure.
+public typealias ProportionTree = Tree<Int>
 
-/// Representation of the power-of-two quotient between two `RelativeDuration` values.
-public typealias Distance = Int
-
-/// Representation of relative durations.
-public typealias ProportionTree = Tree<Proportion>
-
-/// Representation of encoded distances between relative durational values.
-public typealias DistanceTree = Tree<Distance>
-
-/// - returns: A new `ProportionTree` in which the value of each node can be represented
-/// with the same subdivision-level (denominator).
-public func normalized(_ tree: ProportionTree) -> ProportionTree {
-
-    // Reduce each level of children by their `gcd`
-    let siblingsReduced = tree |> reducingSiblings
+extension Tree where T == Int {
     
-    // Match parent values to the closest power-of-two to the sum of their children values.
-    let parentsMatched = siblingsReduced |> matchingParentsToChildren
-
-    // Generate a tree which contains the values necessary to multiply each node of a
-    // `reduced` tree to properly match the values in a `parentsMatched` tree.
-    let distances = zip(siblingsReduced, parentsMatched, encodeDistance) |> propagated
-
-    /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the 
-    /// `distanceTree`.
-    ///
-    /// Then, ensure there are no leaves dangling unmatched to their parents.
-    return zip(siblingsReduced, distances, decodeDuration) |> matchingChildrenToParents
-}
-
-/// - returns: A new `ProportionTree` for which each level of sub-trees is at its most
-/// reduced level (e.g., `[2,4,6] -> [1,2,3]`).
-///
-/// - note: In the case of parents with a single child, no reduction occurs.
-internal func reducingSiblings(_ tree: ProportionTree) -> ProportionTree {
-    
-    guard case
-        .branch(let value, let trees) = tree,
-        trees.count > 1
-    else {
-        return tree
-    }
-    
-    let values = trees.map { $0.value }
-    let reduced = values.map { $0 / values.gcd! }
-    let reducedTrees = zip(trees, reduced).map { $0.updating(value: $1) }
-    return .branch(value, reducedTrees.map(reducingSiblings))
-}
-
-/// - returns: `ProportionTree` with the values of parents matched to the closest
-/// power-of-two of the sum of the values of their children.
-///
-/// There are two cases where action is required:
-///
-/// - Parent is required scaled _up_ to match the sum of its children
-/// - Parent is required scaled _down_ to match the sum of its children
-internal func matchingParentsToChildren(_ tree: ProportionTree)
-    -> ProportionTree
-{
-    guard case .branch(let duration, let trees) = tree else {
-        return tree
-    }
-    
-    let relativeDurations = trees.map { $0.value }
-    let sum = relativeDurations.sum
-    
-    let newDuration: Int = closestPowerOfTwo(withCoefficient: duration >> countTrailingZeros(duration), to: sum)!
-    
-    return .branch(newDuration, trees.map(matchingParentsToChildren))
-}
-
-/// - returns: `ProportionTree` with the values of any leaves lifted to match any parents
-/// which have been lifted in previous stages of the normalization process.
-///
-/// - note: That this is required perhaps indicates that propagation is not being handled
-/// correctly for trees of `height` 1.
-internal func matchingChildrenToParents(_ tree: ProportionTree) -> ProportionTree {
-    
-    guard case
-        .branch(let duration, let trees) = tree,
-        tree.height == 1
-    else {
-        return tree
-    }
-    
-    let sum = trees.map { $0.value }.sum
-    
-    guard sum < duration else {
-        return tree
-    }
-    
-    let multiplier = closestPowerOfTwo(withCoefficient: sum, to: duration)! / sum
-    let newTrees = trees.map { $0.map { $0 * multiplier } }
-    return .branch(duration, newTrees)
-}
-
-/// - returns: `DistanceTree` with distances propagated up and down.
-///
-/// - TODO: Not convinced by implementation of `propogateDown`.
-internal func propagated(_ tree: DistanceTree) -> DistanceTree {
-
-    /// Propagate up and accumulate the maximum of the sums of children values
-    func propagateUp(_ tree: DistanceTree) -> DistanceTree {
+    /// - returns: A new `ProportionTree` in which the value of each node can be represented
+    /// with the same subdivision-level (denominator).
+    public var normalized: ProportionTree {
         
-        guard case .branch(let value, let trees) = tree else {
-            return tree
+        // Reduce each level of children by their `gcd`
+        let siblingsReduced = self.reducingSiblings
+        
+        // Match parent values to the closest power-of-two to the sum of their children values.
+        let parentsMatched = siblingsReduced.matchingParentsToChildren
+        
+        // Generate a tree which contains the values necessary to multiply each node of a
+        // `reduced` tree to properly match the values in a `parentsMatched` tree.
+        let distances = zip(siblingsReduced, parentsMatched, encodeDistance).propagated
+        
+        /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the
+        /// `ProportionTree`.
+        ///
+        /// Then, ensure there are no leaves dangling unmatched to their parents.
+        return zip(siblingsReduced, distances, decodeDuration).matchingChildrenToParents
+    }
+    
+    /// - returns: A new `ProportionTree` for which each level of sub-trees is at its most
+    /// reduced level (e.g., `[2,4,6] -> [1,2,3]`).
+    ///
+    /// - note: In the case of parents with a single child, no reduction occurs.
+    internal var reducingSiblings: ProportionTree {
+        
+        func reduced(_ trees: [ProportionTree]) -> [ProportionTree] {
+            let values = trees.map { $0.value }
+            let reduced = values.map { $0 / values.gcd! }
+            return zip(trees, reduced).map { $0.updating(value: $1) }
         }
         
-        let newTrees = trees.map(propagateUp)
-        let max = newTrees.map { $0.value }.max()!
-        return .branch(value + max, newTrees)
+        guard case
+            .branch(let value, let trees) = self,
+            trees.count > 1
+        else {
+            return self
+        }
+        
+        return .branch(value, reduced(trees).map { $0.reducingSiblings } )
     }
     
-    /// Takes in the original distance tree, and a distance tree which has already
-    /// had its values propagated up to the root, as well as an inherited value which is passed
-    /// along between levels.
+    /// - returns: `ProportionTree` with the values of parents matched to the closest
+    /// power-of-two of the sum of the values of their children.
     ///
-    /// - note: Need to make inherited optional? // this smells
-    func propagateDown(_ original: DistanceTree, _ propagatedUp: DistanceTree, inherited: Int?)
-        -> DistanceTree
-    {
+    /// There are two cases where action is required:
+    ///
+    /// - Parent is required scaled _up_ to match the sum of its children
+    /// - Parent is required scaled _down_ to match the sum of its children
+    internal var matchingParentsToChildren: ProportionTree {
+        
+        func updateDuration(_ original: Int, _ children: [ProportionTree]) -> Int {
+            let relativeDurations = children.map { $0.value }
+            let sum = relativeDurations.sum
+            let coefficient = original >> countTrailingZeros(original)
+            return closestPowerOfTwo(withCoefficient: coefficient, to: sum)!
+        }
+        
+        guard case .branch(let duration, let trees) = self else {
+            return self
+        }
+        
+        let newDuration = updateDuration(duration, trees)
+        return .branch(newDuration, trees.map { $0.matchingParentsToChildren })
+    }
+    
+    /// - returns: `ProportionTree` with the values of any leaves lifted to match any parents
+    /// which have been lifted in previous stages of the normalization process.
+    ///
+    /// - note: That this is required perhaps indicates that propagation is not being handled
+    /// correctly for trees of `height` 1.
+    internal var matchingChildrenToParents: ProportionTree {
+        
+        /// Only continue if we are a parent of only leaves.
+        guard case
+            .branch(let duration, let trees) = self,
+            self.height == 1
+        else {
+            return self
+        }
+        
+        let sum = trees.map { $0.value }.sum
+        
+        /// If the duration of parent is greater than the sum of the children's values, our
+        /// work is done.
+        guard sum < duration else {
+            return self
+        }
+        
+        let multiplier = closestPowerOfTwo(withCoefficient: sum, to: duration)! / sum
+        let newTrees = trees.map { $0.map { $0 * multiplier } }
+        
+        return .branch(duration, newTrees)
+    }
 
-        switch (original, propagatedUp) {
+    /// - returns: Relative duration value scaled by the given `distance`.
+    private func decodeDuration(_ original: Int, _ distance: Int) -> Int {
+        return Int(Double(original) * pow(2, Double(distance)))
+    }
+    
+    /// - returns: Distance (in powers-of-two) from one relative durational value to another.
+    private func encodeDistance(_ original: Int, _ new: Int) -> Int {
+        return Int(log2(Double(new) / Double(original)))
+    }
+}
+
+extension Tree where T == Int {
+    
+    /// Create an arbitrarily-nested `ProportionTree` with an array.
+    ///
+    /// Modeled after OpenMusic's `RhythmTree` notation.
+    ///
+    /// A single-depth tree looks like this:
+    ///
+    ///     let singleDepth = [1, [1,2,3]]
+    ///
+    /// A multi-depth tree looks like this:
+    ///
+    ///     let multiDepth = [1, [1,[2,[1,2,[3,[1,2,3]]]],3]]
+    ///
+    /// Good luck.
+    public init(_ value: [Any]) {
+        
+        func traverse(_ value: Any) -> ProportionTree {
             
-        // Accept what's given
-        case (.leaf, .leaf):
-            return .leaf(inherited!)
-            
-        // Replace value with inherited (if present), or already propagated
-        case (.branch(let original, let oTrees), .branch(let propagated, let pTrees)):
-            
-            let value = inherited ?? propagated
-            let subTrees = zip(oTrees, pTrees).map { o, p in
-                propagateDown(o, p, inherited: value - original)
+            // Input: `T`
+            if let leaf = value as? T {
+                return .leaf(leaf)
             }
-
-            return .branch(value, subTrees)
             
-        // Enforce same-shaped trees
-        default:
-            fatalError("Incompatible trees")
+            // Input: `[Any]`
+            guard
+                let branch = value as? [Any],
+                let (head, tail) = branch.destructured
+            else {
+                fatalError("Ill-formed nested array")
+            }
+            
+            switch head {
+                
+            // Input: `[T, ...]`
+            case let value as T:
+                
+                // Input: `[T]`
+                if tail.isEmpty {
+                    return .branch(value, branch.map(traverse))
+                }
+                
+                // Input: `[T, [...]]`
+                guard
+                    tail.count == 1,
+                    let children = tail.first as? [Any]
+                else {
+                    fatalError("Ill-formed nested array")
+                }
+                
+                return .branch(value, children.map(traverse))
+                
+            // Input: `[[T ... ], ... ]`
+            case let branch as [Any]:
+                return traverse(branch)
+                
+            default:
+                fatalError("Ill-formed nested array")
+            }
         }
         
-        return propagatedUp
+        self = traverse(value).normalized
     }
+}
+
+/// Tree recording the change (in degree of power-of-two) needed to normalize a 
+/// `ProprtionTree`.
+private typealias DistanceTree = Tree<Int>
+
+extension Tree where T == Int {
     
-    let propagatedUp = tree |> propagateUp
-    return propagateDown(tree, propagatedUp, inherited: nil)
-}
-
-/// - returns: Relative duration value scaled by the given `distance`.
-func decodeDuration(_ original: Int, _ distance: Int) -> Int {
-    return Int(Double(original) * pow(2, Double(distance)))
-}
-
-/// - returns: Distance (in powers-of-two) from one relative durational value to another.
-func encodeDistance(_ original: Int, _ new: Int) -> Int {
-    return Int(log2(Double(new) / Double(original)))
-}
-
-/// - TODO: Move to `Collections` or other framework
-infix operator |> : AdditionPrecedence
-
-/// Pipe
-internal func |> <A, Z> (lhs: A, rhs: (A) -> Z) -> Z {
-    return rhs(lhs)
+    /// - returns: `DistanceTree` with distances propagated up and down.
+    ///
+    /// - TODO: Not convinced by implementation of `propogateDown`.
+    fileprivate var propagated: DistanceTree {
+        
+        /// Propagate up and accumulate the maximum of the sums of children values
+        func propagateUp(_ tree: DistanceTree) -> DistanceTree {
+            
+            guard case .branch(let value, let trees) = tree else {
+                return tree
+            }
+            
+            let newTrees = trees.map(propagateUp)
+            let max = newTrees.map { $0.value }.max()!
+            return .branch(value + max, newTrees)
+        }
+        
+        /// Takes in the original distance tree, and a distance tree which has already
+        /// had its values propagated up to the root, as well as an inherited value which is passed
+        /// along between levels.
+        ///
+        /// - note: Need to make inherited optional? // this smells
+        func propagateDown(
+            _ original: DistanceTree,
+            _ propagatedUp: DistanceTree,
+            inherited: Int?
+            ) -> DistanceTree
+        {
+            
+            switch (original, propagatedUp) {
+                
+            // If we are leaf,
+            case (.leaf, .leaf):
+                return .leaf(inherited!)
+                
+            // Replace value with inherited (if present), or already propagated
+            case (.branch(let original, let oTrees), .branch(let propagated, let pTrees)):
+                
+                let value = inherited ?? propagated
+                let subTrees = zip(oTrees, pTrees).map { o, p in
+                    propagateDown(o, p, inherited: value - original)
+                }
+                
+                return .branch(value, subTrees)
+                
+            // Enforce same-shaped trees
+            default:
+                fatalError("Incompatible trees")
+            }
+            
+            return propagatedUp
+        }
+        
+        let propagatedUp = propagateUp(self)
+        return propagateDown(self, propagatedUp, inherited: nil)
+    }
 }

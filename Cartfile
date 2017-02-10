@@ -1,3 +1,2 @@
 github "dn-m/Collections" >= 1.16.6
-github "dn-m/ArithmeticTools" >= 0.8
-github "dn-m/IntervalTools"
+github "dn-m/ArithmeticTools" >= 0.10
