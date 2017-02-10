@@ -125,7 +125,7 @@ extension Tree where T == Int {
 
 extension Tree where T == Int {
     
-    /// Create an arbitrarily-nested tree with an array.
+    /// Create an arbitrarily-nested `ProportionTree` with an array.
     ///
     /// Modeled after OpenMusic's `RhythmTree` notation.
     ///
@@ -151,8 +151,8 @@ extension Tree where T == Int {
             guard
                 let branch = value as? [Any],
                 let (head, tail) = branch.destructured
-                else {
-                    fatalError()
+            else {
+                fatalError("Ill-formed nested array")
             }
             
             switch head {
@@ -169,8 +169,8 @@ extension Tree where T == Int {
                 guard
                     tail.count == 1,
                     let children = tail.first as? [Any]
-                    else {
-                        fatalError()
+                else {
+                    fatalError("Ill-formed nested array")
                 }
                 
                 return .branch(value, children.map(traverse))
@@ -180,10 +180,74 @@ extension Tree where T == Int {
                 return traverse(branch)
                 
             default:
-                fatalError()
+                fatalError("Ill-formed nested array")
             }
         }
         
-        self = traverse(value)
+        self = traverse(value).normalized
+    }
+}
+
+/// Tree recording the change (in degree of power-of-two) needed to normalize a 
+/// `ProprtionTree`.
+private typealias DistanceTree = Tree<Int>
+
+extension Tree where T == Int {
+    
+    /// - returns: `DistanceTree` with distances propagated up and down.
+    ///
+    /// - TODO: Not convinced by implementation of `propogateDown`.
+    fileprivate var propagated: DistanceTree {
+        
+        /// Propagate up and accumulate the maximum of the sums of children values
+        func propagateUp(_ tree: DistanceTree) -> DistanceTree {
+            
+            guard case .branch(let value, let trees) = tree else {
+                return tree
+            }
+            
+            let newTrees = trees.map(propagateUp)
+            let max = newTrees.map { $0.value }.max()!
+            return .branch(value + max, newTrees)
+        }
+        
+        /// Takes in the original distance tree, and a distance tree which has already
+        /// had its values propagated up to the root, as well as an inherited value which is passed
+        /// along between levels.
+        ///
+        /// - note: Need to make inherited optional? // this smells
+        func propagateDown(
+            _ original: DistanceTree,
+            _ propagatedUp: DistanceTree,
+            inherited: Int?
+            ) -> DistanceTree
+        {
+            
+            switch (original, propagatedUp) {
+                
+            // If we are leaf,
+            case (.leaf, .leaf):
+                return .leaf(inherited!)
+                
+            // Replace value with inherited (if present), or already propagated
+            case (.branch(let original, let oTrees), .branch(let propagated, let pTrees)):
+                
+                let value = inherited ?? propagated
+                let subTrees = zip(oTrees, pTrees).map { o, p in
+                    propagateDown(o, p, inherited: value - original)
+                }
+                
+                return .branch(value, subTrees)
+                
+            // Enforce same-shaped trees
+            default:
+                fatalError("Incompatible trees")
+            }
+            
+            return propagatedUp
+        }
+        
+        let propagatedUp = propagateUp(self)
+        return propagateDown(self, propagatedUp, inherited: nil)
     }
 }

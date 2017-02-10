@@ -16,19 +16,19 @@ class RhythmTreeTests: XCTestCase {
 //        _ = RhythmTree(MetricalDuration(1,8), [1,2,3,4])
 //    }
 //
-    func testInitEmptyArray() {
-        
-        let rt = 3/>16 * []
-        
-        guard case .branch(let node, let trees) = rt else {
-            XCTFail()
-            return
-        }
-        
-        XCTAssertEqual(node.duration, 3/>16)
-        XCTAssertEqual(trees.count, 1)
-        XCTAssertEqual(trees.first!.duration, 3/>16)
-    }
+//    func testInitEmptyArray() {
+//        
+//        let rt = 3/>16 * []
+//        
+//        guard case .branch(let node, let trees) = rt else {
+//            XCTFail()
+//            return
+//        }
+//        
+//        XCTAssertEqual(node.duration, 3/>16)
+//        XCTAssertEqual(trees.count, 1)
+//        XCTAssertEqual(trees.first!.duration, 3/>16)
+//    }
 //
 //    func testSingleLeaf() {
 //        let rt = RhythmTree(1/>8, [1])

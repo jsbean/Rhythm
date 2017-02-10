@@ -9,26 +9,18 @@
 /* Begin PBXBuildFile section */
 		0708C2F61E429FBB00098684 /* ArithmeticTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2F31E429FBB00098684 /* ArithmeticTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C2F71E429FBB00098684 /* Collections.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2F41E429FBB00098684 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0708C2F81E429FBB00098684 /* IntervalTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2F51E429FBB00098684 /* IntervalTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C2F91E429FBF00098684 /* Rhythm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4816E5E4EE43ABE036DA477E /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C2FA1E42A04900098684 /* ArithmeticTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2F31E429FBB00098684 /* ArithmeticTools.framework */; };
 		0708C2FB1E42A04900098684 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2F41E429FBB00098684 /* Collections.framework */; };
-		0708C2FC1E42A04900098684 /* IntervalTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2F51E429FBB00098684 /* IntervalTools.framework */; };
 		0708C2FD1E42A04F00098684 /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4816E5E4EE43ABE036DA477E /* Rhythm.framework */; };
 		0708C3011E42A06900098684 /* ArithmeticTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2FE1E42A06900098684 /* ArithmeticTools.framework */; };
 		0708C3021E42A06900098684 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C2FF1E42A06900098684 /* Collections.framework */; };
-		0708C3031E42A06900098684 /* IntervalTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708C3001E42A06900098684 /* IntervalTools.framework */; };
 		0708C3051E42A1DC00098684 /* ArithmeticTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2FE1E42A06900098684 /* ArithmeticTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3061E42A1DC00098684 /* Collections.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2FF1E42A06900098684 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0708C3071E42A1DC00098684 /* IntervalTools.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C3001E42A06900098684 /* IntervalTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3081E42A1DE00098684 /* Rhythm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3091E42A25600098684 /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; };
 		072CBDA71E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */; };
 		072CBDA81E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */; };
-		072CBDAA1E4AC0EE00B5001B /* MetricalContextTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072CBDA91E4AC0EE00B5001B /* MetricalContextTree.swift */; };
-		072CBDAB1E4AC0EE00B5001B /* MetricalContextTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072CBDA91E4AC0EE00B5001B /* MetricalContextTree.swift */; };
-		073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
-		073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */; };
 		073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074309791E4419CB002B88A1 /* ProportionTree.swift */; };
@@ -37,26 +29,14 @@
 		0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
-		077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */; };
-		077554781E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */; };
 		0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554791E1B163600CF4A8A /* RhythmTree.swift */; };
 		0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554791E1B163600CF4A8A /* RhythmTree.swift */; };
-		0775547D1E1B168000CF4A8A /* ContinuationOrInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */; };
-		0775547E1E1B168000CF4A8A /* ContinuationOrInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */; };
-		077554801E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */; };
-		077554811E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */; };
-		077554841E1B1DC900CF4A8A /* MetricalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554831E1B1DC900CF4A8A /* MetricalValue.swift */; };
-		077554851E1B1DC900CF4A8A /* MetricalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554831E1B1DC900CF4A8A /* MetricalValue.swift */; };
 		077554871E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */; };
 		077554881E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */; };
 		0775548B1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */; };
 		0775548C1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */; };
-		0775548E1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */; };
-		0775548F1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */; };
-		07DA01F61E4D50AD00F44B67 /* DistanceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DA01F51E4D50AD00F44B67 /* DistanceTree.swift */; };
-		07DA01F71E4D50AD00F44B67 /* DistanceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DA01F51E4D50AD00F44B67 /* DistanceTree.swift */; };
-		07F62EB71E4BB74500940E96 /* TreeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB61E4BB74500940E96 /* TreeExtensions.swift */; };
-		07F62EB81E4BB74500940E96 /* TreeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB61E4BB74500940E96 /* TreeExtensions.swift */; };
+		07BC8B221E4E599400605430 /* MetricalDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC8B211E4E599400605430 /* MetricalDurationTreeTests.swift */; };
+		07BC8B231E4E599400605430 /* MetricalDurationTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC8B211E4E599400605430 /* MetricalDurationTreeTests.swift */; };
 		07F62EBA1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */; };
 		07F62EBB1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,7 +74,6 @@
 				0708C2F91E429FBF00098684 /* Rhythm.framework in CopyFiles */,
 				0708C2F61E429FBB00098684 /* ArithmeticTools.framework in CopyFiles */,
 				0708C2F71E429FBB00098684 /* Collections.framework in CopyFiles */,
-				0708C2F81E429FBB00098684 /* IntervalTools.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +86,6 @@
 				0708C3081E42A1DE00098684 /* Rhythm.framework in CopyFiles */,
 				0708C3051E42A1DC00098684 /* ArithmeticTools.framework in CopyFiles */,
 				0708C3061E42A1DC00098684 /* Collections.framework in CopyFiles */,
-				0708C3071E42A1DC00098684 /* IntervalTools.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,22 +99,14 @@
 		0708C2FF1E42A06900098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/Mac/Collections.framework; sourceTree = "<group>"; };
 		0708C3001E42A06900098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/Mac/IntervalTools.framework; sourceTree = "<group>"; };
 		072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTree.swift; path = Rhythm/MetricalDurationTree.swift; sourceTree = "<group>"; };
-		072CBDA91E4AC0EE00B5001B /* MetricalContextTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalContextTree.swift; path = Rhythm/MetricalContextTree.swift; sourceTree = "<group>"; };
-		073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationIntervalTests.swift; path = RhythmTests/MetricalDurationIntervalTests.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		074309791E4419CB002B88A1 /* ProportionTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTree.swift; path = Rhythm/ProportionTree.swift; sourceTree = "<group>"; };
 		0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTreeTests.swift; path = RhythmTests/ProportionTreeTests.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
-		077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationInterval.swift; path = Rhythm/MetricalDurationInterval.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
-		0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContinuationOrInstance.swift; path = Rhythm/ContinuationOrInstance.swift; sourceTree = "<group>"; };
-		0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbsenceOrEvent.swift; path = Rhythm/AbsenceOrEvent.swift; sourceTree = "<group>"; };
-		077554831E1B1DC900CF4A8A /* MetricalValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalValue.swift; path = Rhythm/MetricalValue.swift; sourceTree = "<group>"; };
 		077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTreeTests.swift; path = RhythmTests/RhythmTreeTests.swift; sourceTree = "<group>"; };
 		0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalContext.swift; path = Rhythm/MetricalContext.swift; sourceTree = "<group>"; };
-		0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalLeaf.swift; path = Rhythm/MetricalLeaf.swift; sourceTree = "<group>"; };
-		07DA01F51E4D50AD00F44B67 /* DistanceTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DistanceTree.swift; path = Rhythm/DistanceTree.swift; sourceTree = "<group>"; };
-		07F62EB61E4BB74500940E96 /* TreeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TreeExtensions.swift; path = Rhythm/TreeExtensions.swift; sourceTree = "<group>"; };
+		07BC8B211E4E599400605430 /* MetricalDurationTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTreeTests.swift; path = RhythmTests/MetricalDurationTreeTests.swift; sourceTree = "<group>"; };
 		07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TreeExtensionTests.swift; path = RhythmTests/TreeExtensionTests.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,7 +128,6 @@
 				0708C2FD1E42A04F00098684 /* Rhythm.framework in Frameworks */,
 				0708C2FA1E42A04900098684 /* ArithmeticTools.framework in Frameworks */,
 				0708C2FB1E42A04900098684 /* Collections.framework in Frameworks */,
-				0708C2FC1E42A04900098684 /* IntervalTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +146,6 @@
 				0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */,
 				0708C3011E42A06900098684 /* ArithmeticTools.framework in Frameworks */,
 				0708C3021E42A06900098684 /* Collections.framework in Frameworks */,
-				0708C3031E42A06900098684 /* IntervalTools.framework in Frameworks */,
 				0708C3091E42A25600098684 /* Rhythm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,17 +164,10 @@
 		077554891E1B41B700CF4A8A /* RhythmTree */ = {
 			isa = PBXGroup;
 			children = (
-				07F62EB61E4BB74500940E96 /* TreeExtensions.swift */,
 				077554791E1B163600CF4A8A /* RhythmTree.swift */,
 				072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */,
-				072CBDA91E4AC0EE00B5001B /* MetricalContextTree.swift */,
-				0775548D1E1B41E000CF4A8A /* MetricalLeaf.swift */,
-				077554831E1B1DC900CF4A8A /* MetricalValue.swift */,
-				0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */,
-				0775547F1E1B175700CF4A8A /* AbsenceOrEvent.swift */,
-				0775547C1E1B168000CF4A8A /* ContinuationOrInstance.swift */,
 				074309791E4419CB002B88A1 /* ProportionTree.swift */,
-				07DA01F51E4D50AD00F44B67 /* DistanceTree.swift */,
+				0775548A1E1B41CB00CF4A8A /* MetricalContext.swift */,
 			);
 			name = RhythmTree;
 			sourceTree = "<group>";
@@ -244,6 +205,7 @@
 		2A20CC2BA48EEA5832DD3C55 = {
 			isa = PBXGroup;
 			children = (
+				07BC8B211E4E599400605430 /* MetricalDurationTreeTests.swift */,
 				0C2F3BB7816215EB53BF9C87 /* Products */,
 				E2DC53D615610873A66D3AE0 /* Frameworks */,
 				951A80563DF32A0F2F6A5C50 /* Rhythm */,
@@ -267,7 +229,6 @@
 				077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */,
 				07F62EB91E4BB79000940E96 /* TreeExtensionTests.swift */,
 				0743097C1E441A23002B88A1 /* ProportionTreeTests.swift */,
-				073EC7201E3D2A4900B63692 /* MetricalDurationIntervalTests.swift */,
 				073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */,
 			);
 			name = RhythmTests;
@@ -278,7 +239,6 @@
 			children = (
 				825F35607C284149FAAA3A72 /* Supporting Files */,
 				077554731E1B12A700CF4A8A /* MetricalDuration.swift */,
-				077554761E1B139500CF4A8A /* MetricalDurationInterval.swift */,
 				077554891E1B41B700CF4A8A /* RhythmTree */,
 			);
 			name = Rhythm;
@@ -450,7 +410,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/ArithmeticTools.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Collections.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/IntervalTools.framework",
 			);
 			outputPaths = (
 			);
@@ -466,7 +425,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/ArithmeticTools.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/Collections.framework",
-				"$(SRCROOT)/Carthage/Build/Mac/IntervalTools.framework",
 			);
 			outputPaths = (
 			);
@@ -483,7 +441,7 @@
 			files = (
 				07F62EBB1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */,
 				077554881E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
-				073EC7221E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
+				07BC8B231E4E599400605430 /* MetricalDurationTreeTests.swift in Sources */,
 				073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
 				0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 			);
@@ -494,18 +452,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0775548C1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
-				077554811E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
 				072CBDA81E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
 				0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
-				072CBDAB1E4AC0EE00B5001B /* MetricalContextTree.swift in Sources */,
-				077554851E1B1DC900CF4A8A /* MetricalValue.swift in Sources */,
-				07DA01F71E4D50AD00F44B67 /* DistanceTree.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
-				0775547E1E1B168000CF4A8A /* ContinuationOrInstance.swift in Sources */,
-				0775548F1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */,
 				077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
-				077554781E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */,
-				07F62EB81E4BB74500940E96 /* TreeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +465,7 @@
 			files = (
 				07F62EBA1E4BB79000940E96 /* TreeExtensionTests.swift in Sources */,
 				077554871E1B370C00CF4A8A /* RhythmTreeTests.swift in Sources */,
-				073EC7211E3D2A4900B63692 /* MetricalDurationIntervalTests.swift in Sources */,
+				07BC8B221E4E599400605430 /* MetricalDurationTreeTests.swift in Sources */,
 				073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
 				0743097D1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 			);
@@ -526,18 +476,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0775548B1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
-				077554801E1B175700CF4A8A /* AbsenceOrEvent.swift in Sources */,
 				072CBDA71E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
-				072CBDAA1E4AC0EE00B5001B /* MetricalContextTree.swift in Sources */,
-				077554841E1B1DC900CF4A8A /* MetricalValue.swift in Sources */,
-				07DA01F61E4D50AD00F44B67 /* DistanceTree.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
-				0775547D1E1B168000CF4A8A /* ContinuationOrInstance.swift in Sources */,
-				0775548E1E1B41E000CF4A8A /* MetricalLeaf.swift in Sources */,
 				077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
-				077554771E1B139500CF4A8A /* MetricalDurationInterval.swift in Sources */,
-				07F62EB71E4BB74500940E96 /* TreeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,10 +552,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(SRCROOT)/Carthage/Build/Mac";
@@ -634,10 +573,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(SRCROOT)/Carthage/Build/Mac";
@@ -760,10 +696,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
@@ -850,10 +783,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = RhythmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;

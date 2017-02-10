@@ -29,7 +29,7 @@ public struct MetricalDuration: Rational {
     public init(_ numerator: Int, _ denominator: Int) {
         
         guard denominator.isPowerOfTwo else {
-            fatalError("Cannot create MetricalDuration with non-power-of-two denominator")
+            fatalError("Cannot create MetricalDuration with non-power-of-two denominator: \(numerator)/\(denominator)")
         }
         
         self.numerator = numerator
@@ -37,14 +37,9 @@ public struct MetricalDuration: Rational {
     }
 }
 
-precedencegroup MetricalDurationInitializationPrecedence {
-    associativity: left
-    higherThan: MetricalDurationIntervalInitializationPrecedence
-}
+infix operator /> : BitwiseShiftPrecedence
 
-infix operator /> : MetricalDurationInitializationPrecedence
-
-/// Create a `MetricalDuration` with the `=>` operator between two `Int` values.
+/// Create a `MetricalDuration` with the `/>` operator between two `Int` values.
 public func /> (numerator: Int, denominator: Int) -> MetricalDuration {
     return MetricalDuration(numerator, denominator)
 }

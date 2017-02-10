@@ -181,75 +181,7 @@ class ProportionTreeTests: XCTestCase {
 
         XCTAssert(result == expected)
     }
-    
-    func testPropagatedDistanceTreeVeryNested() {
         
-        let distanceTree = Tree.branch(3, [
-            .branch(1, [
-                .branch(0, [
-                    .leaf(0),
-                    .leaf(0)
-                    ]),
-                .leaf(0)
-            ]),
-            .branch(2, [
-                .leaf(0),
-                .leaf(0),
-                .branch(-1, [
-                    .leaf(0),
-                    .leaf(0)
-                    ]),
-                .leaf(0),
-                .branch(2, [
-                    .leaf(0),
-                    .leaf(0)
-                ])
-            ]),
-            .branch(1, [
-                .leaf(0),
-                .leaf(0),
-                .branch(5, [
-                    .leaf(0),
-                    .leaf(0)
-                ])
-            ])
-        ])
-        
-        let expected = Tree.branch(9, [
-            .branch(6, [
-                .branch(5, [
-                    .leaf(5),
-                    .leaf(5)
-                ]),
-                .leaf(5)
-            ]),
-            .branch(6, [
-                .leaf(4),
-                .leaf(4),
-                .branch(4, [
-                    .leaf(5),
-                    .leaf(5)
-                ]),
-                .leaf(4),
-                .branch(4, [
-                    .leaf(2),
-                    .leaf(2)
-                ])
-            ]),
-            .branch(6, [
-                .leaf(5),
-                .leaf(5),
-                .branch(5, [
-                    .leaf(0),
-                    .leaf(0)
-                ])
-            ])
-        ])
-        
-        let result = distanceTree.propagated
-        XCTAssert(result == expected)
-    }
-    
     func testNormalizeVeryNested() {
     
         let expected = Tree.branch(512, [

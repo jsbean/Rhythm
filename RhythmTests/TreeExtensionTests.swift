@@ -12,54 +12,54 @@ import Rhythm
 
 class TreeExtensionTests: XCTestCase {
     
-    func testInitSingleDepthArray() {
-        
-        let tree = Tree<Int>([1,[1,2,3]])
-        
-        let expected = Tree.branch(1, [
-            .leaf(1),
-            .leaf(2),
-            .leaf(3)
-            ])
-        
-        XCTAssert(tree == expected)
-    }
+//    func testInitSingleDepthArray() {
+//        
+//        let tree = Tree<Int>([1,[1,2,3]])
+//        
+//        let expected = Tree.branch(1, [
+//            .leaf(1),
+//            .leaf(2),
+//            .leaf(3)
+//            ])
+//        
+//        XCTAssert(tree == expected)
+//    }
     
-    func testInitArrayNestedSimple() {
-        
-        let tree = Tree<Int>([-1,[1,[-1,[2,3,4]],5]])
-        
-        let expected = Tree.branch(-1, [
-            .leaf(1),
-            .branch(-1, [
-                .leaf(2),
-                .leaf(3),
-                .leaf(4)
-                ]),
-            .leaf(5)
-            ])
-        
-        XCTAssert(tree == expected)
-    }
+//    func testInitArrayNestedSimple() {
+//        
+//        let tree = Tree<Int>([-1,[1,[-1,[2,3,4]],5]])
+//        
+//        let expected = Tree.branch(-1, [
+//            .leaf(1),
+//            .branch(-1, [
+//                .leaf(2),
+//                .leaf(3),
+//                .leaf(4)
+//                ]),
+//            .leaf(5)
+//            ])
+//        
+//        XCTAssert(tree == expected)
+//    }
     
-    func testInitArrayMultipleNested() {
-        
-        let tree = Tree<Int>([-1,[[-1,[1]],[-1,[2,3,4]],5]])
-        
-        let expected = Tree.branch(-1, [
-            .branch(-1, [
-                .leaf(1)
-                ]),
-            .branch(-1, [
-                .leaf(2),
-                .leaf(3),
-                .leaf(4)
-                ]),
-            .leaf(5)
-            ])
-        
-        XCTAssert(tree == expected)
-    }
+//    func testInitArrayMultipleNested() {
+//        
+//        let tree = Tree<Int>([-1,[[-1,[1]],[-1,[2,3,4]],5]])
+//        
+//        let expected = Tree.branch(-1, [
+//            .branch(-1, [
+//                .leaf(1)
+//                ]),
+//            .branch(-1, [
+//                .leaf(2),
+//                .leaf(3),
+//                .leaf(4)
+//                ]),
+//            .leaf(5)
+//            ])
+//        
+//        XCTAssert(tree == expected)
+//    }
     
 //    `testInitArrayVeryNested()` is deactivated because it hangs the compiler for a few
 //    seconds.
