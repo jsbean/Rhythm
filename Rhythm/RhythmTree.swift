@@ -9,64 +9,45 @@
 import Collections
 import ArithmeticTools
 
-/// Wraps heterogeneous data types for `leaf` and `branch` cases in a `RhythmTree`.
-///
-/// In a `RhythmTree`, a `branch` holds only a `MetricalDuration`, while a `leaf` holds both a
-/// `MetricalDuration` and a `MetricalContext<T>`.
-///
-/// Operations on nodes within a `RhythmTree` will have to deconstruct this type.
-public enum RhythmNode <T> {
+/// `Tree` that extends a `MetricalDurationTree` with `MetricalContext<T>` values for `leaf`
+/// nodes.
+public struct RhythmTree <T: Equatable> {
     
-    /// `RhythmTree.leaf` nodes hold a `MetricalDuration` and a `MetricalContext<T>`
-    case leaf(MetricalDuration, MetricalContext<T>)
+    public let metricalDurationTree: MetricalDurationTree
+    public let leafContexts: [MetricalContext<T>]
     
-    /// `RhythmTree.branch` nodes hold only a `MetricalDuration`.
-    case branch(MetricalDuration)
-    
-    /// The `MetricalDuration` value of this `RhythmNode`.
-    public var duration: MetricalDuration {
-        switch self {
-        case .leaf(let duration, _):
-            return duration
-        case .branch(let duration):
-            return duration
+    public init(
+        _ metricalDurationTree: MetricalDurationTree,
+        _ leafContexts: [MetricalContext<T>]
+    )
+    {
+        
+        /// This is an expensive check (`tree.leaves` is O(n))
+        guard leafContexts.count == metricalDurationTree.leaves.count else {
+            fatalError("Incompatible leaf contexts for tree")
         }
+        
+        self.metricalDurationTree = metricalDurationTree
+        self.leafContexts = leafContexts
+    }
+    
+    // TODO: Add node with contexts
+    // TODO: Insert ""
+    // TODO: Remove node
+}
+
+extension RhythmTree: Equatable {
+    
+    public static func == <T: Equatable> (lhs: RhythmTree<T>, rhs: RhythmTree<T>) -> Bool {
+        return (
+            lhs.metricalDurationTree == rhs.metricalDurationTree &&
+            lhs.leafContexts == rhs.leafContexts
+        )
     }
 }
 
-/// `Tree` that extends a `MetricalDurationTree` with `MetricalContext<T>` values in the `leaf`
-/// nodes.
-public typealias RhythmTree = Tree<RhythmNode<Int>>
 
-extension Tree where T == RhythmNode<Int> {
-    
-    /// The `MetricalDuration` value of this `RhythmTree` node.
-    public var duration: MetricalDuration {
-        
-        switch self {
-        case .leaf(let node):
-            return node.duration
-        case .branch(let node, _):
-            return node.duration
-        }
-    }
-    
-    /// Create a `RhythmTree` with the `MetricalDuration` values of the given 
-    /// `metricalDurationTree`, mapped with `event`.
-    public init(_ metricalDurationTree: MetricalDurationTree) {
-        
-        func traverse(_ tree: MetricalDurationTree) -> RhythmTree {
-            
-            switch tree {
-            case .leaf(let value):
-                let leaf = RhythmNode.leaf(value, .instance(.event(1)))
-                return .leaf(leaf)
-            case .branch(let value, let trees):
-                let branch = RhythmNode<Int>.branch(value)
-                return .branch(branch, trees.map(traverse))
-            }
-        }
-        
-        self = traverse(metricalDurationTree)
-    }
+/// - returns: `RhythmTree` with the given `MetricalDurationTree` and `MetricalContext` values.
+public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> RhythmTree<T> {
+    return RhythmTree(lhs, rhs)
 }
