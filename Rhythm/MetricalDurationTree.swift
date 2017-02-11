@@ -25,6 +25,11 @@ extension Tree where T == MetricalDuration {
         }
     }
     
+    /// - returns: `Tree` containing the inherited scale of each node contained herein.
+    public var scaling: Tree<Float> {
+        return map { $0.numerator }.scaling
+    }
+    
     /// Create a `MetricalDurationTree` with the beat values of the given `proportionTree`
     /// with the given `subdivision`.
     ///
