@@ -280,7 +280,7 @@ class ProportionTreeTests: XCTestCase {
         let tree = ProportionTree([1,[1,1,1]])
         
         let value = Fraction(2,3)
-        let expected = Tree<Fraction>.branch(Fraction(1,1), [
+        let expected = Tree<Fraction>.branch(1, [
             .leaf(value),
             .leaf(value),
             .leaf(value)

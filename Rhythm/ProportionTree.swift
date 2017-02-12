@@ -33,7 +33,7 @@ extension Tree where T == Int {
             }
         }
         
-        return traverse(self, accum: Fraction(1,1))
+        return traverse(self, accum: 1)
     }
     
     /// - returns: A new `ProportionTree` in which the value of each node can be represented
