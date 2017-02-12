@@ -16,9 +16,9 @@ public typealias ProportionTree = Tree<Int>
 
 extension Tree where T == Int {
     
-    public var scaling: Tree<Float> {
+    public var scaling: Tree<Fraction> {
 
-        func traverse(_ tree: ProportionTree, accum: Float) -> Tree<Float> {
+        func traverse(_ tree: ProportionTree, accum: Fraction) -> Tree<Fraction> {
             
             switch tree {
             case .leaf:
@@ -27,12 +27,13 @@ extension Tree where T == Int {
             case .branch(let duration, let trees):
                 
                 let sum = trees.map { $0.value }.sum
-                let scale = Float(duration) / Float(sum)
-                return .branch(accum, trees.map { traverse($0, accum: scale * accum) })
+                let scale = Fraction(duration, sum)
+                
+                return .branch(accum, trees.map { traverse($0, accum: accum * scale) })
             }
         }
         
-        return traverse(self, accum: 1)
+        return traverse(self, accum: Fraction(1,1))
     }
     
     /// - returns: A new `ProportionTree` in which the value of each node can be represented

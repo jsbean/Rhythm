@@ -26,7 +26,9 @@ extension Tree where T == MetricalDuration {
     }
     
     /// - returns: `Tree` containing the inherited scale of each node contained herein.
-    public var scaling: Tree<Float> {
+    ///
+    /// - TODO: Consider making this a `Tree<Rational>` as opposed to `Tree<Float>`
+    public var scaling: Tree<Fraction> {
         return map { $0.numerator }.scaling
     }
     
@@ -55,6 +57,10 @@ extension Tree where T == MetricalDuration {
         let newSubdivision = Int(Double(subdivision) * Double(quotient))
 
         self.init(newSubdivision, normalized)
+    }
+    
+    public var leafOffsets: [(MetricalDuration, Fraction)] {
+        return zip(leaves.accumulatingRight, scaling.leaves).map { ($0,$1) }
     }
 }
 

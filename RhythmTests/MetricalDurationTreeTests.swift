@@ -141,4 +141,10 @@ class MetricalDurationTreeTests: XCTestCase {
 
         XCTAssertEqual(duration, 8/>64)
     }
+    
+    func testLeafOffsets() {
+        
+        let tree = 1/>8 * [1,1,1]
+        print(tree.leafOffsets)
+    }
 }
