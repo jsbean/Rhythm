@@ -32,7 +32,8 @@ extension Tree where T == MetricalDuration {
         return map { $0.numerator }.scaling
     }
     
-    /// - returns: Array of tuples containing the offset of each leaf, with the
+    /// - returns: Array of tuples containing the scaled offset from the start of this
+    /// `MetricalDurationTree`.
     public var leafOffsets: [Fraction] {
         return zip(leaves.accumulatingRight, scaling.leaves).map { $0 * $1 }
     }
