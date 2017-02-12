@@ -26,8 +26,16 @@ extension Tree where T == MetricalDuration {
     }
     
     /// - returns: `Tree` containing the inherited scale of each node contained herein.
-    public var scaling: Tree<Float> {
+    ///
+    /// - TODO: Consider making this a `Tree<Rational>` as opposed to `Tree<Float>`
+    public var scaling: Tree<Fraction> {
         return map { $0.numerator }.scaling
+    }
+    
+    /// - returns: Array of tuples containing the scaled offset from the start of this
+    /// `MetricalDurationTree`.
+    public var leafOffsets: [Fraction] {
+        return zip(leaves.accumulatingRight, scaling.leaves).map { $0 * $1 }
     }
     
     /// Create a `MetricalDurationTree` with the beat values of the given `proportionTree`

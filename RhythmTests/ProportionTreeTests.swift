@@ -8,6 +8,7 @@
 
 import XCTest
 import Collections
+import ArithmeticTools
 @testable import Rhythm
 
 class ProportionTreeTests: XCTestCase {
@@ -278,8 +279,8 @@ class ProportionTreeTests: XCTestCase {
         
         let tree = ProportionTree([1,[1,1,1]])
         
-        let value: Float = 2/3
-        let expected = Tree<Float>.branch(1, [
+        let value = Fraction(2,3)
+        let expected = Tree<Fraction>.branch(1, [
             .leaf(value),
             .leaf(value),
             .leaf(value)

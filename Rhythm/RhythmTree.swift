@@ -46,7 +46,6 @@ extension RhythmTree: Equatable {
     }
 }
 
-
 /// - returns: `RhythmTree` with the given `MetricalDurationTree` and `MetricalContext` values.
 public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> RhythmTree<T> {
     return RhythmTree(lhs, rhs)
