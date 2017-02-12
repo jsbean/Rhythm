@@ -32,6 +32,11 @@ extension Tree where T == MetricalDuration {
         return map { $0.numerator }.scaling
     }
     
+    /// - returns: Array of tuples containing the offset of each leaf, with the
+    public var leafOffsets: [Fraction] {
+        return zip(leaves.accumulatingRight, scaling.leaves).map { $0 * $1 }
+    }
+    
     /// Create a `MetricalDurationTree` with the beat values of the given `proportionTree`
     /// with the given `subdivision`.
     ///
@@ -57,10 +62,6 @@ extension Tree where T == MetricalDuration {
         let newSubdivision = Int(Double(subdivision) * Double(quotient))
 
         self.init(newSubdivision, normalized)
-    }
-    
-    public var leafOffsets: [(MetricalDuration, Fraction)] {
-        return zip(leaves.accumulatingRight, scaling.leaves).map { ($0,$1) }
     }
 }
 

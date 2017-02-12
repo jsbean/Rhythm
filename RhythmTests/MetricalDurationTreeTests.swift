@@ -8,6 +8,7 @@
 
 import XCTest
 import Collections
+import ArithmeticTools
 import Rhythm
 
 class MetricalDurationTreeTests: XCTestCase {
@@ -96,7 +97,7 @@ class MetricalDurationTreeTests: XCTestCase {
 
     func testInitWithRelativeDurations() {
 
-        let tree = 1/>8 * [1,2,3,4,1] // sum: 11, should turn container to 11:8[64]
+        let tree = 1/>8 * [1,2,3,4,1]
 
         guard case .branch(let duration, _) = tree else {
             XCTFail()
@@ -143,8 +144,7 @@ class MetricalDurationTreeTests: XCTestCase {
     }
     
     func testLeafOffsets() {
-        
         let tree = 1/>8 * [1,1,1]
-        print(tree.leafOffsets)
+        XCTAssertEqual(tree.leafOffsets, [Fraction(0,1), Fraction(1,24), Fraction(1,12)])
     }
 }
