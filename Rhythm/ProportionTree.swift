@@ -16,6 +16,7 @@ public typealias ProportionTree = Tree<Int>
 
 extension Tree where T == Int {
     
+    /// - returns: `Tree` containing the inherited scale of each node contained herein.
     public var scaling: Tree<Fraction> {
 
         func traverse(_ tree: ProportionTree, accum: Fraction) -> Tree<Fraction> {
@@ -40,8 +41,10 @@ extension Tree where T == Int {
     /// with the same subdivision-level (denominator).
     public var normalized: ProportionTree {
         
+        // Pre-processing
+        
         // Reduce each level of children by their `gcd`
-        let siblingsReduced = self.reducingSiblings
+        let siblingsReduced = reducingSiblings
         
         // Match parent values to the closest power-of-two to the sum of their children values.
         let parentsMatched = siblingsReduced.matchingParentsToChildren
@@ -50,11 +53,18 @@ extension Tree where T == Int {
         // `reduced` tree to properly match the values in a `parentsMatched` tree.
         let distances = zip(siblingsReduced, parentsMatched, encodeDistance).propagated
         
+        // Processing
+        
         /// Multiply each value in `siblingsReduced` by the corrosponding multiplier in the
         /// `ProportionTree`.
-        ///
-        /// Then, ensure there are no leaves dangling unmatched to their parents.
-        return zip(siblingsReduced, distances, decodeDuration).matchingChildrenToParents
+        let updatedTree = zip(siblingsReduced, distances, decodeDuration)
+        
+        // Post-processing
+        
+        /// Ensure there are no leaves dangling unmatched to their parents.
+        let childrenMatched = updatedTree.matchingChildrenToParents
+
+        return childrenMatched
     }
     
     /// - returns: A new `ProportionTree` for which each level of sub-trees is at its most

@@ -26,8 +26,6 @@ extension Tree where T == MetricalDuration {
     }
     
     /// - returns: `Tree` containing the inherited scale of each node contained herein.
-    ///
-    /// - TODO: Consider making this a `Tree<Rational>` as opposed to `Tree<Float>`
     public var scaling: Tree<Fraction> {
         return map { $0.numerator }.scaling
     }
