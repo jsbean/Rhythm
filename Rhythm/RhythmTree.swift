@@ -42,6 +42,7 @@ public struct RhythmTree <T: Equatable> {
     // TODO: Remove node
 }
 
+/// - TODO: Implement `RhythmSequence`.
 extension Sequence where Iterator.Element == RhythmTree<Int> {
     
     /// - returns: Effective durations of events, merging tied durations.
@@ -76,20 +77,6 @@ extension Sequence where Iterator.Element == RhythmTree<Int> {
         }
         
         return merge(flatMap { $0.leaves }, accum: [], tied: nil)
-    }
-}
-
-
-extension Array {
-    
-    /// - TODO: Move to `Collections`.
-    public static func + (lhs: Array, rhs: Element?) -> Array {
-        
-        if let element = rhs {
-            return lhs + element
-        }
-        
-        return lhs
     }
 }
 
