@@ -6,8 +6,6 @@
 //
 //
 
-import Foundation
-
 /// Model of a `Tempo`.
 public struct Tempo {
     
@@ -65,7 +63,7 @@ extension Tempo {
     
     // MARK: - Equatable
     
-    /// - returns: `true` if `Tempo` values are equivalent. Otherwise, `false.
+    /// - returns: `true` if `Tempo` values are equivalent. Otherwise, `false`.
     public static func == (lhs: Tempo, rhs: Tempo) -> Bool {
         return lhs.doubleValue == rhs.doubleValue
     }
