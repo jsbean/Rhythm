@@ -25,10 +25,7 @@ public struct Tempo {
     
     /// Value of `Tempo`.
     public let value: Double
-    
-    /// 1 = whole note, 2 = half note, 4 = quarter note, 8 = eighth note, 16 = sixteenth note,
-    /// etc.
-    
+
     /// Subdivision of `Tempo`.
     ///
     /// - 1: whole note
