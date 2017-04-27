@@ -6,7 +6,7 @@ env:
   matrix:
     - DESTINATION="platform=iOS Simulator,OS=9.3,name=iPad 2"
       SCHEME="Rhythm iOS"
-    - DESTINATION="platform=iOS Simulator,OS=10.0,name=iPad Pro (12.9 inch)"
+    - DESTINATION="platform=iOS Simulator,OS=10.2,name=iPad Pro (12.9-inch)"
       SCHEME="Rhythm iOS"
     - DESTINATION="platform=OS X"
       SCHEME="Rhythm macOS"
