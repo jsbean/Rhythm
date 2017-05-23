@@ -19,4 +19,6 @@ public struct BeatContext {
 
     /// Subdivision of `BeatContext`.
     public let subdivision: Int
+    
+
 }
