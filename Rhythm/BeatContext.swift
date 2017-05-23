@@ -9,9 +9,6 @@
 /// Information about a given beat within a `Meter`.
 public struct BeatContext {
     
-    /// `Meter` containing `BeatContext`.
-    public let meter: Meter
-    
     /// Offset in amount of beats at given subdivision level from downbeat.
     ///
     /// - Note: Downbeat = 0
