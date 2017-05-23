@@ -18,15 +18,15 @@ public struct MetricalDuration: Rational {
     // MARK: - Instance Properties
     
     /// Numerator.
-    public let numerator: Int
+    public let numerator: Beats
 
     /// Denominator.
-    public let denominator: Int
+    public let denominator: Subdivision
     
     // MARK: - Initializers
     
     /// Create a `MetricalDuration` with a `numerator` and `denominator`.
-    public init(_ numerator: Int, _ denominator: Int) {
+    public init(_ numerator: Beats, _ denominator: Subdivision) {
         
         guard denominator.isPowerOfTwo else {
             fatalError(
@@ -43,6 +43,6 @@ public struct MetricalDuration: Rational {
 infix operator /> : BitwiseShiftPrecedence
 
 /// Create a `MetricalDuration` with the `/>` operator between two `Int` values.
-public func /> (numerator: Int, denominator: Int) -> MetricalDuration {
+public func /> (numerator: Beats, denominator: Subdivision) -> MetricalDuration {
     return MetricalDuration(numerator, denominator)
 }
