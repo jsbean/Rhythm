@@ -8,4 +8,3 @@
 
 /// Type used to represent subdivision values in a metrical organization of time.
 public typealias Subdivision = Int
-
