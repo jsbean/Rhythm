@@ -39,6 +39,10 @@
 		075C30581EB161A2008DB1D6 /* MeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C30561EB161A2008DB1D6 /* MeterTests.swift */; };
 		0771A5E11ED4ADA300733CFF /* BeatContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A5E01ED4ADA300733CFF /* BeatContext.swift */; };
 		0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A5E01ED4ADA300733CFF /* BeatContext.swift */; };
+		0771A5E71ED4B94E00733CFF /* Beats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A5E61ED4B94E00733CFF /* Beats.swift */; };
+		0771A5E81ED4B94E00733CFF /* Beats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A5E61ED4B94E00733CFF /* Beats.swift */; };
+		0771A5EA1ED4B99300733CFF /* Subdivision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A5E91ED4B99300733CFF /* Subdivision.swift */; };
+		0771A5EB1ED4B99300733CFF /* Subdivision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A5E91ED4B99300733CFF /* Subdivision.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554791E1B163600CF4A8A /* RhythmTree.swift */; };
@@ -118,6 +122,8 @@
 		075C30531EB1618D008DB1D6 /* TempoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempoTests.swift; path = RhythmTests/TempoTests.swift; sourceTree = "<group>"; };
 		075C30561EB161A2008DB1D6 /* MeterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeterTests.swift; path = RhythmTests/MeterTests.swift; sourceTree = "<group>"; };
 		0771A5E01ED4ADA300733CFF /* BeatContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeatContext.swift; path = Rhythm/BeatContext.swift; sourceTree = "<group>"; };
+		0771A5E61ED4B94E00733CFF /* Beats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Beats.swift; path = Rhythm/Beats.swift; sourceTree = "<group>"; };
+		0771A5E91ED4B99300733CFF /* Subdivision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subdivision.swift; path = Rhythm/Subdivision.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
 		077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTreeTests.swift; path = RhythmTests/RhythmTreeTests.swift; sourceTree = "<group>"; };
@@ -254,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				825F35607C284149FAAA3A72 /* Supporting Files */,
+				0771A5E61ED4B94E00733CFF /* Beats.swift */,
+				0771A5E91ED4B99300733CFF /* Subdivision.swift */,
 				077554731E1B12A700CF4A8A /* MetricalDuration.swift */,
 				075C304A1EB15E9F008DB1D6 /* Tempo.swift */,
 				075C304D1EB15EB0008DB1D6 /* Meter.swift */,
@@ -477,6 +485,8 @@
 				075C30521EB160BA008DB1D6 /* Measure.swift in Sources */,
 				075C304F1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */,
+				0771A5E81ED4B94E00733CFF /* Beats.swift in Sources */,
+				0771A5EB1ED4B99300733CFF /* Subdivision.swift in Sources */,
 				0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
@@ -506,6 +516,8 @@
 				075C30511EB160BA008DB1D6 /* Measure.swift in Sources */,
 				075C304E1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				0771A5E11ED4ADA300733CFF /* BeatContext.swift in Sources */,
+				0771A5E71ED4B94E00733CFF /* Beats.swift in Sources */,
+				0771A5EA1ED4B99300733CFF /* Subdivision.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				075C304B1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
