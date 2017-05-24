@@ -12,6 +12,12 @@ extension Tempo {
     
     /// Collection of `Tempo.Item` values.
     public struct Stratum {
-        var items: [Item]
+        
+        // make this a computed property
+        private var items: [Item]
+        
+        public init(_ items: [Item] = []) {
+            self.items = items
+        }
     }
 }

@@ -220,6 +220,8 @@
 			children = (
 				075C304D1EB15EB0008DB1D6 /* Meter.swift */,
 				0771A6141ED5022B00733CFF /* Meter.Structure.swift */,
+				0771A5E01ED4ADA300733CFF /* BeatContext.swift */,
+				075C30501EB160BA008DB1D6 /* Measure.swift */,
 			);
 			name = Meter;
 			sourceTree = "<group>";
@@ -305,8 +307,6 @@
 				0771A6061ED4FDB800733CFF /* MetricalDuration */,
 				0771A6051ED4FDAA00733CFF /* Tempo */,
 				0771A6101ED501B000733CFF /* Meter */,
-				075C30501EB160BA008DB1D6 /* Measure.swift */,
-				0771A5E01ED4ADA300733CFF /* BeatContext.swift */,
 				077554891E1B41B700CF4A8A /* RhythmTree */,
 			);
 			name = Rhythm;
