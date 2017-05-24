@@ -14,15 +14,15 @@ public struct Meter: Rational {
     // MARK: - Instance Properties
     
     /// Numerator.
-    public let numerator: Int
+    public let numerator: Beats
     
     /// Denominator.
-    public let denominator: Int
+    public let denominator: Subdivision
     
     // MARK: Initializers
     
     /// Creates a `Meter` with the given `numerator` and `denominator`.
-    public init(_ numerator: Int, _ denominator: Int) {
+    public init(_ numerator: Beats, _ denominator: Subdivision) {
         
         // TODO: Include denominators with power-of-two factors (28, 44, etc.),
         guard denominator.isPowerOfTwo else {

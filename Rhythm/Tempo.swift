@@ -32,12 +32,12 @@ public struct Tempo {
     /// - 8: eighth note
     /// - 16: sixteenth note
     /// - ...
-    public let subdivision: Int
+    public let subdivision: Subdivision
     
     // MARK: - Initializers
     
     /// Creates a `Tempo` with the given `value` for the given `subdivision`.
-    public init(_ value: Double, subdivision: Int = 4) {
+    public init(_ value: Double, subdivision: Subdivision = 4) {
         
         guard subdivision != 0 else {
             fatalError("Cannot create a tempo with a subdivision of 0")
@@ -48,7 +48,7 @@ public struct Tempo {
     }
 
     /// - returns: Duration for a beat at the given `subdivision`.
-    public func duration(forBeatAt subdivision: Int) -> Double {
+    public func duration(forBeatAt subdivision: Subdivision) -> Double {
         
         guard subdivision.isPowerOfTwo else {
             fatalError("Subdivision must be a power-of-two")
