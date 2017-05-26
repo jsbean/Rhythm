@@ -57,4 +57,15 @@ class TempoTests: XCTestCase {
             print(interpolation.seconds(offset: durationOffset))
         }
     }
+    
+    func testLengthOfInterpolation() {
+        
+        let interpolation = Tempo.Interpolation(
+            start: Tempo(60),
+            end: Tempo(120),
+            duration: 4/>4
+        )
+        
+        print("duration: \(interpolation.duration)")
+    }
 }

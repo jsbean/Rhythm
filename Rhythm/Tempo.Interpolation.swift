@@ -18,12 +18,16 @@ extension Tempo {
         
         public let start: Tempo
         public let end: Tempo
-        public let duration: MetricalDuration
+        public let metricalDuration: MetricalDuration
+        
+        public var duration: Double/*Seconds*/ {
+            return seconds(offset: metricalDuration)
+        }
         
         public init(start: Tempo, end: Tempo, duration: MetricalDuration) {
             self.start = start
             self.end = end
-            self.duration = duration
+            self.metricalDuration = duration
         }
         
         // TODO: Change Double -> Seconds
@@ -63,14 +67,14 @@ extension Tempo {
             let lcm = [
                 start.subdivision,
                 end.subdivision,
-                duration.denominator,
+                metricalDuration.denominator,
                 offset.denominator
             ].lcm
             
             return (
                 start: start.respelling(subdivision: lcm),
                 end: end.respelling(subdivision: lcm),
-                duration: duration.respelling(denominator: lcm)!,
+                duration: metricalDuration.respelling(denominator: lcm)!,
                 offset: offset.respelling(denominator: lcm)!
             )
         }
