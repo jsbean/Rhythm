@@ -57,7 +57,8 @@ extension Tempo {
         private func normalizedValues(offset: MetricalDuration)
             -> (start: Tempo, end: Tempo, duration: MetricalDuration, offset: MetricalDuration)
         {
-            let lcm: Int = [
+            
+            let lcm = [
                 start.subdivision,
                 end.subdivision,
                 duration.denominator,
