@@ -44,14 +44,4 @@ class MeterTests: XCTestCase {
         let tempo = Tempo(90, subdivision: 8)
         XCTAssertEqual(tempo.duration(forBeatAt: 4), (2/3) * 2)
     }
-    
-    func testStratum() {
-        
-        let tempo1 = Tempo(90)
-        let tempo2 = Tempo(120)
-        let tempo3 = Tempo(60)
-        
-        var stratum = Tempo.Stratum()
-        
-    }
 }

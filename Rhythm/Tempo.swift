@@ -9,20 +9,23 @@
 /// Model of a `Tempo`.
 public struct Tempo {
     
+    // MARK: - Associated Types
+    public typealias BeatsPerMinute = Double
+    
     // MARK: - Instance Properties
     
     /// Duration in seconds of a given beat.
     public var durationOfBeat: Double {
-        return 60 / value
+        return 60 / beatsPerMinute
     }
     
     /// Double value of `Tempo`.
     public var doubleValue: Double {
-        return value / Double(subdivision)
+        return beatsPerMinute / Double(subdivision)
     }
     
     /// Value of `Tempo`.
-    public let value: Double
+    public let beatsPerMinute: BeatsPerMinute
 
     /// Subdivision of `Tempo`.
     ///
@@ -37,13 +40,13 @@ public struct Tempo {
     // MARK: - Initializers
     
     /// Creates a `Tempo` with the given `value` for the given `subdivision`.
-    public init(_ value: Double, subdivision: Subdivision = 4) {
+    public init(_ value: BeatsPerMinute, subdivision: Subdivision = 4) {
         
         guard subdivision != 0 else {
             fatalError("Cannot create a tempo with a subdivision of 0")
         }
         
-        self.value = value
+        self.beatsPerMinute = value
         self.subdivision = subdivision
     }
 

@@ -47,8 +47,6 @@
 		0771A6091ED4FE4000733CFF /* Tempo.Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A6071ED4FE4000733CFF /* Tempo.Interpolation.swift */; };
 		0771A60B1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A60A1ED4FE6D00733CFF /* Tempo.Stratum.swift */; };
 		0771A60C1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A60A1ED4FE6D00733CFF /* Tempo.Stratum.swift */; };
-		0771A60E1ED4FE8900733CFF /* Tempo.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A60D1ED4FE8900733CFF /* Tempo.Item.swift */; };
-		0771A60F1ED4FE8900733CFF /* Tempo.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A60D1ED4FE8900733CFF /* Tempo.Item.swift */; };
 		0771A6151ED5022B00733CFF /* Meter.Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A6141ED5022B00733CFF /* Meter.Structure.swift */; };
 		0771A6161ED5022B00733CFF /* Meter.Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771A6141ED5022B00733CFF /* Meter.Structure.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
@@ -134,7 +132,6 @@
 		0771A5E91ED4B99300733CFF /* Subdivision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subdivision.swift; path = Rhythm/Subdivision.swift; sourceTree = "<group>"; };
 		0771A6071ED4FE4000733CFF /* Tempo.Interpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Interpolation.swift; path = Rhythm/Tempo.Interpolation.swift; sourceTree = "<group>"; };
 		0771A60A1ED4FE6D00733CFF /* Tempo.Stratum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Stratum.swift; path = Rhythm/Tempo.Stratum.swift; sourceTree = "<group>"; };
-		0771A60D1ED4FE8900733CFF /* Tempo.Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Item.swift; path = Rhythm/Tempo.Item.swift; sourceTree = "<group>"; };
 		0771A6141ED5022B00733CFF /* Meter.Structure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Structure.swift; path = Rhythm/Meter.Structure.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
@@ -199,7 +196,6 @@
 			children = (
 				075C304A1EB15E9F008DB1D6 /* Tempo.swift */,
 				0771A6071ED4FE4000733CFF /* Tempo.Interpolation.swift */,
-				0771A60D1ED4FE8900733CFF /* Tempo.Item.swift */,
 				0771A60A1ED4FE6D00733CFF /* Tempo.Stratum.swift */,
 			);
 			name = Tempo;
@@ -527,7 +523,6 @@
 				0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */,
 				0771A5E81ED4B94E00733CFF /* Beats.swift in Sources */,
 				0771A5EB1ED4B99300733CFF /* Subdivision.swift in Sources */,
-				0771A60F1ED4FE8900733CFF /* Tempo.Item.swift in Sources */,
 				0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				0771A60C1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */,
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
@@ -562,7 +557,6 @@
 				0771A5E11ED4ADA300733CFF /* BeatContext.swift in Sources */,
 				0771A5E71ED4B94E00733CFF /* Beats.swift in Sources */,
 				0771A5EA1ED4B99300733CFF /* Subdivision.swift in Sources */,
-				0771A60E1ED4FE8900733CFF /* Tempo.Item.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				0771A60B1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */,
 				075C304B1EB15E9F008DB1D6 /* Tempo.swift in Sources */,

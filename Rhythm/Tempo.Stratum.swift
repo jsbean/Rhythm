@@ -13,11 +13,11 @@ extension Tempo {
     /// Collection of `Tempo.Item` values.
     public struct Stratum {
         
-        // make this a computed property
-        private var items: [Item]
+        var tempi: [MetricalDuration: Interpolation] = [:]
         
-        public init(_ items: [Item] = []) {
-            self.items = items
-        }
+        // tempo(offset: MetricalDuration)
+        
+        // seconds(offset: MetricalDuration) -> Seconds { }
+        
     }
 }
