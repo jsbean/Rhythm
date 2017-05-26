@@ -66,9 +66,9 @@ extension Tempo {
             ].lcm
             
             return (
-                start: self.start.respelling(subdivision: lcm),
-                end: self.end.respelling(subdivision: lcm),
-                duration: self.duration.respelling(denominator: lcm)!,
+                start: start.respelling(subdivision: lcm),
+                end: end.respelling(subdivision: lcm),
+                duration: duration.respelling(denominator: lcm)!,
                 offset: offset.respelling(denominator: lcm)!
             )
         }
