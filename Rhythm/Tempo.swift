@@ -12,6 +12,10 @@ public struct Tempo {
     // MARK: - Associated Types
     public typealias BeatsPerMinute = Double
     
+    // MARK: - Type Methods
+    
+    
+    
     // MARK: - Instance Properties
     
     /// Duration in seconds of a given beat.
@@ -49,6 +53,22 @@ public struct Tempo {
         self.beatsPerMinute = value
         self.subdivision = subdivision
     }
+    
+    public func respelling(subdivision newSubdivision: Subdivision) -> Tempo {
+        
+        guard newSubdivision.isPowerOfTwo else {
+            fatalError("Non-power-of-two subdivisions not yet supported")
+        }
+        
+        guard newSubdivision != subdivision else {
+            return self
+        }
+        
+        let quotient = Double(newSubdivision) / Double(subdivision)
+        let newBeatsPerMinute = beatsPerMinute * quotient
+
+        return Tempo(newBeatsPerMinute, subdivision: newSubdivision)
+    }
 
     /// - returns: Duration for a beat at the given `subdivision`.
     public func duration(forBeatAt subdivision: Subdivision) -> Double {
@@ -62,7 +82,7 @@ public struct Tempo {
     }
 }
 
-extension Tempo {
+extension Tempo: Equatable {
     
     // MARK: - Equatable
     

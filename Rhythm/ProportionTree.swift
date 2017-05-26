@@ -75,7 +75,7 @@ extension Tree where T == Int {
         
         func reduced(_ trees: [ProportionTree]) -> [ProportionTree] {
             let values = trees.map { $0.value }
-            let reduced = values.map { $0 / values.gcd! }
+            let reduced = values.map { $0 / values.gcd }
             return zip(trees, reduced).map { $0.updating(value: $1) }
         }
         

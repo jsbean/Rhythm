@@ -11,6 +11,11 @@ import XCTest
 
 class TempoTests: XCTestCase {
     
+    func testTempoRespellingSubdivision() {
+        let original = Tempo(60, subdivision: 4)
+        XCTAssertEqual(original.respelling(subdivision: 16), Tempo(240, subdivision: 16))
+    }
+    
     func testInterpolationNoChange() {
         
         let interpolation = Tempo.Interpolation(
@@ -19,8 +24,9 @@ class TempoTests: XCTestCase {
             duration: 4/>4
         )
 
-        for offset in 0...4 {
-            XCTAssertEqual(interpolation.seconds(offset: offset), Double(offset))
+        for beatOffset in 0...4 {
+            let durationOffset = MetricalDuration(beatOffset, 4)
+            XCTAssertEqual(interpolation.seconds(offset: durationOffset), Double(beatOffset))
         }
     }
     
@@ -32,8 +38,23 @@ class TempoTests: XCTestCase {
             duration: 4/>4
         )
         
-        for offset in 0...4 {
-            print(interpolation.seconds(offset: offset))
+        for beatOffset in 0...4 {
+            let durationOffset = MetricalDuration(beatOffset, 4)
+            print(interpolation.seconds(offset: durationOffset))
+        }
+    }
+    
+    func testIntpolationDifferentTempoSubdivisions() {
+        
+        let interpolation = Tempo.Interpolation(
+            start: Tempo(60, subdivision: 16),
+            end: Tempo(60, subdivision: 8),
+            duration: 4/>16
+        )
+        
+        for beatOffset in 0...4 {
+            let durationOffset = MetricalDuration(beatOffset, 16)
+            print(interpolation.seconds(offset: durationOffset))
         }
     }
 }

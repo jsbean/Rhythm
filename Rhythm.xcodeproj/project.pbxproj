@@ -114,10 +114,8 @@
 /* Begin PBXFileReference section */
 		0708C2F31E429FBB00098684 /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/iOS/ArithmeticTools.framework; sourceTree = "<group>"; };
 		0708C2F41E429FBB00098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
-		0708C2F51E429FBB00098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/iOS/IntervalTools.framework; sourceTree = "<group>"; };
 		0708C2FE1E42A06900098684 /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/Mac/ArithmeticTools.framework; sourceTree = "<group>"; };
 		0708C2FF1E42A06900098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/Mac/Collections.framework; sourceTree = "<group>"; };
-		0708C3001E42A06900098684 /* IntervalTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntervalTools.framework; path = Carthage/Build/Mac/IntervalTools.framework; sourceTree = "<group>"; };
 		072CBDA61E4AB2CF00B5001B /* MetricalDurationTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTree.swift; path = Rhythm/MetricalDurationTree.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		074309791E4419CB002B88A1 /* ProportionTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProportionTree.swift; path = Rhythm/ProportionTree.swift; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 			children = (
 				0708C2F31E429FBB00098684 /* ArithmeticTools.framework */,
 				0708C2F41E429FBB00098684 /* Collections.framework */,
-				0708C2F51E429FBB00098684 /* IntervalTools.framework */,
 				440D58FF94D68D665C14BF01 /* Foundation.framework */,
 			);
 			name = iOS;
@@ -313,7 +310,6 @@
 			children = (
 				0708C2FE1E42A06900098684 /* ArithmeticTools.framework */,
 				0708C2FF1E42A06900098684 /* Collections.framework */,
-				0708C3001E42A06900098684 /* IntervalTools.framework */,
 				866599FF1C901214B2310164 /* Cocoa.framework */,
 			);
 			name = "OS X";
