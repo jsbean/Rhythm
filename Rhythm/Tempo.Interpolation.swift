@@ -21,7 +21,7 @@ extension Tempo {
         
         /// Concrete duration of `Interpolation`, in seconds.
         public var duration: Double/*Seconds*/ {
-            return seconds(offset: metricalDuration)
+            return secondsOffset(metricalOffset: metricalDuration)
         }
         
         /// Start tempo.
@@ -50,9 +50,9 @@ extension Tempo {
         ///
         /// - TODO: Change Double -> Seconds
         ///
-        public func seconds(offset: MetricalDuration) -> Double/*Seconds*/ {
+        public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
             
-            let (start, end, duration, offset) = normalizedValues(offset: offset)
+            let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
             
             // Concrete in seconds always zero if symbolic offset is zero.
             guard offset != .zero else {
