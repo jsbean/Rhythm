@@ -26,7 +26,7 @@ extension Tempo {
             self.duration = duration
         }
         
-        // TODO: Change Beats -> MetricalDuration
+        // TODO: Change Double -> Seconds
         public func seconds(offset: MetricalDuration) -> Double/*Seconds*/ {
             
             let (start, end, duration, offset) = normalizedValues(offset: offset)
@@ -44,7 +44,6 @@ extension Tempo {
             }
             
             let tempoRange = end.beatsPerMinute - start.beatsPerMinute
-            
             let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
             let beatTempo = start.beatsPerMinute + beatPosition
             
