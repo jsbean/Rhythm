@@ -46,9 +46,11 @@ extension Tempo {
             let tempoRange = end.beatsPerMinute - start.beatsPerMinute
             let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
             let beatTempo = start.beatsPerMinute + beatPosition
+            let tempoOffset = (beatTempo - start.beatsPerMinute)
+            let tempoProportion = beatTempo / start.beatsPerMinute
             
             // Offset in minutes
-            let beatTime = (Double(beats) / (beatTempo - start.beatsPerMinute)) * log(beatTempo / start.beatsPerMinute)
+            let beatTime = (Double(beats) / tempoOffset) * log(tempoProportion)
             
             // Offset in seconds
             return beatTime * 60
