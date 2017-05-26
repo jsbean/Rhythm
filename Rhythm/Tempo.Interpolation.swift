@@ -14,23 +14,42 @@ extension Tempo {
     /// Interpolation between two `Tempo` values.
     ///
     /// - TODO: Consider defining multiple interpolation types (linear, exponential, etc.)
+    ///
     public struct Interpolation {
         
-        public let start: Tempo
-        public let end: Tempo
-        public let metricalDuration: MetricalDuration
+        // MARK: Instance Properties
         
+        /// Concrete duration of `Interpolation`, in seconds.
         public var duration: Double/*Seconds*/ {
             return seconds(offset: metricalDuration)
         }
         
+        /// Start tempo.
+        public let start: Tempo
+        
+        /// End tempo.
+        public let end: Tempo
+        
+        /// Metrical duration.
+        public let metricalDuration: MetricalDuration
+        
+        // MARK: - Initializers
+        
+        /// Creates an `Interpolation` with the given `start` and `end` `Tempo` values, lasting
+        /// for the given `MetricalDuration`.
         public init(start: Tempo, end: Tempo, duration: MetricalDuration) {
             self.start = start
             self.end = end
             self.metricalDuration = duration
         }
         
-        // TODO: Change Double -> Seconds
+        // MARK: - Instance Properties
+        
+        /// - returns: The concrete offset in seconds of the given symbolic `MetricalDuration` 
+        /// `offset`.
+        ///
+        /// - TODO: Change Double -> Seconds
+        ///
         public func seconds(offset: MetricalDuration) -> Double/*Seconds*/ {
             
             let (start, end, duration, offset) = normalizedValues(offset: offset)
