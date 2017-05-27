@@ -22,6 +22,15 @@ extension Meter {
             return meters.map { $0.metricalDuration }.accumulatingRight
         }
         
+        /// - returns: Array of `MetricalDuration` values of offset of each beat contained
+        /// herein.
+        public var beatOffsets: [MetricalDuration] {
+            let meterOffsetsAndBeatOffsets = zip(meterOffsets, meters.map { $0.beatOffsets })
+            return meterOffsetsAndBeatOffsets.flatMap { meterOffset, beatOffsets in
+                beatOffsets.map { beatOffset in meterOffset + beatOffset }
+            }
+        }
+        
         /// `Meter` values contained herein.
         public let meters: [Meter]
         
