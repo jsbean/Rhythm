@@ -19,15 +19,11 @@ extension Tempo {
         /// Interpolation containing context.
         let interpolation: Interpolation
         
-        /// Metrical offset within interpolation.
-        let metricalOffset: MetricalDuration
-        
         // MARK: - Initializers
         
         /// Creates a `Tempo.Context` with a given `interpolation` and `metricalOffset`.
         public init(interpolation: Interpolation, metricalOffset: MetricalDuration) {
             self.interpolation = interpolation
-            self.metricalOffset = metricalOffset
             self.tempo = interpolation.tempo(at: metricalOffset)
         }
     }

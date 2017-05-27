@@ -84,12 +84,12 @@ extension Tempo {
         ///
         public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
             
-            guard self.start != self.end else {
+            guard (self.start != self.end) || (metricalOffset != .zero) else {
                 return self.start
             }
             
             let (start, end, _, _) = normalizedValues(offset: metricalOffset)
-            let position = Double((metricalOffset / metricalDuration).floatValue)
+            let position = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
             let range = end.beatsPerMinute - start.beatsPerMinute
             let relativePosition = position * range
             let bpm = relativePosition + start.beatsPerMinute
