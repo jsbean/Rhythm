@@ -31,6 +31,11 @@ extension Meter {
             }
         }
         
+        /// - returns: Array of `Seconds` values of offset of each beat contained herein.
+        public var offsets: [Double] {
+            return beatOffsets.map(tempi.secondsOffset)
+        }
+        
         /// `Meter` values contained herein.
         public let meters: [Meter]
         
