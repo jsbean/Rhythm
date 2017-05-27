@@ -54,7 +54,12 @@ extension Meter {
         
         /// - returns: Seconds offset for the given `metricalOffset`.
         public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
-            return tempi.secondsOffset(metricalOffset: metricalOffset)
+            return tempi.secondsOffset(for: metricalOffset)
+        }
+        
+        /// - returns: Tempo context at the given `metricalOffset`.
+        public func tempoContext(at metricalOffset: MetricalDuration) -> Tempo.Context {
+            return tempi.tempoContext(at: metricalOffset)
         }
     }
 }

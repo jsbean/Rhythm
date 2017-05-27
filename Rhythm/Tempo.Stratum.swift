@@ -31,7 +31,7 @@ extension Tempo {
         }
         
         /// - returns: The offset in seconds of the given `metricalOffset`.
-        public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
+        public func secondsOffset(for metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
 
             // Metrical offset of and interpolation containing metrical offset
             let index = indexOfInterpolation(containing: metricalOffset)
@@ -50,6 +50,13 @@ extension Tempo {
             
             // Return offset of interpolation adding offset within interpolation
             return secondsOffsetOfInterpolation + secondsOffsetInInterpolation
+        }
+        
+        /// - returns: The tempo context at the given `metricalOffset`.
+        public func tempoContext(at metricalOffset: MetricalDuration) -> Tempo.Context {
+            let (offset, interp) = tempi[indexOfInterpolation(containing: metricalOffset)]
+            let internalOffset = metricalOffset - offset
+            return Tempo.Context(interpolation: interp, metricalOffset: internalOffset)
         }
         
         private func indexOfInterpolation(containing metricalOffset: MetricalDuration) -> Int {
