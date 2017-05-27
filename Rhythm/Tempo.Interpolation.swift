@@ -65,7 +65,7 @@ extension Tempo {
             guard start != end else {
                 return Double(beats) / start.durationOfBeat
             }
-            
+
             let tempoRange = end.beatsPerMinute - start.beatsPerMinute
             let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
             let beatTempo = start.beatsPerMinute + beatPosition

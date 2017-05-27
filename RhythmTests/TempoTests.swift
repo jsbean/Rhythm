@@ -73,26 +73,18 @@ class TempoTests: XCTestCase {
     func testStratum() {
         
         let interpolations = [
-            Tempo.Interpolation(start: Tempo(60), end: Tempo(60), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(60), end: Tempo(90), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(90), end: Tempo(90), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(90), end: Tempo(60), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(60), end: Tempo(120), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(120), end: Tempo(60), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(60), end: Tempo(60), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(60), end: Tempo(30), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(30), end: Tempo(30), duration: 4/>4),
-            Tempo.Interpolation(start: Tempo(30), end: Tempo(120), duration: 4/>4)
+            Tempo.Interpolation(start: Tempo(60), end: Tempo(30), duration: 8/>4),
+            Tempo.Interpolation(start: Tempo(30), end: Tempo(60), duration: 8/>4)
         ]
         
         // Metrical offsets of each interpolation
-        let offsets = stride(from: 0, to: 40, by: 4).map { $0/>4 }
+        let offsets = stride(from: 0, to: 16, by: 8).map { $0/>4 }
         let tempi = SortedDictionary(offsets, interpolations)
         let stratum = Tempo.Stratum(tempi: tempi)
 
-        for beat in 0..<40 {
+        for beat in 0..<16 {
             let duration = beat /> 4
-            print("offset at \(duration): \(stratum.secondsOffset(metricalOffset: duration))")
+            let offset = stratum.secondsOffset(metricalOffset: duration)
         }
     }
 }
