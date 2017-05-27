@@ -18,6 +18,10 @@ public struct Meter: Rational {
         return (0..<numerator).map { beat in MetricalDuration(beat, denominator) }
     }
     
+    public var metricalDuration: MetricalDuration {
+        return numerator /> denominator
+    }
+    
     /// Numerator.
     public let numerator: Beats
     

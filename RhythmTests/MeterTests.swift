@@ -44,4 +44,14 @@ class MeterTests: XCTestCase {
         let tempo = Tempo(90, subdivision: 8)
         XCTAssertEqual(tempo.duration(forBeatAt: 4), (2/3) * 2)
     }
+    
+    func testMeterBeatOffsets() {
+        let meter = Meter(7,16)
+        XCTAssertEqual(meter.beatOffsets, (0..<7).map { beat in beat/>16 })
+    }
+    
+    func testStructureMeterOffsets() {
+        let structure = Meter.Structure(meters: (0..<4).map { _ in Meter(4,4) })
+        XCTAssertEqual(structure.meterOffsets, [0/>4, 4/>4, 8/>4, 12/>4])
+    }
 }
