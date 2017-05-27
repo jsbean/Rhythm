@@ -8,27 +8,20 @@
 
 /// Information about a given beat within a `Meter`.
 public struct BeatContext {
-
-    // MARK: - Associated Types
-    
-    /// Type defining the placement of a beat in metered context
-    public typealias Position = Int
     
     // MARK: - Instance Properties
-
-    /// Subdivision of `BeatContext`.
-    public let subdivision: Subdivision
     
-    /// Offset in amount of beats at given subdivision level from downbeat.
-    ///
-    /// - Note: Downbeat = 0
-    public let position: Position
+    /// Metrical offset of beat within `Meter`.
+    public let offset: MetricalDuration
+
+    /// Context of tempo within `Tempo.Interpolation`.
+    public let tempoContext: Tempo.Context
 
     // MARK: - Initializers
     
     /// Creates a `BeatContext` with the given `subdivision` and `position`.
-    public init(subdivision: Subdivision, position: Position) {
-        self.subdivision = subdivision
-        self.position = position
+    public init(offset: MetricalDuration, interpolation: Tempo.Interpolation) {
+        self.offset = offset
+        self.tempoContext = Tempo.Context(interpolation: interpolation, metricalOffset: offset)
     }
 }

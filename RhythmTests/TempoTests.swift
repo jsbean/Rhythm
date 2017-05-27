@@ -89,7 +89,7 @@ class TempoTests: XCTestCase {
 
         for beat in 0..<16 {
             let duration = beat /> 4
-            let offset = stratum.secondsOffset(metricalOffset: duration)
+            let offset = stratum.secondsOffset(for: duration)
         }
     }
 }
