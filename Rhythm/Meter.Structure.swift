@@ -19,13 +19,7 @@ extension Meter {
         /// - returns: Array of `MetricalDuration` values of offset of each meter contained 
         /// herein.
         public var meterOffsets: [MetricalDuration] {
-            var result: [MetricalDuration] = []
-            var accum: MetricalDuration = .zero
-            for meter in meters {
-                result.append(accum)
-                accum += meter.metricalDuration
-            }
-            return result
+            return meters.map { $0.metricalDuration }.accumulatingRight
         }
         
         /// `Meter` values contained herein.
