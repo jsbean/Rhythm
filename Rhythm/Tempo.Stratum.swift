@@ -15,13 +15,14 @@ extension Tempo {
     public struct Stratum {
         
         // TODO: Only compute this if `tempi` has been changed.
-        public var offsets: [Double] {
+        private var offsets: [Double] {
             return tempi.reduce([0]) { accum, interpolationContext in
                 let (_, interpolation) = interpolationContext
                 return accum + interpolation.duration
             }
         }
         
+        // TODO: Add `didSet` to compute offsets
         internal var tempi: SortedDictionary<MetricalDuration, Interpolation> = [:]
         
         /// Creates a `Tempo.Stratum` with the given `tempi`.

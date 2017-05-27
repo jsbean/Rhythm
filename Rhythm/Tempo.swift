@@ -12,10 +12,6 @@ public struct Tempo {
     // MARK: - Associated Types
     public typealias BeatsPerMinute = Double
     
-    // MARK: - Type Methods
-    
-    
-    
     // MARK: - Instance Properties
     
     /// Duration in seconds of a given beat.
