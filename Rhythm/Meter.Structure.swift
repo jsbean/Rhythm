@@ -49,5 +49,12 @@ extension Meter {
             self.meters = meters
             self.tempi = tempi
         }
+        
+        // MARK: - Instance Methods
+        
+        /// - returns: Seconds offset for the given `metricalOffset`.
+        public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
+            return tempi.secondsOffset(metricalOffset: metricalOffset)
+        }
     }
 }
