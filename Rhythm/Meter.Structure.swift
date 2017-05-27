@@ -57,6 +57,13 @@ extension Meter {
             return tempi.secondsOffset(for: metricalOffset)
         }
         
+        /// - returns: `Tempo.Interpolation` value containing the given `metricalOffset`.
+        public func interpolation(containing metricalOffset: MetricalDuration)
+            -> Tempo.Interpolation
+        {
+            return tempi.interpolation(containing: metricalOffset)
+        }
+        
         /// - returns: Tempo context at the given `metricalOffset`.
         public func tempoContext(at metricalOffset: MetricalDuration) -> Tempo.Context {
             return tempi.tempoContext(at: metricalOffset)
