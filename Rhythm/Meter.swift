@@ -13,6 +13,11 @@ public struct Meter: Rational {
     
     // MARK: - Instance Properties
     
+    /// - returns: Array of `MetricalDuration` offsets of each beat in a meter.
+    public var beatOffsets: [MetricalDuration] {
+        return (0..<numerator).map { beat in MetricalDuration(beat, denominator) }
+    }
+    
     /// Numerator.
     public let numerator: Beats
     
