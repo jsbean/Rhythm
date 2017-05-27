@@ -1,0 +1,34 @@
+//
+//  Tempo.Context.swift
+//  Rhythm
+//
+//  Created by James Bean on 5/27/17.
+//
+//
+
+extension Tempo {
+    
+    /// The context of a particular point within a `Tempo.Interpolation`.
+    public struct Context {
+        
+        // MARK: - Instance Properties
+        
+        /// Effective tempo at current offset within interpolation.
+        let tempo: Tempo
+        
+        /// Interpolation containing context.
+        let interpolation: Interpolation
+        
+        /// Metrical offset within interpolation.
+        let metricalOffset: MetricalDuration
+        
+        // MARK: - Initializers
+        
+        /// Creates a `Tempo.Context` with a given `interpolation` and `metricalOffset`.
+        public init(interpolation: Interpolation, metricalOffset: MetricalDuration) {
+            self.interpolation = interpolation
+            self.metricalOffset = metricalOffset
+            self.tempo = interpolation.tempo(at: metricalOffset)
+        }
+    }
+}

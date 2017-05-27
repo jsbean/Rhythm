@@ -40,13 +40,13 @@ public struct Tempo {
     // MARK: - Initializers
     
     /// Creates a `Tempo` with the given `value` for the given `subdivision`.
-    public init(_ value: BeatsPerMinute, subdivision: Subdivision = 4) {
+    public init(_ beatsPerMinute: BeatsPerMinute, subdivision: Subdivision = 4) {
         
         guard subdivision != 0 else {
             fatalError("Cannot create a tempo with a subdivision of 0")
         }
         
-        self.beatsPerMinute = value
+        self.beatsPerMinute = beatsPerMinute
         self.subdivision = subdivision
     }
     

@@ -52,13 +52,12 @@ extension Tempo {
         ///
         public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
             
-            let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
-            
             // Concrete in seconds always zero if symbolic offset is zero.
-            guard offset != .zero else {
+            guard metricalOffset != .zero else {
                 return 0
             }
             
+            let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
             let beats = offset.numerator
             
             // Non-changing tempo can be calculated linearly, avoid division by 0
@@ -77,6 +76,24 @@ extension Tempo {
             
             // Offset in seconds
             return beatTime * 60
+        }
+        
+        /// - returns: The effective tempo at the given `metricalOffset`.
+        ///
+        /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
+        ///
+        public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
+            
+            guard self.start != self.end else {
+                return self.start
+            }
+            
+            let (start, end, _, _) = normalizedValues(offset: metricalOffset)
+            let position = Double((metricalOffset / metricalDuration).floatValue)
+            let range = end.beatsPerMinute - start.beatsPerMinute
+            let relativePosition = position * range
+            let bpm = relativePosition + start.beatsPerMinute
+            return Tempo(bpm, subdivision: start.subdivision)
         }
         
         private func normalizedValues(offset: MetricalDuration)

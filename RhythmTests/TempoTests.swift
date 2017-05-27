@@ -70,6 +70,11 @@ class TempoTests: XCTestCase {
         )
     }
     
+    func testInterpolationTempoAtMetricalOffset() {
+        let interp = Tempo.Interpolation(start: Tempo(30), end: Tempo(60), duration: 4/>4)
+        XCTAssertEqual(interp.tempo(at: 2/>4), Tempo(45))
+    }
+    
     func testStratum() {
         
         let interpolations = [
