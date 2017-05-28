@@ -25,13 +25,18 @@ extension Tempo {
         // TODO: Add `didSet` to compute offsets
         internal var tempi: SortedDictionary<MetricalDuration, Interpolation> = [:]
         
+        // MARK: - Initializers
+        
         /// Creates a `Tempo.Stratum` with the given `tempi`.
         public init(tempi: SortedDictionary<MetricalDuration, Interpolation> = [:]) {
             self.tempi = tempi
         }
         
         /// - returns: The offset in seconds of the given `metricalOffset`.
-        internal func secondsOffset(for metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
+        ///
+        /// - TODO: Update `Double` to `Seconds`
+        ///
+        internal func secondsOffset(for metricalOffset: MetricalDuration) -> Double {
 
             // Metrical offset of and interpolation containing metrical offset
             let index = indexOfInterpolation(containing: metricalOffset)

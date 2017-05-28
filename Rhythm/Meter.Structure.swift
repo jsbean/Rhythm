@@ -16,24 +16,28 @@ extension Meter {
         
         // MARK: - Instance Properties
         
-        /// - returns: Array of `MetricalDuration` values of offset of each meter contained 
-        /// herein.
-        public var meterOffsets: [MetricalDuration] {
-            return meters.map { $0.metricalDuration }.accumulatingRight
-        }
-        
-        /// - returns: Array of `MetricalDuration` values of offset of each beat contained
-        /// herein.
-        public var beatOffsets: [MetricalDuration] {
-            let meterOffsetsAndBeatOffsets = zip(meterOffsets, meters.map { $0.beatOffsets })
-            return meterOffsetsAndBeatOffsets.flatMap { meterOffset, beatOffsets in
-                beatOffsets.map { beatOffset in meterOffset + beatOffset }
+        /// - returns: `BeatContext` values for each beat of each meter, along with their
+        /// offset in Seconds.
+        public var beatContextsWithOffsets: [(Double, BeatContext)] {
+            
+            let meterOffsets = meters.map { $0.metricalDuration }.accumulatingRight
+            
+            return zip(meterOffsets, meters).flatMap { meterOffset, meter in
+                
+                meter.beatOffsets.map { beatOffset in
+                    
+                    let metricalOffset = meterOffset + beatOffset
+                    let interp = interpolation(containing: metricalOffset)
+                    
+                    let beatContext = BeatContext(
+                        meter: meter,
+                        offset: beatOffset,
+                        interpolation: interp
+                    )
+                    
+                    return (secondsOffset(metricalOffset), beatContext)
+                }
             }
-        }
-        
-        /// - returns: Array of `Seconds` values of offset of each beat contained herein.
-        public var offsets: [Double] {
-            return beatOffsets.map(tempi.secondsOffset)
         }
         
         /// `Meter` values contained herein.
@@ -53,7 +57,7 @@ extension Meter {
         // MARK: - Instance Methods
         
         /// - returns: Seconds offset for the given `metricalOffset`.
-        public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
+        public func secondsOffset(_ metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
             return tempi.secondsOffset(for: metricalOffset)
         }
         
