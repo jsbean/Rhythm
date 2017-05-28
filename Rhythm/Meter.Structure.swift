@@ -27,12 +27,11 @@ extension Meter {
                 meter.beatOffsets.map { beatOffset in
                     
                     let metricalOffset = meterOffset + beatOffset
-                    let interp = interpolation(containing: metricalOffset)
                     
                     let beatContext = BeatContext(
                         meter: meter,
                         offset: beatOffset,
-                        interpolation: interp
+                        interpolation: interpolation(containing: metricalOffset)
                     )
                     
                     return (secondsOffset(metricalOffset), beatContext)
