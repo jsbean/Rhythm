@@ -16,27 +16,29 @@ extension Meter {
         
         // MARK: - Instance Properties
         
-        /// - returns: `BeatContext` values for each beat of each meter, along with their
-        /// offset in Seconds.
-        public var beatContextsWithOffsets: [(Double, BeatContext)] {
+        /// - returns: `BeatContext` values for each beat of each meter.
+        public var beatContexts: [BeatContext] {
             
             let meterOffsets = meters.map { $0.metricalDuration }.accumulatingRight
             
-            return zip(meterOffsets, meters).flatMap { meterOffset, meter in
+            return zip(meters, meterOffsets).map(Meter.Context.init).flatMap { meterContext in
                 
-                meter.beatOffsets.map { beatOffset in
+                return meterContext.meter.beatOffsets.map { beatOffset in
                     
-                    let metricalOffset = meterOffset + beatOffset
+                    let metericalOffset = meterContext.offset + beatOffset
                     
-                    let beatContext = BeatContext(
-                        meter: meter,
-                        offset: beatOffset,
-                        interpolation: interpolation(containing: metricalOffset)
+                    return BeatContext(
+                        meterContext: meterContext,
+                        beatOffset: beatOffset,
+                        interpolation: interpolation(containing: metericalOffset)
                     )
-                    
-                    return (secondsOffset(metricalOffset), beatContext)
                 }
             }
+        }
+        
+        /// - TODO: Update `Double` -> `Seconds`
+        public var beatOffsets: [Double] {
+            return beatContexts.map { $0.metricalOffset }.map(secondsOffset)
         }
         
         /// `Meter` values contained herein.
