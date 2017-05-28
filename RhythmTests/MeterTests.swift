@@ -49,32 +49,4 @@ class MeterTests: XCTestCase {
         let meter = Meter(7,16)
         XCTAssertEqual(meter.beatOffsets, (0..<7).map { beat in beat/>16 })
     }
-    
-    func testStructureMeterOffsets() {
-        let structure = Meter.Structure(meters: (0..<4).map { _ in Meter(4,4) })
-        XCTAssertEqual(structure.meterOffsets, [0/>4, 4/>4, 8/>4, 12/>4])
-    }
-    
-    func testStructureBeatOffsets() {
-        let a = Meter(4,4)
-        let b = Meter(3,16)
-        let c = Meter(5,8)
-        let structure = Meter.Structure(meters: [a,b,c])
-        let result = structure.beatOffsets
-        let expected = [
-            0/>4,
-            1/>4,
-            2/>4,
-            3/>4,
-            4/>4,
-            17/>16,
-            18/>16,
-            19/>16,
-            21/>16,
-            23/>16,
-            25/>16,
-            27/>16
-        ]
-        XCTAssertEqual(result, expected)
-    }
 }

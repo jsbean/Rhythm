@@ -6,13 +6,23 @@
 //
 //
 
+import ArithmeticTools
+
 /// Information about a given beat within a `Meter`.
 public struct BeatContext {
     
     // MARK: - Instance Properties
     
+    /// - returns: Metrical offset from start of a `Meter.Structure`.
+    public var metricalOffset: MetricalDuration {
+        return meterContext.offset + beatOffset
+    }
+    
+    /// Meter containing `BeatContext`.
+    public let meterContext: Meter.Context
+    
     /// Metrical offset of beat within `Meter`.
-    public let offset: MetricalDuration
+    public let beatOffset: MetricalDuration
 
     /// Context of tempo within `Tempo.Interpolation`.
     public let tempoContext: Tempo.Context
@@ -20,8 +30,17 @@ public struct BeatContext {
     // MARK: - Initializers
     
     /// Creates a `BeatContext` with the given `subdivision` and `position`.
-    public init(offset: MetricalDuration, interpolation: Tempo.Interpolation) {
-        self.offset = offset
-        self.tempoContext = Tempo.Context(interpolation: interpolation, metricalOffset: offset)
+    public init(
+        meterContext: Meter.Context,
+        beatOffset: MetricalDuration,
+        interpolation: Tempo.Interpolation
+    )
+    {
+        self.meterContext = meterContext
+        self.beatOffset = beatOffset
+        self.tempoContext = Tempo.Context(
+            interpolation: interpolation,
+            metricalOffset: meterContext.offset + beatOffset
+        )
     }
 }
