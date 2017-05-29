@@ -14,10 +14,10 @@ extension Tempo {
         // MARK: - Instance Properties
         
         /// Effective tempo at current offset within interpolation.
-        let tempo: Tempo
+        public let tempo: Tempo
         
         /// Interpolation containing context.
-        let interpolation: Interpolation
+        public let interpolation: Interpolation
         
         // MARK: - Initializers
         
