@@ -36,10 +36,23 @@ extension Tempo {
         // MARK: - Initializers
         
         /// Creates an `Interpolation` with the given `start` and `end` `Tempo` values, lasting
-        /// for the given `MetricalDuration`.
-        public init(start: Tempo, end: Tempo, duration: MetricalDuration) {
+        /// for the given metrical `duration`.
+        public init(
+            start: Tempo = Tempo(60),
+            end: Tempo = Tempo(60),
+            duration: MetricalDuration = 1/>4
+        )
+        {
             self.start = start
             self.end = end
+            self.metricalDuration = duration
+        }
+        
+        /// Creates a static `Interpolation` with the given `tempo`, lasting for the given
+        /// metrical `duration`.
+        public init(tempo: Tempo, duration: MetricalDuration = 1/>4) {
+            self.start = tempo
+            self.end = tempo
             self.metricalDuration = duration
         }
         
