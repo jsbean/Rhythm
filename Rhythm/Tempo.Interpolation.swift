@@ -19,8 +19,8 @@ extension Tempo {
         
         // MARK: - Associated Types
         
-        /// Kind of `Interpolation`.
-        public enum Kind {
+        /// Easing of `Interpolation`.
+        public enum Easing {
             
             /// Linear interpolation.
             case linear
@@ -55,8 +55,8 @@ extension Tempo {
         /// Metrical duration.
         public let metricalDuration: MetricalDuration
 
-        /// Kind of `Interpolation`.
-        public let kind: Kind
+        /// Easing of `Interpolation`.
+        public let easing: Easing
         
         // MARK: - Initializers
         
@@ -66,13 +66,13 @@ extension Tempo {
             start: Tempo = Tempo(60),
             end: Tempo = Tempo(60),
             duration: MetricalDuration = 1/>4,
-            kind: Kind = .linear
+            easing: Easing = .linear
         )
         {
             self.start = start
             self.end = end
             self.metricalDuration = duration
-            self.kind = kind
+            self.easing = easing
         }
         
         /// Creates a static `Interpolation` with the given `tempo`, lasting for the given
@@ -81,7 +81,7 @@ extension Tempo {
             self.start = tempo
             self.end = tempo
             self.metricalDuration = duration
-            self.kind = .linear
+            self.easing = .linear
         }
         
         // MARK: - Instance Properties
@@ -106,7 +106,7 @@ extension Tempo {
                 return Double(beats) / start.durationOfBeat
             }
             
-            switch kind {
+            switch easing {
                 
             case .linear:
                 
