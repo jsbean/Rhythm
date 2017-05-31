@@ -24,8 +24,8 @@ extension Tempo.Stratum {
         
         // MARK: - Instance Properties
         
-        /// Add the given `tempo` at the given `offset`, and whether or it shall be
-        /// prepared to interpolate to the next given tempo, or not.
+        /// Add the given `tempo` at the given `offset`, and whether or not it shall be
+        /// prepared to interpolate to the next given tempo.
         public func add(
             _ tempo: Tempo,
             at offset: MetricalDuration,
