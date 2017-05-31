@@ -37,6 +37,17 @@ extension Tempo {
             // Custom timing function modeled with cubic Bézier curve control points in the
             // form (x,y)
             case custom(controlPoint1: (Double, Double), controlPoint2: (Double, Double))
+
+            /// - returns: The easing function evaluated at evalX.
+            ///
+            func evaluate(x1: Double, y1: Double, x2: Double, y2: Double, evalX: Double) -> Double {
+                switch(self) {
+                case .linear:
+                    return ( (y2 - y1) * (evalX - x1) / (x2 - x1) ) + y1
+                default:
+                    fatalError("Evaluate not yet implemented for this Easing type!")
+                }
+            }
         }
         
         // MARK: Instance Properties
