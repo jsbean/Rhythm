@@ -69,22 +69,5 @@ class InterpolationTests: XCTestCase {
         let interp = Interpolation(start: Tempo(30), end: Tempo(60), duration: 4/>4)
         XCTAssertEqual(interp.tempo(at: 2/>4), Tempo(45))
     }
-    
-    func testStratum() {
-        
-        let interpolations = [
-            Interpolation(start: Tempo(60), end: Tempo(30), duration: 8/>4),
-            Interpolation(start: Tempo(30), end: Tempo(60), duration: 8/>4)
-        ]
-        
-        // Metrical offsets of each interpolation
-        let offsets = stride(from: 0, to: 16, by: 8).map { $0/>4 }
-        let tempi = SortedDictionary(offsets, interpolations)
-        let stratum = Tempo.Stratum(tempi: tempi)
 
-        for beat in 0..<16 {
-            let duration = beat /> 4
-            let offset = stratum.secondsOffset(for: duration)
-        }
-    }
 }
