@@ -16,6 +16,9 @@ import ArithmeticTools
 public struct Interpolation {
 
     // MARK: - Associated Types
+    public enum EasingError: Error {
+        case badValues(String, [Double])
+    }
 
     /// Easing of `Interpolation`.
     public enum Easing {
@@ -38,10 +41,29 @@ public struct Interpolation {
 
         /// - returns: The easing function evaluated at evalX.
         ///
-        func evaluate(x1: Double, y1: Double, x2: Double, y2: Double, evalX: Double) -> Double {
+        func evaluate(_ p1: (Double, Double), _ p2: (Double, Double), _ evalX: Double) throws -> Double {
+            return try evaluate(p1.0, p1.1, p2.0, p2.1, evalX)
+        }
+
+        /// - returns: The easing function evaluated at evalX.
+        ///
+        func evaluate(_ x1: Double, _ y1: Double, _ x2: Double, _ y2: Double, _ evalX: Double) throws -> Double {
             switch(self) {
+
             case .linear:
-                return ( (y2 - y1) * (evalX - x1) / (x2 - x1) ) + y1
+                if x2 == x1 {
+                    if y2 == y1 {
+                        if evalX == x1 {
+                            return y1
+                        } else {
+                            throw EasingError.badValues("Input points are identical, but calculation value is not", [x1, y1, x2, y2, evalX])
+                        }
+                    } else {
+                        throw EasingError.badValues("Input points have same x-value, but different y-values", [x1, y1, x2, y2, evalX])
+                    }
+                } else {
+                    return ( (y2 - y1) * (evalX - x1) / (x2 - x1) ) + y1
+                }
 
             default:
                 fatalError("Evaluate not yet implemented for this Easing type!")
