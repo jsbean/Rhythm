@@ -42,6 +42,7 @@ public struct Interpolation {
             switch(self) {
             case .linear:
                 return ( (y2 - y1) * (evalX - x1) / (x2 - x1) ) + y1
+
             default:
                 fatalError("Evaluate not yet implemented for this Easing type!")
             }
@@ -117,31 +118,8 @@ public struct Interpolation {
 
         switch easing {
 
-        case .linear:
-
-            let tempoRange = end.beatsPerMinute - start.beatsPerMinute
-            let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
-            let beatTempo = start.beatsPerMinute + beatPosition
-            let tempoOffset = (beatTempo - start.beatsPerMinute)
-            let tempoProportion = beatTempo / start.beatsPerMinute
-
-            // Offset in minutes
-            let beatTime = (Double(beats) / tempoOffset) * log(tempoProportion)
-
-            // Offset in seconds
-            return beatTime * 60
-
-        case .exponential(let exponent):
-            fatalError("Exponential interpolations not yet supported!")
-
-        case .logarithmic(let base):
-            fatalError("Logarithmic interpolations not yet supported!")
-
-        case .sine:
-            fatalError("Sine interpolations not yet supported!")
-
-        case .custom(let (x1, y1), let (x2, y2)):
-            fatalError("Custom interpolations not yet supported!")
+        default:
+            fatalError("Easing not yet supported!")
         }
     }
 
