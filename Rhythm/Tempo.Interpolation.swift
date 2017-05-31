@@ -105,18 +105,35 @@ extension Tempo {
             guard start != end else {
                 return Double(beats) / start.durationOfBeat
             }
-
-            let tempoRange = end.beatsPerMinute - start.beatsPerMinute
-            let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
-            let beatTempo = start.beatsPerMinute + beatPosition
-            let tempoOffset = (beatTempo - start.beatsPerMinute)
-            let tempoProportion = beatTempo / start.beatsPerMinute
             
-            // Offset in minutes
-            let beatTime = (Double(beats) / tempoOffset) * log(tempoProportion)
-            
-            // Offset in seconds
-            return beatTime * 60
+            switch kind {
+                
+            case .linear:
+                
+                let tempoRange = end.beatsPerMinute - start.beatsPerMinute
+                let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
+                let beatTempo = start.beatsPerMinute + beatPosition
+                let tempoOffset = (beatTempo - start.beatsPerMinute)
+                let tempoProportion = beatTempo / start.beatsPerMinute
+                
+                // Offset in minutes
+                let beatTime = (Double(beats) / tempoOffset) * log(tempoProportion)
+                
+                // Offset in seconds
+                return beatTime * 60
+                
+            case .exponential(let exponent):
+                fatalError("Exponential interpolations not yet supported!")
+                
+            case .logarithmic(let base):
+                fatalError("Logarithmic interpolations not yet supported!")
+                
+            case .sine:
+                fatalError("Sine interpolations not yet supported!")
+                
+            case .custom(let (x1, y1), let (x2, y2)):
+                fatalError("Custom interpolations not yet supported!")
+            }
         }
         
         /// - returns: The effective tempo at the given `metricalOffset`.
