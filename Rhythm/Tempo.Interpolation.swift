@@ -17,6 +17,28 @@ extension Tempo {
     ///
     public struct Interpolation {
         
+        // MARK: - Associated Types
+        
+        /// Kind of `Interpolation`.
+        public enum Kind {
+            
+            /// Linear interpolation.
+            case linear
+            
+            /// Exponential interpolation with the given `exponent`.
+            case exponential(exponent: Double)
+            
+            /// Logarithmic interpolation with the given `base`.
+            case logarithmic(base: Double)
+            
+            /// Ease in / ease out
+            case sine
+            
+            // Custom timing function modeled with cubic Bézier curve control points in the
+            // form (x,y)
+            case custom(controlPoint1: (Double, Double), controlPoint2: (Double, Double))
+        }
+        
         // MARK: Instance Properties
         
         /// Concrete duration of `Interpolation`, in seconds.
@@ -32,6 +54,9 @@ extension Tempo {
         
         /// Metrical duration.
         public let metricalDuration: MetricalDuration
+
+        /// Kind of `Interpolation`.
+        public let kind: Kind
         
         // MARK: - Initializers
         
@@ -40,12 +65,14 @@ extension Tempo {
         public init(
             start: Tempo = Tempo(60),
             end: Tempo = Tempo(60),
-            duration: MetricalDuration = 1/>4
+            duration: MetricalDuration = 1/>4,
+            kind: Kind = .linear
         )
         {
             self.start = start
             self.end = end
             self.metricalDuration = duration
+            self.kind = kind
         }
         
         /// Creates a static `Interpolation` with the given `tempo`, lasting for the given
@@ -54,6 +81,7 @@ extension Tempo {
             self.start = tempo
             self.end = tempo
             self.metricalDuration = duration
+            self.kind = .linear
         }
         
         // MARK: - Instance Properties
