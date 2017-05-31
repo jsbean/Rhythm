@@ -23,14 +23,11 @@ public struct Interpolation {
         /// Linear interpolation.
         case linear
 
-        /// Exponential interpolation with the given `exponent`.
-        case exponential(exponent: Double)
-
-        /// Logarithmic interpolation with the given `base`.
-        case logarithmic(base: Double)
+        /// Exponential interpolation in, with the given `exponent`.
+        case exponentialIn(exponent: Double)
 
         /// Ease in / ease out
-        case sine
+        case sineInOut
 
         // Custom timing function modeled with cubic Bézier curve control points in the
         // form (x,y)
