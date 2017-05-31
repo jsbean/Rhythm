@@ -26,6 +26,9 @@ public struct Interpolation {
         /// Exponential interpolation in, with the given `exponent`.
         case exponentialIn(exponent: Double)
 
+        /// Exponential interpolation in-out, with the given `exponent`.
+        case exponentialInOut(exponent: Double)
+
         /// Ease in / ease out
         case sineInOut
 
