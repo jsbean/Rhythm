@@ -28,4 +28,11 @@ class StratumTests: XCTestCase {
         let stratum = builder.build()
         print(stratum)
     }
+    
+    func testBuilderMultipleStatic() {
+        let builder = Tempo.Stratum.Builder()
+        builder.add(Tempo(120), at: 3/>4)
+        let stratum = builder.build()
+        print(stratum)
+    }
 }

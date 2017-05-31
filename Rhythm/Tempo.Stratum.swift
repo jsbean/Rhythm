@@ -14,67 +14,6 @@ extension Tempo {
     /// Collection of `Interpolation` values at `MetricalDuration` offsets.
     public struct Stratum {
         
-        public class Builder {
-            
-            var tempi: SortedDictionary<MetricalDuration, (Tempo, Bool)> = [:]
-            
-            public init() { }
-            
-            public func add(
-                _ tempo: Tempo,
-                at offset: MetricalDuration,
-                interpolating: Bool = false
-            )
-            {
-                tempi[offset] = (tempo, interpolating)
-            }
-            
-            public func build() -> Stratum {
-                
-                guard !tempi.isEmpty else {
-                    return Stratum()
-                }
-                
-                guard tempi.count > 1 else {
-                    let (_ ,(tempo, _)) = tempi[0]
-                    return Stratum(tempi: [.zero: Interpolation(tempo: tempo)])
-                }
-                
-                var stratum = Stratum(tempi: [:])
-                
-                var last: (offset: MetricalDuration, tempo: Tempo, interpolating: Bool)?
-                for index in tempi.indices {
-                    
-                    let (offset, (tempo, interpolating)) = tempi[index]
-                    
-                    if let last = last {
-                        
-                        let duration = offset - last.offset
-                        let endTempo = last.interpolating ? tempo : last.tempo
-                        
-                        let interpolation = Interpolation(
-                            start: last.tempo,
-                            end: endTempo,
-                            duration: duration
-                        )
-                        
-                        stratum.tempi[last.offset] = interpolation
-                    }
-                    
-                    // last one: cleanup
-                    if index == tempi.endIndex - 1 {   
-                        stratum.tempi[offset] = Interpolation(tempo: tempo)
-                    }
-                    
-                    last = (offset, tempo, interpolating)
-                    
-                    
-                }
-                
-                return stratum
-            }
-        }
-        
         // TODO: Only compute this if `tempi` has been changed.
         private var offsets: [Double] {
             return tempi.reduce([0]) { accum, interpolationContext in

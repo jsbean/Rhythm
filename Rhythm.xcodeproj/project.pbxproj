@@ -51,6 +51,8 @@
 		07A846CB1EDB7DDF0038757A /* Meter.Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A846C91EDB7DDF0038757A /* Meter.Context.swift */; };
 		07B701C51EDA204500C946AD /* Tempo.Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B701C41EDA204500C946AD /* Tempo.Context.swift */; };
 		07B701C61EDA204500C946AD /* Tempo.Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B701C41EDA204500C946AD /* Tempo.Context.swift */; };
+		07CCA3AE1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCA3AD1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift */; };
+		07CCA3AF1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCA3AD1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
 		9EADF804BC73FCC4A2700E36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
@@ -124,6 +126,7 @@
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		07A846C91EDB7DDF0038757A /* Meter.Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Context.swift; path = Rhythm/Meter.Context.swift; sourceTree = "<group>"; };
 		07B701C41EDA204500C946AD /* Tempo.Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Context.swift; path = Rhythm/Tempo.Context.swift; sourceTree = "<group>"; };
+		07CCA3AD1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Stratum.Builder.swift; path = Rhythm/Tempo.Stratum.Builder.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +186,7 @@
 				075C304A1EB15E9F008DB1D6 /* Tempo.swift */,
 				0771A6071ED4FE4000733CFF /* Tempo.Interpolation.swift */,
 				0771A60A1ED4FE6D00733CFF /* Tempo.Stratum.swift */,
+				07CCA3AD1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift */,
 				07B701C41EDA204500C946AD /* Tempo.Context.swift */,
 			);
 			name = Tempo;
@@ -495,6 +499,7 @@
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0771A6161ED5022B00733CFF /* Meter.Structure.swift in Sources */,
 				077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
+				07CCA3AF1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift in Sources */,
 				07B701C61EDA204500C946AD /* Tempo.Context.swift in Sources */,
 				07A846CB1EDB7DDF0038757A /* Meter.Context.swift in Sources */,
 				0771A6091ED4FE4000733CFF /* Tempo.Interpolation.swift in Sources */,
@@ -525,6 +530,7 @@
 				075C304B1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0771A6151ED5022B00733CFF /* Meter.Structure.swift in Sources */,
 				077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */,
+				07CCA3AE1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift in Sources */,
 				07B701C51EDA204500C946AD /* Tempo.Context.swift in Sources */,
 				07A846CA1EDB7DDF0038757A /* Meter.Context.swift in Sources */,
 				0771A6081ED4FE4000733CFF /* Tempo.Interpolation.swift in Sources */,
