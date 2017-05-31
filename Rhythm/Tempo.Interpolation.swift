@@ -103,7 +103,7 @@ extension Tempo {
             
             // Non-changing tempo can be calculated linearly, avoid division by 0
             guard start != end else {
-                return Double(beats) / start.durationOfBeat
+                return Double(beats) * start.durationOfBeat
             }
             
             switch kind {
@@ -113,7 +113,7 @@ extension Tempo {
                 let tempoRange = end.beatsPerMinute - start.beatsPerMinute
                 let beatPosition = (tempoRange / Double(duration.numerator)) * Double(beats)
                 let beatTempo = start.beatsPerMinute + beatPosition
-                let tempoOffset = (beatTempo - start.beatsPerMinute)
+                let tempoOffset = beatTempo - start.beatsPerMinute
                 let tempoProportion = beatTempo / start.beatsPerMinute
                 
                 // Offset in minutes

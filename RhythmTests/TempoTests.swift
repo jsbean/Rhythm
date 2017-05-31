@@ -21,8 +21,8 @@ class TempoTests: XCTestCase {
     func testInterpolationNoChange() {
         
         let interpolation = Tempo.Interpolation(
-            start: Tempo(60),
-            end: Tempo(60),
+            start: Tempo(120),
+            end: Tempo(120),
             duration: 4/>4
         )
 
@@ -30,7 +30,7 @@ class TempoTests: XCTestCase {
             let durationOffset = MetricalDuration(beatOffset, 4)
             XCTAssertEqual(
                 interpolation.secondsOffset(metricalOffset: durationOffset),
-                Double(beatOffset)
+                Double(beatOffset) / 2
             )
         }
     }
