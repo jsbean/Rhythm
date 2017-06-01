@@ -15,13 +15,14 @@ import ArithmeticTools
 ///
 public struct Interpolation {
 
-    // MARK: - Associated Types
-    public enum EasingError: Error {
-        case badValue(String, Double)
-    }
-
     /// Easing of `Interpolation`.
     public enum Easing {
+        
+        // MARK: - Associated Types
+        
+        public enum Error: Swift.Error {
+            case valueOutOfDomain(Double, String)
+        }
 
         /// Linear interpolation.
         case linear
@@ -42,33 +43,34 @@ public struct Interpolation {
         /// - returns: The easing function evaluated at `x`.
         ///
         func evaluate(at x: Double) throws -> Double {
+            
             guard x >= 0 && x <= 1 else {
-                throw EasingError.badValue("Input must lie in [0, 1]", x)
+                throw Error.valueOutOfDomain(x, "Input must lie in [0,1]")
             }
 
-            switch(self) {
+            switch self {
 
             case .linear:
-                return x;
+                return x
 
             case .exponentialIn(let e):
+                
                 guard e > 0 else {
-                    // - TODO: should this be caught at construct time?
-                    throw EasingError.badValue("Exponent must be positive", e)
+                    throw Error.valueOutOfDomain(e, "Exponent must be positive")
                 }
 
                 return pow(x, e)
 
             case .exponentialInOut(let e):
+                
                 guard e >= 1 else {
-                    // - TODO: should this be caught at construct time?
-                    throw EasingError.badValue("Exponent must be at least 1", e)
+                    throw Error.valueOutOfDomain(e, "Exponent must be at least 1")
                 }
 
                 if x <= 0.5 {
                     return pow(x, e) * pow(2, e - 1)
                 } else {
-                    return pow(abs(x - 1), e) * -pow(2, e-1) + 1
+                    return pow(abs(x - 1), e) * -pow(2, e - 1) + 1
                 }
 
             case .sineInOut:
@@ -108,7 +110,7 @@ public struct Interpolation {
         end: Tempo = Tempo(60),
         duration: MetricalDuration = 1/>4,
         easing: Easing = .linear
-        )
+    )
     {
         self.start = start
         self.end = end
@@ -148,7 +150,6 @@ public struct Interpolation {
         }
 
         switch easing {
-
         default:
             fatalError("Easing not yet supported!")
         }
@@ -181,7 +182,7 @@ public struct Interpolation {
             end.subdivision,
             metricalDuration.denominator,
             offset.denominator
-            ].lcm
+        ].lcm
 
         return (
             start: start.respelling(subdivision: lcm),

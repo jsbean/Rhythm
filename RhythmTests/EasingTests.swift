@@ -11,7 +11,7 @@ import XCTest
 
 class EasingTests: XCTestCase {
 
-    //****** General errors *******//
+    // MARK: General
 
     func testEasingErrorLessThanZero() {
 
@@ -29,7 +29,7 @@ class EasingTests: XCTestCase {
         XCTAssertThrowsError(try ease.evaluate(at: x))
     }
 
-    //****** linear *******//
+    // MARK: Linear
 
     func testLinear() {
 
@@ -45,7 +45,7 @@ class EasingTests: XCTestCase {
         }
     }
 
-    //****** exponentialIn *******//
+    // MARK: - ExponentialIn
 
     func testExponentialInOne() {
 
@@ -97,7 +97,7 @@ class EasingTests: XCTestCase {
         XCTAssertThrowsError(try ease.evaluate(at: x))
     }
 
-    //****** exponentialInOut *******//
+    // MARK: - ExponentialInOut
 
     func testExponentialInOutOne() {
 
@@ -141,7 +141,7 @@ class EasingTests: XCTestCase {
         XCTAssertThrowsError(try Interpolation.Easing.exponentialInOut(exponent: 0.5).evaluate(at: 0))
     }
 
-    //****** sineInOut *******//
+    // MARK: - SineInOut
 
     func testSineInOut() {
 
@@ -153,5 +153,4 @@ class EasingTests: XCTestCase {
         XCTAssertEqualWithAccuracy(try ease.evaluate(at: 0.75), (1 + 1/sqrt(2)) / 2, accuracy: 1e-12)
         XCTAssertEqual(try ease.evaluate(at: 1), 1)
     }
-
 }
