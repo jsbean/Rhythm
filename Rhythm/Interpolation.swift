@@ -68,8 +68,7 @@ public struct Interpolation {
                 if x <= 0.5 {
                     return pow(x, e) * pow(2, e - 1)
                 } else {
-                    let z = ((2 * x) - 2)
-                    return 0.5 * pow(z, e) + 1
+                    return pow(abs(x - 1), e) * -pow(2, e-1) + 1
                 }
 
             case .sineInOut:
