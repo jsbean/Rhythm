@@ -17,7 +17,7 @@ public struct Interpolation {
 
     // MARK: - Associated Types
     public enum EasingError: Error {
-        case badValues(String, [Double])
+        case badValue(String, Double)
     }
 
     /// Easing of `Interpolation`.
@@ -39,31 +39,25 @@ public struct Interpolation {
         // form (x,y)
         case custom(controlPoint1: (Double, Double), controlPoint2: (Double, Double))
 
-        /// - returns: The easing function evaluated at evalX.
+        /// - returns: The easing function evaluated at `x`.
         ///
-        func evaluate(_ p1: (Double, Double), _ p2: (Double, Double), _ evalX: Double) throws -> Double {
-            return try evaluate(p1.0, p1.1, p2.0, p2.1, evalX)
-        }
+        func evaluate(at x: Double) throws -> Double {
+            guard x >= 0 && x <= 1 else {
+                throw EasingError.badValue("Input must lie in [0, 1]", x)
+            }
 
-        /// - returns: The easing function evaluated at evalX.
-        ///
-        func evaluate(_ x1: Double, _ y1: Double, _ x2: Double, _ y2: Double, _ evalX: Double) throws -> Double {
             switch(self) {
 
             case .linear:
-                if x2 == x1 {
-                    if y2 == y1 {
-                        if evalX == x1 {
-                            return y1
-                        } else {
-                            throw EasingError.badValues("Input points are identical, but calculation value is not", [x1, y1, x2, y2, evalX])
-                        }
-                    } else {
-                        throw EasingError.badValues("Input points have same x-value, but different y-values", [x1, y1, x2, y2, evalX])
-                    }
-                } else {
-                    return ( (y2 - y1) * (evalX - x1) / (x2 - x1) ) + y1
+                return x;
+
+            case .exponentialIn(let e):
+                guard e > 0 else {
+                    // - TODO: should this be caught at construct time?
+                    throw EasingError.badValue("Exponent must be positive", e)
                 }
+
+                return pow(x, e)
 
             default:
                 fatalError("Evaluate not yet implemented for this Easing type!")

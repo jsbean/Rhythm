@@ -11,110 +11,86 @@ import XCTest
 
 class EasingTests: XCTestCase {
 
-    func testLinearSamePointsSameX() {
+    func testEasingErrorLessThanZero() {
 
-        let p1: (Double, Double) = (0.0, 0.0)
-        let p2: (Double, Double) = (0.0, 0.0)
-        let x: Double = 0.0
+        let x: Double = -0.5
         let ease = Interpolation.Easing.linear
-        let expected = 0.0
+
+        XCTAssertThrowsError(try ease.evaluate(at: x))
+    }
+
+    func testEasingErrorGreaterThanOne() {
+
+        let x: Double = 1.5
+        let ease = Interpolation.Easing.linear
+
+        XCTAssertThrowsError(try ease.evaluate(at: x))
+    }
+
+    func testLinear() {
+
+        let x: Double = 0.5
+        let ease = Interpolation.Easing.linear
+        let expected = x
 
         do {
-            let result = try ease.evaluate(p1, p2, x)
+            let result = try ease.evaluate(at: x)
             XCTAssertEqual(result, expected)
         } catch {
             XCTFail()
         }
     }
 
-    func testLinearSamePointsDiffEval() {
+    func testExponentialInOne() {
 
-        let p1: (Double, Double) = (0.0, 0.0)
-        let p2: (Double, Double) = (0.0, 0.0)
-        let x: Double = 1.0
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.evaluate(p1, p2, x))
-    }
-
-    func testLinearSameXDiffYSameEval() {
-
-        let p1: (Double, Double) = (0.0, 0.0)
-        let p2: (Double, Double) = (0.0, 1.0)
-        let x: Double = 0.0
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.evaluate(p1, p2, x))
-    }
-
-    func testLinearSameXDiffYDiffEval() {
-
-        let p1: (Double, Double) = (0.0, 0.0)
-        let p2: (Double, Double) = (0.0, 1.0)
-        let x: Double = 1.0
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.evaluate(p1, p2, x))
-    }
-
-    func testLinearInsideOne() {
-
-        let p1 = (1.0, 1.0), p2 = (2.0, 2.0)
-        let x = 1.5
-        let ease = Interpolation.Easing.linear
-        let expected = 1.5
+        let x: Double = 0.5
+        let ease = Interpolation.Easing.exponentialIn(exponent: 1)
+        let expected = 0.5
 
         do {
-            let result = try ease.evaluate(p1, p2, x)
+            let result = try ease.evaluate(at: x)
             XCTAssertEqual(result, expected)
         } catch {
             XCTFail()
         }
     }
 
-    func testLinearInsideHalf() {
+    func testExponentialInTwo() {
 
-        let p1 = (1.0, 1.0), p2 = (3.0, 2.0)
-        let x = 1.5
-        let ease = Interpolation.Easing.linear
-        let expected = 1.25
+        let x: Double = 0.5
+        let ease = Interpolation.Easing.exponentialIn(exponent: 2)
+        let expected = 0.25
 
         do {
-            let result = try ease.evaluate(p1, p2, x)
+            let result = try ease.evaluate(at: x)
             XCTAssertEqual(result, expected)
         } catch {
             XCTFail()
         }
     }
 
-    func testLinearInsideMinusTwo() {
+    func testExponentialInHalf() {
 
-        let p1 = (1.0, 1.0), p2 = (3.0, -3.0)
-        let x = 1.5
-        let ease = Interpolation.Easing.linear
-        let expected = 0.0
+        let x: Double = 0.5
+        let ease = Interpolation.Easing.exponentialIn(exponent: 0.5)
+        let expected = 0.70710678118 // 1 / sqrt(2)
 
         do {
-            let result = try ease.evaluate(p1, p2, x)
-            XCTAssertEqual(result, expected)
+            let result = try ease.evaluate(at: x)
+            XCTAssertEqualWithAccuracy(result, expected, accuracy: 1e-6)
         } catch {
             XCTFail()
         }
     }
 
-    func testLinearOutsideTwo() {
 
-        let p1 = (1.0, 1.0), p2 = (3.0, 5.0)
-        let x = 4.5
-        let ease = Interpolation.Easing.linear
-        let expected = 8.0
+    func testExponentialInError() {
 
-        do {
-            let result = try ease.evaluate(p1, p2, x)
-            XCTAssertEqual(result, expected)
-        } catch {
-            XCTFail()
-        }
+        let x: Double = 0.5
+        let ease = Interpolation.Easing.exponentialIn(exponent: -2)
+
+        XCTAssertThrowsError(try ease.evaluate(at: x))
     }
+
 
 }
