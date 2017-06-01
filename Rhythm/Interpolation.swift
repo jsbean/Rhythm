@@ -43,7 +43,7 @@ public struct Interpolation {
         /// - returns: The easing function evaluated at `x`.
         func evaluate(at x: Double) throws -> Double {
             
-            guard x >= 0 && x <= 1 else {
+            guard (0...1).contains(x) else {
                 throw Error.valueOutOfDomain(x, "Input must lie in [0,1]")
             }
 
