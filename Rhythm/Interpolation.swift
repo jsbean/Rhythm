@@ -41,7 +41,6 @@ public struct Interpolation {
         case custom(controlPoint1: (Double, Double), controlPoint2: (Double, Double))
 
         /// - returns: The easing function evaluated at `x`.
-        ///
         func evaluate(at x: Double) throws -> Double {
             
             guard x >= 0 && x <= 1 else {
@@ -53,24 +52,24 @@ public struct Interpolation {
             case .linear:
                 return x
 
-            case .exponentialIn(let e):
+            case .exponentialIn(let exponent):
                 
-                guard e > 0 else {
-                    throw Error.valueOutOfDomain(e, "Exponent must be positive")
+                guard exponent > 0 else {
+                    throw Error.valueOutOfDomain(exponent, "Exponent must be positive")
                 }
 
-                return pow(x, e)
+                return pow(x, exponent)
 
-            case .exponentialInOut(let e):
+            case .exponentialInOut(let exponent):
                 
-                guard e >= 1 else {
-                    throw Error.valueOutOfDomain(e, "Exponent must be at least 1")
+                guard exponent >= 1 else {
+                    throw Error.valueOutOfDomain(exponent, "Exponent must be at least 1")
                 }
 
                 if x <= 0.5 {
-                    return pow(x, e) * pow(2, e - 1)
+                    return pow(x, exponent) * pow(2, exponent - 1)
                 } else {
-                    return pow(abs(x - 1), e) * -pow(2, e - 1) + 1
+                    return pow(abs(x - 1), exponent) * -pow(2, exponent - 1) + 1
                 }
 
             case .sineInOut:
