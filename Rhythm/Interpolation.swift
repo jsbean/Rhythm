@@ -32,7 +32,7 @@ public struct Interpolation {
         /// Exponential interpolation in-out, with the given `exponent`.
         case exponentialInOut(exponent: Double)
 
-        /// Ease in / ease out
+        /// Ease in / ease out (half sine wave)
         case sineInOut
 
         // Custom timing function modeled with cubic Bézier curve control points in the
@@ -58,6 +58,22 @@ public struct Interpolation {
                 }
 
                 return pow(x, e)
+
+            case .exponentialInOut(let e):
+                guard e >= 1 else {
+                    // - TODO: should this be caught at construct time?
+                    throw EasingError.badValue("Exponent must be at least 1", e)
+                }
+
+                if x <= 0.5 {
+                    return pow(x, e) * pow(2, e - 1)
+                } else {
+                    let z = ((2 * x) - 2)
+                    return 0.5 * pow(z, e) + 1
+                }
+
+            case .sineInOut:
+                return 0.5 * (1 - cos(x * Double.pi))
 
             default:
                 fatalError("Evaluate not yet implemented for this Easing type!")
