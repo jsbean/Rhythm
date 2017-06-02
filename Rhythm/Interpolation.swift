@@ -10,9 +10,6 @@ import Foundation
 import ArithmeticTools
 
 /// Interpolation between two `Tempo` values.
-///
-/// - TODO: Consider defining multiple interpolation types (linear, exponential, etc.)
-///
 public struct Interpolation {
 
     /// Easing of `Interpolation`.
