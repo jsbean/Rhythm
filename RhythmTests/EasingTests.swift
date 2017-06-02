@@ -148,40 +148,21 @@ class EasingTests: XCTestCase {
 
     // MARK: - SineInOut
 
-    func testSineInOutEvaluateAtZero() {
+    func testSineInOut() {
         let ease = Interpolation.Easing.sineInOut
-        XCTAssertEqual(try ease.evaluate(at: 0), 0)
+        let inputs: [Double] = [0, 0.25, 0.5, 0.75, 1]
+        let sqrt2_recip = 1 / sqrt(2)
+        let expecteds: [Double] = [
+            0,
+            (1 - sqrt2_recip) / 2,
+            0.5,
+            (1 + sqrt2_recip) / 2,
+            1
+        ]
+
+        for (input, expected) in zip(inputs, expecteds) {
+            XCTAssertEqualWithAccuracy(try ease.evaluate(at: input), expected, accuracy: 1e-12)
+        }
     }
-    
-    func testSineInOutEvaluateAtQuarter() {
-        
-        let ease = Interpolation.Easing.sineInOut
-        let result = try! ease.evaluate(at: 0.25)
-        let expected = (1 - 1/sqrt(2)) / 2
-        
-        XCTAssertEqualWithAccuracy(result, expected, accuracy: 1e-12)
-    }
-    
-    func testSineInOutEvaluateAtHalf() {
-        
-        let ease = Interpolation.Easing.sineInOut
-        let result = try! ease.evaluate(at: 0.5)
-        let expected = 0.5
-        
-        XCTAssertEqualWithAccuracy(result, expected, accuracy: 1e-12)
-    }
-    
-    func testSineInOutEvaluateAtThreeQuarters() {
-        
-        let ease = Interpolation.Easing.sineInOut
-        let result = try! ease.evaluate(at: 0.75)
-        let expected = (1 + 1/sqrt(2)) / 2
-        
-        XCTAssertEqualWithAccuracy(result, expected, accuracy: 1e-12)
-    }
-    
-    func testSineInOutEvaluateAtOne() {
-        let ease = Interpolation.Easing.sineInOut
-        XCTAssertEqual(try ease.evaluate(at: 1), 1)
-    }
+
 }
