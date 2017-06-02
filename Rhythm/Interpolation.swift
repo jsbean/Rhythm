@@ -77,7 +77,53 @@ public struct Interpolation {
                 return 0.5 * (1 - cos(x * Double.pi))
 
             default:
-                fatalError("Evaluate not yet implemented for this Easing type!")
+                fatalError("Evaluate(at:) not yet implemented for \(self)")
+            }
+        }
+
+        /// - returns: The integral of the easing function from 0 to `x`.
+        func integrate(at x: Double) throws -> Double {
+
+            guard (0...1).contains(x) else {
+                throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
+            }
+
+            switch self {
+
+            case .linear:
+                // x^2 / 2
+                return pow(x, 2) / 2
+
+            case .exponentialIn(let e):
+
+                guard e > 0 else {
+                    throw Error.valueNotInDomain(e, "Exponent must be positive")
+                }
+
+                // x^(e+1) / (e+1)
+                return pow(x, e + 1) / (e + 1)
+
+            case .exponentialInOut(let e):
+
+                guard e >= 1 else {
+                    throw Error.valueNotInDomain(e, "Exponent must be at least 1")
+                }
+
+                if x <= 0.5 {
+                    // (2^(e-1) / (e+1)) * x^(e+1)
+                    return pow(2, e-1) / (e+1) * pow(x, (e+1))
+                } else {
+                    // (2^(e-1) * (1-x)^(1+e)) / (1+e) + x
+                    return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x
+                }
+
+
+            case .sineInOut:
+                // 1/2 (x - (sin(π x))/π)
+                return 0.5 * (1 - cos(x * Double.pi))
+
+            default:
+                fatalError("Integrate(at:) not yet implemented for \(self)")
             }
         }
     }
