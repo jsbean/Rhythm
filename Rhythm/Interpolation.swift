@@ -74,7 +74,7 @@ public struct Interpolation {
 
             case .sineInOut:
                 // (1 - cos(π*x)) / 2
-                return 0.5 * (1 - cos(x * Double.pi))
+                return 0.5 * (1 - cos(x * .pi))
 
             default:
                 fatalError("Evaluate(at:) not yet implemented for \(self)")
@@ -123,7 +123,7 @@ public struct Interpolation {
 
             case .sineInOut:
                 //  (x - (sin(π*x))/π) / 2
-                return (x - sin(Double.pi * x) / Double.pi) / 2
+                return (x - sin(.pi * x) / .pi) / 2
 
             default:
                 fatalError("Integrate(at:) not yet implemented for \(self)")
