@@ -139,20 +139,16 @@ class EasingIntegrateTests: XCTestCase {
 
     // MARK: - SineInOut
 
+    /// - TODO: replace test terms with actual fractions, increase accuracy
     func testSineInOut() {
+
+        // results calculated with WolframAlpha
         let ease = Interpolation.Easing.sineInOut
         let inputs: [Double] = [0, 0.25, 0.5, 0.75, 1]
-        let sqrt2_recip = 1 / sqrt(2)
-        let expecteds: [Double] = [
-            0,
-            (1 - sqrt2_recip) / 2,
-            0.5,
-            (1 + sqrt2_recip) / 2,
-            1
-        ]
+        let expecteds: [Double] = [0, 0.0124605, 0.0908451, 0.26246, 0.5]
 
         for (input, expected) in zip(inputs, expecteds) {
-            XCTAssertEqualWithAccuracy(try ease.integrate(at: input), expected, accuracy: 1e-12)
+            XCTAssertEqualWithAccuracy(try ease.integrate(at: input), expected, accuracy: 1e-6)
         }
     }
 }
