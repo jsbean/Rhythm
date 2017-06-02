@@ -136,12 +136,12 @@ class EasingTests: XCTestCase {
     }
 
 
-    func testExponentialInOutEvaluateAtZeroErrorNegativeExponent() {
+    func testExponentialInOutErrorNegativeExponent() {
         let ease = Interpolation.Easing.exponentialInOut(exponent: -2)
         XCTAssertThrowsError(try ease.evaluate(at: 0))
     }
     
-    func testExponentialInOutEvaluateAtZeroErrorPositiveExponent() {
+    func testExponentialInOutErrorPositiveExponent() {
         let ease = Interpolation.Easing.exponentialInOut(exponent: 0.5)
         XCTAssertThrowsError(try ease.evaluate(at: 0))
     }
