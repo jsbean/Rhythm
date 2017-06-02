@@ -114,7 +114,10 @@ public struct Interpolation {
                     return pow(2, e-1) / (e+1) * pow(x, (e+1))
                 } else {
                     // (2^(e-1) * (1-x)^(1+e)) / (1+e) + x
-                    return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x
+                    // But since this is a piecewise calculation, we have to subtract this
+                    // evaluated at 0.5 and add the value at 0.5 of the function directly above.
+                    // This actually just amounts to adding a -.5 term; everything else cancels out.
+                    return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x - 0.5
                 }
 
 
