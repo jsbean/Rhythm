@@ -41,7 +41,7 @@ public struct Interpolation {
         func evaluate(at x: Double) throws -> Double {
             
             guard (0...1).contains(x) else {
-                throw Error.valueNotInDomain(x, "Input must lie in [0,1]")
+                throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
             }
 
             switch self {
@@ -55,6 +55,7 @@ public struct Interpolation {
                     throw Error.valueNotInDomain(e, "Exponent must be positive")
                 }
 
+                // x^e
                 return pow(x, e)
 
             case .exponentialInOut(let e):
@@ -64,12 +65,15 @@ public struct Interpolation {
                 }
 
                 if x <= 0.5 {
+                    // (2^(e-1)) * x^e
                     return pow(x, e) * pow(2, e - 1)
                 } else {
-                    return pow(abs(x - 1), e) * -pow(2, e - 1) + 1
+                    // (1-x)^e * -(2^(e-1)) + 1
+                    return pow(1 - x, e) * -pow(2, e - 1) + 1
                 }
 
             case .sineInOut:
+                // (1 - cos(π x)) / 2
                 return 0.5 * (1 - cos(x * Double.pi))
 
             default:
