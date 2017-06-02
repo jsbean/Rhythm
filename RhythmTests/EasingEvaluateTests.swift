@@ -1,6 +1,6 @@
 //
-//  EasingTests.swift
-//  Rhythm
+//  EasingEvaluateTests.swift
+//  For Easing.evaluate(at: x)
 //
 //  Created by Brian Heim on 5/31/17.
 //
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Rhythm
 
-class EasingTests: XCTestCase {
+class EasingEvaluateTests: XCTestCase {
 
     // MARK: General
 

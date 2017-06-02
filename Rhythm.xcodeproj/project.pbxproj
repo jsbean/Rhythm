@@ -53,12 +53,14 @@
 		07CCA3AF1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCA3AD1EDEAB82003A7F90 /* Tempo.Stratum.Builder.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
-		90098EE51EDF877700A0E055 /* EasingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90098EE41EDF877700A0E055 /* EasingTests.swift */; };
-		90098EE61EDF877700A0E055 /* EasingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90098EE41EDF877700A0E055 /* EasingTests.swift */; };
+		90098EE51EDF877700A0E055 /* EasingEvaluateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90098EE41EDF877700A0E055 /* EasingEvaluateTests.swift */; };
+		90098EE61EDF877700A0E055 /* EasingEvaluateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90098EE41EDF877700A0E055 /* EasingEvaluateTests.swift */; };
 		906B552A1EDF0B6D00AF7B41 /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906B55291EDF0B6D00AF7B41 /* Interpolation.swift */; };
 		906B552B1EDF0C5700AF7B41 /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906B55291EDF0B6D00AF7B41 /* Interpolation.swift */; };
 		906B552D1EDF0CED00AF7B41 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906B552C1EDF0CED00AF7B41 /* TempoTests.swift */; };
 		906B552E1EDF0CED00AF7B41 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906B552C1EDF0CED00AF7B41 /* TempoTests.swift */; };
+		90DC870A1EE0F12B00BFCAE6 /* EasingIntegrateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DC87091EE0F12B00BFCAE6 /* EasingIntegrateTests.swift */; };
+		90DC870B1EE0F12B00BFCAE6 /* EasingIntegrateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DC87091EE0F12B00BFCAE6 /* EasingIntegrateTests.swift */; };
 		9EADF804BC73FCC4A2700E36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
 		B9DD5E2F03C34B3A482DC660 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440D58FF94D68D665C14BF01 /* Foundation.framework */; };
 		C7958FC476733C5F629085BF /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -137,9 +139,10 @@
 		4816E5E4EE43ABE036DA477E /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840AEDEC877EEF60D4CBCEB9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Rhythm/Info.plist; sourceTree = "<group>"; };
 		866599FF1C901214B2310164 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		90098EE41EDF877700A0E055 /* EasingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingTests.swift; path = RhythmTests/EasingTests.swift; sourceTree = "<group>"; };
+		90098EE41EDF877700A0E055 /* EasingEvaluateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingEvaluateTests.swift; path = RhythmTests/EasingEvaluateTests.swift; sourceTree = "<group>"; };
 		906B55291EDF0B6D00AF7B41 /* Interpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interpolation.swift; path = Rhythm/Interpolation.swift; sourceTree = "<group>"; };
 		906B552C1EDF0CED00AF7B41 /* TempoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempoTests.swift; path = RhythmTests/TempoTests.swift; sourceTree = "<group>"; };
+		90DC87091EE0F12B00BFCAE6 /* EasingIntegrateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingIntegrateTests.swift; path = RhythmTests/EasingIntegrateTests.swift; sourceTree = "<group>"; };
 		958460755AA3BA157F8A2C64 /* Rhythm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Rhythm.h; path = Rhythm/Rhythm.h; sourceTree = "<group>"; };
 		DD98AFD812F9D009110040E3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = RhythmTests/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -277,7 +280,8 @@
 				075C30531EB1618D008DB1D6 /* InterpolationTests.swift */,
 				906B552C1EDF0CED00AF7B41 /* TempoTests.swift */,
 				075C30561EB161A2008DB1D6 /* MeterTests.swift */,
-				90098EE41EDF877700A0E055 /* EasingTests.swift */,
+				90098EE41EDF877700A0E055 /* EasingEvaluateTests.swift */,
+				90DC87091EE0F12B00BFCAE6 /* EasingIntegrateTests.swift */,
 			);
 			name = RhythmTests;
 			sourceTree = "<group>";
@@ -488,10 +492,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0769B1A61EDCC08A000B5520 /* StratumTests.swift in Sources */,
+				90DC870B1EE0F12B00BFCAE6 /* EasingIntegrateTests.swift in Sources */,
 				075C30551EB1618D008DB1D6 /* InterpolationTests.swift in Sources */,
 				906B552E1EDF0CED00AF7B41 /* TempoTests.swift in Sources */,
 				073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
-				90098EE61EDF877700A0E055 /* EasingTests.swift in Sources */,
+				90098EE61EDF877700A0E055 /* EasingEvaluateTests.swift in Sources */,
 				075C30581EB161A2008DB1D6 /* MeterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,10 +526,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0769B1A51EDCC08A000B5520 /* StratumTests.swift in Sources */,
+				90DC870A1EE0F12B00BFCAE6 /* EasingIntegrateTests.swift in Sources */,
 				075C30541EB1618D008DB1D6 /* InterpolationTests.swift in Sources */,
 				906B552D1EDF0CED00AF7B41 /* TempoTests.swift in Sources */,
 				073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
-				90098EE51EDF877700A0E055 /* EasingTests.swift in Sources */,
+				90098EE51EDF877700A0E055 /* EasingEvaluateTests.swift in Sources */,
 				075C30571EB161A2008DB1D6 /* MeterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
