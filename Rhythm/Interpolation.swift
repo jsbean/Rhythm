@@ -18,7 +18,7 @@ public struct Interpolation {
         // MARK: - Associated Types
         
         public enum Error: Swift.Error {
-            case valueOutOfDomain(Double, String)
+            case valueNotInDomain(Double, String)
         }
 
         /// Linear interpolation.
@@ -41,7 +41,7 @@ public struct Interpolation {
         func evaluate(at x: Double) throws -> Double {
             
             guard (0...1).contains(x) else {
-                throw Error.valueOutOfDomain(x, "Input must lie in [0,1]")
+                throw Error.valueNotInDomain(x, "Input must lie in [0,1]")
             }
 
             switch self {
@@ -52,7 +52,7 @@ public struct Interpolation {
             case .exponentialIn(let e):
                 
                 guard e > 0 else {
-                    throw Error.valueOutOfDomain(e, "Exponent must be positive")
+                    throw Error.valueNotInDomain(e, "Exponent must be positive")
                 }
 
                 return pow(x, e)
@@ -60,7 +60,7 @@ public struct Interpolation {
             case .exponentialInOut(let e):
                 
                 guard e >= 1 else {
-                    throw Error.valueOutOfDomain(e, "Exponent must be at least 1")
+                    throw Error.valueNotInDomain(e, "Exponent must be at least 1")
                 }
 
                 if x <= 0.5 {
