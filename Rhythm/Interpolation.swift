@@ -49,24 +49,24 @@ public struct Interpolation {
             case .linear:
                 return x
 
-            case .exponentialIn(let exponent):
+            case .exponentialIn(let e):
                 
-                guard exponent > 0 else {
-                    throw Error.valueOutOfDomain(exponent, "Exponent must be positive")
+                guard e > 0 else {
+                    throw Error.valueOutOfDomain(e, "Exponent must be positive")
                 }
 
-                return pow(x, exponent)
+                return pow(x, e)
 
-            case .exponentialInOut(let exponent):
+            case .exponentialInOut(let e):
                 
-                guard exponent >= 1 else {
-                    throw Error.valueOutOfDomain(exponent, "Exponent must be at least 1")
+                guard e >= 1 else {
+                    throw Error.valueOutOfDomain(e, "Exponent must be at least 1")
                 }
 
                 if x <= 0.5 {
-                    return pow(x, exponent) * pow(2, exponent - 1)
+                    return pow(x, e) * pow(2, e - 1)
                 } else {
-                    return pow(abs(x - 1), exponent) * -pow(2, exponent - 1) + 1
+                    return pow(abs(x - 1), e) * -pow(2, e - 1) + 1
                 }
 
             case .sineInOut:
