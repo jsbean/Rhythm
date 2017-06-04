@@ -45,12 +45,12 @@ class EasingEvaluateTests: XCTestCase {
         }
     }
 
-    // MARK: - ExponentialIn
+    // MARK: - PowerIn
 
-    func testExponentialInOne() {
+    func testPowerInOne() {
 
         let x: Double = 0.5
-        let ease = Interpolation.Easing.exponentialIn(exponent: 1)
+        let ease = Interpolation.Easing.powerIn(exponent: 1)
         let expected = 0.5
 
         do {
@@ -61,10 +61,10 @@ class EasingEvaluateTests: XCTestCase {
         }
     }
 
-    func testExponentialInTwo() {
+    func testPowerInTwo() {
 
         let x: Double = 0.5
-        let ease = Interpolation.Easing.exponentialIn(exponent: 2)
+        let ease = Interpolation.Easing.powerIn(exponent: 2)
         let expected = 0.25
 
         do {
@@ -75,10 +75,10 @@ class EasingEvaluateTests: XCTestCase {
         }
     }
 
-    func testExponentialInHalf() {
+    func testPowerInHalf() {
 
         let x: Double = 0.5
-        let ease = Interpolation.Easing.exponentialIn(exponent: 0.5)
+        let ease = Interpolation.Easing.powerIn(exponent: 0.5)
         let expected = 0.70710678118 // 1 / sqrt(2)
 
         do {
@@ -89,20 +89,20 @@ class EasingEvaluateTests: XCTestCase {
         }
     }
 
-    func testExponentialInError() {
+    func testPowerInError() {
 
         let x: Double = 0.5
-        let ease = Interpolation.Easing.exponentialIn(exponent: -2)
+        let ease = Interpolation.Easing.powerIn(exponent: -2)
 
         XCTAssertThrowsError(try ease.evaluate(at: x))
     }
 
-    // MARK: - ExponentialInOut
+    // MARK: - PowerInOut
 
-    func testExponentialInOutOne() {
+    func testPowerInOutOne() {
 
         let x: Double = 0.25
-        let ease = Interpolation.Easing.exponentialInOut(exponent: 1)
+        let ease = Interpolation.Easing.powerInOut(exponent: 1)
         let expected = 0.25
 
         do {
@@ -113,9 +113,9 @@ class EasingEvaluateTests: XCTestCase {
         }
     }
 
-    func testExponentialInOutTwo() {
+    func testPowerInOutTwo() {
 
-        let ease = Interpolation.Easing.exponentialInOut(exponent: 2)
+        let ease = Interpolation.Easing.powerInOut(exponent: 2)
 
         XCTAssertEqual(try ease.evaluate(at: 0), 0)
         XCTAssertEqual(try ease.evaluate(at: 0.25), 0.125)
@@ -124,9 +124,9 @@ class EasingEvaluateTests: XCTestCase {
         XCTAssertEqual(try ease.evaluate(at: 1), 1)
     }
 
-    func testExponentialInOutThree() {
+    func testPowerInOutThree() {
 
-        let ease = Interpolation.Easing.exponentialInOut(exponent: 3)
+        let ease = Interpolation.Easing.powerInOut(exponent: 3)
 
         XCTAssertEqual(try ease.evaluate(at: 0), 0)
         XCTAssertEqual(try ease.evaluate(at: 0.25), 0.0625)
@@ -136,13 +136,13 @@ class EasingEvaluateTests: XCTestCase {
     }
 
 
-    func testExponentialInOutErrorNegativeExponent() {
-        let ease = Interpolation.Easing.exponentialInOut(exponent: -2)
+    func testPowerInOutErrorNegativeExponent() {
+        let ease = Interpolation.Easing.powerInOut(exponent: -2)
         XCTAssertThrowsError(try ease.evaluate(at: 0))
     }
     
-    func testExponentialInOutErrorPositiveExponent() {
-        let ease = Interpolation.Easing.exponentialInOut(exponent: 0.5)
+    func testPowerInOutErrorPositiveExponent() {
+        let ease = Interpolation.Easing.powerInOut(exponent: 0.5)
         XCTAssertThrowsError(try ease.evaluate(at: 0))
     }
 

@@ -24,11 +24,11 @@ public struct Interpolation {
         /// Linear interpolation.
         case linear
 
-        /// Exponential interpolation in, with the given `exponent`.
-        case exponentialIn(exponent: Double)
+        /// `x^e` interpolation in, with the given `exponent`.
+        case powerIn(exponent: Double)
 
-        /// Exponential interpolation in-out, with the given `exponent`.
-        case exponentialInOut(exponent: Double)
+        /// `x^e` interpolation in-out, with the given `exponent`.
+        case powerInOut(exponent: Double)
 
         /// Ease in / ease out (half sine wave)
         case sineInOut
@@ -49,7 +49,7 @@ public struct Interpolation {
             case .linear:
                 return x
 
-            case .exponentialIn(let e):
+            case .powerIn(let e):
                 
                 guard e > 0 else {
                     throw Error.valueNotInDomain(e, "Exponent must be positive")
@@ -58,7 +58,7 @@ public struct Interpolation {
                 // x^e
                 return pow(x, e)
 
-            case .exponentialInOut(let e):
+            case .powerInOut(let e):
                 
                 guard e >= 1 else {
                     throw Error.valueNotInDomain(e, "Exponent must be at least 1")
@@ -94,7 +94,7 @@ public struct Interpolation {
                 // x^2 / 2
                 return pow(x, 2) / 2
 
-            case .exponentialIn(let e):
+            case .powerIn(let e):
 
                 guard e > 0 else {
                     throw Error.valueNotInDomain(e, "Exponent must be positive")
@@ -103,7 +103,7 @@ public struct Interpolation {
                 // x^(e+1) / (e+1)
                 return pow(x, e + 1) / (e + 1)
 
-            case .exponentialInOut(let e):
+            case .powerInOut(let e):
 
                 guard e >= 1 else {
                     throw Error.valueNotInDomain(e, "Exponent must be at least 1")
