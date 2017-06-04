@@ -30,6 +30,9 @@ public struct Interpolation {
         /// `x^e` interpolation in-out, with the given `exponent`.
         case powerInOut(exponent: Double)
 
+        /// `b^x` interpolation in, with the given `base`.
+        case exponentialIn(base: Double)
+
         /// Ease in / ease out (half sine wave)
         case sineInOut
 
@@ -71,6 +74,18 @@ public struct Interpolation {
                     // (1-x)^e * -(2^(e-1)) + 1
                     return pow(1 - x, e) * -pow(2, e - 1) + 1
                 }
+
+            case .exponentialIn(let b):
+
+                guard b > 0 else {
+                    throw Error.valueNotInDomain(b, "Base must be positive")
+                }
+                guard b != 1 else {
+                    throw Error.valueNotInDomain(b, "Base must not be 1")
+                }
+
+                // ((b^x)-1) / (b-1)
+                return (pow(b, x)-1) / (b-1)
 
             case .sineInOut:
                 // (1 - cos(π*x)) / 2
@@ -120,6 +135,17 @@ public struct Interpolation {
                     return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x - 0.5
                 }
 
+            case .exponentialIn(let b):
+
+                guard b > 0 else {
+                    throw Error.valueNotInDomain(b, "Base must be positive")
+                }
+                guard b != 1 else {
+                    throw Error.valueNotInDomain(b, "Base must not be 1")
+                }
+
+                // ((b^x)/ln b) - x) / (b-1)
+                return ((pow(b, x)/log(b)) - x) / (b-1)
 
             case .sineInOut:
                 //  (x - (sin(π*x))/π) / 2
