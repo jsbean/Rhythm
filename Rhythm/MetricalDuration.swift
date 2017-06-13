@@ -40,6 +40,17 @@ public struct MetricalDuration: Rational {
     }
 }
 
+extension MetricalDuration: ExpressibleByIntegerLiteral {
+    
+    // MARK: - ExpressibleByIntegerLiteral
+    
+    /// Creates a `MetricalDuration` with the given amount of `beats` at the quarter-note
+    /// level.
+    public init(integerLiteral beats: Int) {
+        self.init(beats, 4)
+    }
+}
+
 infix operator /> : BitwiseShiftPrecedence
 
 /// Create a `MetricalDuration` with the `/>` operator between two `Int` values.

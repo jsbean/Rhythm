@@ -102,7 +102,7 @@ extension Tree where T == Int {
             let relativeDurations = children.map { $0.value }
             let sum = relativeDurations.sum
             let coefficient = original >> countTrailingZeros(original)
-            return closestPowerOfTwo(withCoefficient: coefficient, to: sum)!
+            return closestPowerOfTwo(coefficient: coefficient, to: sum)!
         }
         
         guard case .branch(let duration, let trees) = self else {
@@ -136,7 +136,7 @@ extension Tree where T == Int {
             return self
         }
         
-        let multiplier = closestPowerOfTwo(withCoefficient: sum, to: duration)! / sum
+        let multiplier = closestPowerOfTwo(coefficient: sum, to: duration)! / sum
         let newTrees = trees.map { $0.map { $0 * multiplier } }
         
         return .branch(duration, newTrees)
