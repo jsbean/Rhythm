@@ -36,14 +36,16 @@ extension Tempo {
         ///
         /// - TODO: Update `Double` to `Seconds`
         ///
-        internal func secondsOffset(for metricalOffset: MetricalDuration) -> Double {
+        internal func secondsOffset <R: Rational> (for metricalOffset: R) -> Double {
 
             // Metrical offset of and interpolation containing metrical offset
             let index = indexOfInterpolation(containing: metricalOffset)
             let (metricalOffsetOfInterpolation, interpolation) = tempi[index]
             
             // Metrical offset within interpolation
-            let metricalOffsetInInterpolation = metricalOffset - metricalOffsetOfInterpolation
+            let metricalOffsetInInterpolation = (
+                Fraction(metricalOffset) - Fraction(metricalOffsetOfInterpolation)
+            )
             
             // Seconds offset of the interpolation containing the metrical offset
             let secondsOffsetOfInterpolation = offsets[index]
@@ -58,26 +60,26 @@ extension Tempo {
         }
         
         /// - returns: The tempo context at the given `metricalOffset`.
-        internal func tempoContext(at metricalOffset: MetricalDuration) -> Tempo.Context {
+        internal func tempoContext <R: Rational> (at metricalOffset: R) -> Tempo.Context {
             let (offset, interp) = tempi[indexOfInterpolation(containing: metricalOffset)]
-            let internalOffset = metricalOffset - offset
+            let internalOffset = Fraction(metricalOffset) - Fraction(offset)
             return Tempo.Context(interpolation: interp, metricalOffset: internalOffset)
         }
         
         /// - returns: `Interpolation` containing the given `metricalOffset`.
-        internal func interpolation(containing metricalOffset: MetricalDuration)
+        internal func interpolation <R: Rational> (containing metricalOffset: R)
             -> Interpolation
         {
             return tempi[indexOfInterpolation(containing: metricalOffset)].1
         }
         
-        private func indexOfInterpolation(containing metricalOffset: MetricalDuration) -> Int {
+        private func indexOfInterpolation <R: Rational> (containing metricalOffset: R) -> Int {
             
-            let intervals = tempi.map { offset, interp in
-                offset..<(offset + interp.metricalDuration)
-            }
+            let intervals = tempi
+                .map { offset, interp in offset..<(offset + interp.metricalDuration) }
+                .map { range in Fraction(range.lowerBound)...Fraction(range.upperBound) }
             
-            return intervals.index { $0.contains(metricalOffset) } ?? 0
+            return intervals.index { $0.contains(Fraction(metricalOffset)) } ?? 0
         }
     }
 }
