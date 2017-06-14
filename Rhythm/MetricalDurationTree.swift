@@ -25,15 +25,24 @@ extension Tree where T == MetricalDuration {
         }
     }
     
-    /// - returns: `Tree` containing the inherited scale of each node contained herein.
+    /// - Returns: `Tree` containing the inherited scale of each node contained herein.
     public var scaling: Tree<Fraction> {
         return map { $0.numerator }.scaling
     }
     
+    /// - Returns: `MetricalDurationTree` with the durations scaled by context.
+    public var scaled: Tree<Fraction> {
+        return zip(self, scaling) { duration, scaling in (duration * scaling).reduced }
+    }
+    
     /// - returns: Array of tuples containing the scaled offset from the start of this
     /// `MetricalDurationTree`.
+    ///
+    /// - TODO: Change to concrete offsets.
+    /// - TODO: Refactor to 
+    /// `concreteOffsets(startingAt: MetricalDuration, in structure: Meter.Structure)`
     public var offsets: [Fraction] {
-        return zip(leaves.accumulatingRight, scaling.leaves).map { $0 * $1 }
+        return scaled.leaves
     }
     
     /// Create a `MetricalDurationTree` with the beat values of the given `proportionTree`
@@ -92,6 +101,5 @@ public func * (_ metricalDuration: MetricalDuration, _ proportions: [Int])
     
     let beats = metricalDuration.numerator
     let proportionTree = ProportionTree([beats, proportions])
-    
     return MetricalDurationTree(metricalDuration, proportionTree)
 }

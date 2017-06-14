@@ -145,7 +145,9 @@ class MetricalDurationTreeTests: XCTestCase {
     
     func testLeafOffsets() {
         let tree = 1/>8 * [1,1,1]
-        XCTAssertEqual(tree.offsets, [Fraction(0,1), Fraction(1,24), Fraction(1,12)])
+        //XCTAssertEqual(tree.offsets, [0/>8, ,])
+        print(tree.scaling)
+        //XCTAssertEqual(tree.offsets, [0/>4, Fraction(1,24), Fraction(1,12)])
     }
     
     func testLengthsAllTies() {
@@ -212,5 +214,11 @@ class MetricalDurationTreeTests: XCTestCase {
         let trees = (0..<3).map { _ in rhythmTree }
 
         XCTAssertEqual(trees.lengths, [1/>8, 2/>8, 2/>8, 2/>8, 2/>8, 2/>8, 1/>8])
+    }
+    
+    func testScaled() {
+        let tree = 4/>4 * [1,[1,[2,[1,1,1]],1,1]]
+        let scaled = tree.scaled
+        print(scaled)
     }
 }

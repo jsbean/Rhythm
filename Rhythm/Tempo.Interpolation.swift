@@ -67,7 +67,7 @@ extension Tempo {
             end: Tempo = Tempo(60),
             duration: MetricalDuration = 1/>4,
             kind: Kind = .linear
-            )
+        )
         {
             self.start = start
             self.end = end
@@ -91,10 +91,10 @@ extension Tempo {
         ///
         /// - TODO: Change Double -> Seconds
         ///
-        public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
+        public func secondsOffset <R: Rational> (metricalOffset: R) -> Double/*Seconds*/ {
             
             // Concrete in seconds always zero if symbolic offset is zero.
-            guard metricalOffset != .zero else {
+            guard metricalOffset != .unit else {
                 return 0
             }
             
@@ -140,9 +140,9 @@ extension Tempo {
         ///
         /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
         ///
-        public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
+        public func tempo <R: Rational> (at metricalOffset: R) -> Tempo {
             
-            guard (self.start != self.end) || (metricalOffset != .zero) else {
+            guard (self.start != self.end) || (metricalOffset != .unit) else {
                 return self.start
             }
             
@@ -154,8 +154,8 @@ extension Tempo {
             return Tempo(bpm, subdivision: start.subdivision)
         }
         
-        private func normalizedValues(offset: MetricalDuration)
-            -> (start: Tempo, end: Tempo, duration: MetricalDuration, offset: MetricalDuration)
+        private func normalizedValues <R: Rational> (offset: R)
+            -> (start: Tempo, end: Tempo, duration: MetricalDuration, offset: R)
         {
             
             let lcm = [
@@ -163,7 +163,7 @@ extension Tempo {
                 end.subdivision,
                 metricalDuration.denominator,
                 offset.denominator
-                ].lcm
+            ].lcm
             
             return (
                 start: start.respelling(subdivision: lcm),

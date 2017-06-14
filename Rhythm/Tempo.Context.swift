@@ -6,6 +6,8 @@
 //
 //
 
+import ArithmeticTools
+
 extension Tempo {
     
     /// The context of a particular point within a `Tempo.Interpolation`.
@@ -22,7 +24,7 @@ extension Tempo {
         // MARK: - Initializers
         
         /// Creates a `Tempo.Context` with a given `interpolation` and `metricalOffset`.
-        public init(interpolation: Interpolation, metricalOffset: MetricalDuration) {
+        public init <R: Rational> (interpolation: Interpolation, metricalOffset: R) {
             self.interpolation = interpolation
             self.tempo = interpolation.tempo(at: metricalOffset)
         }
