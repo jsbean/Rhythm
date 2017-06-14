@@ -38,7 +38,7 @@ extension Meter {
         
         /// - TODO: Update `Double` -> `Seconds`
         public var beatOffsets: [Double] {
-            return beatContexts.map { $0.metricalOffset }.map(secondsOffset)
+            return beatContexts.map { $0.metricalOffset }.map(concreteOffset)
         }
         
         /// `Meter` values contained herein.
@@ -58,7 +58,7 @@ extension Meter {
         // MARK: - Instance Methods
         
         /// - returns: Seconds offset for the given `metricalOffset`.
-        public func secondsOffset(_ metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
+        public func concreteOffset <R: Rational> (_ metricalOffset: R) -> Double/*Seconds*/ {
             return tempi.secondsOffset(for: metricalOffset)
         }
         
