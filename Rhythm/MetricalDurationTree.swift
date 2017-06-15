@@ -16,7 +16,6 @@ extension Tree where T == MetricalDuration {
     
     /// `MetricalDuration` value of this `MetricalDurationTree` node.
     public var duration: MetricalDuration {
-        
         switch self {
         case .leaf(let duration):
             return duration
@@ -70,6 +69,16 @@ extension Tree where T == MetricalDuration {
         let newSubdivision = Int(Double(subdivision) * Double(quotient))
 
         self.init(newSubdivision, normalized)
+    }
+    
+    /// - Returns: The concrete offsets (in `Seconds`) of the leaves contained herein, when
+    /// starting at the given `offset`, within the given `structure`.
+    public func concreteOffsets <R: Rational> (
+        startingAt offset: R,
+        within structure: Meter.Structure
+    ) -> [Double]
+    {
+        return offsets.map { $0 + Fraction(offset) }.map(structure.concreteOffset)
     }
 }
 
