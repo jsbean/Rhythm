@@ -14,9 +14,9 @@ public struct Interpolation {
 
     /// Easing of `Interpolation`.
     public enum Easing {
-        
+
         // MARK: - Associated Types
-        
+
         public enum Error: Swift.Error {
             case valueNotInDomain(Double, String)
         }
@@ -42,7 +42,7 @@ public struct Interpolation {
 
         /// - returns: The easing function evaluated at `x`.
         func evaluate(at x: Double) throws -> Double {
-            
+
             guard (0...1).contains(x) else {
                 throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
             }
@@ -53,7 +53,7 @@ public struct Interpolation {
                 return x
 
             case .powerIn(let e):
-                
+
                 guard e > 0 else {
                     throw Error.valueNotInDomain(e, "Exponent must be positive")
                 }
@@ -62,7 +62,7 @@ public struct Interpolation {
                 return pow(x, e)
 
             case .powerInOut(let e):
-                
+
                 guard e >= 1 else {
                     throw Error.valueNotInDomain(e, "Exponent must be at least 1")
                 }
