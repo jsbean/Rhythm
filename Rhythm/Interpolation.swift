@@ -204,6 +204,22 @@ public struct Interpolation {
 
     // MARK: - Instance Properties
 
+    /// - returns: The effective tempo at the given `metricalOffset`.
+    ///
+    /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
+    ///
+    public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
+
+        let (start, end, _, _) = normalizedValues(offset: metricalOffset)
+        let position = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
+        let range = end.beatsPerMinute - start.beatsPerMinute
+        let ratio = end.beatsPerMinute / start.beatsPerMinute
+        let easedPosition = try! easing.evaluate(at: position)
+        let expRatio = (pow(ratio, easedPosition)-1) / (ratio-1)
+        let exponentialBpm = expRatio * range + start.beatsPerMinute
+        return Tempo(exponentialBpm, subdivision: start.subdivision)
+    }
+
     /// - returns: The concrete offset in seconds of the given symbolic `MetricalDuration`
     /// `offset`.
     ///
@@ -211,41 +227,23 @@ public struct Interpolation {
     ///
     public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
 
-        // Concrete in seconds always zero if symbolic offset is zero.
-        guard metricalOffset != .zero else {
-            return 0
-        }
+        /*// Concrete in seconds always zero if symbolic offset is zero.
+         guard metricalOffset != .zero else {
+         return 0
+         }
 
-        let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
-        let beats = offset.numerator
+         let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
+         let beats = offset.numerator
 
-        // Non-changing tempo can be calculated linearly, avoid division by 0
-        guard start != end else {
-            return Double(beats) / start.durationOfBeat
-        }
+         // Non-changing tempo can be calculated linearly, avoid division by 0
+         guard start != end else {
+         return Double(beats) / start.durationOfBeat
+         }
 
-        switch easing {
-        default:
-            fatalError("Easing not yet supported!")
-        }
-    }
-
-    /// - returns: The effective tempo at the given `metricalOffset`.
-    ///
-    /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
-    ///
-    public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
-
-        guard (self.start != self.end) || (metricalOffset != .zero) else {
-            return self.start
-        }
-
-        let (start, end, _, _) = normalizedValues(offset: metricalOffset)
-        let position = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
-        let range = end.beatsPerMinute - start.beatsPerMinute
-        let relativePosition = position * range
-        let bpm = relativePosition + start.beatsPerMinute
-        return Tempo(bpm, subdivision: start.subdivision)
+         switch easing {
+         default:*/
+        fatalError("Easing not yet supported!")
+        //}
     }
 
     private func normalizedValues(offset: MetricalDuration)
