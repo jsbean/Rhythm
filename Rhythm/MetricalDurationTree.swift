@@ -10,9 +10,10 @@ import Collections
 import ArithmeticTools
 
 /// Tree containing `MetricalDuration` values.
-public typealias MetricalDurationTree = Tree<MetricalDuration>
+public typealias MetricalDurationTree = Tree<MetricalDuration, MetricalDuration>
 
-extension Tree where T == MetricalDuration {
+/// - Note: Use extension MetricalDurationTree when Swift allows it.
+extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
     
     /// `MetricalDuration` value of this `MetricalDurationTree` node.
     public var duration: MetricalDuration {
@@ -25,12 +26,12 @@ extension Tree where T == MetricalDuration {
     }
     
     /// - Returns: `Tree` containing the inherited scale of each node contained herein.
-    public var scaling: Tree<Fraction> {
+    public var scaling: Tree<Fraction,Fraction> {
         return map { $0.numerator }.scaling
     }
     
     /// - Returns: `MetricalDurationTree` with the durations scaled by context.
-    public var scaled: Tree<Fraction> {
+    public var scaled: Tree<Fraction,Fraction> {
         return zip(self, scaling) { duration, scaling in (duration * scaling).reduced }
     }
     
