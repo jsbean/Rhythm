@@ -12,14 +12,14 @@ import Collections
 import ArithmeticTools
 
 /// Similar to the proportional aspect of the `OpenMusic` `Rhythm Tree` structure.
-public typealias ProportionTree = Tree<Int>
+public typealias ProportionTree = Tree<Int, Int>
 
-extension Tree where T == Int {
+extension Tree where Branch == Int, Leaf == Int {
     
     /// - returns: `Tree` containing the inherited scale of each node contained herein.
-    public var scaling: Tree<Fraction> {
+    public var scaling: Tree<Fraction, Fraction> {
 
-        func traverse(_ tree: ProportionTree, accum: Fraction) -> Tree<Fraction> {
+        func traverse(_ tree: ProportionTree, accum: Fraction) -> Tree<Fraction, Fraction> {
             
             switch tree {
             case .leaf:
@@ -153,7 +153,7 @@ extension Tree where T == Int {
     }
 }
 
-extension Tree where T == Int {
+extension Tree where Branch == Int, Leaf == Int {
     
     /// Create an arbitrarily-nested `ProportionTree` with an array.
     ///
@@ -173,7 +173,7 @@ extension Tree where T == Int {
         func traverse(_ value: Any) -> ProportionTree {
             
             // Input: `T`
-            if let leaf = value as? T {
+            if let leaf = value as? Leaf {
                 return .leaf(leaf)
             }
             
@@ -188,7 +188,7 @@ extension Tree where T == Int {
             switch head {
                 
             // Input: `[T, ...]`
-            case let value as T:
+            case let value as Leaf:
                 
                 // Input: `[T]`
                 if tail.isEmpty {
@@ -220,9 +220,9 @@ extension Tree where T == Int {
 
 /// Tree recording the change (in degree of power-of-two) needed to normalize a 
 /// `ProprtionTree`.
-private typealias DistanceTree = Tree<Int>
+private typealias DistanceTree = Tree<Int,Int>
 
-extension Tree where T == Int {
+extension Tree where Branch == Int, Leaf == Int {
     
     /// - returns: `DistanceTree` with distances propagated up and down.
     ///

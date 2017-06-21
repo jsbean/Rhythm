@@ -13,7 +13,7 @@ import ArithmeticTools
 
 class ProportionTreeTests: XCTestCase {
     
-    var veryNested: Tree<Int> {
+    var veryNested: Tree<Int,Int> {
         
         return Tree.branch(1, [
             .branch(2, [
@@ -280,7 +280,7 @@ class ProportionTreeTests: XCTestCase {
         let tree = ProportionTree([1,[1,1,1]])
         
         let value = Fraction(2,3)
-        let expected = Tree<Fraction>.branch(1, [
+        let expected = Tree<Fraction,Fraction>.branch(1, [
             .leaf(value),
             .leaf(value),
             .leaf(value)
