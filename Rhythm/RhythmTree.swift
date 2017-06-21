@@ -9,69 +9,93 @@
 import Collections
 import ArithmeticTools
 
-/// `Tree` that extends a `MetricalDurationTree` with `MetricalContext<T>` values for `leaf`
-/// nodes.
-public struct RhythmTree <T: Equatable> {
-    
-    public let metricalDurationTree: MetricalDurationTree
-    public let leafContexts: [MetricalContext<T>]
-
-    /// - returns: Tuple containing `MetricalDuration` and `MetricalContext` information 
-    /// about the leaves of the `RhythmTree`.
-    public var leaves: [(duration: MetricalDuration, context: MetricalContext<T>)] {
-        return Array(zip(metricalDurationTree.leaves, leafContexts))
-    }
-    
-    /// Creates a `RhythmTree` with the given `metricalDurationTree` and `leafContexts`.
-    public init(
-        _ metricalDurationTree: MetricalDurationTree,
-        _ leafContexts: [MetricalContext<T>]
-    )
-    {
-        /// This is an expensive check (`tree.leaves` is O(n))
-        guard leafContexts.count == metricalDurationTree.leaves.count else {
-            fatalError("Incompatible leaf contexts for tree")
-        }
-        
-        self.metricalDurationTree = metricalDurationTree
-        self.leafContexts = leafContexts
-    }
-    
-    // TODO: Add node with contexts
-    // TODO: Insert ""
-    // TODO: Remove node
+public struct RhythmLeaf {
+    let metricalDuration: MetricalDuration
+    let context: MetricalContext<Int>
 }
 
+extension RhythmLeaf: Equatable {
+    
+    public static func == (lhs: RhythmLeaf, rhs: RhythmLeaf) -> Bool {
+        return lhs.metricalDuration == rhs.metricalDuration && lhs.context == rhs.context
+    }
+}
+
+public typealias RhythmTree = Tree<MetricalDuration, RhythmLeaf>
+
+/// - Note: Use extension RhythmTree when Swift allows it
+extension Tree where Branch == MetricalDuration, Leaf == RhythmLeaf {
+    
+    public init(
+        _ metricalDurationTree: MetricalDurationTree,
+        _ leafContexts: [MetricalContext<Int>]
+    )
+    {
+        func traverse(
+            _ metricalDurationTree: MetricalDurationTree,
+            applying leafContexts: [MetricalContext<Int>]
+        ) -> RhythmTree
+        {
+            switch metricalDurationTree {
+            case .leaf(let metricalDuration):
+                
+                guard let context = leafContexts.head else {
+                    fatalError("Incompatible leaf contexts for metrical duration tree")
+                }
+                
+                return .leaf(RhythmLeaf(metricalDuration: metricalDuration, context: context))
+                
+            case let .branch(metricalDuration, trees):
+                var leafContexts = leafContexts
+                var newTrees: [RhythmTree] = []
+                for tree in trees {
+                    switch tree {
+                    case .leaf:
+                        newTrees.append(traverse(tree, applying: leafContexts))
+                        leafContexts.remove(at: 0)
+                    case .branch:
+                        newTrees.append(traverse(tree, applying: leafContexts))
+                    }
+                }
+                
+                return .branch(metricalDuration, newTrees)
+            }
+        }
+        
+        self = traverse(metricalDurationTree, applying: leafContexts)
+    }
+}
+
+
 /// - TODO: Implement `RhythmSequence`.
-extension Sequence where Iterator.Element == RhythmTree<Int> {
+extension Sequence where Iterator.Element == RhythmTree {
     
     /// - returns: Effective durations of events, merging tied durations.
     public var lengths: [MetricalDuration] {
         
         func merge(
-            _ lengths: [(duration: MetricalDuration, context: MetricalContext<Int>)],
+            _ leaves: [RhythmLeaf],
             accum: [MetricalDuration],
             tied: MetricalDuration?
         ) -> [MetricalDuration]
         {
             
-            guard let (leaf, remaining) = lengths.destructured else {
+            guard let (leaf, remaining) = leaves.destructured else {
                 return accum + tied
             }
             
             switch leaf.context {
                 
             case .continuation:
-                return merge(remaining, accum: accum, tied: (tied ?? .zero) + leaf.duration)
+                let tied = (tied ?? .zero) + leaf.metricalDuration
+                return merge(remaining, accum: accum, tied: tied)
                 
             case .instance(let absenceOrEvent):
-                
                 switch absenceOrEvent {
-                    
                 case .absence:
-                    return merge(remaining, accum: accum + tied + leaf.duration, tied: nil)
+                    return merge(remaining, accum: accum + tied + leaf.metricalDuration, tied: nil)
                 case .event:
-                    return merge(remaining, accum: accum + tied, tied: leaf.duration)
+                    return merge(remaining, accum: accum + tied, tied: leaf.metricalDuration)
                 }
             }
         }
@@ -80,17 +104,7 @@ extension Sequence where Iterator.Element == RhythmTree<Int> {
     }
 }
 
-extension RhythmTree: Equatable {
-    
-    public static func == <T: Equatable> (lhs: RhythmTree<T>, rhs: RhythmTree<T>) -> Bool {
-        return (
-            lhs.metricalDurationTree == rhs.metricalDurationTree &&
-            lhs.leafContexts == rhs.leafContexts
-        )
-    }
-}
-
 /// - returns: `RhythmTree` with the given `MetricalDurationTree` and `MetricalContext` values.
-public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> RhythmTree<T> {
+public func * (lhs: MetricalDurationTree, rhs: [MetricalContext<Int>]) -> RhythmTree {
     return RhythmTree(lhs, rhs)
 }
