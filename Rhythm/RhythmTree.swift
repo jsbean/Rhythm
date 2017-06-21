@@ -121,15 +121,6 @@ public func lengths <S: Sequence, T: Equatable> (of rhythmTrees: S) -> [Metrical
     return merge(rhythmTrees.flatMap { $0.tree.leaves }, into: [], tied: nil)
 }
 
-//extension Sequence where Iterator.Element == RhythmTree<Equatable> {
-//    
-//    /// - returns: Effective durations of events, merging tied durations.
-//    public var lengths: [MetricalDuration] {
-//        
-//        
-//    }
-//}
-
 /// - returns: `RhythmTree` with the given `MetricalDurationTree` and `MetricalContext` values.
 public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> RhythmTree<T> {
     return RhythmTree(lhs, rhs)
