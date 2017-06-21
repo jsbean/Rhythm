@@ -155,9 +155,7 @@ class MetricalDurationTreeTests: XCTestCase {
         let durations = 4/>8 * [1,1,1,1]
         let contexts = (0..<4).map { _ in MetricalContext<Int>.continuation }
         let rhythmTree = RhythmTree(durations, contexts)
-        let lengths = [rhythmTree].lengths
-
-        XCTAssertEqual(lengths, [4/>8])
+        XCTAssertEqual(lengths(of: [rhythmTree]), [4/>8])
     }
     
     func testLengthsTiesAndEvents() {
@@ -172,9 +170,8 @@ class MetricalDurationTreeTests: XCTestCase {
         ]
         
         let rhythmTree = RhythmTree(durations, contexts)
-        let lengths = [rhythmTree].lengths
         
-        XCTAssertEqual(lengths, [1/>8, 2/>8, 1/>8])
+        XCTAssertEqual(lengths(of: [rhythmTree]), [1/>8, 2/>8, 1/>8])
     }
     
     func testLengthsTiesEventsAndRests() {
@@ -189,9 +186,8 @@ class MetricalDurationTreeTests: XCTestCase {
         ]
         
         let rhythmTree = RhythmTree(durations, contexts)
-        let lengths = [rhythmTree].lengths
         
-        XCTAssertEqual(lengths, [1/>8, 2/>8, 1/>8])
+        XCTAssertEqual(lengths(of: [rhythmTree]), [1/>8, 2/>8, 1/>8])
     }
     
     func testLengths() {
@@ -213,7 +209,7 @@ class MetricalDurationTreeTests: XCTestCase {
         //
         let trees = (0..<3).map { _ in rhythmTree }
 
-        XCTAssertEqual(trees.lengths, [1/>8, 2/>8, 2/>8, 2/>8, 2/>8, 2/>8, 1/>8])
+        XCTAssertEqual(lengths(of: trees), [1/>8, 2/>8, 2/>8, 2/>8, 2/>8, 2/>8, 1/>8])
     }
     
     func testScaled() {
