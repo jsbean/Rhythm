@@ -23,14 +23,9 @@ public struct RhythmLeaf <T: Equatable> {
 }
 
 public struct Rhythm <T: Equatable> {
-    
-    public typealias RhythmTree = Tree<MetricalDuration, RhythmLeaf<T>>
-    
-    public let tree: RhythmTree
-    
-    public init(_ tree: RhythmTree) {
-        self.tree = tree
-    }
+
+    public let metricalDurationTree: MetricalDurationTree
+    public let leaves: [RhythmLeaf<T>]
 }
 
 extension RhythmLeaf: Equatable {
@@ -47,7 +42,8 @@ extension Rhythm {
         _ leafContexts: [MetricalContext<T>]
     )
     {
-        self.init(metricalDurationTree.zipLeaves(leafContexts, RhythmLeaf.init))
+        self.metricalDurationTree = metricalDurationTree
+        self.leaves = zip(metricalDurationTree.leaves, leafContexts).map(RhythmLeaf.init)
     }
 }
 
@@ -87,7 +83,7 @@ public func lengths <S: Sequence, T: Equatable> (of rhythmTrees: S) -> [Metrical
         }
     }
     
-    return merge(rhythmTrees.flatMap { $0.tree.leaves }, into: [], tied: nil)
+    return merge(rhythmTrees.flatMap { $0.leaves }, into: [], tied: nil)
 }
 
 /// - returns: `RhythmTree` with the given `MetricalDurationTree` and `MetricalContext` values.
