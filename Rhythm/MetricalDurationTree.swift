@@ -42,7 +42,7 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
     /// - TODO: Refactor to 
     /// `concreteOffsets(startingAt: MetricalDuration, in structure: Meter.Structure)`
     public var offsets: [Fraction] {
-        return scaled.leaves
+        return scaled.leaves.accumulatingRight
     }
     
     /// Create a `MetricalDurationTree` with the beat values of the given `proportionTree`
