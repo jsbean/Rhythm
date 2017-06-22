@@ -152,7 +152,7 @@ class MetricalDurationTreeTests: XCTestCase {
         
         let durations = 4/>8 * [1,1,1,1]
         let contexts = (0..<4).map { _ in MetricalContext<Int>.continuation }
-        let rhythmTree = RhythmTree(durations, contexts)
+        let rhythmTree = Rhythm(durations, contexts)
         XCTAssertEqual(lengths(of: [rhythmTree]), [4/>8])
     }
     
@@ -167,7 +167,7 @@ class MetricalDurationTreeTests: XCTestCase {
             .instance(.event(1))
         ]
         
-        let rhythmTree = RhythmTree(durations, contexts)
+        let rhythmTree = Rhythm(durations, contexts)
         
         XCTAssertEqual(lengths(of: [rhythmTree]), [1/>8, 2/>8, 1/>8])
     }
@@ -183,7 +183,7 @@ class MetricalDurationTreeTests: XCTestCase {
             .instance(.absence)
         ]
         
-        let rhythmTree = RhythmTree(durations, contexts)
+        let rhythmTree = Rhythm(durations, contexts)
         
         XCTAssertEqual(lengths(of: [rhythmTree]), [1/>8, 2/>8, 1/>8])
     }
@@ -199,7 +199,7 @@ class MetricalDurationTreeTests: XCTestCase {
             .instance(.event(1))
         ]
         
-        let rhythmTree = RhythmTree(durations, contexts)
+        let rhythmTree = Rhythm(durations, contexts)
         
         // Create a sequence of rhythms:
         //
