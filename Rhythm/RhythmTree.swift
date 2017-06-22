@@ -20,13 +20,13 @@ public struct RhythmLeaf <T: Equatable> {
     }
 }
 
-public struct RhythmTree <T: Equatable> {
+public struct Rhythm <T: Equatable> {
     
-    public typealias Structure = Tree<MetricalDuration, RhythmLeaf<T>>
+    public typealias RhythmTree = Tree<MetricalDuration, RhythmLeaf<T>>
     
-    public let tree: Structure
+    public let tree: RhythmTree
     
-    public init(_ tree: Structure) {
+    public init(_ tree: RhythmTree) {
         self.tree = tree
     }
 }
@@ -38,52 +38,19 @@ extension RhythmLeaf: Equatable {
     }
 }
 
-extension RhythmTree {
+extension Rhythm {
     
     public init(
         _ metricalDurationTree: MetricalDurationTree,
         _ leafContexts: [MetricalContext<T>]
     )
     {
-        func traverse(
-            _ metricalDurationTree: MetricalDurationTree,
-            applying leafContexts: [MetricalContext<T>]
-        ) -> Structure
-        {
-            switch metricalDurationTree {
-            case .leaf(let metricalDuration):
-                
-                guard let context = leafContexts.head else {
-                    fatalError("Incompatible leaf contexts for metrical duration tree")
-                }
-                
-                return .leaf(RhythmLeaf(metricalDuration: metricalDuration, context: context))
-                
-            case let .branch(metricalDuration, trees):
-                
-                var leafContexts = leafContexts
-                var newTrees: [Structure] = []
-                
-                for tree in trees {
-                    switch tree {
-                    case .leaf:
-                        newTrees.append(traverse(tree, applying: leafContexts))
-                        leafContexts.remove(at: 0)
-                    case .branch:
-                        newTrees.append(traverse(tree, applying: leafContexts))
-                    }
-                }
-                
-                return .branch(metricalDuration, newTrees)
-            }
-        }
-        
-        self.init(traverse(metricalDurationTree, applying: leafContexts))
+        self.init(metricalDurationTree.zipLeaves(leafContexts, RhythmLeaf.init))
     }
 }
 
 public func lengths <S: Sequence, T: Equatable> (of rhythmTrees: S) -> [MetricalDuration]
-    where S.Iterator.Element == RhythmTree<T>
+    where S.Iterator.Element == Rhythm<T>
 {
     func merge(
         _ leaves: [RhythmLeaf<T>],
@@ -122,6 +89,6 @@ public func lengths <S: Sequence, T: Equatable> (of rhythmTrees: S) -> [Metrical
 }
 
 /// - returns: `RhythmTree` with the given `MetricalDurationTree` and `MetricalContext` values.
-public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> RhythmTree<T> {
-    return RhythmTree(lhs, rhs)
+public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> Rhythm<T> {
+    return Rhythm(lhs, rhs)
 }
