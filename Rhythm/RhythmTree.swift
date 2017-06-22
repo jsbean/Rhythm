@@ -37,7 +37,7 @@ extension RhythmLeaf: Equatable {
 
 extension RhythmLeaf {
     
-    func map <U> (_ transform: @escaping (T) -> U) -> RhythmLeaf<U> {
+    public func map <U> (_ transform: @escaping (T) -> U) -> RhythmLeaf<U> {
       
         // FIXME: Extract this into func. Generics not happy.
         var newContext: MetricalContext<U> {
