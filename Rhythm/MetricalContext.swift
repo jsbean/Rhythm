@@ -96,3 +96,27 @@ extension AbsenceOrEvent: CustomStringConvertible {
         }
     }
 }
+
+extension AbsenceOrEvent {
+    
+    func map <U> (_ transform: (T) -> U) -> AbsenceOrEvent<U> {
+        switch self {
+        case .absence:
+            return .absence
+        case .event(let value):
+            return .event(transform(value))
+        }
+    }
+}
+
+extension ContinuationOrInstance {
+    
+    func map <U> (_ transform: (T) -> U) -> ContinuationOrInstance<U> {
+        switch self {
+        case .continuation:
+            return .continuation
+        case .instance(let value):
+            return .instance(transform(value))
+        }
+    }
+}

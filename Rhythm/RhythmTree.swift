@@ -35,6 +35,25 @@ extension RhythmLeaf: Equatable {
     }
 }
 
+extension RhythmLeaf {
+    
+    func map <U> (_ transform: @escaping (T) -> U) -> RhythmLeaf<U> {
+      
+        // FIXME: Extract this into func. Generics not happy.
+        var newContext: MetricalContext<U> {
+            switch context {
+            case .continuation:
+                return .continuation
+            case .instance(let instance):
+                return .instance(instance.map(transform))
+            }
+        }
+        
+        return RhythmLeaf<U>(metricalDuration: metricalDuration, context: newContext)
+    }
+}
+
+
 extension Rhythm {
     
     public init(
@@ -90,3 +109,4 @@ public func lengths <S: Sequence, T: Equatable> (of rhythmTrees: S) -> [Metrical
 public func * <T> (lhs: MetricalDurationTree, rhs: [MetricalContext<T>]) -> Rhythm<T> {
     return Rhythm(lhs, rhs)
 }
+
