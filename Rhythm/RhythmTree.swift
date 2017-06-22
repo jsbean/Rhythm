@@ -35,6 +35,14 @@ extension RhythmLeaf: Equatable {
     }
 }
 
+extension Rhythm {
+    
+    public func map <U> (_ transform: @escaping (T) -> U) -> Rhythm<U> {
+            let leaves = self.leaves.map { $0.map(transform) }
+        return Rhythm<U>(metricalDurationTree: metricalDurationTree, leaves: leaves)
+    }
+}
+
 extension RhythmLeaf {
     
     public func map <U> (_ transform: @escaping (T) -> U) -> RhythmLeaf<U> {
