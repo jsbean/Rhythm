@@ -149,4 +149,124 @@ class InterpolationTests: XCTestCase {
         }
     }
 
+    func testSecondsOffsetLinear_60to120_wholeNoteDuration() {
+
+        let interp = Interpolation(
+            start: Tempo(60),
+            end: Tempo(120),
+            duration: 1 /> 1,
+            easing: Interpolation.Easing.linear)
+
+        let offsets = [0/>1, 1/>4, 1/>2, 3/>4, 1/>1]
+        let expecteds : [Double] = [0, 0.92, 1.69, 2.34, 2.89]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
+
+    func testSecondsOffsetLinear_60to120_dottedHalfDuration() {
+
+        let interp = Interpolation(
+            start: Tempo(60),
+            end: Tempo(120),
+            duration: 3 /> 4,
+            easing: Interpolation.Easing.linear)
+
+        let offsets = [0/>1, 3/>16, 3/>8, 9/>16, 3/>4]
+        let expecteds : [Double] = [0, 0.68, 1.26, 1.75, 2.16]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
+
+    func testSecondsOffsetLinear_120to60_wholeNoteDuration() {
+
+        let interp = Interpolation(
+            start: Tempo(120),
+            end: Tempo(60),
+            duration: 1 /> 1,
+            easing: Interpolation.Easing.linear)
+
+        let offsets = [0/>1, 1/>4, 1/>2, 3/>4, 1/>1]
+        let expecteds : [Double] = [ 0, 0.54593633303067, 1.1951677046092, 1.9672382709734, 2.8853900817779 ]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
+
+    func testSecondsOffsetPowerIn2_60to60() {
+
+        let interp = Interpolation(
+            start: Tempo(60),
+            end: Tempo(60),
+            duration: 1 /> 1,
+            easing: Interpolation.Easing.powerIn(exponent:2))
+
+        let offsets = [0/>1, 1/>4, 1/>2, 3/>4, 1/>1]
+        let expecteds : [Double] = [ 0, 1, 2, 3, 4 ]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
+
+    func testSecondsOffsetPowerIn2_60to120() {
+
+        let interp = Interpolation(
+            start: Tempo(60),
+            end: Tempo(120),
+            duration: 1 /> 1,
+            easing: Interpolation.Easing.powerIn(exponent:2))
+
+        let offsets = [0/>1, 1/>4, 1/>2, 3/>4, 1/>1]
+        let expecteds : [Double] = [ 0, 0.99, 1.89, 2.65, 3.24 ]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
+
+    func testSecondsOffsetPowerIn2_120to60() {
+
+        let interp = Interpolation(
+            start: Tempo(120),
+            end: Tempo(60),
+            duration: 1 /> 1,
+            easing: Interpolation.Easing.powerIn(exponent:2))
+
+        let offsets = [0/>1, 1/>4, 1/>2, 3/>4, 1/>1]
+        let expecteds : [Double] = [ 0, 0.51, 1.06, 1.72, 2.58 ]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
+
+    // Tests what happens when the desired resolution is twice that of the
+    // approximation resolution
+    func testSecondsOffsetPowerIn2_120to60_tooSmallResolution() {
+
+        let interp = Interpolation(
+            start: Tempo(120),
+            end: Tempo(60),
+            duration: 2049 /> 2048,
+            easing: Interpolation.Easing.powerIn(exponent:2))
+
+        let offsets = [0/>1, 1/>4, 1/>2, 3/>4, 1/>1, 2049/>2048]
+        let expecteds : [Double] = [ 0, 0.51, 1.06, 1.72, 2.575, 2.576 ]
+
+        for (offset, expected) in zip(offsets, expecteds) {
+            let secsAtOffset = interp.secondsOffset(metricalOffset: offset)
+            XCTAssertEqualWithAccuracy(secsAtOffset, expected, accuracy: 0.01)
+        }
+    }
 }
