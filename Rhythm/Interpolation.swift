@@ -234,19 +234,19 @@ public struct Interpolation {
         }
 
         // 2. Start tempo == end tempo
-        let (start, end, _, offset) = normalizedValues(offset: metricalOffset)
+        let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
         guard start != end else {
             return Double(offset.numerator) * start.durationOfBeat
         }
 
         switch easing {
         case .linear:
-            // 3. Easing is linear: use the integral of x^n
-            let a = start.beatsPerMinute
-            let b = end.beatsPerMinute
+            // 3. If Easing is linear, there is a simple and exact integral we can use
+            let a = start.durationOfBeat
+            let b = end.durationOfBeat
             let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
             let integralValue = (pow(b/a, x)-1) * a / log(b/a)
-            return integralValue;
+            return integralValue * Double(duration.numerator);
 
         default:
             // Base case: rough approximation
