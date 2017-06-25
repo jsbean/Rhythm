@@ -221,7 +221,9 @@ public struct Interpolation {
     private static let approxResolution = 1024
 
     /// - returns: The concrete offset in seconds of the given symbolic `MetricalDuration`
-    /// `offset`.
+    /// `offset`. If the easing type is .linear, this method gives an exact answer;
+    /// otherwise, it uses an approximation method with complexity linear in the
+    /// magnitude of `metricalOffset`.
     ///
     /// - TODO: Change Double -> Seconds
     ///
