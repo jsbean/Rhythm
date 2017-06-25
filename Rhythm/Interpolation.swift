@@ -218,6 +218,8 @@ public struct Interpolation {
         return Tempo(scaledBpm, subdivision: start.subdivision)
     }
 
+    private static let approxResolution = 1024
+
     /// - returns: The concrete offset in seconds of the given symbolic `MetricalDuration`
     /// `offset`.
     ///
@@ -225,23 +227,44 @@ public struct Interpolation {
     ///
     public func secondsOffset(metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
 
-        /*// Concrete in seconds always zero if symbolic offset is zero.
-         guard metricalOffset != .zero else {
-         return 0
-         }
+        // First, guard against the easy cases
+        // 1. Zero offset => zero output
+        guard metricalOffset != .zero else {
+            return 0
+        }
 
-         let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
-         let beats = offset.numerator
+        // 2. Start tempo == end tempo
+        let (start, end, _, offset) = normalizedValues(offset: metricalOffset)
+        guard start != end else {
+            return Double(offset.numerator) * start.durationOfBeat
+        }
 
-         // Non-changing tempo can be calculated linearly, avoid division by 0
-         guard start != end else {
-         return Double(beats) / start.durationOfBeat
-         }
+        switch easing {
+        case .linear:
+            // 3. Easing is linear: use the integral of x^n
+            let a = start.beatsPerMinute
+            let b = end.beatsPerMinute
+            let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
+            let integralValue = (pow(b/a, x)-1) * a / log(b/a)
+            return integralValue;
 
-         switch easing {
-         default:*/
-        fatalError("Easing not yet supported!")
-        //}
+        default:
+            // Base case: rough approximation
+            let numFullSegments = Int(floor((offset / (1 /> Interpolation.approxResolution)).doubleValue))
+            var accum = 0.0
+            for i in 0..<numFullSegments {
+                let segmentTempo = tempo(at: i /> Interpolation.approxResolution)
+                accum += segmentTempo.duration(forBeatAt: Interpolation.approxResolution)
+            }
+            // If the resolution parameter doesn't fit cleanly into the offset len, calculate
+            // the last segment separately
+            if (lcm(Interpolation.approxResolution, offset.denominator) != Interpolation.approxResolution) {
+                let lastSegmentTempo = tempo(at: numFullSegments /> Interpolation.approxResolution)
+                let lastSegmentDuration = offset - (numFullSegments /> Interpolation.approxResolution)
+                accum += lastSegmentTempo.duration(forBeatAt: lastSegmentDuration.denominator) * Double(lastSegmentDuration.numerator)
+            }
+            return accum;
+        }
     }
 
     private func normalizedValues(offset: MetricalDuration)
