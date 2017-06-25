@@ -211,11 +211,11 @@ public struct Interpolation {
     public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
 
         let (start, end, _, _) = normalizedValues(offset: metricalOffset)
-        let position = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
+        let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
         let ratio = end.beatsPerMinute / start.beatsPerMinute
-        let easedPosition = try! easing.evaluate(at: position)
-        let exponentialBpm = start.beatsPerMinute * pow(ratio, easedPosition)
-        return Tempo(exponentialBpm, subdivision: start.subdivision)
+        let xEased = try! easing.evaluate(at: x)
+        let scaledBpm = start.beatsPerMinute * pow(ratio, xEased)
+        return Tempo(scaledBpm, subdivision: start.subdivision)
     }
 
     /// - returns: The concrete offset in seconds of the given symbolic `MetricalDuration`
