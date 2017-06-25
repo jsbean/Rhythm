@@ -212,11 +212,9 @@ public struct Interpolation {
 
         let (start, end, _, _) = normalizedValues(offset: metricalOffset)
         let position = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
-        let range = end.beatsPerMinute - start.beatsPerMinute
         let ratio = end.beatsPerMinute / start.beatsPerMinute
         let easedPosition = try! easing.evaluate(at: position)
-        let expRatio = (pow(ratio, easedPosition)-1) / (ratio-1)
-        let exponentialBpm = expRatio * range + start.beatsPerMinute
+        let exponentialBpm = start.beatsPerMinute * pow(ratio, easedPosition)
         return Tempo(exponentialBpm, subdivision: start.subdivision)
     }
 
