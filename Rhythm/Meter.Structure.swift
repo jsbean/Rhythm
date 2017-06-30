@@ -63,8 +63,7 @@ extension Meter {
         }
         
         /// - returns: `Tempo.Interpolation` value containing the given `metricalOffset`.
-        public func interpolation(containing metricalOffset: MetricalDuration)
-            -> Tempo.Interpolation
+        public func interpolation(containing metricalOffset: MetricalDuration) -> Interpolation
         {
             return tempi.interpolation(containing: metricalOffset)
         }

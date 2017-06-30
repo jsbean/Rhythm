@@ -49,7 +49,7 @@ extension Tempo.Stratum {
             // value of the tempo added, at an offset of `.zero`.
             guard tempi.count > 1 else {
                 let (_ ,(tempo, _)) = tempi[0]
-                return Tempo.Stratum(tempi: [.zero: Tempo.Interpolation(tempo: tempo)])
+                return Tempo.Stratum(tempi: [.zero: Interpolation(tempo: tempo)])
             }
             
             var stratum = Tempo.Stratum(tempi: [:])
@@ -64,7 +64,7 @@ extension Tempo.Stratum {
                     let duration = offset - last.offset
                     let endTempo = last.interpolating ? tempo : last.tempo
                     
-                    let interpolation = Tempo.Interpolation(
+                    let interpolation = Interpolation(
                         start: last.tempo,
                         end: endTempo,
                         duration: duration
@@ -75,7 +75,7 @@ extension Tempo.Stratum {
                 
                 // last one: cleanup
                 if index == tempi.endIndex - 1 {
-                    stratum.tempi[offset] = Tempo.Interpolation(tempo: tempo)
+                    stratum.tempi[offset] = Interpolation(tempo: tempo)
                 }
                 
                 last = (offset, tempo, interpolating)

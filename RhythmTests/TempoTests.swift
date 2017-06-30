@@ -20,7 +20,7 @@ class TempoTests: XCTestCase {
     
     func testInterpolationNoChange() {
         
-        let interpolation = Tempo.Interpolation(
+        let interpolation = Interpolation(
             start: Tempo(60),
             end: Tempo(60),
             duration: 4/>4
@@ -35,51 +35,11 @@ class TempoTests: XCTestCase {
         }
     }
     
-    func testInterpolationChange() {
-        
-        let interpolation = Tempo.Interpolation(
-            start: Tempo(60),
-            end: Tempo(30),
-            duration: 4/>4
-        )
-        
-        for beatOffset in 0...4 {
-            let durationOffset = MetricalDuration(beatOffset, 4)
-        }
-    }
-    
-    func testIntpolationDifferentTempoSubdivisions() {
-        
-        let interpolation = Tempo.Interpolation(
-            start: Tempo(60, subdivision: 16),
-            end: Tempo(60, subdivision: 8),
-            duration: 4/>16
-        )
-        
-        for beatOffset in 0...4 {
-            let durationOffset = MetricalDuration(beatOffset, 16)
-        }
-    }
-    
-    func testLengthOfInterpolation() {
-        
-        let interpolation = Tempo.Interpolation(
-            start: Tempo(60),
-            end: Tempo(120),
-            duration: 4/>4
-        )
-    }
-    
-    func testInterpolationTempoAtMetricalOffset() {
-        let interp = Tempo.Interpolation(start: Tempo(30), end: Tempo(60), duration: 4/>4)
-        XCTAssertEqual(interp.tempo(at: 2/>4), Tempo(45))
-    }
-    
     func testStratum() {
         
         let interpolations = [
-            Tempo.Interpolation(start: Tempo(60), end: Tempo(30), duration: 8/>4),
-            Tempo.Interpolation(start: Tempo(30), end: Tempo(60), duration: 8/>4)
+            Interpolation(start: Tempo(60), end: Tempo(30), duration: 8/>4),
+            Interpolation(start: Tempo(30), end: Tempo(60), duration: 8/>4)
         ]
         
         // Metrical offsets of each interpolation
