@@ -237,7 +237,7 @@ public struct Interpolation {
             let b = end.durationOfBeat
             let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
             let integralValue = (pow(b/a, x)-1) * a / log(b/a)
-            return integralValue * Double(duration.numerator);
+            return integralValue * Double(duration.numerator)
             
         default:
             // Base case: rough approximation
@@ -254,7 +254,7 @@ public struct Interpolation {
                 let lastSegmentDuration = offset - Fraction(numFullSegments, Interpolation.approxResolution)
                 accum += lastSegmentTempo.duration(forBeatAt: lastSegmentDuration.denominator) * Double(lastSegmentDuration.numerator)
             }
-            return accum;
+            return accum
         }
     }
     
