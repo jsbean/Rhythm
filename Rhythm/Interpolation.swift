@@ -175,7 +175,7 @@ public struct Interpolation {
         end: Tempo = Tempo(60),
         duration: MetricalDuration = 1/>4,
         easing: Easing = .linear
-        )
+    )
     {
         self.start = start
         self.end = end
@@ -231,6 +231,7 @@ public struct Interpolation {
         }
         
         switch easing {
+            
         case .linear:
             // 3. If Easing is linear, there is a simple and exact integral we can use
             let a = start.durationOfBeat
@@ -249,7 +250,7 @@ public struct Interpolation {
             }
             // If the resolution parameter doesn't fit cleanly into the offset len, calculate
             // the last segment separately
-            if (lcm(Interpolation.approxResolution, offset.denominator) != Interpolation.approxResolution) {
+            if lcm(Interpolation.approxResolution, offset.denominator) != Interpolation.approxResolution {
                 let lastSegmentTempo = tempo(at: numFullSegments /> Interpolation.approxResolution)
                 let lastSegmentDuration = offset - Fraction(numFullSegments, Interpolation.approxResolution)
                 accum += lastSegmentTempo.duration(forBeatAt: lastSegmentDuration.denominator) * Double(lastSegmentDuration.numerator)
