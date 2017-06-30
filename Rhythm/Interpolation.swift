@@ -259,9 +259,9 @@ public struct Interpolation {
             // Add on bit that doesn't fit right
             let remainingOffset = Fraction(segmentsCount, resolution)
             let remainingTempo = tempo(at: remainingOffset)
-            let metricalDuration = offset - remainingOffset
-            let beats = metricalDuration.numerator
-            let subdivision = metricalDuration.denominator
+            let remainingMetricalDuration = offset - remainingOffset
+            let beats = remainingMetricalDuration.numerator
+            let subdivision = remainingMetricalDuration.denominator
             let remaining = remainingTempo.duration(forBeatAt: subdivision) * Double(beats)
             return accum + remaining
         }
