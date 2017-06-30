@@ -206,9 +206,7 @@ public struct Interpolation {
         let scaledBpm = start.beatsPerMinute * pow(ratio, xEased)
         return Tempo(scaledBpm, subdivision: start.subdivision)
     }
-    
-    private static let approxResolution = 1024
-    
+
     /// - returns: The concrete offset in seconds of the given symbolic `MetricalDuration`
     /// `offset`. If the easing type is .linear, this method gives an exact answer;
     /// otherwise, it uses an approximation method with complexity linear in the
@@ -217,6 +215,8 @@ public struct Interpolation {
     /// - TODO: Change Double -> Seconds
     ///
     public func secondsOffset <R: Rational> (metricalOffset: R) -> Double/*Seconds*/ {
+        
+        let resolution = 1024
         
         // First, guard against the easy cases
         // 1. Zero offset => zero output
@@ -241,21 +241,29 @@ public struct Interpolation {
             return integralValue * Double(duration.numerator)
             
         default:
+            
             // Base case: rough approximation
-            let numFullSegments = Int(floor((offset / (1 /> Interpolation.approxResolution)).doubleValue))
-            var accum = 0.0
-            for i in 0..<numFullSegments {
-                let segmentTempo = tempo(at: i /> Interpolation.approxResolution)
-                accum += segmentTempo.duration(forBeatAt: Interpolation.approxResolution)
+            let segmentsCount = Int(floor((offset / (1 /> resolution)).doubleValue))
+            
+            let accum: Double = (0..<segmentsCount).reduce(.unit) { accum, cur in
+                let tempo = self.tempo(at: cur /> resolution)
+                let duration = tempo.duration(forBeatAt: resolution)
+                return accum + duration
             }
-            // If the resolution parameter doesn't fit cleanly into the offset len, calculate
-            // the last segment separately
-            if lcm(Interpolation.approxResolution, offset.denominator) != Interpolation.approxResolution {
-                let lastSegmentTempo = tempo(at: numFullSegments /> Interpolation.approxResolution)
-                let lastSegmentDuration = offset - Fraction(numFullSegments, Interpolation.approxResolution)
-                accum += lastSegmentTempo.duration(forBeatAt: lastSegmentDuration.denominator) * Double(lastSegmentDuration.numerator)
+            
+            // If approximate resolution fits nicely, we are done
+            if lcm(resolution, offset.denominator) == resolution {
+                return accum
             }
-            return accum
+            
+            // Add on bit that doesn't fit right
+            let remainingOffset = Fraction(segmentsCount, resolution)
+            let remainingTempo = tempo(at: remainingOffset)
+            let metricalDuration = offset - remainingOffset
+            let beats = metricalDuration.numerator
+            let subdivision = metricalDuration.denominator
+            let remaining = remainingTempo.duration(forBeatAt: subdivision) * Double(beats)
+            return accum + remaining
         }
     }
     

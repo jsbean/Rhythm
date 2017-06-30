@@ -55,6 +55,8 @@
 		07731EDB1F06C2D400BDDCD6 /* EasingEvaluateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07731ED91F06C2D400BDDCD6 /* EasingEvaluateTests.swift */; };
 		07731EDD1F06C2F800BDDCD6 /* EasingIntegrateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07731EDC1F06C2F800BDDCD6 /* EasingIntegrateTests.swift */; };
 		07731EDE1F06C2F800BDDCD6 /* EasingIntegrateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07731EDC1F06C2F800BDDCD6 /* EasingIntegrateTests.swift */; };
+		07731EE01F06C6E300BDDCD6 /* InterpolationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07731EDF1F06C6E300BDDCD6 /* InterpolationTests.swift */; };
+		07731EE11F06C6E300BDDCD6 /* InterpolationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07731EDF1F06C6E300BDDCD6 /* InterpolationTests.swift */; };
 		077554741E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		077554751E1B12A700CF4A8A /* MetricalDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554731E1B12A700CF4A8A /* MetricalDuration.swift */; };
 		0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077554791E1B163600CF4A8A /* RhythmTree.swift */; };
@@ -144,6 +146,7 @@
 		0771A6141ED5022B00733CFF /* Meter.Structure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Structure.swift; path = Rhythm/Meter.Structure.swift; sourceTree = "<group>"; };
 		07731ED91F06C2D400BDDCD6 /* EasingEvaluateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingEvaluateTests.swift; path = RhythmTests/EasingEvaluateTests.swift; sourceTree = "<group>"; };
 		07731EDC1F06C2F800BDDCD6 /* EasingIntegrateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingIntegrateTests.swift; path = RhythmTests/EasingIntegrateTests.swift; sourceTree = "<group>"; };
+		07731EDF1F06C6E300BDDCD6 /* InterpolationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterpolationTests.swift; path = RhythmTests/InterpolationTests.swift; sourceTree = "<group>"; };
 		077554731E1B12A700CF4A8A /* MetricalDuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDuration.swift; path = Rhythm/MetricalDuration.swift; sourceTree = "<group>"; };
 		077554791E1B163600CF4A8A /* RhythmTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTree.swift; path = Rhythm/RhythmTree.swift; sourceTree = "<group>"; };
 		077554861E1B370C00CF4A8A /* RhythmTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RhythmTreeTests.swift; path = RhythmTests/RhythmTreeTests.swift; sourceTree = "<group>"; };
@@ -309,6 +312,7 @@
 				075C30561EB161A2008DB1D6 /* MeterTests.swift */,
 				07731ED91F06C2D400BDDCD6 /* EasingEvaluateTests.swift */,
 				07731EDC1F06C2F800BDDCD6 /* EasingIntegrateTests.swift */,
+				07731EDF1F06C6E300BDDCD6 /* InterpolationTests.swift */,
 			);
 			name = RhythmTests;
 			sourceTree = "<group>";
@@ -525,6 +529,7 @@
 				07BC8B231E4E599400605430 /* MetricalDurationTreeTests.swift in Sources */,
 				075C30551EB1618D008DB1D6 /* TempoTests.swift in Sources */,
 				073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
+				07731EE11F06C6E300BDDCD6 /* InterpolationTests.swift in Sources */,
 				0743097E1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 				075C30581EB161A2008DB1D6 /* MeterTests.swift in Sources */,
 			);
@@ -564,6 +569,7 @@
 				07BC8B221E4E599400605430 /* MetricalDurationTreeTests.swift in Sources */,
 				075C30541EB1618D008DB1D6 /* TempoTests.swift in Sources */,
 				073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */,
+				07731EE01F06C6E300BDDCD6 /* InterpolationTests.swift in Sources */,
 				0743097D1E441A23002B88A1 /* ProportionTreeTests.swift in Sources */,
 				075C30571EB161A2008DB1D6 /* MeterTests.swift in Sources */,
 			);
