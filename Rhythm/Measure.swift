@@ -8,14 +8,14 @@
 
 /// Model of musical measure.
 public struct Measure {
-    
+
     // MARK: - Instance Properties
-    
+
     /// Meter of `Measure`.
     let meter: Meter
-    
+
     // MARK: - Instance Properties
-    
+
     /// Creates a `Measure` with a given and `meter`.
     public init(meter: Meter) {
         self.meter = meter
