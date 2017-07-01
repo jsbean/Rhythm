@@ -215,23 +215,23 @@ public struct Interpolation {
     /// - TODO: Change Double -> Seconds
     ///
     public func secondsOffset <R: Rational> (metricalOffset: R) -> Double/*Seconds*/ {
-        
+
         let resolution = 1024
-        
+
         // First, guard against the easy cases
         // 1. Zero offset => zero output
         guard metricalOffset != .unit else {
             return 0
         }
-        
+
         // 2. Start tempo == end tempo
         let (start, end, duration, offset) = normalizedValues(offset: metricalOffset)
         guard start != end else {
             return Double(offset.numerator) * start.durationOfBeat
         }
-        
+
         switch easing {
-            
+
         case .linear:
             // 3. If Easing is linear, there is a simple and exact integral we can use
             let a = start.durationOfBeat
@@ -239,23 +239,23 @@ public struct Interpolation {
             let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
             let integralValue = (pow(b/a, x)-1) * a / log(b/a)
             return integralValue * Double(duration.numerator)
-            
+
         default:
-            
+
             // Base case: rough approximation
             let segmentsCount = Int(floor((offset / (1 /> resolution)).doubleValue))
-            
+
             let accum: Double = (0..<segmentsCount).reduce(.unit) { accum, cur in
                 let tempo = self.tempo(at: cur /> resolution)
                 let duration = tempo.duration(forBeatAt: resolution)
                 return accum + duration
             }
-            
+
             // If approximate resolution fits nicely, we are done
             if lcm(resolution, offset.denominator) == resolution {
                 return accum
             }
-            
+
             // Add on bit that doesn't fit right
             let remainingOffset = Fraction(segmentsCount, resolution)
             let remainingTempo = tempo(at: remainingOffset)
@@ -266,7 +266,7 @@ public struct Interpolation {
             return accum + remaining
         }
     }
-    
+
     private func normalizedValues <R: Rational> (offset: R)
         -> (start: Tempo, end: Tempo, duration: Fraction, offset: Fraction)
     {
