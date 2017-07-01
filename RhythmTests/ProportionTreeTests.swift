@@ -12,9 +12,9 @@ import ArithmeticTools
 @testable import Rhythm
 
 class ProportionTreeTests: XCTestCase {
-    
+
     var veryNested: Tree<Int,Int> {
-        
+
         return Tree.branch(1, [
             .branch(2, [
                 .branch(16, [
@@ -46,24 +46,24 @@ class ProportionTreeTests: XCTestCase {
             ])
         ])
     }
-    
+
     func testInit() {
         _ = Tree.branch(1, [.leaf(1), .leaf(2), .leaf(2)])
     }
-    
+
     func testReducedSingleDepth() {
-        
+
         let tree = Tree.branch(1, [
             .leaf(2),
             .leaf(4),
             .leaf(6)
         ])
-        
+
         XCTAssertEqual(tree.reducingSiblings.leaves, [1,2,3])
     }
-    
+
     func testReducedNested() {
-        
+
         let tree = Tree.branch(1, [
             .leaf(2),
             .branch(4, [
@@ -73,14 +73,14 @@ class ProportionTreeTests: XCTestCase {
             ]),
             .leaf(8)
         ])
-        
+
         XCTAssertEqual(tree.reducingSiblings.leaves, [1,3,1,2,4])
     }
-    
+
     func testReducedVeryNested() {
-        
+
         let result = veryNested.reducingSiblings
-        
+
         let expected = Tree.branch(1, [
             .branch(2, [
                 .branch(2, [
@@ -111,17 +111,17 @@ class ProportionTreeTests: XCTestCase {
                 ])
             ])
         ])
-        
+
         XCTAssert(result == expected)
     }
-    
+
     func testmatchingParentsToChildrenSingleDepthDownTwo() {
-        
+
         let tree = Tree.branch(6, [
             .leaf(1),
             .leaf(1)
         ])
-        
+
         XCTAssertEqual(tree.matchingParentsToChildren.value, 3)
     }
 
@@ -136,19 +136,19 @@ class ProportionTreeTests: XCTestCase {
 	}
 
     func testmatchingParentsToChildrenSingleDepthUp() {
-        
+
         let tree = Tree.branch(1, [
             .leaf(8),
             .leaf(3)
         ])
-        
+
         XCTAssertEqual(tree.matchingParentsToChildren.value, 8)
     }
-    
+
     func testMatchParentsVeryNestedMultipleCases() {
-        
+
         let result = veryNested.reducingSiblings.matchingParentsToChildren
-        
+
         let expected = Tree.branch(8, [
             .branch(4, [
                 .branch(2, [
@@ -182,9 +182,9 @@ class ProportionTreeTests: XCTestCase {
 
         XCTAssert(result == expected)
     }
-        
+
     func testNormalizeVeryNested() {
-    
+
         let expected = Tree.branch(512, [
             .branch(128, [
                 .branch(64, [
@@ -215,13 +215,13 @@ class ProportionTreeTests: XCTestCase {
                 ])
             ])
         ])
-        
+
         let result = veryNested.normalized
         XCTAssert(result == expected)
     }
-    
+
     func testNormalizedNested() {
-        
+
         let tree = Tree.branch(1, [
             .branch(2, [
                 .leaf(3),
@@ -237,7 +237,7 @@ class ProportionTreeTests: XCTestCase {
                 .leaf(1)
             ])
         ])
-        
+
         let expected = Tree.branch(32, [
             .branch(8, [
                 .leaf(6),
@@ -256,60 +256,36 @@ class ProportionTreeTests: XCTestCase {
 
         XCTAssert(tree.normalized == expected)
     }
-    
+
     func testNormalizeSingleDepth() {
-        
+
         let tree = Tree.branch(5, [
             .leaf(1),
             .leaf(1)
         ])
-        
+
         XCTAssertEqual(tree.normalized.leaves, [2,2])
     }
-    
+
     func testNormalizeSingleDepthBranchOfSingleLeafOf3() {
-        
+
         let tree = Tree.branch(3, [.leaf(3)])
         let normalizedTree = tree.normalized
-        
+
         XCTAssert(tree == normalizedTree)
     }
-    
+
     func testScaleSimple() {
-        
+
         let tree = ProportionTree([1,[1,1,1]])
-        
+
         let value = Fraction(2,3)
         let expected = Tree<Fraction,Fraction>.branch(1, [
             .leaf(value),
             .leaf(value),
             .leaf(value)
         ])
-        
+
         XCTAssert(tree.scaling == expected)
     }
-//
-//    func testScaleNested() {
-//        
-//        let tree = ProportionTree([3,[2,[4,[2,4,[3,[4,4,3]]]],1]])
-//        
-//        let level1: Float = 6/7
-//        let level2: Float = 8/9
-//        let level3: Float = 12/11
-//        let expected = Tree.branch(1, [
-//            .leaf(level1),
-//            .branch(level1, [
-//                .leaf(level1 * level2),
-//                .leaf(level1 * level2),
-//                .branch(level1 * level2, [
-//                    .leaf(level1 * level2 * level3),
-//                    .leaf(level1 * level2 * level3),
-//                    .leaf(level1 * level2 * level3)
-//                ])
-//            ]),
-//            .leaf(level1)
-//        ])
-//        
-//        XCTAssert(tree.scaling == expected)
-//    }
 }

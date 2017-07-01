@@ -156,7 +156,7 @@ class EasingEvaluateTests: XCTestCase {
             (1 + sqrt2_recip) / 2,
             1
         ]
-        
+
         for (input, expected) in zip(inputs, expecteds) {
             XCTAssertEqualWithAccuracy(try ease.evaluate(at: input), expected, accuracy: 1e-12)
         }
