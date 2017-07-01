@@ -13,16 +13,16 @@ public typealias MetricalContext <T: Equatable> = ContinuationOrInstance<Absence
 /// Whether a metrical context is "tied" over from the previous context, or if it is new
 /// instance of the generic `T`.
 public enum ContinuationOrInstance <T: Equatable> {
-    
+
     /// "Tied" over from previous context.
     case continuation
-    
+
     /// New instance of generic `T`.
     case instance(T)
 }
 
 extension ContinuationOrInstance: Equatable {
-    
+
     /// - returns: `true` if both values are equivalent. Otherwise, `false`.
     public static func == <T: Equatable> (
         lhs: ContinuationOrInstance<T>,
@@ -41,9 +41,9 @@ extension ContinuationOrInstance: Equatable {
 }
 
 extension ContinuationOrInstance: CustomStringConvertible {
-    
+
     // MARK: - CustomStringConvertible
-    
+
     /// Printed description.
     public var description: String {
         switch self {
@@ -57,16 +57,15 @@ extension ContinuationOrInstance: CustomStringConvertible {
 
 /// Whether a context is a "rest" or an actual event of type `T`.
 public enum AbsenceOrEvent <T: Equatable> {
-    
+
     /// "Rest".
     case absence
-    
+
     /// Actual event of type `T`.
     case event(T)
 }
 
 extension AbsenceOrEvent: Equatable {
-
     /// - returns: `true` if both values are equivalent. Otherwise, `false`.
     public static func == <T: Equatable> (lhs: AbsenceOrEvent<T>, rhs: AbsenceOrEvent<T>)
         -> Bool
@@ -83,9 +82,9 @@ extension AbsenceOrEvent: Equatable {
 }
 
 extension AbsenceOrEvent: CustomStringConvertible {
-    
+
     // MARK: - CustomStringConvertible
-    
+
     /// Printed description.
     public var description: String {
         switch self {
@@ -98,7 +97,7 @@ extension AbsenceOrEvent: CustomStringConvertible {
 }
 
 extension AbsenceOrEvent {
-    
+
     func map <U> (_ transform: (T) -> U) -> AbsenceOrEvent<U> {
         switch self {
         case .absence:
@@ -110,7 +109,7 @@ extension AbsenceOrEvent {
 }
 
 extension ContinuationOrInstance {
-    
+
     func map <U> (_ transform: (T) -> U) -> ContinuationOrInstance<U> {
         switch self {
         case .continuation:

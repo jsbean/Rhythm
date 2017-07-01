@@ -14,7 +14,7 @@ public typealias MetricalDurationTree = Tree<MetricalDuration, MetricalDuration>
 
 /// - Note: Use extension MetricalDurationTree when Swift allows it.
 extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
-    
+
     /// `MetricalDuration` value of this `MetricalDurationTree` node.
     public var duration: MetricalDuration {
         switch self {
@@ -24,17 +24,17 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
             return duration
         }
     }
-    
+
     /// - Returns: `Tree` containing the inherited scale of each node contained herein.
     public var scaling: Tree<Fraction,Fraction> {
         return map { $0.numerator }.scaling
     }
-    
+
     /// - Returns: `MetricalDurationTree` with the durations scaled by context.
     public var scaled: Tree<Fraction,Fraction> {
         return zip(self, scaling) { duration, scaling in (duration * scaling).reduced }
     }
-    
+
     /// - returns: Array of tuples containing the scaled offset from the start of this
     /// `MetricalDurationTree`.
     ///
@@ -44,7 +44,7 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
     public var offsets: [Fraction] {
         return scaled.leaves.accumulatingRight
     }
-    
+
     /// Create a `MetricalDurationTree` with the beat values of the given `proportionTree`
     /// with the given `subdivision`.
     ///
@@ -52,7 +52,7 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
     public init(_ subdivision: Int, _ proportionTree: ProportionTree) {
         self = proportionTree.map { $0 /> subdivision }
     }
-    
+
     /// Create a `MetricalDurationTree` with the given `metricalDuration` as the value of the
     /// root node, and the given `proportions` scaled appropriately.
     public init(_ metricalDuration: MetricalDuration, _ proportionTree: ProportionTree) {
@@ -71,7 +71,7 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
 
         self.init(newSubdivision, normalized)
     }
-    
+
     /// - Returns: The concrete offsets (in `Seconds`) of the leaves contained herein, when
     /// starting at the given `offset`, within the given `structure`.
     public func concreteOffsets <R: Rational> (
@@ -104,11 +104,11 @@ public func * (_ metricalDuration: MetricalDuration, _ proportions: [Any])
 public func * (_ metricalDuration: MetricalDuration, _ proportions: [Int])
     -> MetricalDurationTree
 {
-    
+
     if proportions.isEmpty {
         return .branch(metricalDuration, [.leaf(metricalDuration)])
     }
-    
+
     let beats = metricalDuration.numerator
     let proportionTree = ProportionTree([beats, proportions])
     return MetricalDurationTree(metricalDuration, proportionTree)
