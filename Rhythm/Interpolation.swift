@@ -11,58 +11,58 @@ import ArithmeticTools
 
 /// Interpolation between two `Tempo` values.
 public struct Interpolation {
-    
+
     /// Easing of `Interpolation`.
     public enum Easing {
-        
+
         // MARK: - Associated Types
-        
+
         public enum Error: Swift.Error {
             case valueNotInDomain(Double, String)
         }
-        
+
         /// Linear interpolation.
         case linear
-        
+
         /// `x^e` interpolation in, with the given `exponent`.
         case powerIn(exponent: Double)
-        
+
         /// `x^e` interpolation in-out, with the given `exponent`.
         case powerInOut(exponent: Double)
-        
+
         /// `b^x` interpolation in, with the given `base`.
         case exponentialIn(base: Double)
-        
+
         /// Ease in / ease out (half sine wave)
         case sineInOut
-        
+
         /// - returns: The easing function evaluated at `x`.
         func evaluate(at x: Double) throws -> Double {
-            
+
             guard (0...1).contains(x) else {
                 throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
             }
-            
+
             switch self {
-                
+
             case .linear:
                 return x
-                
+
             case .powerIn(let e):
-                
+
                 guard e > 0 else {
                     throw Error.valueNotInDomain(e, "Exponent must be positive")
                 }
-                
+
                 // x^e
                 return pow(x, e)
-                
+
             case .powerInOut(let e):
-                
+
                 guard e >= 1 else {
                     throw Error.valueNotInDomain(e, "Exponent must be at least 1")
                 }
-                
+
                 if x <= 0.5 {
                     // (2^(e-1)) * x^e
                     return pow(x, e) * pow(2, e - 1)
@@ -70,53 +70,54 @@ public struct Interpolation {
                     // (1-x)^e * -(2^(e-1)) + 1
                     return pow(1 - x, e) * -pow(2, e - 1) + 1
                 }
-                
+
             case .exponentialIn(let b):
-                
+
                 guard b > 0 else {
                     throw Error.valueNotInDomain(b, "Base must be positive")
                 }
+
                 guard b != 1 else {
                     throw Error.valueNotInDomain(b, "Base must not be 1")
                 }
-                
+
                 // ((b^x)-1) / (b-1)
                 return (pow(b, x)-1) / (b-1)
-                
+
             case .sineInOut:
                 // (1 - cos(π*x)) / 2
                 return 0.5 * (1 - cos(x * .pi))
             }
         }
-        
+
         /// - returns: The integral of the easing function from 0 to `x`.
         func integrate(at x: Double) throws -> Double {
-            
+
             guard (0...1).contains(x) else {
                 throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
             }
-            
+
             switch self {
-                
+
             case .linear:
                 // x^2 / 2
                 return pow(x, 2) / 2
-                
+
             case .powerIn(let e):
-                
+
                 guard e > 0 else {
                     throw Error.valueNotInDomain(e, "Exponent must be positive")
                 }
-                
+
                 // x^(e+1) / (e+1)
                 return pow(x, e + 1) / (e + 1)
-                
+
             case .powerInOut(let e):
-                
+
                 guard e >= 1 else {
                     throw Error.valueNotInDomain(e, "Exponent must be at least 1")
                 }
-                
+
                 if x <= 0.5 {
                     // (2^(e-1) / (e+1)) * x^(e+1)
                     return pow(2, e-1) / (e+1) * pow(x, (e+1))
@@ -127,47 +128,48 @@ public struct Interpolation {
                     // This actually just amounts to adding a -.5 term; everything else cancels out.
                     return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x - 0.5
                 }
-                
+
             case .exponentialIn(let b):
-                
+
                 guard b > 0 else {
                     throw Error.valueNotInDomain(b, "Base must be positive")
                 }
+
                 guard b != 1 else {
                     throw Error.valueNotInDomain(b, "Base must not be 1")
                 }
-                
+
                 // ((b^x)/ln b) - x) / (b-1)
                 return ((pow(b, x)/log(b)) - x) / (b-1)
-                
+
             case .sineInOut:
                 //  (x - (sin(π*x))/π) / 2
                 return (x - sin(.pi * x) / .pi) / 2
             }
         }
     }
-    
+
     // MARK: Instance Properties
-    
+
     /// Concrete duration of `Interpolation`, in seconds.
     public var duration: Double/*Seconds*/ {
         return secondsOffset(metricalOffset: metricalDuration)
     }
-    
+
     /// Start tempo.
     public let start: Tempo
-    
+
     /// End tempo.
     public let end: Tempo
-    
+
     /// Metrical duration.
     public let metricalDuration: MetricalDuration
-    
+
     /// Easing of `Interpolation`.
     public let easing: Easing
-    
+
     // MARK: - Initializers
-    
+
     /// Creates an `Interpolation` with the given `start` and `end` `Tempo` values, lasting
     /// for the given metrical `duration`.
     public init(
@@ -182,7 +184,7 @@ public struct Interpolation {
         self.metricalDuration = duration
         self.easing = easing
     }
-    
+
     /// Creates a static `Interpolation` with the given `tempo`, lasting for the given
     /// metrical `duration`.
     public init(tempo: Tempo, duration: MetricalDuration = 1/>4) {
@@ -191,9 +193,9 @@ public struct Interpolation {
         self.metricalDuration = duration
         self.easing = .linear
     }
-    
+
     // MARK: - Instance Properties
-    
+
     /// - returns: The effective tempo at the given `metricalOffset`.
     ///
     /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
@@ -270,14 +272,14 @@ public struct Interpolation {
     private func normalizedValues <R: Rational> (offset: R)
         -> (start: Tempo, end: Tempo, duration: Fraction, offset: Fraction)
     {
-        
+
         let lcm = [
             start.subdivision,
             end.subdivision,
             metricalDuration.denominator,
             offset.denominator
         ].lcm
-        
+
         return (
             start: start.respelling(subdivision: lcm),
             end: end.respelling(subdivision: lcm),
