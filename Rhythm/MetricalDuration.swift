@@ -12,38 +12,38 @@ import ArithmeticTools
 public struct MetricalDuration: Rational {
 
     // MARK: - Type Properties
-    
+
     public static let zero = MetricalDuration(0,1)
-    
+
     // MARK: - Instance Properties
-    
+
     /// Numerator.
     public let numerator: Beats
 
     /// Denominator.
     public let denominator: Subdivision
-    
+
     // MARK: - Initializers
-    
+
     /// Create a `MetricalDuration` with a `numerator` and `denominator`.
     public init(_ numerator: Beats, _ denominator: Subdivision) {
-        
+
         guard denominator.isPowerOfTwo else {
             fatalError(
                 "Cannot create MetricalDuration with non-power-of-two denominator: " +
                 "\(denominator)"
             )
         }
-        
+
         self.numerator = numerator
         self.denominator = denominator
     }
 }
 
 extension MetricalDuration: ExpressibleByIntegerLiteral {
-    
+
     // MARK: - ExpressibleByIntegerLiteral
-    
+
     /// Creates a `MetricalDuration` with the given amount of `beats` at the quarter-note
     /// level.
     public init(integerLiteral beats: Int) {
