@@ -107,7 +107,7 @@ class EasingIntegrateTests: XCTestCase {
             XCTAssertEqualWithAccuracy(try ease.integrate(at: x), expected, accuracy: 1e-6)
         }
     }
-    
+
     /// - TODO: replace test terms with actual fractions, increase accuracy
     func testPowerInOutThree() {
         
@@ -120,13 +120,12 @@ class EasingIntegrateTests: XCTestCase {
             XCTAssertEqualWithAccuracy(try ease.integrate(at: x), expected, accuracy: 1e-6)
         }
     }
-    
-    
+
     func testPowerInOutErrorNegativeExponent() {
         let ease = Interpolation.Easing.powerInOut(exponent: -2)
         XCTAssertThrowsError(try ease.integrate(at: 0))
     }
-    
+
     func testPowerInOutErrorPositiveExponent() {
         let ease = Interpolation.Easing.powerInOut(exponent: 0.5)
         XCTAssertThrowsError(try ease.integrate(at: 0))
