@@ -63,3 +63,14 @@ public struct Meter: Rational {
         return Double(numerator) * tempo.duration(forBeatAt: denominator)
     }
 }
+
+
+extension Meter: ExpressibleByIntegerLiteral {
+
+    // MARK: - ExpressibleByIntegerLiteral
+
+    /// Creates a `Meter` with the given amount of `beats` at the quarter-note level.
+    public init(integerLiteral beats: Int) {
+        self.init(beats, 4)
+    }
+}
