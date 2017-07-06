@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import ArithmeticTools
 @testable import Rhythm
 
 class StratumTests: XCTestCase {
@@ -89,8 +90,10 @@ class StratumTests: XCTestCase {
 
         let meters = (0..<44).map { _ in return Meter(4,4) }
         let meterStructure = Meter.Structure(meters: meters, tempi: stratum)
-        let fragment = meterStructure.fragment(from: 0/>4, to: 4/>4)
-        dump(fragment)
+
+        let ranges = (0..<35).map { _ in MetricalDuration(5,4) }.accumulatingRight.adjacentPairs!
+        let fragments = ranges.map { start, end in meterStructure.fragment(from: start, to: end) }
+        dump(fragments)
     }
 }
 
