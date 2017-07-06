@@ -41,7 +41,7 @@ class StratumTests: XCTestCase {
         builder.add(Tempo(60), at: .zero, interpolating: true)
         builder.add(Tempo(120), at: 32/>4)
         let stratum = builder.build()
-        let segment = stratum.segment(from: .zero, to: 32/>4)
+        let segment = stratum.fragment(from: .zero, to: 32/>4)
         segment.tempi.forEach { offset, interpolation in
             print("\(offset) \(interpolation)")
         }
@@ -54,8 +54,10 @@ class StratumTests: XCTestCase {
         builder.add(Tempo(120), at: 32/>4, interpolating: true)
         builder.add(Tempo(240), at: 64/>4, interpolating: false)
         let stratum = builder.build()
-        let tempo = stratum.tempoContext(at: 128/>4).tempo
-        XCTAssertEqual(tempo, Tempo(240))
+        let segment = stratum.fragment(from: 8/>4, to: 48/>4)
+        for (offset, interpolation) in segment.tempi {
+            print("\(offset): \(interpolation)")
+        }
     }
 
     func testSegment() {
@@ -66,7 +68,7 @@ class StratumTests: XCTestCase {
         builder.add(Tempo(60), at: 32/>4, interpolating: false)
         let stratum = builder.build()
 
-        let segment = stratum.segment(from: 3/>4, to: 17/>4)
+        let segment = stratum.fragment(from: 3/>4, to: 17/>4)
 
         for el in segment.tempi {
             print(el)

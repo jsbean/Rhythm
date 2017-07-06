@@ -32,7 +32,7 @@ extension Tempo {
             self.tempi = tempi
         }
 
-        public func segment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
+        public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
 
             let startInterpIndex = indexOfInterpolation(containing: start)
             let (startInterpOffset, startInterp) = tempi[startInterpIndex]

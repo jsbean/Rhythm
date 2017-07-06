@@ -56,7 +56,11 @@ extension Meter {
         }
         
         // MARK: - Instance Methods
-        
+
+        public func segment(from start: MetricalDuration, to end: MetricalDuration) -> Fragment {
+            fatalError()
+        }
+
         /// - returns: Seconds offset for the given `metricalOffset`.
         public func secondsOffset(_ metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
             return tempi.secondsOffset(for: metricalOffset)
