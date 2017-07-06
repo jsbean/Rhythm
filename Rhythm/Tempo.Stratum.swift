@@ -37,6 +37,7 @@ extension Tempo {
             let endTempoContext = tempoContext(at: end)
             print("start: \(startTempoContext)")
             print("end: \(endTempoContext)")
+            fatalError()
         }
         
         /// - returns: The offset in seconds of the given `metricalOffset`.
