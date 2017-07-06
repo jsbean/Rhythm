@@ -86,7 +86,7 @@ extension Meter {
             }
 
             var lastFragmentIndex: Int {
-                for (r,range) in ranges.reversed().enumerated() where range.contains(Fraction(end)) {
+                for (r,range) in ranges.enumerated().reversed() where range.contains(Fraction(end)) {
                     return r
                 }
                 return ranges.endIndex - 1
