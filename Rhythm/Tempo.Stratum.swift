@@ -23,7 +23,7 @@ extension Tempo {
         }
         
         // TODO: Add `didSet` to compute offsets
-        internal var tempi: SortedDictionary<MetricalDuration, Interpolation> = [:]
+        internal var tempi: SortedDictionary<MetricalDuration, Interpolation>
         
         // MARK: - Initializers
         
@@ -33,11 +33,27 @@ extension Tempo {
         }
 
         public func segment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
-            let startTempoContext = tempoContext(at: start)
-            let endTempoContext = tempoContext(at: end)
-            print("start: \(startTempoContext)")
-            print("end: \(endTempoContext)")
-            fatalError()
+
+            let startInterpIndex = indexOfInterpolation(containing: start)
+            let (startInterpOffset, startInterp) = tempi[startInterpIndex]
+            let startOffsetInInterp = start - startInterpOffset
+            let startSegment = startInterp.segment(from: startOffsetInInterp)
+
+            let endInterpIndex = indexOfInterpolation(containing: end)
+            let (endInterpOffset, endInterp) = tempi[endInterpIndex]
+            let endOffsetInInterp = end - endInterpOffset
+            let endSegment = endInterp.segment(to: endOffsetInInterp)
+
+            var result = SortedDictionary(
+                tempi.filter { offset, interp in
+                    (start...end).contains(offset) && offset != start && offset != end
+                }
+            )
+
+            result.insert(startSegment, key: start)
+            result.insert(endSegment, key: endInterpOffset + endOffsetInInterp)
+
+            return Stratum(tempi: result)
         }
         
         /// - returns: The offset in seconds of the given `metricalOffset`.
@@ -80,7 +96,11 @@ extension Tempo {
         }
         
         private func indexOfInterpolation(containing metricalOffset: MetricalDuration) -> Int {
-            
+
+            guard metricalOffset <= tempi[tempi.endIndex - 1].0 else {
+                return tempi.endIndex - 1
+            }
+
             let intervals = tempi.map { offset, interp in
                 offset..<(offset + interp.metricalDuration)
             }

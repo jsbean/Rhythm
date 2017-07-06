@@ -36,6 +36,28 @@ class StratumTests: XCTestCase {
         print(stratum)
     }
 
+    func testSimpleSegment() {
+        let builder = Tempo.Stratum.Builder()
+        builder.add(Tempo(60), at: .zero, interpolating: true)
+        builder.add(Tempo(120), at: 32/>4)
+        let stratum = builder.build()
+        let segment = stratum.segment(from: .zero, to: 32/>4)
+        segment.tempi.forEach { offset, interpolation in
+            print("\(offset) \(interpolation)")
+        }
+    }
+
+    func testMoreComplexSegment() {
+        let builder = Tempo.Stratum.Builder()
+        builder.add(Tempo(60), at: .zero, interpolating: true)
+        builder.add(Tempo(120), at: 16/>4, interpolating: false)
+        builder.add(Tempo(120), at: 32/>4, interpolating: true)
+        builder.add(Tempo(240), at: 64/>4, interpolating: false)
+        let stratum = builder.build()
+        let tempo = stratum.tempoContext(at: 128/>4).tempo
+        XCTAssertEqual(tempo, Tempo(240))
+    }
+
     func testSegment() {
         let builder = Tempo.Stratum.Builder()
         builder.add(Tempo(60), at: .zero, interpolating: true)
@@ -43,6 +65,12 @@ class StratumTests: XCTestCase {
         builder.add(Tempo(120), at: 16/>4, interpolating: true)
         builder.add(Tempo(60), at: 32/>4, interpolating: false)
         let stratum = builder.build()
-        print(stratum)
+
+        let segment = stratum.segment(from: 3/>4, to: 17/>4)
+
+        for el in segment.tempi {
+            print(el)
+        }
+        //print(segment)
     }
 }

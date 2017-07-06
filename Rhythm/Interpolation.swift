@@ -202,13 +202,38 @@ public struct Interpolation {
         self.easing = .linear
     }
 
-    // MARK: - Instance Properties
+    // MARK: - Instance Methods
+
+    public func segment(from start: MetricalDuration = .zero, to end: MetricalDuration? = nil)
+        -> Interpolation
+    {
+        let range = start ... (end ?? metricalDuration)
+        return segment(in: range)
+    }
+
+    public func segment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
+
+        precondition(range.lowerBound < metricalDuration)
+        precondition(range.upperBound <= metricalDuration)
+
+        let startTempo = tempo(at: range.lowerBound)
+        let endTempo = tempo(at: range.upperBound)
+        let dur = range.upperBound - range.lowerBound
+
+        // FIXME: Currently just enforcing .linear easing
+        return Interpolation(start: startTempo, end: endTempo, duration: dur, easing: .linear)
+    }
+
 
     /// - returns: The effective tempo at the given `metricalOffset`.
     ///
     /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
     ///
     public func tempo(at metricalOffset: MetricalDuration) -> Tempo {
+
+        guard metricalOffset < metricalDuration else {
+            return self.end
+        }
 
         let (start, end, _, _) = normalizedValues(offset: metricalOffset)
         let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
