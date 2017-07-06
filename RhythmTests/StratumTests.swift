@@ -79,5 +79,18 @@ class StratumTests: XCTestCase {
         let fragment = structure.fragment(from: 7/>4, to: 48/>4)
         dump(fragment)
     }
+
+    func testFragmentWithZeros() {
+
+        let builder = Tempo.Stratum.Builder()
+        builder.add(Tempo(60), at: .zero, interpolating: true)
+        builder.add(Tempo(120), at: 180/>4, interpolating: false)
+        let stratum = builder.build()
+
+        let meters = (0..<44).map { _ in return Meter(4,4) }
+        let meterStructure = Meter.Structure(meters: meters, tempi: stratum)
+        let fragment = meterStructure.fragment(from: 0/>4, to: 4/>4)
+        dump(fragment)
+    }
 }
 
