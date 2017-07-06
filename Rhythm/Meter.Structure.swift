@@ -56,7 +56,60 @@ extension Meter {
         }
         
         // MARK: - Instance Methods
-        
+
+        public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Fragment {
+            let meters = makeMeterFragments(from: start, to: end)
+            let tempi = self.tempi.fragment(from: start, to: end)
+            return Fragment(meters: meters, tempi: tempi)
+        }
+
+        private func makeMeterFragments(from start: MetricalDuration, to end: MetricalDuration)
+            -> [Meter.Fragment]
+        {
+
+            var ranges: [Range<Fraction>] = {
+                var result: [Range<Fraction>] = []
+                var accum: Fraction = .unit
+                for meter in meters {
+                    let length = Fraction(meter)
+                    result.append(accum ..< accum + length)
+                    accum += length
+                }
+                return result
+            }()
+
+            var firstFragmentIndex: Int {
+                for (r,range) in ranges.enumerated() where range.contains(Fraction(start)) {
+                    return r
+                }
+                return 0
+            }
+
+            var lastFragmentIndex: Int {
+                for (r,range) in ranges.reversed().enumerated() where range.contains(Fraction(end)) {
+                    return r
+                }
+                return ranges.endIndex - 1
+            }
+
+            var innards: [Meter.Fragment] {
+                if firstFragmentIndex == lastFragmentIndex { return [] }
+                return Array(
+                    (firstFragmentIndex + 1 ..< lastFragmentIndex).map { index in
+                        let meter = meters[index]
+                        let fragment = Meter.Fragment(meter)
+                        return fragment
+                    }
+                )
+            }
+
+            let firstOffsetInRange = Fraction(start) - ranges[firstFragmentIndex].lowerBound
+            let firstFragment = Meter.Fragment(meters[firstFragmentIndex], from: firstOffsetInRange)
+            let lastOffsetInRange = Fraction(end) - ranges[lastFragmentIndex].lowerBound
+            let lastFragment = Meter.Fragment(meters[lastFragmentIndex], to: lastOffsetInRange)
+            return firstFragment + innards + lastFragment
+        }
+
         /// - returns: Seconds offset for the given `metricalOffset`.
         public func secondsOffset(_ metricalOffset: MetricalDuration) -> Double/*Seconds*/ {
             return tempi.secondsOffset(for: metricalOffset)
