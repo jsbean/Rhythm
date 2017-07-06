@@ -78,19 +78,19 @@ extension Meter {
                 return result
             }()
 
-            var firstFragmentIndex: Int {
+            var firstFragmentIndex: Int = {
                 for (r,range) in ranges.enumerated() where range.contains(Fraction(start)) {
                     return r
                 }
                 return 0
-            }
+            }()
 
-            var lastFragmentIndex: Int {
+            var lastFragmentIndex: Int = {
                 for (r,range) in ranges.enumerated().reversed() where range.contains(Fraction(end)) {
                     return r
                 }
                 return ranges.endIndex - 1
-            }
+            }()
 
             var innards: [Meter.Fragment] {
                 if firstFragmentIndex == lastFragmentIndex { return [] }
@@ -106,6 +106,11 @@ extension Meter {
             let firstOffsetInRange = Fraction(start) - ranges[firstFragmentIndex].lowerBound
             let firstFragment = Meter.Fragment(meters[firstFragmentIndex], from: firstOffsetInRange)
             let lastOffsetInRange = Fraction(end) - ranges[lastFragmentIndex].lowerBound
+
+            guard lastOffsetInRange > .unit else {
+                return firstFragment + innards
+            }
+
             let lastFragment = Meter.Fragment(meters[lastFragmentIndex], to: lastOffsetInRange)
             return firstFragment + innards + lastFragment
         }
