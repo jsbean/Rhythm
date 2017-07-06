@@ -37,12 +37,12 @@ extension Tempo {
             let startInterpIndex = indexOfInterpolation(containing: start)
             let (startInterpOffset, startInterp) = tempi[startInterpIndex]
             let startOffsetInInterp = start - startInterpOffset
-            let startSegment = startInterp.segment(from: startOffsetInInterp)
+            let startSegment = startInterp.fragment(from: startOffsetInInterp)
 
             let endInterpIndex = indexOfInterpolation(containing: end)
             let (endInterpOffset, endInterp) = tempi[endInterpIndex]
             let endOffsetInInterp = end - endInterpOffset
-            let endSegment = endInterp.segment(to: endOffsetInInterp)
+            let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             var result = SortedDictionary(
                 tempi.filter { offset, interp in

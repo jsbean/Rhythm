@@ -204,14 +204,14 @@ public struct Interpolation {
 
     // MARK: - Instance Methods
 
-    public func segment(from start: MetricalDuration = .zero, to end: MetricalDuration? = nil)
+    public func fragment(from start: MetricalDuration = .zero, to end: MetricalDuration? = nil)
         -> Interpolation
     {
         let range = start ... (end ?? metricalDuration)
-        return segment(in: range)
+        return fragment(in: range)
     }
 
-    public func segment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
+    public func fragment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
 
         precondition(range.lowerBound < metricalDuration)
         precondition(range.upperBound <= metricalDuration)
