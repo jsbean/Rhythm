@@ -31,6 +31,13 @@ extension Tempo {
         public init(tempi: SortedDictionary<MetricalDuration, Interpolation> = [:]) {
             self.tempi = tempi
         }
+
+        public func segment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
+            let startTempoContext = tempoContext(at: start)
+            let endTempoContext = tempoContext(at: end)
+            print("start: \(startTempoContext)")
+            print("end: \(endTempoContext)")
+        }
         
         /// - returns: The offset in seconds of the given `metricalOffset`.
         ///

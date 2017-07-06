@@ -35,4 +35,14 @@ class StratumTests: XCTestCase {
         let stratum = builder.build()
         print(stratum)
     }
+
+    func testSegment() {
+        let builder = Tempo.Stratum.Builder()
+        builder.add(Tempo(60), at: .zero, interpolating: true)
+        builder.add(Tempo(30), at: 4/>4, interpolating: false)
+        builder.add(Tempo(120), at: 16/>4, interpolating: true)
+        builder.add(Tempo(60), at: 32/>4, interpolating: false)
+        let stratum = builder.build()
+        print(stratum)
+    }
 }
