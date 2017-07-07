@@ -13,7 +13,74 @@ extension Meter {
     
     /// Model of a metrical structure. Combines meters with tempo interpolation information.
     public struct Structure {
-        
+
+        public final class Builder {
+
+            private lazy var duration: MetricalDuration = {
+                return self.meters.map { $0.numerator /> $0.denominator }.sum
+            }()
+
+            private var meters: [Meter] = []
+            private var tempoStratumBuilder = Tempo.Stratum.Builder()
+
+            public init() { }
+
+            public func addMeter(_ meter: Meter) {
+                meters.append(meter)
+            }
+
+            public func addTempo(
+                _ tempo: Tempo,
+                at offset: MetricalDuration,
+                interpolating: Bool = false
+            )
+            {
+                tempoStratumBuilder.addTempo(tempo, at: offset, interpolating: interpolating)
+            }
+
+            public func build() -> Meter.Structure {
+                fitTempoStratumToMeters()
+                let tempi = tempoStratumBuilder.build()
+                return Meter.Structure(meters: meters, tempi: tempi)
+            }
+
+            // Fits the last tempo interpolation to
+            private func fitTempoStratumToMeters() {
+
+                // If no tempos have been added, just make it 60 bpm for the total length.
+                if tempoStratumBuilder.tempi.isEmpty {
+                    tempoStratumBuilder.addTempo(Tempo(60), at: .zero)
+                    tempoStratumBuilder.addTempo(Tempo(60), at: duration)
+                    return
+                }
+
+                ensureFirstInterpolationSnappedToBeginning()
+                ensureLastInterpolationSnappedToEnd()
+            }
+
+            private func ensureFirstInterpolationSnappedToBeginning() {
+
+                let (offset, tempoAndInterpolating) = tempoStratumBuilder.tempi[0]
+                let (tempo, _) = tempoAndInterpolating
+
+                if offset > .zero {
+                    tempoStratumBuilder.addTempo(tempo, at: .zero)
+                }
+            }
+
+            private func ensureLastInterpolationSnappedToEnd() {
+
+                // Make DictionaryType bidirectional collection to get `.first` and `.last` !
+                let value = tempoStratumBuilder.tempi[tempoStratumBuilder.tempi.count - 1]
+                let (offset, tempoAndInterpolating) = value
+                let (tempo, _) = tempoAndInterpolating
+
+                if offset < duration {
+                    tempoStratumBuilder.addTempo(tempo, at: duration)
+                }
+            }
+        }
+
         // MARK: - Instance Properties
         
         /// - returns: `BeatContext` values for each beat of each meter.

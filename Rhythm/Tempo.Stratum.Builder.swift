@@ -15,7 +15,7 @@ extension Tempo.Stratum {
     public class Builder {
 
         // The tempo information compiled through the build process.
-        private var tempi: SortedDictionary<MetricalDuration, (Tempo, Bool)> = [:]
+        internal var tempi: SortedDictionary<MetricalDuration, (Tempo, Bool)> = [:]
 
         // MARK: - Initializers
         
@@ -26,7 +26,7 @@ extension Tempo.Stratum {
         
         /// Add the given `tempo` at the given `offset`, and whether or not it shall be
         /// prepared to interpolate to the next given tempo.
-        public func add(
+        public func addTempo(
             _ tempo: Tempo,
             at offset: MetricalDuration,
             interpolating: Bool = false
@@ -44,14 +44,14 @@ extension Tempo.Stratum {
             guard !tempi.isEmpty else {
                 return Tempo.Stratum()
             }
-            
-            // If only a single tempo has been added, create a `Tempo.Stratum` with a single
-            // value of the tempo added, at an offset of `.zero`.
-            guard tempi.count > 1 else {
-                let (_ ,(tempo, _)) = tempi[0]
-                return Tempo.Stratum(tempi: [.zero: Interpolation(tempo: tempo)])
-            }
-            
+//            
+//            // If only a single tempo has been added, create a `Tempo.Stratum` with a single
+//            // value of the tempo added, at an offset of `.zero`.
+//            guard tempi.count > 1 else {
+//                let (_ ,(tempo, _)) = tempi[0]
+//                return Tempo.Stratum(tempi: [.zero: Interpolation(tempo: tempo)])
+//            }
+
             var stratum = Tempo.Stratum(tempi: [:])
             
             var last: (offset: MetricalDuration, tempo: Tempo, interpolating: Bool)?
@@ -72,12 +72,12 @@ extension Tempo.Stratum {
                     
                     stratum.tempi[last.offset] = interpolation
                 }
-                
-                // last one: cleanup
-                if index == tempi.endIndex - 1 {
-                    stratum.tempi[offset] = Interpolation(tempo: tempo)
-                }
-                
+//                
+//                // last one: cleanup
+//                if index == tempi.endIndex - 1 {
+//                    stratum.tempi[offset] = Interpolation(tempo: tempo)
+//                }
+
                 last = (offset, tempo, interpolating)
             }
             
