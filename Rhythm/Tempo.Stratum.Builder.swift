@@ -44,13 +44,8 @@ extension Tempo.Stratum {
             guard !tempi.isEmpty else {
                 return Tempo.Stratum()
             }
-//            
-//            // If only a single tempo has been added, create a `Tempo.Stratum` with a single
-//            // value of the tempo added, at an offset of `.zero`.
-//            guard tempi.count > 1 else {
-//                let (_ ,(tempo, _)) = tempi[0]
-//                return Tempo.Stratum(tempi: [.zero: Interpolation(tempo: tempo)])
-//            }
+
+            // FIXME: Refactor to use `reduce`.
 
             var stratum = Tempo.Stratum(tempi: [:])
             
@@ -72,11 +67,6 @@ extension Tempo.Stratum {
                     
                     stratum.tempi[last.offset] = interpolation
                 }
-//                
-//                // last one: cleanup
-//                if index == tempi.endIndex - 1 {
-//                    stratum.tempi[offset] = Interpolation(tempo: tempo)
-//                }
 
                 last = (offset, tempo, interpolating)
             }
