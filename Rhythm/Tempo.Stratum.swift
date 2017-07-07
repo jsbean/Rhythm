@@ -51,7 +51,7 @@ extension Tempo {
             let (endInterpOffset, endInterp) = tempi[endInterpIndex]
             let endOffsetInInterp = end - endInterpOffset
 
-            let startSegment = startInterp.fragment(from: startOffsetInInterp)
+            let startSegment = startInterp.fragment(from: startOffsetInInterp, to: end - startInterpOffset)
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             var result = SortedDictionary<MetricalDuration,Interpolation>()
