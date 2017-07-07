@@ -52,12 +52,17 @@ extension Tempo {
             let endOffsetInInterp = end - endInterpOffset
 
             let startSegment = startInterp.fragment(from: startOffsetInInterp, to: end - startInterpOffset)
-            let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             var result = SortedDictionary<MetricalDuration,Interpolation>()
 
             // Add first segment
             result.insert(startSegment, key: .zero)
+
+            if startInterpIndex == endInterpIndex {
+                return Stratum(tempi: result)
+            }
+
+            let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             // Add the innards
             if endInterpIndex > startInterpIndex {
