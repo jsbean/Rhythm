@@ -212,11 +212,11 @@ public struct Interpolation {
     }
 
     public func fragment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
-        precondition(range.lowerBound < metricalDuration)
-        precondition(range.upperBound <= metricalDuration)
-        let startTempo = tempo(at: range.lowerBound)
-        let endTempo = tempo(at: range.upperBound)
-        let dur = range.upperBound - range.lowerBound
+        let start = range.lowerBound.clamped(in: .zero ... metricalDuration)
+        let end = range.upperBound.clamped(in: .zero ... metricalDuration)
+        let startTempo = tempo(at: start)
+        let endTempo = tempo(at: end)
+        let dur = start - end
 
         print("fragment in range: \(range)")
 
@@ -311,5 +311,18 @@ public struct Interpolation {
             duration: metricalDuration.respelling(denominator: lcm)!,
             offset: offset.respelling(denominator: lcm)!
         )
+    }
+}
+
+// TODO: Move to dn-m/Collections
+extension Comparable {
+
+    func clamped(in range: ClosedRange<Self>) -> Self {
+        if self < range.lowerBound {
+            return range.lowerBound
+        } else if self > range.upperBound {
+            return range.upperBound
+        }
+        return self
     }
 }

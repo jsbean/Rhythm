@@ -49,7 +49,12 @@ extension Tempo {
             let (endInterpOffset, endInterp) = tempi[endInterpIndex]
             let endOffsetInInterp = end - endInterpOffset
 
-            let startSegment = startInterp.fragment(from: startOffsetInInterp)
+
+            let startSegment = startInterp.fragment(
+                from: start - startInterpOffset,
+                to: end - startInterpOffset
+            )
+
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             print("start offset in interp: \(startOffsetInInterp)")
