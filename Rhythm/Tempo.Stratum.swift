@@ -21,6 +21,11 @@ extension Tempo {
                 return accum + interpolation.duration
             }
         }
+
+        /// Duration in Seconds of a `Tempo.Stratum`.
+        public var duration: Double/*Seconds*/ {
+            return tempi.map { _, interpolation in interpolation.duration }.sum
+        }
         
         // TODO: Add `didSet` to compute offsets
         internal var tempi: SortedDictionary<MetricalDuration, Interpolation>
@@ -34,14 +39,16 @@ extension Tempo {
 
         public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
 
+            // TODO: Try to refactor to keep DRY
             let startInterpIndex = indexOfInterpolation(containing: start)
             let (startInterpOffset, startInterp) = tempi[startInterpIndex]
             let startOffsetInInterp = start - startInterpOffset
-            let startSegment = startInterp.fragment(from: startOffsetInInterp)
 
             let endInterpIndex = indexOfInterpolation(containing: end)
             let (endInterpOffset, endInterp) = tempi[endInterpIndex]
             let endOffsetInInterp = end - endInterpOffset
+
+            let startSegment = startInterp.fragment(from: startOffsetInInterp)
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             var result = SortedDictionary(

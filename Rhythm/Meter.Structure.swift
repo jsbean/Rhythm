@@ -40,6 +40,11 @@ extension Meter {
         public var beatOffsets: [Double] {
             return beatContexts.map { $0.metricalOffset }.map(secondsOffset)
         }
+
+        /// Duration in Seconds of a `Meter.Structure`.
+        public var duration: Double/*Seconds*/ {
+            return tempi.duration
+        }
         
         /// `Meter` values contained herein.
         public let meters: [Meter]
@@ -67,6 +72,7 @@ extension Meter {
             -> [Meter.Fragment]
         {
 
+            // TODO: Try to refactor using `zip` and `reduce`
             var ranges: [Range<Fraction>] = {
                 var result: [Range<Fraction>] = []
                 var accum: Fraction = .unit
@@ -107,6 +113,7 @@ extension Meter {
             let firstFragment = Meter.Fragment(meters[firstFragmentIndex], from: firstOffsetInRange)
             let lastOffsetInRange = Fraction(end) - ranges[lastFragmentIndex].lowerBound
 
+            // If the length of the last fragment will be zero, don't add it
             guard lastOffsetInRange > .unit else {
                 return firstFragment + innards
             }
