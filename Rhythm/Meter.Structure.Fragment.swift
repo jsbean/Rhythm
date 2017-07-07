@@ -10,6 +10,11 @@ extension Meter.Structure {
 
     public struct Fragment {
 
+        /// Duration in Seconds of a `Meter.Structure.Fragment`.
+        public var duration: Double/*Seconds*/ {
+            return tempi.duration
+        }
+
         public let meters: [Meter.Fragment]
         public let tempi: Tempo.Stratum
 
