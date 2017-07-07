@@ -47,6 +47,7 @@ extension Tempo.Stratum {
 
             // FIXME: Refactor to use `reduce`.
 
+
             var stratum = Tempo.Stratum(tempi: [:])
             
             var last: (offset: MetricalDuration, tempo: Tempo, interpolating: Bool)?

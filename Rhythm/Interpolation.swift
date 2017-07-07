@@ -212,12 +212,8 @@ public struct Interpolation {
     }
 
     public func fragment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
-
-        print("interpolation duration: \(metricalDuration) range: \(range)")
-
         precondition(range.lowerBound < metricalDuration)
         precondition(range.upperBound <= metricalDuration)
-
         let startTempo = tempo(at: range.lowerBound)
         let endTempo = tempo(at: range.upperBound)
         let dur = range.upperBound - range.lowerBound
