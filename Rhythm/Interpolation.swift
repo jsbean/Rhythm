@@ -215,15 +215,9 @@ public struct Interpolation {
 
         let start = range.lowerBound.clamped(in: .zero ... metricalDuration)
         let end = range.upperBound.clamped(in: .zero ... metricalDuration)
-
-        print("start: \(start)")
-        print("end: \(end)")
-
         let startTempo = tempo(at: start)
         let endTempo = tempo(at: end)
         let dur = end - start
-
-        print("fragment in range: \(range)")
 
         // FIXME: Currently just enforcing .linear easing
         return Interpolation(start: startTempo, end: endTempo, duration: dur, easing: .linear)

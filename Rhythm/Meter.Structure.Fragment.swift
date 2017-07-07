@@ -6,9 +6,23 @@
 //
 //
 
+import ArithmeticTools
+
 extension Meter.Structure {
 
     public struct Fragment {
+
+        // FIXME: Refactor as `reduce`.
+        public var beatOffsets: [Fraction] {
+            var result: [Fraction] = []
+            var accum: Fraction = .unit
+            for meter in meters {
+                let offsets = meter.beatOffsets.map { $0 + accum }
+                result.append(contentsOf: offsets)
+                accum += (meter.range.upperBound - meter.range.lowerBound)
+            }
+            return result
+        }
 
         /// Duration in Seconds of a `Meter.Structure.Fragment`.
         public var duration: Double/*Seconds*/ {

@@ -12,6 +12,11 @@ extension Meter {
 
     public struct Fragment {
 
+        public var beatOffsets: [Fraction] {
+            let length = range.upperBound - range.lowerBound
+            return (0..<length.numerator).map { beat in Fraction(beat, length.denominator) }
+        }
+
         public let meter: Meter
         public let range: ClosedRange<Fraction>
 
