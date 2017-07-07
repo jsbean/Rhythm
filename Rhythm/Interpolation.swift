@@ -213,6 +213,8 @@ public struct Interpolation {
 
     public func fragment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
 
+        print("interpolation duration: \(metricalDuration) range: \(range)")
+
         precondition(range.lowerBound < metricalDuration)
         precondition(range.upperBound <= metricalDuration)
 
