@@ -65,7 +65,7 @@ extension Tempo {
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             // Add the innards
-            if endInterpIndex > startInterpIndex {
+            if endInterpIndex > startInterpIndex + 1 {
                 tempi[startInterpIndex + 1 ..< endInterpIndex].forEach { offset, interp in
                     result.insert(interp, key: offset - start)
                 }
