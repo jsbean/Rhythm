@@ -39,8 +39,8 @@ public struct Meter: Rational {
             fatalError("Cannot create a Meter with a non-power-of-two denominator")
         }
         
-        guard numerator > 0 else {
-            fatalError("Cannot create a Meter with a numerator of 0")
+        guard numerator >= 0 else {
+            fatalError("Cannot create a Meter with a numerator less than 0")
         }
         
         self.numerator = numerator

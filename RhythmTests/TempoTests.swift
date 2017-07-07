@@ -35,6 +35,5 @@ class TempoTests: XCTestCase {
             // let offset = stratum.secondsOffset(for: duration)
         }
     }
-
 }
 
