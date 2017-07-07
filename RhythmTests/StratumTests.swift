@@ -41,7 +41,7 @@ class StratumTests: XCTestCase {
         builder.addTempo(Tempo(120), at: 32/>4)
         let stratum = builder.build()
         let fragment = stratum.fragment(from: .zero, to: 32/>4)
-        dump(fragment)
+        XCTAssertEqual(fragment.tempi.count, 1)
     }
 
     func testMoreComplexFragment() {
@@ -52,7 +52,9 @@ class StratumTests: XCTestCase {
         builder.addTempo(Tempo(240), at: 64/>4, interpolating: false)
         let stratum = builder.build()
         let fragment = stratum.fragment(from: 8/>4, to: 48/>4)
-        dump(fragment)
+
+        // [8 -> 16, 16 -> 32, 32 -> 48]
+        XCTAssertEqual(fragment.tempi.count, 3)
     }
 
     func testFragment() {
@@ -63,7 +65,9 @@ class StratumTests: XCTestCase {
         builder.addTempo(Tempo(60), at: 32/>4, interpolating: false)
         let stratum = builder.build()
         let fragment = stratum.fragment(from: 3/>4, to: 17/>4)
-        dump(fragment)
+
+        // [3 -> 4, 4 -> 16, 16 -> 17]
+        XCTAssertEqual(fragment.tempi.count, 3)
     }
 
     func testMeterStructureFragment() {
@@ -78,7 +82,7 @@ class StratumTests: XCTestCase {
         let meters = (0..<16).map { _ in Meter(4,4) }
         let structure = Meter.Structure(meters: meters, tempi: tempi)
         let fragment = structure.fragment(from: 7/>4, to: 48/>4)
-        dump(fragment)
+        XCTAssertEqual(fragment.tempi.tempi.count, 3)
     }
 
     func testFragmentWithZeros() {

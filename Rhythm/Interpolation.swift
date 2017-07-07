@@ -214,9 +214,13 @@ public struct Interpolation {
     public func fragment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
         let start = range.lowerBound.clamped(in: .zero ... metricalDuration)
         let end = range.upperBound.clamped(in: .zero ... metricalDuration)
+
+        print("start: \(start)")
+        print("end: \(end)")
+
         let startTempo = tempo(at: start)
         let endTempo = tempo(at: end)
-        let dur = start - end
+        let dur = end - start
 
         print("fragment in range: \(range)")
 
