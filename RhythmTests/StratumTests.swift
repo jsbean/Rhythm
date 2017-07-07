@@ -14,31 +14,31 @@ class StratumTests: XCTestCase {
     
     func testBuilderSingleInterpolation() {
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero, interpolating: true)
-        builder.add(Tempo(90), at: 4/>4)
+        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
+        builder.addTempo(Tempo(90), at: 4/>4)
         let stratum = builder.build()
         // TODO: Assert
     }
     
     func testBuilderSingleStatic() {
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero)
-        builder.add(Tempo(90), at: 4/>4)
+        builder.addTempo(Tempo(60), at: .zero)
+        builder.addTempo(Tempo(90), at: 4/>4)
         let stratum = builder.build()
         print(stratum)
     }
     
     func testBuilderMultipleStatic() {
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(120), at: 3/>4)
+        builder.addTempo(Tempo(120), at: 3/>4)
         let stratum = builder.build()
         print(stratum)
     }
 
     func testSimpleFragment() {
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero, interpolating: true)
-        builder.add(Tempo(120), at: 32/>4)
+        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
+        builder.addTempo(Tempo(120), at: 32/>4)
         let stratum = builder.build()
         let fragment = stratum.fragment(from: .zero, to: 32/>4)
         dump(fragment)
@@ -46,10 +46,10 @@ class StratumTests: XCTestCase {
 
     func testMoreComplexFragment() {
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero, interpolating: true)
-        builder.add(Tempo(120), at: 16/>4, interpolating: false)
-        builder.add(Tempo(120), at: 32/>4, interpolating: true)
-        builder.add(Tempo(240), at: 64/>4, interpolating: false)
+        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
+        builder.addTempo(Tempo(120), at: 16/>4, interpolating: false)
+        builder.addTempo(Tempo(120), at: 32/>4, interpolating: true)
+        builder.addTempo(Tempo(240), at: 64/>4, interpolating: false)
         let stratum = builder.build()
         let fragment = stratum.fragment(from: 8/>4, to: 48/>4)
         dump(fragment)
@@ -57,10 +57,10 @@ class StratumTests: XCTestCase {
 
     func testFragment() {
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero, interpolating: true)
-        builder.add(Tempo(30), at: 4/>4, interpolating: false)
-        builder.add(Tempo(120), at: 16/>4, interpolating: true)
-        builder.add(Tempo(60), at: 32/>4, interpolating: false)
+        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
+        builder.addTempo(Tempo(30), at: 4/>4, interpolating: false)
+        builder.addTempo(Tempo(120), at: 16/>4, interpolating: true)
+        builder.addTempo(Tempo(60), at: 32/>4, interpolating: false)
         let stratum = builder.build()
         let fragment = stratum.fragment(from: 3/>4, to: 17/>4)
         dump(fragment)
@@ -70,10 +70,10 @@ class StratumTests: XCTestCase {
 
         // Builder Tempo.Stratum
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero, interpolating: true)
-        builder.add(Tempo(120), at: 16/>4, interpolating: false)
-        builder.add(Tempo(120), at: 32/>4, interpolating: true)
-        builder.add(Tempo(240), at: 64/>4, interpolating: false)
+        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
+        builder.addTempo(Tempo(120), at: 16/>4, interpolating: false)
+        builder.addTempo(Tempo(120), at: 32/>4, interpolating: true)
+        builder.addTempo(Tempo(240), at: 64/>4, interpolating: false)
         let tempi = builder.build()
         let meters = (0..<16).map { _ in Meter(4,4) }
         let structure = Meter.Structure(meters: meters, tempi: tempi)
@@ -84,8 +84,8 @@ class StratumTests: XCTestCase {
     func testFragmentWithZeros() {
 
         let builder = Tempo.Stratum.Builder()
-        builder.add(Tempo(60), at: .zero, interpolating: true)
-        builder.add(Tempo(120), at: 180/>4, interpolating: false)
+        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
+        builder.addTempo(Tempo(120), at: 180/>4, interpolating: false)
         let stratum = builder.build()
 
         let meters = (0..<44).map { _ in return Meter(4,4) }
