@@ -40,6 +40,8 @@ extension Tempo {
 
         public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
 
+            print("Tempo.Stratum.fragment from: \(start) to: \(end)")
+
             // TODO: Try to refactor to keep DRY
             let startInterpIndex = indexOfInterpolation(containing: start)
             let (startInterpOffset, startInterp) = tempi[startInterpIndex]
