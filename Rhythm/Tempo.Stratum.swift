@@ -24,15 +24,6 @@ extension Tempo {
 
         /// Duration in Seconds of a `Tempo.Stratum`.
         public var duration: Double/*Seconds*/ {
-
-//            var result: Double = 0
-//            tempi.forEach { _, interpolation in
-//                let duration = interpolation.duration
-//                print("interpolation.duration: \(duration)")
-//                result += duration
-//            }
-//
-//            return result
             return tempi.map { _, interpolation in interpolation.duration }.sum
         }
         
@@ -61,6 +52,10 @@ extension Tempo {
             let startSegment = startInterp.fragment(from: startOffsetInInterp)
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
+            print("start offset in interp: \(startOffsetInInterp)")
+            print("end offset in interp: \(endOffsetInInterp)")
+
+            // FIXME: Refactor
             var result = SortedDictionary(
                 tempi
                     .filter { offset, interp in
@@ -71,6 +66,8 @@ extension Tempo {
 
             result.insert(startSegment, key: .zero)
             result.insert(endSegment, key: end - start)
+
+            dump(result)
 
             return Stratum(tempi: result)
         }
