@@ -92,12 +92,12 @@ extension Meter {
                 
                 return meterContext.meter.beatOffsets.map { beatOffset in
                     
-                    let metericalOffset = meterContext.offset + beatOffset
+                    let metricalOffset = meterContext.offset + beatOffset
                     
                     return BeatContext(
                         meterContext: meterContext,
                         beatOffset: beatOffset,
-                        interpolation: interpolation(containing: metericalOffset)
+                        interpolation: interpolation(containing: metricalOffset)
                     )
                 }
             }

@@ -17,6 +17,19 @@ extension Meter {
             return (0..<length.numerator).map { beat in Fraction(beat, length.denominator) }
         }
 
+        // FIXME: There are many assumptions being made here
+        // Use zip, reduce, etc.
+        public var meterContexts: [Meter.Context] {
+            var result: [Meter.Context] = []
+            var offset = range.lowerBound
+            while offset < range.upperBound {
+                let context = Context(meter: meter, at: offset.numerator /> offset.denominator)
+                result.append(context)
+                offset += Fraction(1, range.lowerBound.denominator)
+            }
+            return result
+        }
+
         public let meter: Meter
         public let range: ClosedRange<Fraction>
 

@@ -83,6 +83,7 @@ class StratumTests: XCTestCase {
         let structure = Meter.Structure(meters: meters, tempi: tempi)
         let fragment = structure.fragment(from: 7/>4, to: 48/>4)
         XCTAssertEqual(fragment.tempi.tempi.count, 3)
+        dump(fragment.beatContexts)
     }
 
     func testFragmentWithZeros() {
