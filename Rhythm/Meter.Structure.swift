@@ -54,11 +54,11 @@ extension Meter {
                     return
                 }
 
-                ensureFirstInterpolationSnappedToBeginning()
-                ensureLastInterpolationSnappedToEnd()
+                snapFirstToBeginning()
+                snapeLastToEnd()
             }
 
-            private func ensureFirstInterpolationSnappedToBeginning() {
+            private func snapFirstToBeginning() {
 
                 let (offset, tempoAndInterpolating) = tempoStratumBuilder.tempi[0]
                 let (tempo, _) = tempoAndInterpolating
@@ -68,7 +68,7 @@ extension Meter {
                 }
             }
 
-            private func ensureLastInterpolationSnappedToEnd() {
+            private func snapeLastToEnd() {
 
                 // Make DictionaryType bidirectional collection to get `.first` and `.last` !
                 let value = tempoStratumBuilder.tempi[tempoStratumBuilder.tempi.count - 1]
