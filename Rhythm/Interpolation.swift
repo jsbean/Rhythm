@@ -218,6 +218,8 @@ public struct Interpolation {
         let endTempo = tempo(at: range.upperBound)
         let dur = range.upperBound - range.lowerBound
 
+        print("fragment in range: \(range)")
+
         // FIXME: Currently just enforcing .linear easing
         return Interpolation(start: startTempo, end: endTempo, duration: dur, easing: .linear)
     }
