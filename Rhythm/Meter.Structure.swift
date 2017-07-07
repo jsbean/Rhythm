@@ -40,6 +40,11 @@ extension Meter {
         public var beatOffsets: [Double] {
             return beatContexts.map { $0.metricalOffset }.map(secondsOffset)
         }
+
+        /// Duration in Seconds of a `Meter.Structure`.
+        public var duration: Double/*Seconds*/ {
+            return tempi.duration
+        }
         
         /// `Meter` values contained herein.
         public let meters: [Meter]
