@@ -130,13 +130,8 @@ extension Meter {
         // MARK: - Instance Methods
 
         public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Fragment {
-            print("Meter.Structure.fragment from: \(start) to: \(end)")
             let meters = makeMeterFragments(from: start, to: end)
             let tempi = self.tempi.fragment(from: start, to: end)
-            print("meters:")
-            dump(meters)
-            print("tempi:")
-            dump(tempi)
             return Fragment(meters: meters, tempi: tempi)
         }
 

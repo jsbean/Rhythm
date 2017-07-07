@@ -38,11 +38,9 @@ extension Tempo {
             self.tempi = tempi
         }
 
+        // FIXME: Refactor!
         public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
 
-            print("Tempo.Stratum.fragment from: \(start) to: \(end)")
-
-            // TODO: Try to refactor to keep DRY
             let startInterpIndex = indexOfInterpolation(containing: start)
             let (startInterpOffset, startInterp) = tempi[startInterpIndex]
             let startOffsetInInterp = start - startInterpOffset
@@ -50,8 +48,6 @@ extension Tempo {
             let endInterpIndex = indexOfInterpolation(containing: end)
             let (endInterpOffset, endInterp) = tempi[endInterpIndex]
             let endOffsetInInterp = end - endInterpOffset
-
-            print("startInterpIndex: \(startInterpIndex); endInterpIndex: \(endInterpIndex)")
 
             let startSegment = startInterp.fragment(from: startOffsetInInterp, to: end - startInterpOffset)
 

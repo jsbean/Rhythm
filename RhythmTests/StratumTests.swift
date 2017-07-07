@@ -97,7 +97,6 @@ class StratumTests: XCTestCase {
 
         let ranges = (0..<35).map { _ in MetricalDuration(5,4) }.accumulatingRight.adjacentPairs!
         let fragments = ranges.map { start, end in meterStructure.fragment(from: start, to: end) }
-        dump(fragments)
     }
 
     func testFragmentsFromTutschkuUnder() {
