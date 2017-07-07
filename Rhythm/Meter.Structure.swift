@@ -67,6 +67,7 @@ extension Meter {
             -> [Meter.Fragment]
         {
 
+            // TODO: Try to refactor using `zip` and `reduce`
             var ranges: [Range<Fraction>] = {
                 var result: [Range<Fraction>] = []
                 var accum: Fraction = .unit
@@ -107,6 +108,7 @@ extension Meter {
             let firstFragment = Meter.Fragment(meters[firstFragmentIndex], from: firstOffsetInRange)
             let lastOffsetInRange = Fraction(end) - ranges[lastFragmentIndex].lowerBound
 
+            // If the length of the last fragment will be zero, don't add it
             guard lastOffsetInRange > .unit else {
                 return firstFragment + innards
             }
