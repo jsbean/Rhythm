@@ -49,30 +49,25 @@ extension Tempo {
             let (endInterpOffset, endInterp) = tempi[endInterpIndex]
             let endOffsetInInterp = end - endInterpOffset
 
-
-            let startSegment = startInterp.fragment(
-                from: start - startInterpOffset,
-                to: end - startInterpOffset
-            )
-
+            let startSegment = startInterp.fragment(from: startOffsetInInterp)
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
-            print("start offset in interp: \(startOffsetInInterp)")
-            print("end offset in interp: \(endOffsetInInterp)")
+            var result = SortedDictionary<MetricalDuration,Interpolation>()
 
-            // FIXME: Refactor
-            var result = SortedDictionary(
-                tempi
-                    .filter { offset, interp in
-                        (start...end).contains(offset) && offset != start && offset != end
-                    }
-                    .map { offset, interp in  (offset - start, interp) }
-            )
-
+            // Add first segment
             result.insert(startSegment, key: .zero)
-            result.insert(endSegment, key: end - start)
 
-            dump(result)
+            // Add the innards
+            if endInterpIndex > startInterpIndex {
+                tempi[startInterpIndex + 1 ..< endInterpIndex].forEach { offset, interp in
+                    result.insert(interp, key: offset - start)
+                }
+            }
+
+            // Add last segment if it isn't at the end of the interpolation
+            if endOffsetInInterp < endInterp.metricalDuration {
+                result.insert(endSegment, key: end - start)
+            }
 
             return Stratum(tempi: result)
         }
