@@ -25,15 +25,15 @@ extension Tempo {
         /// Duration in Seconds of a `Tempo.Stratum`.
         public var duration: Double/*Seconds*/ {
 
-            var result: Double = 0
-            tempi.forEach { _, interpolation in
-                let duration = interpolation.duration
-                print("interpolation.duration: \(duration)")
-                result += duration
-            }
-
-            return result
-            //return tempi.map { _, interpolation in interpolation.duration }.sum
+//            var result: Double = 0
+//            tempi.forEach { _, interpolation in
+//                let duration = interpolation.duration
+//                print("interpolation.duration: \(duration)")
+//                result += duration
+//            }
+//
+//            return result
+            return tempi.map { _, interpolation in interpolation.duration }.sum
         }
         
         // TODO: Add `didSet` to compute offsets
@@ -62,13 +62,15 @@ extension Tempo {
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
             var result = SortedDictionary(
-                tempi.filter { offset, interp in
-                    (start...end).contains(offset) && offset != start && offset != end
-                }
+                tempi
+                    .filter { offset, interp in
+                        (start...end).contains(offset) && offset != start && offset != end
+                    }
+                    .map { offset, interp in  (offset - start, interp) }
             )
 
-            result.insert(startSegment, key: start)
-            result.insert(endSegment, key: endInterpOffset + endOffsetInInterp)
+            result.insert(startSegment, key: .zero)
+            result.insert(endSegment, key: end - start)
 
             return Stratum(tempi: result)
         }

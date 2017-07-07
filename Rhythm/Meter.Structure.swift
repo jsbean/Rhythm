@@ -55,7 +55,7 @@ extension Meter {
                 }
 
                 snapFirstToBeginning()
-                snapeLastToEnd()
+                snapLastToEnd()
             }
 
             private func snapFirstToBeginning() {
@@ -68,7 +68,7 @@ extension Meter {
                 }
             }
 
-            private func snapeLastToEnd() {
+            private func snapLastToEnd() {
 
                 // Make DictionaryType bidirectional collection to get `.first` and `.last` !
                 let value = tempoStratumBuilder.tempi[tempoStratumBuilder.tempi.count - 1]
