@@ -176,7 +176,7 @@ public struct Interpolation {
         let (start, end, _, _) = normalizedValues(offset: metricalOffset)
         let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
         let ratio = end.beatsPerMinute / start.beatsPerMinute
-        let xEased = try! easing.evaluate(at: x)
+        let xEased = easing.evaluate(at: x)
         let scaledBpm = start.beatsPerMinute * pow(ratio, xEased)
         return Tempo(scaledBpm, subdivision: start.subdivision)
     }
