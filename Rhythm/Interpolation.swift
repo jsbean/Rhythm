@@ -41,34 +41,23 @@ public struct Interpolation {
                 return x
 
             case .powerIn(let e):
-
                 assert(e > 0, "\(#function): powerIn exponent must be positive")
-
-                // x^e
                 return pow(x, e)
 
             case .powerInOut(let e):
-
                 assert(e >= 1, "\(#function): powerInOut exponent must be >= 1")
-
                 if x <= 0.5 {
-                    // (2^(e-1)) * x^e
                     return pow(x, e) * pow(2, e - 1)
                 } else {
-                    // (1-x)^e * -(2^(e-1)) + 1
                     return pow(1 - x, e) * -pow(2, e - 1) + 1
                 }
 
             case .exponentialIn(let b):
-
                 assert(b > 0, "\(#function): exponentialIn base must be > 0")
                 assert(b != 1, "\(#function): exponentialIn base must not be 1")
-
-                // ((b^x)-1) / (b-1)
                 return (pow(b, x)-1) / (b-1)
 
             case .sineInOut:
-                // (1 - cos(π*x)) / 2
                 return 0.5 * (1 - cos(x * .pi))
             }
         }
@@ -81,41 +70,26 @@ public struct Interpolation {
             switch self {
 
             case .linear:
-                // x^2 / 2
                 return pow(x, 2) / 2
 
             case .powerIn(let e):
-
                 assert(e > 0, "\(#function): exponent must be positive")
-
-                // x^(e+1) / (e+1)
                 return pow(x, e + 1) / (e + 1)
 
             case .powerInOut(let e):
-
                 assert(e > 0, "\(#function): Exponent must be at least 1")
-
                 if x <= 0.5 {
-                    // (2^(e-1) / (e+1)) * x^(e+1)
                     return pow(2, e-1) / (e+1) * pow(x, (e+1))
                 } else {
-                    // (2^(e-1) * (1-x)^(1+e)) / (1+e) + x
-                    // But since this is a piecewise calculation, we have to subtract this
-                    // evaluated at 0.5 and add the value at 0.5 of the function directly above.
-                    // This actually just amounts to adding a -.5 term; everything else cancels out.
                     return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x - 0.5
                 }
 
             case .exponentialIn(let b):
-
                 assert(b > 0, "\(#function): Base must be positive")
                 assert(b != 1, "\(#function): Base must not be 1")
-
-                // ((b^x)/ln b) - x) / (b-1)
                 return ((pow(b, x)/log(b)) - x) / (b-1)
 
             case .sineInOut:
-                //  (x - (sin(π*x))/π) / 2
                 return (x - sin(.pi * x) / .pi) / 2
             }
         }
