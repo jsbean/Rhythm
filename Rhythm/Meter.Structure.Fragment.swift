@@ -39,8 +39,7 @@ extension Meter.Structure {
                         let metricalOffset = fractionOffset.numerator /> fractionOffset.denominator
                         let beatContext = BeatContext(
                             meterContext: context,
-                            beatOffset: beatOffset.numerator /> beatOffset.denominator,
-                            interpolation: interpolation(containing: metricalOffset)
+                            offset: beatOffset.numerator /> beatOffset.denominator
                         )
                         result.append(beatContext)
                     }

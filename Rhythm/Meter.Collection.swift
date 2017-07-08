@@ -41,6 +41,30 @@ extension Meter {
 
         public static let empty = Collection(meters: [:])
 
+        public var beatContexts: [BeatContext] {
+            var result: [BeatContext] = []
+            for (offset, fragment) in meters {
+                let offset = offset.numerator /> offset.denominator
+                let meterContext = Meter.Context(meter: fragment.meter, at: offset)
+
+                // FIXME: Use Collection-based Range type
+                // FIXME: In Swift 3.1 version, `Rational` is `Strideable`.
+                // FIXME: Use CountableClosedRange
+                // FIXME: Use `reduce` over countable closed range of `Fraction`.
+                var beat = fragment.range.lowerBound
+                while beat < fragment.range.upperBound {
+                    let beatContext = BeatContext(
+                        meterContext: meterContext,
+                        offset: beat.numerator /> beat.denominator
+                    )
+                    result.append(beatContext)
+                    beat += Fraction(1, beat.denominator)
+                }
+            }
+
+            return result
+        }
+
         public var length: Fraction {
 
             guard !isEmpty else {

@@ -85,19 +85,12 @@ extension Meter {
         
         /// - returns: `BeatContext` values for each beat of each meter.
         public var beatContexts: [BeatContext] {
-            
             let meterOffsets = meters.map { $0.metricalDuration }.accumulatingRight
-            
             return zip(meters, meterOffsets).map(Meter.Context.init).flatMap { meterContext in
-                
                 return meterContext.meter.beatOffsets.map { beatOffset in
-                    
-                    let metricalOffset = meterContext.offset + beatOffset
-                    
                     return BeatContext(
                         meterContext: meterContext,
-                        beatOffset: beatOffset,
-                        interpolation: interpolation(containing: metricalOffset)
+                        offset: beatOffset
                     )
                 }
             }
