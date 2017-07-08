@@ -19,6 +19,8 @@
 		0708C3061E42A1DC00098684 /* Collections.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0708C2FF1E42A06900098684 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3081E42A1DE00098684 /* Rhythm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0708C3091E42A25600098684 /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */; };
+		07233C301F114BD3002901A1 /* Meter.Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07233C2F1F114BD3002901A1 /* Meter.Collection.swift */; };
+		07233C311F114BD3002901A1 /* Meter.Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07233C2F1F114BD3002901A1 /* Meter.Collection.swift */; };
 		073EC7241E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		073EC7251E3D2A7F00B63692 /* MetricalDurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */; };
 		075C304B1EB15E9F008DB1D6 /* Tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C304A1EB15E9F008DB1D6 /* Tempo.swift */; };
@@ -118,6 +120,7 @@
 		0708C2F41E429FBB00098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
 		0708C2FE1E42A06900098684 /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/Mac/ArithmeticTools.framework; sourceTree = "<group>"; };
 		0708C2FF1E42A06900098684 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/Mac/Collections.framework; sourceTree = "<group>"; };
+		07233C2F1F114BD3002901A1 /* Meter.Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Collection.swift; path = Rhythm/Meter.Collection.swift; sourceTree = "<group>"; };
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		075C304A1EB15E9F008DB1D6 /* Tempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.swift; path = Rhythm/Tempo.swift; sourceTree = "<group>"; };
 		075C304D1EB15EB0008DB1D6 /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.swift; path = Rhythm/Meter.swift; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 				075C304D1EB15EB0008DB1D6 /* Meter.swift */,
 				07A846C91EDB7DDF0038757A /* Meter.Context.swift */,
 				0771A6141ED5022B00733CFF /* Meter.Structure.swift */,
+				07233C2F1F114BD3002901A1 /* Meter.Collection.swift */,
 				07F504361F0E93F400E1DFE7 /* Meter.Fragment.swift */,
 				07F504391F0E944600E1DFE7 /* Meter.Structure.Fragment.swift */,
 				0771A5E01ED4ADA300733CFF /* BeatContext.swift */,
@@ -514,6 +518,7 @@
 				0771A5E81ED4B94E00733CFF /* Beats.swift in Sources */,
 				0771A5EB1ED4B99300733CFF /* Subdivision.swift in Sources */,
 				906B552B1EDF0C5700AF7B41 /* Interpolation.swift in Sources */,
+				07233C311F114BD3002901A1 /* Meter.Collection.swift in Sources */,
 				0771A60C1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */,
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				07F504381F0E93F400E1DFE7 /* Meter.Fragment.swift in Sources */,
@@ -549,6 +554,7 @@
 				0771A5E71ED4B94E00733CFF /* Beats.swift in Sources */,
 				0771A5EA1ED4B99300733CFF /* Subdivision.swift in Sources */,
 				0771A60B1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */,
+				07233C301F114BD3002901A1 /* Meter.Collection.swift in Sources */,
 				906B552A1EDF0B6D00AF7B41 /* Interpolation.swift in Sources */,
 				075C304B1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				07F504371F0E93F400E1DFE7 /* Meter.Fragment.swift in Sources */,
