@@ -15,12 +15,6 @@ public struct Interpolation {
     /// Easing of `Interpolation`.
     public enum Easing {
 
-        // MARK: - Associated Types
-
-        public enum Error: Swift.Error {
-            case valueNotInDomain(Double, String)
-        }
-
         /// Linear interpolation.
         case linear
 
@@ -37,11 +31,9 @@ public struct Interpolation {
         case sineInOut
 
         /// - returns: The easing function evaluated at `x`.
-        func evaluate(at x: Double) throws -> Double {
+        func evaluate(at x: Double) -> Double {
 
-            guard (0...1).contains(x) else {
-                throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
-            }
+            assert((0...1).contains(x), "\(#function): input must lie in [0, 1]")
 
             switch self {
 
@@ -49,101 +41,55 @@ public struct Interpolation {
                 return x
 
             case .powerIn(let e):
-
-                guard e > 0 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be positive")
-                }
-
-                // x^e
+                assert(e > 0, "\(#function): powerIn exponent must be positive")
                 return pow(x, e)
 
             case .powerInOut(let e):
-
-                guard e >= 1 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be at least 1")
-                }
-
+                assert(e >= 1, "\(#function): powerInOut exponent must be >= 1")
                 if x <= 0.5 {
-                    // (2^(e-1)) * x^e
                     return pow(x, e) * pow(2, e - 1)
                 } else {
-                    // (1-x)^e * -(2^(e-1)) + 1
                     return pow(1 - x, e) * -pow(2, e - 1) + 1
                 }
 
             case .exponentialIn(let b):
-
-                guard b > 0 else {
-                    throw Error.valueNotInDomain(b, "Base must be positive")
-                }
-
-                guard b != 1 else {
-                    throw Error.valueNotInDomain(b, "Base must not be 1")
-                }
-
-                // ((b^x)-1) / (b-1)
+                assert(b > 0, "\(#function): exponentialIn base must be > 0")
+                assert(b != 1, "\(#function): exponentialIn base must not be 1")
                 return (pow(b, x)-1) / (b-1)
 
             case .sineInOut:
-                // (1 - cos(π*x)) / 2
                 return 0.5 * (1 - cos(x * .pi))
             }
         }
 
         /// - returns: The integral of the easing function from 0 to `x`.
-        func integrate(at x: Double) throws -> Double {
+        func integrate(at x: Double) -> Double {
 
-            guard (0...1).contains(x) else {
-                throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
-            }
+            assert((0...1).contains(x), "\(#function): input must lie in [0, 1]")
 
             switch self {
 
             case .linear:
-                // x^2 / 2
                 return pow(x, 2) / 2
 
             case .powerIn(let e):
-
-                guard e > 0 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be positive")
-                }
-
-                // x^(e+1) / (e+1)
+                assert(e > 0, "\(#function): exponent must be positive")
                 return pow(x, e + 1) / (e + 1)
 
             case .powerInOut(let e):
-
-                guard e >= 1 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be at least 1")
-                }
-
+                assert(e > 0, "\(#function): Exponent must be at least 1")
                 if x <= 0.5 {
-                    // (2^(e-1) / (e+1)) * x^(e+1)
                     return pow(2, e-1) / (e+1) * pow(x, (e+1))
                 } else {
-                    // (2^(e-1) * (1-x)^(1+e)) / (1+e) + x
-                    // But since this is a piecewise calculation, we have to subtract this
-                    // evaluated at 0.5 and add the value at 0.5 of the function directly above.
-                    // This actually just amounts to adding a -.5 term; everything else cancels out.
                     return pow(2, e-1) * pow(1-x, 1+e) / (1+e) + x - 0.5
                 }
 
             case .exponentialIn(let b):
-
-                guard b > 0 else {
-                    throw Error.valueNotInDomain(b, "Base must be positive")
-                }
-
-                guard b != 1 else {
-                    throw Error.valueNotInDomain(b, "Base must not be 1")
-                }
-
-                // ((b^x)/ln b) - x) / (b-1)
+                assert(b > 0, "\(#function): Base must be positive")
+                assert(b != 1, "\(#function): Base must not be 1")
                 return ((pow(b, x)/log(b)) - x) / (b-1)
 
             case .sineInOut:
-                //  (x - (sin(π*x))/π) / 2
                 return (x - sin(.pi * x) / .pi) / 2
             }
         }
@@ -204,7 +150,7 @@ public struct Interpolation {
         let (start, end, _, _) = normalizedValues(offset: metricalOffset)
         let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
         let ratio = end.beatsPerMinute / start.beatsPerMinute
-        let xEased = try! easing.evaluate(at: x)
+        let xEased = easing.evaluate(at: x)
         let scaledBpm = start.beatsPerMinute * pow(ratio, xEased)
         return Tempo(scaledBpm, subdivision: start.subdivision)
     }

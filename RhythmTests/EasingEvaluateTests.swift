@@ -10,24 +10,6 @@ import XCTest
 
 class EasingEvaluateTests: XCTestCase {
 
-    // MARK: General
-
-    func testEasingErrorLessThanZero() {
-
-        let x: Double = -0.5
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.evaluate(at: x))
-    }
-
-    func testEasingErrorGreaterThanOne() {
-
-        let x: Double = 1.5
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.evaluate(at: x))
-    }
-
     // MARK: Linear
 
     func testLinear() {
@@ -35,13 +17,8 @@ class EasingEvaluateTests: XCTestCase {
         let x: Double = 0.5
         let ease = Interpolation.Easing.linear
         let expected = x
-
-        do {
-            let result = try ease.evaluate(at: x)
-            XCTAssertEqual(result, expected)
-        } catch {
-            XCTFail()
-        }
+        let result = ease.evaluate(at: x)
+        XCTAssertEqual(result, expected)
     }
 
     // MARK: - PowerIn
@@ -51,13 +28,8 @@ class EasingEvaluateTests: XCTestCase {
         let x: Double = 0.5
         let ease = Interpolation.Easing.powerIn(exponent: 1)
         let expected = 0.5
-
-        do {
-            let result = try ease.evaluate(at: x)
-            XCTAssertEqual(result, expected)
-        } catch {
-            XCTFail()
-        }
+        let result = ease.evaluate(at: x)
+        XCTAssertEqual(result, expected)
     }
 
     func testPowerInTwo() {
@@ -65,13 +37,8 @@ class EasingEvaluateTests: XCTestCase {
         let x: Double = 0.5
         let ease = Interpolation.Easing.powerIn(exponent: 2)
         let expected = 0.25
-
-        do {
-            let result = try ease.evaluate(at: x)
-            XCTAssertEqual(result, expected)
-        } catch {
-            XCTFail()
-        }
+        let result = ease.evaluate(at: x)
+        XCTAssertEqual(result, expected)
     }
 
     func testPowerInHalf() {
@@ -79,20 +46,8 @@ class EasingEvaluateTests: XCTestCase {
         let x: Double = 0.5
         let ease = Interpolation.Easing.powerIn(exponent: 0.5)
         let expected = 0.70710678118 // 1 / sqrt(2)
-        do {
-            let result = try ease.evaluate(at: x)
-            XCTAssertEqualWithAccuracy(result, expected, accuracy: 1e-6)
-        } catch {
-            XCTFail()
-        }
-    }
-
-    func testPowerInError() {
-
-        let x: Double = 0.5
-        let ease = Interpolation.Easing.powerIn(exponent: -2)
-
-        XCTAssertThrowsError(try ease.evaluate(at: x))
+        let result = ease.evaluate(at: x)
+        XCTAssertEqualWithAccuracy(result, expected, accuracy: 1e-6)
     }
 
     // MARK: - PowerInOut
@@ -102,45 +57,29 @@ class EasingEvaluateTests: XCTestCase {
         let x: Double = 0.25
         let ease = Interpolation.Easing.powerInOut(exponent: 1)
         let expected = 0.25
-
-        do {
-            let result = try ease.evaluate(at: x)
-            XCTAssertEqual(result, expected)
-        } catch {
-            XCTFail()
-        }
+        let result = ease.evaluate(at: x)
+        XCTAssertEqual(result, expected)
     }
 
     func testPowerInOutTwo() {
 
         let ease = Interpolation.Easing.powerInOut(exponent: 2)
 
-        XCTAssertEqual(try ease.evaluate(at: 0), 0)
-        XCTAssertEqual(try ease.evaluate(at: 0.25), 0.125)
-        XCTAssertEqual(try ease.evaluate(at: 0.5), 0.5)
-        XCTAssertEqual(try ease.evaluate(at: 0.75), 0.875)
-        XCTAssertEqual(try ease.evaluate(at: 1), 1)
+        XCTAssertEqual(ease.evaluate(at: 0), 0)
+        XCTAssertEqual(ease.evaluate(at: 0.25), 0.125)
+        XCTAssertEqual(ease.evaluate(at: 0.5), 0.5)
+        XCTAssertEqual(ease.evaluate(at: 0.75), 0.875)
+        XCTAssertEqual(ease.evaluate(at: 1), 1)
     }
 
     func testPowerInOutThree() {
 
         let ease = Interpolation.Easing.powerInOut(exponent: 3)
-
-        XCTAssertEqual(try ease.evaluate(at: 0), 0)
-        XCTAssertEqual(try ease.evaluate(at: 0.25), 0.0625)
-        XCTAssertEqual(try ease.evaluate(at: 0.5), 0.5)
-        XCTAssertEqual(try ease.evaluate(at: 0.75), 0.9375)
-        XCTAssertEqual(try ease.evaluate(at: 1), 1)
-    }
-
-    func testPowerInOutErrorNegativeExponent() {
-        let ease = Interpolation.Easing.powerInOut(exponent: -2)
-        XCTAssertThrowsError(try ease.evaluate(at: 0))
-    }
-
-    func testPowerInOutErrorPositiveExponent() {
-        let ease = Interpolation.Easing.powerInOut(exponent: 0.5)
-        XCTAssertThrowsError(try ease.evaluate(at: 0))
+        XCTAssertEqual(ease.evaluate(at: 0), 0)
+        XCTAssertEqual(ease.evaluate(at: 0.25), 0.0625)
+        XCTAssertEqual(ease.evaluate(at: 0.5), 0.5)
+        XCTAssertEqual(ease.evaluate(at: 0.75), 0.9375)
+        XCTAssertEqual(ease.evaluate(at: 1), 1)
     }
 
     // MARK: - SineInOut
@@ -158,7 +97,7 @@ class EasingEvaluateTests: XCTestCase {
         ]
 
         for (input, expected) in zip(inputs, expecteds) {
-            XCTAssertEqualWithAccuracy(try ease.evaluate(at: input), expected, accuracy: 1e-12)
+            XCTAssertEqualWithAccuracy(ease.evaluate(at: input), expected, accuracy: 1e-12)
         }
     }
 }

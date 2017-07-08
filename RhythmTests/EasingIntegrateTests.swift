@@ -10,23 +10,6 @@ import XCTest
 
 class EasingIntegrateTests: XCTestCase {
 
-    // MARK: General
-    func testEasingErrorLessThanZero() {
-
-        let x: Double = -0.5
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.integrate(at: x))
-    }
-
-    func testEasingErrorGreaterThanOne() {
-
-        let x: Double = 1.5
-        let ease = Interpolation.Easing.linear
-
-        XCTAssertThrowsError(try ease.integrate(at: x))
-    }
-
     // MARK: Linear
     func testLinear() {
 
@@ -35,7 +18,7 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.linear
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqual(try ease.integrate(at: x), expected)
+            XCTAssertEqual(ease.integrate(at: x), expected)
         }
     }
 
@@ -47,7 +30,7 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.powerIn(exponent: 1)
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqual(try ease.integrate(at: x), expected)
+            XCTAssertEqual(ease.integrate(at: x), expected)
         }
     }
 
@@ -58,7 +41,7 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.powerIn(exponent: 2)
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqual(try ease.integrate(at: x), expected)
+            XCTAssertEqual(ease.integrate(at: x), expected)
         }
     }
 
@@ -69,16 +52,8 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.powerIn(exponent: 0.5)
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqualWithAccuracy(try ease.integrate(at: x), expected, accuracy: 1e-10)
+            XCTAssertEqualWithAccuracy(ease.integrate(at: x), expected, accuracy: 1e-10)
         }
-    }
-
-    func testPowerInError() {
-
-        let x: Double = 0.5
-        let ease = Interpolation.Easing.powerIn(exponent: -2)
-
-        XCTAssertThrowsError(try ease.integrate(at: x))
     }
 
     // MARK: - PowerInOut
@@ -90,7 +65,7 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.powerInOut(exponent: 1)
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqual(try ease.integrate(at: x), expected)
+            XCTAssertEqual(ease.integrate(at: x), expected)
         }
     }
 
@@ -103,7 +78,7 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.powerInOut(exponent: 2)
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqualWithAccuracy(try ease.integrate(at: x), expected, accuracy: 1e-6)
+            XCTAssertEqualWithAccuracy(ease.integrate(at: x), expected, accuracy: 1e-6)
         }
     }
 
@@ -116,18 +91,8 @@ class EasingIntegrateTests: XCTestCase {
         let ease = Interpolation.Easing.powerInOut(exponent: 3)
 
         for (x, expected) in zip(xs, ys) {
-            XCTAssertEqualWithAccuracy(try ease.integrate(at: x), expected, accuracy: 1e-6)
+            XCTAssertEqualWithAccuracy(ease.integrate(at: x), expected, accuracy: 1e-6)
         }
-    }
-
-    func testPowerInOutErrorNegativeExponent() {
-        let ease = Interpolation.Easing.powerInOut(exponent: -2)
-        XCTAssertThrowsError(try ease.integrate(at: 0))
-    }
-
-    func testPowerInOutErrorPositiveExponent() {
-        let ease = Interpolation.Easing.powerInOut(exponent: 0.5)
-        XCTAssertThrowsError(try ease.integrate(at: 0))
     }
 
     // MARK: - SineInOut
@@ -140,7 +105,7 @@ class EasingIntegrateTests: XCTestCase {
         let expecteds: [Double] = [0, 0.0124605, 0.0908451, 0.26246, 0.5]
         
         for (input, expected) in zip(inputs, expecteds) {
-            XCTAssertEqualWithAccuracy(try ease.integrate(at: input), expected, accuracy: 1e-6)
+            XCTAssertEqualWithAccuracy(ease.integrate(at: input), expected, accuracy: 1e-6)
         }
     }
 }
