@@ -11,7 +11,6 @@ import Collections
 
 extension Meter {
 
-    /// TODO: Make (Sum)Monoid
     public struct Collection {
 
         public final class Builder {
@@ -61,13 +60,13 @@ extension Meter {
 
         public init(_ meters: [Meter.Fragment]) {
             let builder = Builder()
-            meters.forEach(builder.addMeter)
+            builder.addMeters(meters)
             self = builder.build()
         }
 
         public init(_ meters: [Meter]) {
             let builder = Builder()
-            meters.forEach(builder.addMeter)
+            builder.addMeters(meters.map { Meter.Fragment($0) })
             self = builder.build()
         }
 
