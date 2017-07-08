@@ -30,6 +30,10 @@ extension Meter {
             return result
         }
 
+        public var length: Fraction {
+            return range.length
+        }
+
         public let meter: Meter
         public let range: ClosedRange<Fraction>
 
@@ -47,5 +51,12 @@ extension Meter {
             let range = start ... (end ?? Fraction(meter))
             self.init(meter, in: range)
         }
+    }
+}
+
+extension Meter.Fragment: Equatable {
+
+    public static func == (lhs: Meter.Fragment, rhs: Meter.Fragment) -> Bool {
+        return lhs.meter == rhs.meter && lhs.range == rhs.range
     }
 }
