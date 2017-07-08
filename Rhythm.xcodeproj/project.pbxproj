@@ -25,8 +25,6 @@
 		075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C304A1EB15E9F008DB1D6 /* Tempo.swift */; };
 		075C304E1EB15EB0008DB1D6 /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C304D1EB15EB0008DB1D6 /* Meter.swift */; };
 		075C304F1EB15EB0008DB1D6 /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C304D1EB15EB0008DB1D6 /* Meter.swift */; };
-		075C30511EB160BA008DB1D6 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C30501EB160BA008DB1D6 /* Measure.swift */; };
-		075C30521EB160BA008DB1D6 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C30501EB160BA008DB1D6 /* Measure.swift */; };
 		075C30541EB1618D008DB1D6 /* InterpolationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C30531EB1618D008DB1D6 /* InterpolationTests.swift */; };
 		075C30551EB1618D008DB1D6 /* InterpolationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C30531EB1618D008DB1D6 /* InterpolationTests.swift */; };
 		075C30571EB161A2008DB1D6 /* MeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C30561EB161A2008DB1D6 /* MeterTests.swift */; };
@@ -123,7 +121,6 @@
 		073EC7231E3D2A7F00B63692 /* MetricalDurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTests.swift; path = RhythmTests/MetricalDurationTests.swift; sourceTree = "<group>"; };
 		075C304A1EB15E9F008DB1D6 /* Tempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.swift; path = Rhythm/Tempo.swift; sourceTree = "<group>"; };
 		075C304D1EB15EB0008DB1D6 /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.swift; path = Rhythm/Meter.swift; sourceTree = "<group>"; };
-		075C30501EB160BA008DB1D6 /* Measure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Measure.swift; path = Rhythm/Measure.swift; sourceTree = "<group>"; };
 		075C30531EB1618D008DB1D6 /* InterpolationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterpolationTests.swift; path = RhythmTests/InterpolationTests.swift; sourceTree = "<group>"; };
 		075C30561EB161A2008DB1D6 /* MeterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeterTests.swift; path = RhythmTests/MeterTests.swift; sourceTree = "<group>"; };
 		0769B1A41EDCC08A000B5520 /* StratumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StratumTests.swift; path = RhythmTests/StratumTests.swift; sourceTree = "<group>"; };
@@ -226,7 +223,6 @@
 				07F504361F0E93F400E1DFE7 /* Meter.Fragment.swift */,
 				07F504391F0E944600E1DFE7 /* Meter.Structure.Fragment.swift */,
 				0771A5E01ED4ADA300733CFF /* BeatContext.swift */,
-				075C30501EB160BA008DB1D6 /* Measure.swift */,
 			);
 			name = Meter;
 			sourceTree = "<group>";
@@ -513,7 +509,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				075C30521EB160BA008DB1D6 /* Measure.swift in Sources */,
 				075C304F1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */,
 				0771A5E81ED4B94E00733CFF /* Beats.swift in Sources */,
@@ -549,7 +544,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				075C30511EB160BA008DB1D6 /* Measure.swift in Sources */,
 				075C304E1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				0771A5E11ED4ADA300733CFF /* BeatContext.swift in Sources */,
 				0771A5E71ED4B94E00733CFF /* Beats.swift in Sources */,
