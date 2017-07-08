@@ -37,11 +37,9 @@ public struct Interpolation {
         case sineInOut
 
         /// - returns: The easing function evaluated at `x`.
-        func evaluate(at x: Double) throws -> Double {
+        func evaluate(at x: Double) -> Double {
 
-            guard (0...1).contains(x) else {
-                throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
-            }
+            assert((0...1).contains(x), "\(#function): input must lie in [0, 1]")
 
             switch self {
 
@@ -50,18 +48,14 @@ public struct Interpolation {
 
             case .powerIn(let e):
 
-                guard e > 0 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be positive")
-                }
+                assert(e > 0, "\(#function): powerIn exponent must be positive")
 
                 // x^e
                 return pow(x, e)
 
             case .powerInOut(let e):
 
-                guard e >= 1 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be at least 1")
-                }
+                assert(e >= 1, "\(#function): powerInOut exponent must be >= 1")
 
                 if x <= 0.5 {
                     // (2^(e-1)) * x^e
@@ -73,13 +67,8 @@ public struct Interpolation {
 
             case .exponentialIn(let b):
 
-                guard b > 0 else {
-                    throw Error.valueNotInDomain(b, "Base must be positive")
-                }
-
-                guard b != 1 else {
-                    throw Error.valueNotInDomain(b, "Base must not be 1")
-                }
+                assert(b > 0, "\(#function): exponentialIn base must be > 0")
+                assert(b != 1, "\(#function): exponentialIn base must not be 1")
 
                 // ((b^x)-1) / (b-1)
                 return (pow(b, x)-1) / (b-1)
@@ -91,11 +80,9 @@ public struct Interpolation {
         }
 
         /// - returns: The integral of the easing function from 0 to `x`.
-        func integrate(at x: Double) throws -> Double {
+        func integrate(at x: Double) -> Double {
 
-            guard (0...1).contains(x) else {
-                throw Error.valueNotInDomain(x, "Input must lie in [0, 1]")
-            }
+            assert((0...1).contains(x), "\(#function): input must lie in [0, 1]")
 
             switch self {
 
@@ -105,18 +92,14 @@ public struct Interpolation {
 
             case .powerIn(let e):
 
-                guard e > 0 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be positive")
-                }
+                assert(e > 0, "\(#function): exponent must be positive")
 
                 // x^(e+1) / (e+1)
                 return pow(x, e + 1) / (e + 1)
 
             case .powerInOut(let e):
 
-                guard e >= 1 else {
-                    throw Error.valueNotInDomain(e, "Exponent must be at least 1")
-                }
+                assert(e > 0, "\(#function): Exponent must be at least 1")
 
                 if x <= 0.5 {
                     // (2^(e-1) / (e+1)) * x^(e+1)
@@ -131,13 +114,8 @@ public struct Interpolation {
 
             case .exponentialIn(let b):
 
-                guard b > 0 else {
-                    throw Error.valueNotInDomain(b, "Base must be positive")
-                }
-
-                guard b != 1 else {
-                    throw Error.valueNotInDomain(b, "Base must not be 1")
-                }
+                assert(b > 0, "\(#function): Base must be positive")
+                assert(b != 1, "\(#function): Base must not be 1")
 
                 // ((b^x)/ln b) - x) / (b-1)
                 return ((pow(b, x)/log(b)) - x) / (b-1)
