@@ -15,12 +15,6 @@ public struct Interpolation {
     /// Easing of `Interpolation`.
     public enum Easing {
 
-        // MARK: - Associated Types
-
-        public enum Error: Swift.Error {
-            case valueNotInDomain(Double, String)
-        }
-
         /// Linear interpolation.
         case linear
 
