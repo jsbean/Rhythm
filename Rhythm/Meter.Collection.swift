@@ -59,6 +59,18 @@ extension Meter {
             self.meters = meters
         }
 
+        public init(_ meters: [Meter.Fragment]) {
+            let builder = Builder()
+            meters.forEach(builder.addMeter)
+            self = builder.build()
+        }
+
+        public init(_ meters: [Meter]) {
+            let builder = Builder()
+            meters.forEach(builder.addMeter)
+            self = builder.build()
+        }
+
         public subscript (range: ClosedRange<Fraction>) -> Collection {
 
             guard let startIndex = indexOfMeter(containing: range.lowerBound) else {
@@ -70,9 +82,15 @@ extension Meter {
 
             let builder = Builder()
 
+            /// Single measure
             guard endIndex > startIndex else {
-                builder.addMeters([start])
-                return builder.build()
+                let (meterOffset, fragment) = meters[startIndex]
+                let newFragment = Meter.Fragment(
+                    fragment.meter,
+                    from: range.lowerBound - meterOffset,
+                    to: range.upperBound - meterOffset
+                )
+                return Collection([newFragment])
             }
 
             let end = meterFragment(to: range.upperBound, at: endIndex)
@@ -140,4 +158,13 @@ extension ClosedRange where Bound: SignedNumber {
     public var length: Bound {
         return upperBound - lowerBound
     }
+}
+
+// FIXME: Move to dn-m/ArithmeticTools, make generic
+public func - (lhs: ClosedRange<Fraction>, rhs: Fraction) -> ClosedRange<Fraction> {
+    return lhs.lowerBound - rhs ... lhs.upperBound - rhs
+}
+
+public func + (lhs: ClosedRange<Fraction>, rhs: Fraction) -> ClosedRange<Fraction> {
+    return lhs.lowerBound + rhs ... lhs.upperBound + rhs
 }

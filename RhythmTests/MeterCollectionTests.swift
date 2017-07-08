@@ -12,29 +12,38 @@ import Rhythm
 
 class MeterCollectionTests: XCTestCase {
 
-    // fragment out of range
     func testFragmentOutOfRange() {
-        let builder = Meter.Collection.Builder()
-        [(4,4),(3,4),(5,4)].map(Meter.init).forEach(builder.addMeter)
-        let collection = builder.build()
+        let collection = Meter.Collection([(4,4),(3,4),(5,4)].map(Meter.init))
         let fragment = collection[Fraction(13,4) ... Fraction(14,4)]
         XCTAssert(fragment.isEmpty)
     }
 
-    func testSimpleFragment() {
+    func testFragmentRangeWithinSingleMeter() {
+        let collection = Meter.Collection([(4,4),(3,4),(5,4)].map(Meter.init))
+        let fragment = collection[Fraction(5,4) ... Fraction(6,4)]
+        let expected = [Meter.Fragment(Meter(3,4), in: Fraction(1,4)...Fraction(2,4))]
+        XCTAssertEqual(fragment.map { $0.1 }, expected)
+    }
 
-        let builder = Meter.Collection.Builder()
-        [(4,4),(3,4),(5,4)].map(Meter.init).forEach(builder.addMeter)
-        let collection = builder.build()
+    func testTruncatingFragment() {
 
+        let collection = Meter.Collection([(4,4),(3,4),(5,4)].map(Meter.init))
         let fragment = collection[Fraction(2,4) ... Fraction(9,4)]
-        XCTAssertEqual(fragment.count, 3)
 
         let expected = [
             Meter.Fragment(Meter(4,4), in: Fraction(2,4)...Fraction(4,4)),
             Meter.Fragment(Meter(3,4)),
             Meter.Fragment(Meter(5,4), in: Fraction(0,4)...Fraction(2,4))
         ]
+
+        XCTAssertEqual(fragment.map { $0.1 }, expected)
+    }
+
+    func testFragmentUpperBoundBeyondEnd() {
+        let collection = Meter.Collection([(4,4),(3,4),(5,4)].map(Meter.init))
+        let fragment = collection[Fraction(8,4) ... Fraction(13,4)]
+
+        let expected = [Meter.Fragment(Meter(5,4), in: Fraction(1,4)...Fraction(5,4))]
 
         XCTAssertEqual(fragment.map { $0.1 }, expected)
     }

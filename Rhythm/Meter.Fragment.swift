@@ -48,7 +48,8 @@ extension Meter {
             to end: Fraction? = nil
         )
         {
-            let range = start ... (end ?? Fraction(meter))
+            let end = end?.clamped(in: .unit ... Fraction(meter)) ?? Fraction(meter)
+            let range = start ... end
             self.init(meter, in: range)
         }
     }
