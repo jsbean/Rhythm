@@ -65,7 +65,7 @@ extension Meter {
             return result
         }
 
-        public var length: Fraction {
+        public var length: MetricalDuration {
 
             guard !isEmpty else {
                 return .unit
@@ -73,7 +73,8 @@ extension Meter {
 
             // FIXME: Make `DictionaryType` a `BidirectionalCollection` in dn-m/Collections
             let (offset, fragment) = meters[meters.count - 1]
-            return offset + fragment.range.length
+            let total = offset + fragment.range.length
+            return total.numerator /> total.denominator
         }
 
         public let meters: SortedDictionary<Fraction, Meter.Fragment>

@@ -26,7 +26,7 @@ extension Tempo {
         public var duration: Double/*Seconds*/ {
             return tempi.map { _, interpolation in interpolation.duration }.sum
         }
-        
+
         // TODO: Add `didSet` to compute offsets
         public var tempi: SortedDictionary<MetricalDuration, Interpolation>
         
@@ -34,7 +34,6 @@ extension Tempo {
         
         /// Creates a `Tempo.Stratum` with the given `tempi`.
         public init(tempi: SortedDictionary<MetricalDuration, Interpolation> = [:]) {
-            //precondition(!tempi.isEmpty)
             self.tempi = tempi
         }
 
