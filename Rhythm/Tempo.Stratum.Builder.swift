@@ -32,13 +32,13 @@ extension Tempo.Stratum {
             _ tempo: Tempo,
             at offset: MetricalDuration,
             interpolating: Bool = false
-        )
+        ) -> Builder
         {
             tempi[offset] = (tempo, interpolating)
         }
 
         /// Only call this just before `build()`
-        public func fit(to meters: Meter.Collection) {
+        public func fit(to meters: Meter.Collection) -> Builder {
 
             // Reproduces the first tempo / interpolation at zero offset, unless already at zero
             func snapFirstToBeginning() {
