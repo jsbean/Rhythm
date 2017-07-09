@@ -81,7 +81,7 @@ extension Tempo {
         ///
         /// - TODO: Update `Double` to `Seconds`
         ///
-        internal func secondsOffset(for metricalOffset: MetricalDuration) -> Double {
+        public func secondsOffset(for metricalOffset: MetricalDuration) -> Double {
 
             // Metrical offset of and interpolation containing metrical offset
             let index = indexOfInterpolation(containing: metricalOffset)
@@ -103,20 +103,20 @@ extension Tempo {
         }
         
         /// - returns: The tempo context at the given `metricalOffset`.
-        internal func tempoContext(at metricalOffset: MetricalDuration) -> Tempo.Context {
+        public func tempoContext(at metricalOffset: MetricalDuration) -> Tempo.Context {
             let (offset, interp) = tempi[indexOfInterpolation(containing: metricalOffset)]
             let internalOffset = metricalOffset - offset
             return Tempo.Context(interpolation: interp, metricalOffset: internalOffset)
         }
         
         /// - returns: `Interpolation` containing the given `metricalOffset`.
-        internal func interpolation(containing metricalOffset: MetricalDuration)
+        public func interpolation(containing metricalOffset: MetricalDuration)
             -> Interpolation
         {
             return tempi[indexOfInterpolation(containing: metricalOffset)].1
         }
         
-        private func indexOfInterpolation(containing metricalOffset: MetricalDuration) -> Int {
+        public func indexOfInterpolation(containing metricalOffset: MetricalDuration) -> Int {
 
             guard metricalOffset <= tempi[tempi.endIndex - 1].0 else {
                 return tempi.endIndex - 1
