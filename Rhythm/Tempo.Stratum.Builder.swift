@@ -28,17 +28,18 @@ extension Tempo.Stratum {
         /// prepared to interpolate to the next given tempo.
         ///
         /// - TODO: Only expose
-        public func addTempo(
+        @discardableResult public func addTempo(
             _ tempo: Tempo,
             at offset: MetricalDuration,
             interpolating: Bool = false
         ) -> Builder
         {
             tempi[offset] = (tempo, interpolating)
+            return self
         }
 
         /// Only call this just before `build()`
-        public func fit(to meters: Meter.Collection) -> Builder {
+        @discardableResult public func fit(to meters: Meter.Collection) -> Builder {
 
             // Reproduces the first tempo / interpolation at zero offset, unless already at zero
             func snapFirstToBeginning() {
@@ -68,11 +69,12 @@ extension Tempo.Stratum {
             if tempi.isEmpty {
                 addTempo(Tempo(60), at: .zero)
                 addTempo(Tempo(60), at: meters.length)
-                return
+                return self
             }
 
             snapFirstToBeginning()
             snapLastToEnd()
+            return self
         }
         
         /// - Returns: `Tempo.Stratum` value with the `tempo` values injected through the use
