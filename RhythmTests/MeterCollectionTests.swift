@@ -84,6 +84,17 @@ class MeterCollectionTests: XCTestCase {
             _ = self.meters[start...end]
         }
     }
+
+    func testManyFragmentsPerformance() {
+
+        measure {
+            (0..<100).forEach { _ in
+                let start = Fraction(Int.random(min: 1, max: 50), 4)
+                let end = start + Fraction(Int.random(min: 1, max: 50), 4)
+                _ = self.meters[start...end]
+            }
+        }
+    }
 }
 
 extension Array {

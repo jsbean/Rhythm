@@ -146,14 +146,15 @@ extension Meter {
             }
 
             let builder = Builder()
-
             let end = meterFragment(to: range.upperBound, at: endIndex)
 
+            /// Two consecutive measures
             guard endIndex > startIndex + 1 else {
                 builder.addMeters([start,end])
                 return builder.build()
             }
 
+            /// Three or more measures
             let innards = meters(in: startIndex + 1 ... endIndex - 1)
             builder.addMeters(start + innards + end)
 
@@ -169,6 +170,7 @@ extension Meter {
 
             var start = 0
             var end = meters.count
+
             while start < end {
 
                 let middle = start + (end - start) / 2
