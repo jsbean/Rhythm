@@ -38,6 +38,8 @@ extension Tempo {
         }
 
         // FIXME: Refactor!
+        // FIXME: Change to subscript to match Meter.Collection
+        // FIXME: Use Builder
         public func fragment(from start: MetricalDuration, to end: MetricalDuration) -> Stratum {
 
             let startInterpIndex = indexOfInterpolation(containing: start)

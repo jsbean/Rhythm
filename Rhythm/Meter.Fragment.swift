@@ -66,9 +66,11 @@ func normalized(range: Range<Fraction>, for meter: Meter) -> Range<Fraction> {
 
     // Ensure that the range is represented with the same denominator
     // FIXME: Use fixed `Ration.respelling(denominator:)`
-    let common = lcm(range.lowerBound.denominator, range.upperBound.denominator)
-    let start = respellingDenominator(of: range.lowerBound, to: common)!
-    let end = respellingDenominator(of: range.upperBound, to: common)!
+    let (a,b) = (range.lowerBound.reduced, range.upperBound.reduced)
+
+    let common = lcm(a.denominator, b.denominator)
+    let start = respellingDenominator(of: a, to: common)!
+    let end = respellingDenominator(of: b, to: common)!
 
     guard start.denominator >= meter.denominator else {
         let start = respellingDenominator(of: start, to: meter.denominator)!
