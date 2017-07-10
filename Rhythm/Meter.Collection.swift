@@ -6,8 +6,37 @@
 //
 //
 
+import Foundation
 import ArithmeticTools
 import Collections
+
+public class Clock {
+
+    /// - returns: Current offset in `Seconds`.
+    private static var now: Double {
+        return Date().timeIntervalSince1970
+    }
+
+    private var startTime: Double = Clock.now
+
+    /// - returns: Time elapsed since `start()`.
+    public var elapsed: Double {
+        return Clock.now - startTime
+    }
+
+    /// Stores the current time for measurement.
+    public func start() {
+        startTime = Clock.now
+    }
+}
+
+/// This is a momentary fix for: https://github.com/dn-m/Collections/issues/145
+extension SortedDictionary {
+
+    public var count: Int {
+        return keys.count
+    }
+}
 
 extension Meter {
 
@@ -65,16 +94,17 @@ extension Meter {
             return result
         }
 
-        public var length: MetricalDuration {
+        /// - TODO: Change to `duration`.
+        public var duration: MetricalDuration {
 
             guard !isEmpty else {
                 return .unit
             }
 
-            // FIXME: Make `DictionaryType` a `BidirectionalCollection` in dn-m/Collections
+            /// FIXME: Make `SortedDictionary` RandomAccessCollection
             let (offset, fragment) = meters[meters.count - 1]
-            let total = offset + fragment.range.length
-            return total.numerator /> total.denominator
+            let totalDuration = offset + fragment.range.length
+            return totalDuration.numerator /> totalDuration.denominator
         }
 
         public let meters: SortedDictionary<Fraction, Meter.Fragment>
@@ -104,8 +134,6 @@ extension Meter {
             let endIndex = indexOfMeter(containing: range.upperBound) ?? count - 1
             let start = meterFragment(from: range.lowerBound, at: startIndex)
 
-            let builder = Builder()
-
             /// Single measure
             guard endIndex > startIndex else {
                 let (meterOffset, fragment) = meters[startIndex]
@@ -116,6 +144,8 @@ extension Meter {
                 )
                 return Collection([newFragment])
             }
+
+            let builder = Builder()
 
             let end = meterFragment(to: range.upperBound, at: endIndex)
 
@@ -136,12 +166,15 @@ extension Meter {
         }
 
         public func indexOfMeter(containing offset: Fraction) -> Int? {
-            let ranges = meters.map { offset, fragment in offset ... offset + fragment.length }
-            return ranges.index { $0.contains(offset) }
-        }
 
-        private func subCollection(in range: ClosedRange<Int>) -> Collection {
-            fatalError()
+            /// First, linear from beginning
+            for (index, value) in meters.enumerated() {
+                let (meterOffset, meter) = value
+                if (meterOffset ... meterOffset + meter.length).contains(offset) {
+                    return index
+                }
+            }
+            return nil
         }
 
         private func meterFragment(from offset: Fraction, at index: Int) -> Meter.Fragment {

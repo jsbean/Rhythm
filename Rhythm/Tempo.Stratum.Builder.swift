@@ -61,14 +61,14 @@ extension Tempo.Stratum {
                 let (offset, tempoAndInterpolating) = value
                 let (tempo, _) = tempoAndInterpolating
 
-                if offset < meters.length {
-                    addTempo(tempo, at: meters.length)
+                if offset < meters.duration {
+                    addTempo(tempo, at: meters.duration)
                 }
             }
 
             if tempi.isEmpty {
                 addTempo(Tempo(60), at: .zero)
-                addTempo(Tempo(60), at: meters.length)
+                addTempo(Tempo(60), at: meters.duration)
                 return self
             }
 
