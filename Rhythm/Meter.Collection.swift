@@ -167,13 +167,23 @@ extension Meter {
 
         public func indexOfMeter(containing offset: Fraction) -> Int? {
 
-            /// First, linear from beginning
-            for (index, value) in meters.enumerated() {
-                let (meterOffset, meter) = value
+            var start = 0
+            var end = meters.count
+            while start < end {
+
+                let middle = start + (end - start) / 2
+                let (meterOffset, meter) = meters[middle]
                 if (meterOffset ... meterOffset + meter.length).contains(offset) {
-                    return index
+                    return middle
+                }
+
+                if offset > meterOffset + meter.length {
+                    start = middle + 1
+                } else {
+                    end = middle
                 }
             }
+
             return nil
         }
 
