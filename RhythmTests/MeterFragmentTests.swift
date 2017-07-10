@@ -15,7 +15,7 @@ class MeterFragmentTests: XCTestCase {
     func testCleanseRange() {
 
         let meter = Meter(11,16)
-        let range = Fraction(4,32) ... Fraction(2,4)
+        let range = Fraction(4,32) ..< Fraction(2,4)
 
         let fragment = Meter.Fragment(meter, in: range)
         XCTAssertEqual(fragment.range, range)
@@ -35,7 +35,7 @@ class MeterFragmentTests: XCTestCase {
 
     func testBeatOffsetsWithRange() {
         let meter = Meter(11,16)
-        let range = Fraction(7,32) ... Fraction(16,32)
+        let range = Fraction(7,32) ..< Fraction(16,32)
         let fragment = Meter.Fragment(meter, in: range)
         let expected = (0..<9).map { Fraction($0,32) }
         XCTAssertEqual(fragment.beatOffsets, expected)

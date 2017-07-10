@@ -10,26 +10,6 @@ import Foundation
 import ArithmeticTools
 import Collections
 
-public class Clock {
-
-    /// - returns: Current offset in `Seconds`.
-    private static var now: Double {
-        return Date().timeIntervalSince1970
-    }
-
-    private var startTime: Double = Clock.now
-
-    /// - returns: Time elapsed since `start()`.
-    public var elapsed: Double {
-        return Clock.now - startTime
-    }
-
-    /// Stores the current time for measurement.
-    public func start() {
-        startTime = Clock.now
-    }
-}
-
 /// This is a momentary fix for: https://github.com/dn-m/Collections/issues/145
 extension SortedDictionary {
 
@@ -44,7 +24,7 @@ extension Meter {
 
         public final class Builder {
 
-            private var meters: SortedDictionary<Fraction, Meter.Fragment> = [:]
+            fileprivate var meters: SortedDictionary<Fraction, Meter.Fragment> = [:]
             private var offset: Fraction = .unit
 
             public init() { }
@@ -125,13 +105,16 @@ extension Meter {
             self = builder.build()
         }
 
-        public subscript (range: ClosedRange<Fraction>) -> Collection {
+        public subscript (range: Range<Fraction>) -> Collection {
 
-            guard let startIndex = indexOfMeter(containing: range.lowerBound) else {
+            guard
+                let startIndex = indexOfMeter(containing: range.lowerBound, allowingEnd: false)
+            else {
                 return .empty
             }
 
-            let endIndex = indexOfMeter(containing: range.upperBound) ?? count - 1
+            let endIndex = indexOfMeter(containing: range.upperBound, allowingEnd: true) ?? count - 1
+
             let start = meterFragment(from: range.lowerBound, at: startIndex)
 
             /// Single measure
@@ -146,6 +129,7 @@ extension Meter {
             }
 
             let builder = Builder()
+
             let end = meterFragment(to: range.upperBound, at: endIndex)
 
             /// Two consecutive measures
@@ -157,36 +141,12 @@ extension Meter {
             /// Three or more measures
             let innards = meters(in: startIndex + 1 ... endIndex - 1)
             builder.addMeters(start + innards + end)
-
             return builder.build()
         }
 
         public subscript (offset: Fraction) -> (Fraction, Meter.Fragment)? {
             guard let index = indexOfMeter(containing: offset) else { return nil }
             return meters[index]
-        }
-
-        public func indexOfMeter(containing offset: Fraction) -> Int? {
-
-            var start = 0
-            var end = meters.count
-
-            while start < end {
-
-                let middle = start + (end - start) / 2
-                let (meterOffset, meter) = meters[middle]
-                if (meterOffset ... meterOffset + meter.length).contains(offset) {
-                    return middle
-                }
-
-                if offset > meterOffset + meter.length {
-                    start = middle + 1
-                } else {
-                    end = middle
-                }
-            }
-
-            return nil
         }
 
         private func meterFragment(from offset: Fraction, at index: Int) -> Meter.Fragment {
@@ -201,6 +161,48 @@ extension Meter {
 
         private func meters(in range: CountableClosedRange<Int>) -> [Meter.Fragment] {
             return range.map { index in meters[index].1 }
+        }
+
+        // Use binary search because we have a sorted collection
+        // FIXME: Must refactor
+        public func indexOfMeter(containing offset: Fraction, allowingEnd: Bool = false) -> Int? {
+
+            var start = 0
+            var end = meters.count
+
+            while start < end {
+
+                let middle = start + (end - start) / 2
+                let (meterOffset, meter) = meters[middle]
+
+                /// implict that it doesnt allow start
+                if allowingEnd {
+
+                    if offset > meterOffset && offset <= meterOffset + meter.length {
+                        return middle
+                    }
+
+                    if offset > meterOffset + meter.length {
+                        start = middle + 1
+                    } else {
+                        end = middle
+                    }
+
+                } else {
+
+                    if offset >= meterOffset && offset < meterOffset + meter.length {
+                        return middle
+                    }
+
+                    if offset >= meterOffset + meter.length {
+                        start = middle + 1
+                    } else {
+                        end = middle
+                    }
+                }
+            }
+            
+            return nil
         }
     }
 }
@@ -222,18 +224,18 @@ extension Fraction: SignedNumber {
     }
 }
 
-extension ClosedRange where Bound: SignedNumber {
+extension Range where Bound: SignedNumber {
 
     public var length: Bound {
         return upperBound - lowerBound
     }
 }
 
-// FIXME: Move to dn-m/ArithmeticTools, make generic
-public func - (lhs: ClosedRange<Fraction>, rhs: Fraction) -> ClosedRange<Fraction> {
-    return lhs.lowerBound - rhs ... lhs.upperBound - rhs
-}
-
-public func + (lhs: ClosedRange<Fraction>, rhs: Fraction) -> ClosedRange<Fraction> {
-    return lhs.lowerBound + rhs ... lhs.upperBound + rhs
-}
+//// FIXME: Move to dn-m/ArithmeticTools, make generic
+//public func - (lhs: ClosedRange<Fraction>, rhs: Fraction) -> ClosedRange<Fraction> {
+//    return lhs.lowerBound - rhs ... lhs.upperBound - rhs
+//}
+//
+//public func + (lhs: ClosedRange<Fraction>, rhs: Fraction) -> ClosedRange<Fraction> {
+//    return lhs.lowerBound + rhs ... lhs.upperBound + rhs
+//}

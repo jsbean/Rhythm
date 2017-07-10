@@ -207,14 +207,14 @@ public struct Interpolation {
     public func fragment(from start: MetricalDuration = .zero, to end: MetricalDuration? = nil)
         -> Interpolation
     {
-        let range = start ... (end ?? metricalDuration)
+        let range = start ..< (end ?? metricalDuration)
         return fragment(in: range)
     }
 
-    public func fragment(in range: ClosedRange<MetricalDuration>) -> Interpolation {
+    public func fragment(in range: Range<MetricalDuration>) -> Interpolation {
 
-        let start = range.lowerBound.clamped(in: .zero ... metricalDuration)
-        let end = range.upperBound.clamped(in: .zero ... metricalDuration)
+        let start = range.lowerBound.clamped(in: .zero ..< metricalDuration)
+        let end = range.upperBound.clamped(in: .zero ..< metricalDuration)
         let startTempo = tempo(at: start)
         let endTempo = tempo(at: end)
         let dur = end - start
@@ -316,7 +316,7 @@ public struct Interpolation {
 // TODO: Move to dn-m/Collections
 extension Comparable {
 
-    func clamped(in range: ClosedRange<Self>) -> Self {
+    func clamped(in range: Range<Self>) -> Self {
         if self < range.lowerBound {
             return range.lowerBound
         } else if self > range.upperBound {

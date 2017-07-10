@@ -35,9 +35,9 @@ extension Meter {
         }
 
         public let meter: Meter
-        public let range: ClosedRange<Fraction>
+        public let range: Range<Fraction>
 
-        public init(_ meter: Meter, in range: ClosedRange<Fraction>) {
+        public init(_ meter: Meter, in range: Range<Fraction>) {
             self.range = sanitized(range: range, for: meter)
             self.meter = meter
         }
@@ -49,20 +49,20 @@ extension Meter {
         )
         {
             let end = end ?? Fraction(meter)
-            let range = start ... end
+            let range = start ..< end
             self.init(meter, in: range)
         }
     }
 }
 
-func sanitized(range: ClosedRange<Fraction>, for meter: Meter) -> ClosedRange<Fraction> {
-    let full = .unit ... Fraction(meter)
-    let range = range.lowerBound.clamped(in: full) ... range.upperBound.clamped(in: full)
+func sanitized(range: Range<Fraction>, for meter: Meter) -> Range<Fraction> {
+    let full = .unit ..< Fraction(meter)
+    let range = range.lowerBound.clamped(in: full) ..< range.upperBound.clamped(in: full)
     return normalized(range: range, for: meter)
 }
 
 /// - Returns: Range which has a denominator >= to that of the given `meter`.
-func normalized(range: ClosedRange<Fraction>, for meter: Meter) -> ClosedRange<Fraction> {
+func normalized(range: Range<Fraction>, for meter: Meter) -> Range<Fraction> {
 
     // Ensure that the range is represented with the same denominator
     // FIXME: Use fixed `Ration.respelling(denominator:)`
@@ -73,10 +73,10 @@ func normalized(range: ClosedRange<Fraction>, for meter: Meter) -> ClosedRange<F
     guard start.denominator >= meter.denominator else {
         let start = respellingDenominator(of: start, to: meter.denominator)!
         let end = respellingDenominator(of: end, to: meter.denominator)!
-        return start ... end
+        return start ..< end
     }
 
-    return start ... end
+    return start ..< end
 }
 
 extension Meter.Fragment: Equatable {
