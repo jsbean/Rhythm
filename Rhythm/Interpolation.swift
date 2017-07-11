@@ -26,7 +26,7 @@ public struct Interpolation {
     public let end: Tempo
 
     /// Metrical duration.
-    public let metricalDuration: MetricalDuration
+    public let metricalDuration: Fraction
 
     /// Easing of `Interpolation`.
     public let easing: Easing
@@ -38,7 +38,7 @@ public struct Interpolation {
     public init(
         start: Tempo = Tempo(60),
         end: Tempo = Tempo(60),
-        duration: MetricalDuration = 1/>4,
+        duration: Fraction = Fraction(1,4),
         easing: Easing = .linear
     )
     {
@@ -50,7 +50,7 @@ public struct Interpolation {
 
     /// Creates a static `Interpolation` with the given `tempo`, lasting for the given
     /// metrical `duration`.
-    public init(tempo: Tempo, duration: MetricalDuration = 1/>4) {
+    public init(tempo: Tempo, duration: Fraction = Fraction(1,4)) {
         self.start = tempo
         self.end = tempo
         self.metricalDuration = duration
