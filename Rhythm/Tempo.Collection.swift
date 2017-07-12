@@ -6,9 +6,26 @@
 //
 //
 
-extension Meter {
+import Collections
+import ArithmeticTools
 
-    struct Fragment {
-        
+public extension Tempo {
+
+    public struct Collection {
+
+        public typealias Storage = SortedDictionary<Fraction, Interpolation.Fragment>
+
+        private let storage: Storage
+
+        public init(_ storage: Storage) {
+            self.storage = storage
+        }
+    }
+}
+
+extension Tempo.Collection: Fragmentable {
+
+    subscript (range: Range<Fraction>) -> Meter.Collection {
+        fatalError()
     }
 }

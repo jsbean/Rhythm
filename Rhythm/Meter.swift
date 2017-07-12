@@ -39,10 +39,6 @@ public struct Meter: Rational {
             fatalError("Cannot create a Meter with a non-power-of-two denominator")
         }
 
-        guard numerator > 0 else {
-            fatalError("Cannot create a Meter with a numerator of 0")
-        }
-
         self.numerator = numerator
         self.denominator = denominator
     }
@@ -61,6 +57,14 @@ public struct Meter: Rational {
     /// - returns: Duration in seconds of measure at the given `tempo`.
     public func duration(at tempo: Tempo) -> Double {
         return Double(numerator) * tempo.duration(forBeatAt: denominator)
+    }
+}
+
+extension Meter: Fragmentable {
+
+    /// - Warning: Not yet implemented!
+    subscript(range: Range<Fraction>) -> Fragment {
+        fatalError()
     }
 }
 

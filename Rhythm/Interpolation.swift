@@ -151,3 +151,11 @@ public struct Interpolation {
         )
     }
 }
+
+extension Interpolation: Fragmentable {
+
+    subscript(range: Range<Fraction>) -> Fragment {
+        fatalError()
+    }
+}
+
