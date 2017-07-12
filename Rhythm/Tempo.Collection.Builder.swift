@@ -13,7 +13,11 @@ extension Tempo.Collection {
 
     public final class Builder: BuilderProtocol {
 
-        private var intermediate = SortedDictionary<Fraction, (tempo: Tempo, interpolating: Bool)>()
+        private var intermediate: SortedDictionary<Fraction, (tempo: Tempo, interpolating: Bool)>
+
+        public init() {
+            self.intermediate = [:]
+        }
 
         @discardableResult func add(
             _ tempo: Tempo,
@@ -27,7 +31,7 @@ extension Tempo.Collection {
 
         func build() -> Tempo.Collection {
             return Tempo.Collection(
-                Storage(
+                SortedDictionary(
                     intermediate.adjacentPairs().map { pair in
                         let ((startOffset, start), (endOffset, end)) = pair
                         let interpolation = Interpolation(
@@ -36,7 +40,7 @@ extension Tempo.Collection {
                             duration: endOffset - startOffset,
                             easing: .linear
                         )
-                        return (startOffset, Interpolation.Fragment(interpolation))
+                        return (startOffset, .init(interpolation))
                     }
                 )
             )

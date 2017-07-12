@@ -146,8 +146,8 @@ public struct Interpolation {
         return (
             start: start.respelling(subdivision: lcm),
             end: end.respelling(subdivision: lcm),
-            duration: Fraction(metricalDuration).respelling(denominator: lcm)!,
-            offset: Fraction(offset).respelling(denominator: lcm)!
+            duration: Fraction(metricalDuration).scaling(denominator: lcm),
+            offset: Fraction(offset).scaling(denominator: lcm)
         )
     }
 }

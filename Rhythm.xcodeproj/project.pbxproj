@@ -87,6 +87,8 @@
 		07C2659D1F166E0E0058AD73 /* Tempo.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659B1F166E0E0058AD73 /* Tempo.Collection.Builder.swift */; };
 		07C2659F1F166FA70058AD73 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659E1F166FA70058AD73 /* Builder.swift */; };
 		07C265A01F166FA70058AD73 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659E1F166FA70058AD73 /* Builder.swift */; };
+		07C265A21F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */; };
+		07C265A31F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */; };
 		099E4B30023B20560A916296 /* Rhythm.h in Headers */ = {isa = PBXBuildFile; fileRef = 958460755AA3BA157F8A2C64 /* Rhythm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD40A8F291B307CAC734EAB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
 		9EADF804BC73FCC4A2700E36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866599FF1C901214B2310164 /* Cocoa.framework */; };
@@ -178,6 +180,7 @@
 		07C265951F1669250058AD73 /* Fragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fragment.swift; path = Rhythm/Fragment.swift; sourceTree = "<group>"; };
 		07C2659B1F166E0E0058AD73 /* Tempo.Collection.Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Collection.Builder.swift; path = Rhythm/Tempo.Collection.Builder.swift; sourceTree = "<group>"; };
 		07C2659E1F166FA70058AD73 /* Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Builder.swift; path = Rhythm/Builder.swift; sourceTree = "<group>"; };
+		07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Collection.Builder.swift; path = Rhythm/Meter.Collection.Builder.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEAA7E4F355EF07BA1E0256 /* Rhythm iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C8F3A68AE9F3053FAD5640 /* Rhythm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rhythm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,6 +243,7 @@
 				075C304A1EB15E9F008DB1D6 /* Tempo.swift */,
 				0757B9381F15523E004247D9 /* Tempo.Collection.swift */,
 				07C2659B1F166E0E0058AD73 /* Tempo.Collection.Builder.swift */,
+				07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */,
 				07B701C41EDA204500C946AD /* Tempo.Context.swift */,
 				0771A60A1ED4FE6D00733CFF /* Tempo.Stratum.swift */,
 				0744B4B71EF00293003F9B3A /* Tempo.Stratum.Builder.swift */,
@@ -586,6 +590,7 @@
 				0757B9341F155038004247D9 /* Interpolation.Easing.swift in Sources */,
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0757B93A1F15523E004247D9 /* Tempo.Collection.swift in Sources */,
+				07C265A31F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */,
 				07C2659D1F166E0E0058AD73 /* Tempo.Collection.Builder.swift in Sources */,
 				0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */,
 				07C265971F1669250058AD73 /* Fragment.swift in Sources */,
@@ -634,6 +639,7 @@
 				07C2658A1F16608F0058AD73 /* Meter.Collection.swift in Sources */,
 				0775548B1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
 				0771A5E11ED4ADA300733CFF /* BeatContext.swift in Sources */,
+				07C265A21F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */,
 				07C265961F1669250058AD73 /* Fragment.swift in Sources */,
 				0771A60B1ED4FE6D00733CFF /* Tempo.Stratum.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */,

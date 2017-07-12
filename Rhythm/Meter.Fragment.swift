@@ -27,3 +27,11 @@ extension Meter {
         }
     }
 }
+
+extension Meter.Fragment {
+
+    public init(_ meter: Meter) {
+        self.base = meter
+        self.range = .unit ..< Fraction(meter)
+    }
+}
