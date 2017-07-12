@@ -33,12 +33,7 @@ public struct Meter: Rational {
 
     /// Creates a `Meter` with the given `numerator` and `denominator`.
     public init(_ numerator: Beats, _ denominator: Subdivision) {
-
-        // TODO: Include denominators with power-of-two factors (28, 44, etc.),
-        guard denominator.isPowerOfTwo else {
-            fatalError("Cannot create a Meter with a non-power-of-two denominator")
-        }
-
+        assert(denominator.isPowerOfTwo, "Cannot create Meter with a non power-of-two denominator")
         self.numerator = numerator
         self.denominator = denominator
     }
