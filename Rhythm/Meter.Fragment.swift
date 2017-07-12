@@ -21,9 +21,11 @@ extension Meter {
             self.range = range ?? .unit ..< Fraction(meter)
         }
 
-        /// - Warning: Not yet implemented!
+        /// - Returns: `Interpolation.Fragment` in the given `range`.
         public subscript (range: Range<Fraction>) -> Meter.Fragment {
-            fatalError()
+            assert(range.lowerBound >= self.range.lowerBound)
+            assert(range.upperBound <= self.range.upperBound)
+            return Meter.Fragment(base, in: range)
         }
     }
 }

@@ -20,9 +20,11 @@ extension Interpolation {
             self.range = range
         }
 
-        /// - Warning: Not yet implemented!
+        /// - Returns: `Interpolation.Fragment` in the given `range`.
         public subscript (range: Range<Fraction>) -> Interpolation.Fragment {
-            fatalError()
+            assert(range.lowerBound >= self.range.lowerBound)
+            assert(range.upperBound <= self.range.upperBound)
+            return Interpolation.Fragment(base, in: range)
         }
     }
 }
