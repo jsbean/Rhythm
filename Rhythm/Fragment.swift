@@ -6,6 +6,7 @@
 //
 //
 
+import Collections
 import ArithmeticTools
 
 protocol Fragmentable {
@@ -15,7 +16,55 @@ protocol Fragmentable {
 
 protocol DuratedFragment: Fragmentable {
     associatedtype Base: Fragmentable
-    //typealias Fragment = Self
     var base: Base { get }
     var range: Range<Fraction> { get }
+}
+
+extension DuratedFragment {
+
+    func from(_ offset: Fraction) -> Fragment {
+        assert(offset >= self.range.lowerBound)
+        let range = offset ..< self.range.upperBound
+        return self[range]
+    }
+
+    func to(_ offset: Fraction) -> Fragment {
+        assert(offset < self.range.upperBound)
+        let range = self.range.lowerBound ..< offset
+        return self[range]
+    }
+}
+
+/// - Precondition: n + n.length = m
+protocol DuratedContainer: Fragmentable {
+    associatedtype Element: DuratedFragment
+    var storage: SortedDictionary<Fraction,Element> { get }
+    func indexOfElement(containing: Fraction) -> Int?
+}
+
+extension DuratedContainer {
+
+    /// - Returns: The index of the element containing the given `target` offset.
+    func indexOfElement(containing target: Fraction) -> Int? {
+
+        var start = 0
+        var end = storage.count
+
+        while start < end {
+
+            let mid = start + (end - start) / 2
+            let (offset, element) = storage[mid]
+            let range = element.range.shifted(by: offset)
+
+            if range.contains(target) {
+                return mid
+            } else if target >= range.upperBound {
+                start = mid + 1
+            } else {
+                end = mid
+            }
+        }
+
+        return nil
+    }
 }
