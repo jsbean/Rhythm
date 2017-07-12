@@ -13,6 +13,8 @@ extension Meter.Collection {
 
     public final class Builder: DuratedContainerBuilder {
 
+        typealias Product = Meter.Collection
+
         internal var intermediate: SortedDictionary<Fraction,Meter.Fragment>
         private var offset: Fraction
 
@@ -30,10 +32,6 @@ extension Meter.Collection {
         @discardableResult public func add(_ meters: [Meter.Fragment]) -> Builder {
             meters.forEach { _ = add($0) }
             return self
-        }
-
-        func build() -> Meter.Collection {
-            return Meter.Collection(intermediate)
         }
     }
 }

@@ -13,6 +13,8 @@ extension Tempo.Collection {
 
     public final class Builder: DuratedContainerBuilder {
 
+        typealias Product = Tempo.Collection
+
         internal var intermediate: SortedDictionary<Fraction,Interpolation.Fragment>
         private var last: (Fraction, Tempo, Bool)?
         private var offset: Fraction
@@ -51,10 +53,6 @@ extension Tempo.Collection {
             }
             last = (offset, tempo, interpolating)
             return self
-        }
-
-        func build() -> Tempo.Collection {
-            return Tempo.Collection(intermediate)
         }
     }
 }
