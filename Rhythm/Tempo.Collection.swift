@@ -44,7 +44,8 @@ public extension Tempo {
 
 extension Tempo.Collection: Fragmentable {
 
-    subscript (range: Range<Fraction>) -> Meter.Collection {
+    // FIXME: Decide assert or soft clipping out-of-range ranges
+    subscript (range: Range<Fraction>) -> Tempo.Collection {
 
         assert(range.lowerBound >= .unit)
 
@@ -53,48 +54,31 @@ extension Tempo.Collection: Fragmentable {
         guard let startIndex = indexOfElement(containing: range.lowerBound) else {
             return .init([:])
         }
-
         let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
+        let start = element(from: range.lowerBound, at: startIndex)
 
-        // get first interp
+        // Single interpolation
+        if endIndex == startIndex {
+            let (offset, element) = elements[startIndex]
+            return Tempo.Collection([.unit: element[range.shifted(by: offset)]])
+        }
 
+        let end = element(to: range.upperBound, at: endIndex)
 
+        // Two consecutive measure
+        if endIndex == startIndex + 1 {
+            return Builder().add([start,end]).build()
+        }
 
-//        let startInterpIndex = indexOfInterpolation(containing: start)
-//        let (startInterpOffset, startInterp) = tempi[startInterpIndex]
-//        let startOffsetInInterp = start - startInterpOffset
-//
-//        let endInterpIndex = indexOfInterpolation(containing: end)
-//        let (endInterpOffset, endInterp) = tempi[endInterpIndex]
-//        let endOffsetInInterp = end - endInterpOffset
-//
-//        let startSegment = startInterp.fragment(from: startOffsetInInterp, to: end - startInterpOffset)
-//
-//        var result = SortedDictionary<MetricalDuration,Interpolation>()
-//
-//        // Add first segment
-//        result.insert(startSegment, key: .zero)
-//
-//        if startInterpIndex == endInterpIndex {
-//            return Stratum(tempi: result)
-//        }
-//
-//        let endSegment = endInterp.fragment(to: endOffsetInInterp)
-//
-//        // Add the innards
-//        if endInterpIndex > startInterpIndex + 1 {
-//            tempi[startInterpIndex + 1 ..< endInterpIndex].forEach { offset, interp in
-//                result.insert(interp, key: offset - start)
-//            }
-//        }
-//
-//        // Add last segment if it isn't at the end of the interpolation
-//        if endOffsetInInterp < endInterp.metricalDuration {
-//            result.insert(endSegment, key: end - start)
-//        }
-//
-//        return Stratum(tempi: result)
+        // Three or more measures
+        let innards = elements(in: startIndex + 1 ... endIndex - 1)
+        return Builder().add(start + innards + end).build()
+    }
 
-        fatalError()
+    private func elements(in range: CountableClosedRange<Int>) -> [Interpolation.Fragment] {
+        return range
+            .lazy
+            .map { index in self.elements[index] }
+            .map { _, meter in meter }
     }
 }

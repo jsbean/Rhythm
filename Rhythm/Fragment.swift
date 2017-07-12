@@ -41,6 +41,7 @@ extension DuratedFragment where Fragment == Self {
 protocol DuratedContainer: Fragmentable {
     associatedtype Element: DuratedFragment
     var elements: SortedDictionary<Fraction,Element> { get }
+    init(_ elements: SortedDictionary<Fraction,Element>)
 }
 
 extension DuratedContainer {
@@ -83,6 +84,11 @@ extension DuratedContainer {
 extension DuratedContainer where Element.Fragment == Element {
 
     func element(from offset: Fraction, at index: Int) -> Element {
+        let (elementOffset, fragment) = elements[index]
+        return fragment.from(offset - elementOffset)
+    }
+
+    func element(to offset: Fraction, at index: Int) -> Element {
         let (elementOffset, fragment) = elements[index]
         return fragment.to(offset - elementOffset)
     }

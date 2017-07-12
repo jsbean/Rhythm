@@ -11,13 +11,27 @@ import ArithmeticTools
 
 extension Tempo.Collection {
 
-    public final class Builder: BuilderProtocol {
+    public final class Builder: DuratedContainerBuilder {
 
-        // Intermediate representation
-        private var intermediate: SortedDictionary<Fraction, (tempo: Tempo, interpolating: Bool)>
+        internal var intermediate: SortedDictionary<Fraction,Interpolation.Fragment>
+        private var last: (Fraction, Tempo, Bool)?
+        private var offset: Fraction
 
         public init() {
             self.intermediate = [:]
+            self.offset = .unit
+        }
+
+        @discardableResult func add(_ interpolation: Interpolation.Fragment) -> Builder {
+            self.intermediate.insert(interpolation, key: offset)
+            last = (offset, interpolation.base.end, true)
+            offset += interpolation.range.length
+            return self
+        }
+
+        @discardableResult func add(_ interpolations: [Interpolation.Fragment]) -> Builder {
+            interpolations.forEach { _ = add($0) }
+            return self
         }
 
         @discardableResult func add(
@@ -26,25 +40,21 @@ extension Tempo.Collection {
             interpolating: Bool = false
         ) -> Builder
         {
-            intermediate[offset] = (tempo, interpolating)
+            if let (startOffset, startTempo, startInterpolating) = last {
+                let interpolation = Interpolation(
+                    start: startTempo,
+                    end: startInterpolating ? tempo : startTempo,
+                    duration: offset - startOffset,
+                    easing: .linear
+                )
+                add(.init(interpolation))
+            }
+            last = (offset, tempo, interpolating)
             return self
         }
 
         func build() -> Tempo.Collection {
-            return Tempo.Collection(
-                SortedDictionary(
-                    intermediate.pairs.map { pair in
-                        let ((startOffset, start), (endOffset, end)) = pair
-                        let interpolation = Interpolation(
-                            start: start.tempo,
-                            end: end.tempo,
-                            duration: endOffset - startOffset,
-                            easing: .linear
-                        )
-                        return (startOffset, .init(interpolation))
-                    }
-                )
-            )
+            return Tempo.Collection(intermediate)
         }
     }
 }

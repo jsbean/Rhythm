@@ -36,22 +36,22 @@ extension Meter.Collection {
         let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
         let start = element(from: range.lowerBound, at: startIndex)
 
-        /// Single measure
-        guard endIndex > startIndex else {
-            let (meterOffset, fragment) = elements[startIndex]
-            return Meter.Collection([.unit: fragment[range.shifted(by: meterOffset)]])
+        // Single interpolation
+        if endIndex == startIndex {
+            let (offset, element) = elements[startIndex]
+            return Meter.Collection([.unit: element[range.shifted(by: offset)]])
         }
 
         let end = element(to: range.upperBound, at: endIndex)
 
         /// Two consecutive measures
         guard endIndex > startIndex + 1 else {
-            return Builder().addMeters([start,end]).build()
+            return Builder().add([start,end]).build()
         }
 
         /// Three or more measures
-        let innards = meters(in: startIndex + 1 ... endIndex - 1)
-        return Builder().addMeters(start + innards + end).build()
+        let innards = elements(in: startIndex + 1 ... endIndex - 1)
+        return Builder().add(start + innards + end).build()
     }
 
     private func meters(in range: CountableClosedRange<Int>) -> [Meter.Fragment] {
@@ -61,13 +61,10 @@ extension Meter.Collection {
             .map { _, meter in meter }
     }
 
-    private func element(from offset: Fraction, at index: Int) -> Meter.Fragment {
-        let (meterOffset, fragment) = elements[index]
-        return fragment.from(offset - meterOffset)
-    }
-
-    private func element(to offset: Fraction, at index: Int) -> Meter.Fragment {
-        let (meterOffset, fragment) = elements[index]
-        return fragment.to(offset - meterOffset)
+    private func elements(in range: CountableClosedRange<Int>) -> [Meter.Fragment] {
+        return range
+            .lazy
+            .map { index in self.elements[index] }
+            .map { _, meter in meter }
     }
 }

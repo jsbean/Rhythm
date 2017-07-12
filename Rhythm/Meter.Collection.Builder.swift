@@ -11,34 +11,29 @@ import ArithmeticTools
 
 extension Meter.Collection {
 
-    public final class Builder: BuilderProtocol {
+    public final class Builder: DuratedContainerBuilder {
 
-        private var result: SortedDictionary<Fraction,Meter.Fragment>
+        internal var intermediate: SortedDictionary<Fraction,Meter.Fragment>
         private var offset: Fraction
 
         public init() {
-            self.result = [:]
+            self.intermediate = [:]
             self.offset = .unit
         }
 
-        @discardableResult public func addMeter(_ meter: Meter.Fragment) -> Builder {
-            self.result.insert(meter, key: offset)
+        @discardableResult public func add(_ meter: Meter.Fragment) -> Builder {
+            self.intermediate.insert(meter, key: offset)
             offset += meter.range.length
             return self
         }
 
-        @discardableResult public func addMeter(_ meter: Meter) -> Builder {
-            let fragment = Meter.Fragment(meter)
-            return addMeter(fragment)
-        }
-
-        @discardableResult public func addMeters(_ meters: [Meter.Fragment]) -> Builder {
-            meters.forEach { _ = addMeter($0) }
+        @discardableResult public func add(_ meters: [Meter.Fragment]) -> Builder {
+            meters.forEach { _ = add($0) }
             return self
         }
 
         func build() -> Meter.Collection {
-            return Meter.Collection(result)
+            return Meter.Collection(intermediate)
         }
     }
 }
