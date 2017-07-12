@@ -46,7 +46,19 @@ extension Tempo.Collection: Fragmentable {
 
     subscript (range: Range<Fraction>) -> Meter.Collection {
 
-        fatalError()
+        assert(range.lowerBound >= .unit)
+
+        let range = range.upperBound > duration ? range.lowerBound ..< duration : range
+
+        guard let startIndex = indexOfElement(containing: range.lowerBound) else {
+            return .init([:])
+        }
+
+        let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
+
+        // get first interp
+
+
 
 //        let startInterpIndex = indexOfInterpolation(containing: start)
 //        let (startInterpOffset, startInterp) = tempi[startInterpIndex]
@@ -82,5 +94,7 @@ extension Tempo.Collection: Fragmentable {
 //        }
 //
 //        return Stratum(tempi: result)
+
+        fatalError()
     }
 }

@@ -9,6 +9,8 @@
 import Collections
 import ArithmeticTools
 
+// TODO: Move these to own file
+
 protocol Fragmentable {
     associatedtype Fragment
     subscript(range: Range<Fraction>) -> Fragment { get }
@@ -20,15 +22,15 @@ protocol DuratedFragment: Fragmentable {
     var range: Range<Fraction> { get }
 }
 
-extension DuratedFragment {
+extension DuratedFragment where Fragment == Self {
 
-    func from(_ offset: Fraction) -> Fragment {
+    func from(_ offset: Fraction) -> Self {
         assert(offset >= self.range.lowerBound)
         let range = offset ..< self.range.upperBound
         return self[range]
     }
 
-    func to(_ offset: Fraction) -> Fragment {
+    func to(_ offset: Fraction) -> Self {
         assert(offset < self.range.upperBound)
         let range = self.range.lowerBound ..< offset
         return self[range]
@@ -36,7 +38,6 @@ extension DuratedFragment {
 }
 
 /// - Precondition: n + n.length = m
-/// Perhaps add Collection protocol requirements
 protocol DuratedContainer: Fragmentable {
     associatedtype Element: DuratedFragment
     var elements: SortedDictionary<Fraction,Element> { get }
@@ -75,5 +76,14 @@ extension DuratedContainer {
         }
 
         return nil
+    }
+}
+
+// FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
+extension DuratedContainer where Element.Fragment == Element {
+
+    func element(from offset: Fraction, at index: Int) -> Element {
+        let (elementOffset, fragment) = elements[index]
+        return fragment.to(offset - elementOffset)
     }
 }

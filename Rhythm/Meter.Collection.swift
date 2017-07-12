@@ -24,6 +24,7 @@ extension Meter {
 extension Meter.Collection {
 
     subscript (range: Range<Fraction>) -> Meter.Collection {
+
         assert(range.lowerBound >= .unit)
 
         let range = range.upperBound > duration ? range.lowerBound ..< duration : range
@@ -33,7 +34,7 @@ extension Meter.Collection {
         }
 
         let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
-        let start = meterFragment(from: range.lowerBound, at: startIndex)
+        let start = element(from: range.lowerBound, at: startIndex)
 
         /// Single measure
         guard endIndex > startIndex else {
@@ -41,7 +42,7 @@ extension Meter.Collection {
             return Meter.Collection([.unit: fragment[range.shifted(by: meterOffset)]])
         }
 
-        let end = meterFragment(to: range.upperBound, at: endIndex)
+        let end = element(to: range.upperBound, at: endIndex)
 
         /// Two consecutive measures
         guard endIndex > startIndex + 1 else {
@@ -60,12 +61,12 @@ extension Meter.Collection {
             .map { _, meter in meter }
     }
 
-    private func meterFragment(from offset: Fraction, at index: Int) -> Meter.Fragment {
+    private func element(from offset: Fraction, at index: Int) -> Meter.Fragment {
         let (meterOffset, fragment) = elements[index]
         return fragment.from(offset - meterOffset)
     }
 
-    private func meterFragment(to offset: Fraction, at index: Int) -> Meter.Fragment {
+    private func element(to offset: Fraction, at index: Int) -> Meter.Fragment {
         let (meterOffset, fragment) = elements[index]
         return fragment.to(offset - meterOffset)
     }
