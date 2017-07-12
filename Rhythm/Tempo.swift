@@ -41,25 +41,14 @@ public struct Tempo {
 
     /// Creates a `Tempo` with the given `value` for the given `subdivision`.
     public init(_ beatsPerMinute: BeatsPerMinute, subdivision: Subdivision = 4) {
-
-        guard subdivision != 0 else {
-            fatalError("Cannot create a tempo with a subdivision of 0")
-        }
-
+        assert(subdivision != 0, "Cannot create a tempo with a subdivision of 0")
         self.beatsPerMinute = beatsPerMinute
         self.subdivision = subdivision
     }
 
     public func respelling(subdivision newSubdivision: Subdivision) -> Tempo {
-
-        guard newSubdivision.isPowerOfTwo else {
-            fatalError("Non-power-of-two subdivisions not yet supported")
-        }
-
-        guard newSubdivision != subdivision else {
-            return self
-        }
-
+        assert(newSubdivision.isPowerOfTwo, "Non-power-of-two subdivisions not yet supported")
+        guard newSubdivision != subdivision else { return self }
         let quotient = Double(newSubdivision) / Double(subdivision)
         let newBeatsPerMinute = beatsPerMinute * quotient
         return Tempo(newBeatsPerMinute, subdivision: newSubdivision)
@@ -67,11 +56,7 @@ public struct Tempo {
 
     /// - returns: Duration for a beat at the given `subdivision`.
     public func duration(forBeatAt subdivision: Subdivision) -> Double {
-
-        guard subdivision.isPowerOfTwo else {
-            fatalError("Subdivision must be a power-of-two")
-        }
-
+        assert(subdivision.isPowerOfTwo, "Subdivision must be a power-of-two")
         let quotient = Double(subdivision) / Double(self.subdivision)
         return durationOfBeat / quotient
     }

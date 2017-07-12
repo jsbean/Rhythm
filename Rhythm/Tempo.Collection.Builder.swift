@@ -13,6 +13,7 @@ extension Tempo.Collection {
 
     public final class Builder: BuilderProtocol {
 
+        // Intermediate representation
         private var intermediate: SortedDictionary<Fraction, (tempo: Tempo, interpolating: Bool)>
 
         public init() {
