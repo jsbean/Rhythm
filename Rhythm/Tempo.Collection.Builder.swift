@@ -16,8 +16,9 @@ extension Tempo.Collection {
         typealias Product = Tempo.Collection
 
         internal var intermediate: SortedDictionary<Fraction,Interpolation.Fragment>
+        internal var offset: Fraction
+
         private var last: (Fraction, Tempo, Bool)?
-        private var offset: Fraction
 
         public init() {
             self.intermediate = [:]
@@ -28,11 +29,6 @@ extension Tempo.Collection {
             self.intermediate.insert(interpolation, key: offset)
             last = (offset, interpolation.base.end, true)
             offset += interpolation.range.length
-            return self
-        }
-
-        @discardableResult func add(_ interpolations: [Interpolation.Fragment]) -> Builder {
-            interpolations.forEach { _ = add($0) }
             return self
         }
 
