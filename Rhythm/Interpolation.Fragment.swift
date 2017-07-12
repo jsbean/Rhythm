@@ -12,6 +12,13 @@ extension Interpolation {
 
     public struct Fragment: DuratedFragment {
 
+        /// - FIXME: Use `Seconds` not `Double`
+        public var duration: Double {
+            let start = base.secondsOffset(for: range.lowerBound)
+            let end = base.secondsOffset(for: range.upperBound)
+            return end - start
+        }
+
         public let base: Interpolation
         public let range: Range<Fraction>
 
@@ -25,6 +32,10 @@ extension Interpolation {
             assert(range.lowerBound >= self.range.lowerBound)
             assert(range.upperBound <= self.range.upperBound)
             return Interpolation.Fragment(base, in: range)
+        }
+
+        public func secondsOffset(for metricalOffset: Fraction) -> Double {
+            return base.secondsOffset(for: metricalOffset)
         }
     }
 }

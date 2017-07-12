@@ -40,10 +40,18 @@ extension DuratedFragment {
 protocol DuratedContainer: Fragmentable {
     associatedtype Element: DuratedFragment
     var elements: SortedDictionary<Fraction,Element> { get }
-    func indexOfElement(containing: Fraction) -> Int?
 }
 
 extension DuratedContainer {
+
+    var duration: Fraction {
+        guard let (offset, element) = elements.last else { return .unit }
+        return offset + element.range.length
+    }
+
+    func contains(_ target: Fraction) -> Bool {
+        return (.unit ..< duration).contains(target)
+    }
 
     /// - Returns: The index of the element containing the given `target` offset.
     func indexOfElement(containing target: Fraction) -> Int? {

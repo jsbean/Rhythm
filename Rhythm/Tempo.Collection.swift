@@ -11,14 +11,32 @@ import ArithmeticTools
 
 public extension Tempo {
 
-    public struct Collection {
+    public struct Collection: DuratedContainer {
 
         public typealias Storage = SortedDictionary<Fraction, Interpolation.Fragment>
 
-        private let elements: Storage
+        public let elements: Storage
 
         public init(_ elements: Storage) {
             self.elements = elements
+        }
+
+        /// - FIXME: Use `Seconds` instead of `Double`
+        public func secondsOffset(for metricalOffset: Fraction) -> Double {
+            assert(contains(metricalOffset))
+            let index = indexOfElement(containing: metricalOffset)!
+            let (globalOffset, interpolation) = elements[index]
+            let internalOffset = metricalOffset - globalOffset
+            let localSeconds = interpolation.secondsOffset(for: internalOffset)
+            return secondsOffset(at: index) + localSeconds
+        }
+
+        public func secondsOffset(at index: Int) -> Double {
+            assert(elements.indices.contains(index))
+            return (0..<index)
+                .map { elements[$0] }
+                .map { $1.duration }
+                .sum
         }
     }
 }

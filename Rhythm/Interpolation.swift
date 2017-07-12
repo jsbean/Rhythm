@@ -16,7 +16,7 @@ public struct Interpolation {
 
     /// Concrete duration of `Interpolation`, in seconds.
     public var duration: Double/*Seconds*/ {
-        return secondsOffset(metricalOffset: metricalDuration)
+        return secondsOffset(for: metricalDuration)
     }
 
     /// Start tempo.
@@ -79,7 +79,7 @@ public struct Interpolation {
     ///
     /// - TODO: Change Double -> Seconds
     ///
-    public func secondsOffset <R: Rational> (metricalOffset: R) -> Double/*Seconds*/ {
+    public func secondsOffset(for metricalOffset: Fraction) -> Double/*Seconds*/ {
 
         let resolution = 1024
 
@@ -101,7 +101,7 @@ public struct Interpolation {
             // 3. If Easing is linear, there is a simple and exact integral we can use
             let a = start.durationOfBeat
             let b = end.durationOfBeat
-            let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
+            let x = (metricalOffset / metricalDuration).doubleValue
             let integralValue = (pow(b/a, x)-1) * a / log(b/a)
             return integralValue * Double(duration.numerator)
 
@@ -132,7 +132,7 @@ public struct Interpolation {
         }
     }
 
-    private func normalizedValues <R: Rational> (offset: R)
+    private func normalizedValues(offset: Fraction)
         -> (start: Tempo, end: Tempo, duration: Fraction, offset: Fraction)
     {
 
@@ -146,8 +146,8 @@ public struct Interpolation {
         return (
             start: start.respelling(subdivision: lcm),
             end: end.respelling(subdivision: lcm),
-            duration: Fraction(metricalDuration).scaling(denominator: lcm),
-            offset: Fraction(offset).scaling(denominator: lcm)
+            duration: metricalDuration.scaling(denominator: lcm),
+            offset: offset.scaling(denominator: lcm)
         )
     }
 }
