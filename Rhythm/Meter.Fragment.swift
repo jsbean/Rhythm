@@ -37,3 +37,10 @@ extension Meter.Fragment {
         self.range = .unit ..< Fraction(meter)
     }
 }
+
+extension Meter.Fragment: Equatable {
+
+    public static func == (lhs: Meter.Fragment, rhs: Meter.Fragment) -> Bool {
+        return lhs.base == rhs.base && lhs.range == rhs.range
+    }
+}

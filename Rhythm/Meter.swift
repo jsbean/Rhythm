@@ -58,7 +58,7 @@ public struct Meter: Rational {
 extension Meter: Fragmentable {
 
     /// - Returns: `Meter.Fragment`
-    subscript(range: Range<Fraction>) -> Fragment {
+    public subscript(range: Range<Fraction>) -> Fragment {
         return Fragment(self, in: range)
     }
 }

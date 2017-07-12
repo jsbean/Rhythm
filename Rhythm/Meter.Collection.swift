@@ -18,53 +18,20 @@ extension Meter {
         public init(_ elements: SortedDictionary<Fraction, Meter.Fragment>) {
             self.elements = elements
         }
+
+        public init<S>(_ elements: S) where S : Sequence, S.Iterator.Element == Meter.Fragment {
+            self = Builder().add(elements).build()
+        }
+
+        public init <S: Sequence> (_ elements: S) where S.Iterator.Element == Meter {
+            self.init(elements.map { Meter.Fragment($0) })
+        }
     }
 }
 
-extension Meter.Collection {
+extension Meter.Collection: Equatable {
 
-    subscript (range: Range<Fraction>) -> Meter.Collection {
-
-        assert(range.lowerBound >= .unit)
-
-        let range = range.upperBound > duration ? range.lowerBound ..< duration : range
-
-        guard let startIndex = indexOfElement(containing: range.lowerBound) else {
-            return .init([:])
-        }
-
-        let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
-        let start = element(from: range.lowerBound, at: startIndex)
-
-        // Single interpolation
-        if endIndex == startIndex {
-            let (offset, element) = elements[startIndex]
-            return Meter.Collection([.unit: element[range.shifted(by: offset)]])
-        }
-
-        let end = element(to: range.upperBound, at: endIndex)
-
-        /// Two consecutive measures
-        guard endIndex > startIndex + 1 else {
-            return Builder().add([start,end]).build()
-        }
-
-        /// Three or more measures
-        let innards = elements(in: startIndex + 1 ... endIndex - 1)
-        return Builder().add(start + innards + end).build()
-    }
-
-    private func meters(in range: CountableClosedRange<Int>) -> [Meter.Fragment] {
-        return range
-            .lazy
-            .map { index in self.elements[index] }
-            .map { _, meter in meter }
-    }
-
-    private func elements(in range: CountableClosedRange<Int>) -> [Meter.Fragment] {
-        return range
-            .lazy
-            .map { index in self.elements[index] }
-            .map { _, meter in meter }
+    public static func == (lhs: Meter.Collection, rhs: Meter.Collection) -> Bool {
+        return lhs.elements == rhs.elements
     }
 }

@@ -21,6 +21,18 @@ public extension Tempo {
             self.elements = elements
         }
 
+        public init <S> (_ elements: S)
+            where S: Sequence, S.Iterator.Element == Interpolation.Fragment
+        {
+            self = Builder().add(elements).build()
+        }
+
+        public init <S> (_ elements: [Interpolation])
+            where S: Sequence, S.Iterator.Element == Interpolation
+        {
+            self.init(elements.map { Interpolation.Fragment($0) })
+        }
+
         /// - FIXME: Use `Seconds` instead of `Double`
         public func secondsOffset(for metricalOffset: Fraction) -> Double {
             assert(contains(metricalOffset))
@@ -45,7 +57,7 @@ public extension Tempo {
 extension Tempo.Collection: Fragmentable {
 
     // FIXME: Decide assert or soft clipping out-of-range ranges
-    subscript (range: Range<Fraction>) -> Tempo.Collection {
+    public subscript (range: Range<Fraction>) -> Tempo.Collection {
 
         assert(range.lowerBound >= .unit)
 
