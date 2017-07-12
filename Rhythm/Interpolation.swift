@@ -63,9 +63,9 @@ public struct Interpolation {
     ///
     /// - TODO: Must incorporate non-linear interpolations if/when they are implemented!
     ///
-    public func tempo <R: Rational> (at metricalOffset: R) -> Tempo {
+    public func tempo (at metricalOffset: Fraction) -> Tempo {
         let (start, end, _, _) = normalizedValues(offset: metricalOffset)
-        let x = (Fraction(metricalOffset) / Fraction(metricalDuration)).doubleValue
+        let x = (metricalOffset / metricalDuration).doubleValue
         let ratio = end.beatsPerMinute / start.beatsPerMinute
         let xEased = easing.evaluate(at: x)
         let scaledBpm = start.beatsPerMinute * pow(ratio, xEased)
@@ -111,7 +111,7 @@ public struct Interpolation {
             let segmentsCount = Int(floor((offset / (1 /> resolution)).doubleValue))
 
             let accum: Double = (0..<segmentsCount).reduce(.unit) { accum, cur in
-                let tempo = self.tempo(at: cur /> resolution)
+                let tempo = self.tempo(at: Fraction(cur, resolution))
                 let duration = tempo.duration(forBeatAt: resolution)
                 return accum + duration
             }

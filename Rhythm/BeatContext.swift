@@ -40,7 +40,7 @@ public struct BeatContext {
         self.beatOffset = beatOffset
         self.tempoContext = Tempo.Context(
             interpolation: interpolation,
-            metricalOffset: meterContext.offset + beatOffset
+            metricalOffset: Fraction(meterContext.offset + beatOffset)
         )
     }
 }
