@@ -11,19 +11,26 @@ import ArithmeticTools
 
 extension Meter {
 
-    public struct Collection {
+    public struct Collection: DuratedContainer {
 
-        private let storage: SortedDictionary<Fraction, Meter.Fragment>
+        public let elements: SortedDictionary<Fraction, Meter.Fragment>
 
-        public init(_ storage: SortedDictionary<Fraction, Meter.Fragment>) {
-            self.storage = storage
+        public init(_ elements: SortedDictionary<Fraction, Meter.Fragment>) {
+            self.elements = elements
         }
     }
 }
 
-extension Meter.Collection: Fragmentable {
+extension Meter.Collection {
 
     subscript (range: Range<Fraction>) -> Meter.Collection {
+
+        guard indexOfElement(containing: range.lowerBound) != nil else {
+            return .init([:])
+        }
+
+
+
         fatalError()
     }
 }

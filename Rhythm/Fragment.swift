@@ -36,9 +36,10 @@ extension DuratedFragment {
 }
 
 /// - Precondition: n + n.length = m
+/// Perhaps add Collection protocol requirements
 protocol DuratedContainer: Fragmentable {
     associatedtype Element: DuratedFragment
-    var storage: SortedDictionary<Fraction,Element> { get }
+    var elements: SortedDictionary<Fraction,Element> { get }
     func indexOfElement(containing: Fraction) -> Int?
 }
 
@@ -48,12 +49,12 @@ extension DuratedContainer {
     func indexOfElement(containing target: Fraction) -> Int? {
 
         var start = 0
-        var end = storage.count
+        var end = elements.count
 
         while start < end {
 
             let mid = start + (end - start) / 2
-            let (offset, element) = storage[mid]
+            let (offset, element) = elements[mid]
             let range = element.range.shifted(by: offset)
 
             if range.contains(target) {

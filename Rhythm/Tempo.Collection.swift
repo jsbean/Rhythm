@@ -15,10 +15,10 @@ public extension Tempo {
 
         public typealias Storage = SortedDictionary<Fraction, Interpolation.Fragment>
 
-        private let storage: Storage
+        private let elements: Storage
 
-        public init(_ storage: Storage) {
-            self.storage = storage
+        public init(_ elements: Storage) {
+            self.elements = elements
         }
     }
 }

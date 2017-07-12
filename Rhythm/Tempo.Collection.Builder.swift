@@ -32,7 +32,7 @@ extension Tempo.Collection {
         func build() -> Tempo.Collection {
             return Tempo.Collection(
                 SortedDictionary(
-                    intermediate.adjacentPairs().map { pair in
+                    intermediate.pairs.map { pair in
                         let ((startOffset, start), (endOffset, end)) = pair
                         let interpolation = Interpolation(
                             start: start.tempo,
