@@ -8,6 +8,7 @@
 
 import ArithmeticTools
 
+// TODO: Move to `dn-m/MetronomeController`
 /// Information about a given beat within a `Meter`.
 public struct BeatContext {
 

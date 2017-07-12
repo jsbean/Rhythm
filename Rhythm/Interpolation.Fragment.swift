@@ -12,7 +12,6 @@ extension Interpolation {
 
     public struct Fragment: DuratedFragment {
 
-        /// - FIXME: Use `Seconds` not `Double`
         public var duration: Double {
             let start = base.secondsOffset(for: range.lowerBound)
             let end = base.secondsOffset(for: range.upperBound)

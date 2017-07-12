@@ -10,6 +10,7 @@
 public struct Tempo {
 
     // MARK: - Associated Types
+    
     public typealias BeatsPerMinute = Double
 
     // MARK: - Instance Properties
