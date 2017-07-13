@@ -13,11 +13,6 @@ public struct Meter: Rational {
 
     // MARK: - Instance Properties
 
-    /// - returns: The `MetricalDuration` of the `Meter`.
-    public var metricalDuration: MetricalDuration {
-        return numerator /> denominator
-    }
-
     /// - returns: Array of `MetricalDuration` offsets of each beat in a meter.
     public var beatOffsets: [MetricalDuration] {
         return (0..<numerator).map { beat in MetricalDuration(beat, denominator) }
@@ -52,6 +47,14 @@ public struct Meter: Rational {
     /// - returns: Duration in seconds of measure at the given `tempo`.
     public func duration(at tempo: Tempo) -> Double {
         return Double(numerator) * tempo.duration(forBeatAt: denominator)
+    }
+}
+
+extension Meter: MetricalDurationSpanner {
+
+    /// - returns: The `MetricalDuration` of the `Meter`.
+    public var metricalDuration: Fraction {
+        return Fraction(self)
     }
 }
 

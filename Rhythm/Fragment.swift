@@ -11,7 +11,9 @@ import ArithmeticTools
 
 // TODO: Move these to own file
 
-
+public protocol MetricalDurationSpanner {
+    var metricalDuration: Fraction { get }
+}
 
 public protocol Fragmentable {
     associatedtype Fragment
