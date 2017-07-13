@@ -141,34 +141,6 @@ extension DuratedContainer where Element.Fragment == Element {
 
         return nil
     }
-
-    /// - Returns: The index of the element containing the given `target` offset.
-    ///
-    /// - FIXME: Returns duplicates
-    func indexOfElement(containing target: Fraction) -> Int? {
-
-        var start = 0
-        var end = elements.count
-
-        while start < end {
-
-            let mid = start + (end - start) / 2
-            let (offset, element) = elements[mid]
-
-            // FIXME: Use .shifted(by:)
-            let range = element.range.lowerBound + offset ..< element.range.upperBound + offset
-
-            if range.contains(target) {
-                return mid
-            } else if target >= range.upperBound {
-                start = mid + 1
-            } else {
-                end = mid
-            }
-        }
-
-        return nil
-    }
 }
 
 extension DuratedContainer {
