@@ -10,7 +10,7 @@ import ArithmeticTools
 
 extension Tempo.Interpolation {
 
-    public struct Fragment: DuratedFragment {
+    public struct Fragment: MetricalDurationSpanningFragment {
 
         public var duration: Double {
             let start = base.secondsOffset(for: range.lowerBound)

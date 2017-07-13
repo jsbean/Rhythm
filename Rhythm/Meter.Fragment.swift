@@ -10,7 +10,7 @@ import ArithmeticTools
 
 extension Meter {
 
-    public struct Fragment: DuratedFragment {
+    public struct Fragment: MetricalDurationSpanningFragment {
 
         public let base: Meter
         public let range: Range<Fraction>

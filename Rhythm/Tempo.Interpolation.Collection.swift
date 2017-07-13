@@ -11,9 +11,13 @@ import ArithmeticTools
 
 public extension Tempo.Interpolation {
 
-    public struct Collection: DuratedContainer {
+    public struct Collection: MetricalDurationSpanningContainer {
 
         public typealias Storage = SortedDictionary<Fraction, Tempo.Interpolation.Fragment>
+
+        public var length: Fraction {
+            return elements.keys.sum
+        }
 
         public let elements: Storage
 

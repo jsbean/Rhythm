@@ -22,13 +22,13 @@ public protocol Fragmentable {
     subscript(range: Range<Fraction>) -> Fragment { get }
 }
 
-public protocol DuratedFragment: Fragmentable {
+public protocol MetricalDurationSpanningFragment: Fragmentable {
     associatedtype Base: Fragmentable
     var base: Base { get }
     var range: Range<Fraction> { get }
 }
 
-extension DuratedFragment where Fragment == Self {
+extension MetricalDurationSpanningFragment where Fragment == Self {
 
     func from(_ offset: Fraction) -> Self {
         assert(offset >= self.range.lowerBound)
@@ -44,15 +44,15 @@ extension DuratedFragment where Fragment == Self {
 }
 
 /// - Precondition: n + n.length = m
-public protocol DuratedContainer: Fragmentable {
-    associatedtype Element: DuratedFragment
+public protocol MetricalDurationSpanningContainer: Fragmentable, MetricalDurationSpanning {
+    associatedtype Element: MetricalDurationSpanningFragment
     var elements: SortedDictionary<Fraction,Element> { get }
     init(_ elements: SortedDictionary<Fraction,Element>)
     init <S: Sequence> (_ elements: S) where S.Iterator.Element == Element
 }
 
 // FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
-extension DuratedContainer where Element.Fragment == Element {
+extension MetricalDurationSpanningContainer where Element.Fragment == Element {
 
     public subscript (range: Range<Fraction>) -> Self {
 
@@ -153,7 +153,7 @@ extension DuratedContainer where Element.Fragment == Element {
     }
 }
 
-extension DuratedContainer {
+extension MetricalDurationSpanningContainer {
 
     public var duration: Fraction {
         guard let (offset, element) = elements.last else { return .unit }

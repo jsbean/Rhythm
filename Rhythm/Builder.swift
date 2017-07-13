@@ -10,7 +10,7 @@ import Collections
 import ArithmeticTools
 
 protocol DuratedContainerBuilder: class {
-    associatedtype Product: DuratedContainer
+    associatedtype Product: MetricalDurationSpanningContainer
     typealias Element = Product.Element
     var intermediate: SortedDictionary<Fraction,Element> { get set }
     var offset: Fraction { get set }
