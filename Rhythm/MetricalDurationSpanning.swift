@@ -8,6 +8,6 @@
 
 import ArithmeticTools
 
-public protocol MetricalDurationSpanning {
-    var metricalDuration: Fraction { get }
+public protocol MetricalDurationSpanning: Spanning {
+    var length: Fraction { get }
 }

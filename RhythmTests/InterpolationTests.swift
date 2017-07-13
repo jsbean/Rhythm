@@ -17,7 +17,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.linear
         )
         
@@ -35,7 +35,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent: 2)
         )
 
@@ -53,7 +53,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent: 3)
         )
 
@@ -71,7 +71,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.linear
         )
 
@@ -89,7 +89,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent: 2)
         )
 
@@ -107,7 +107,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent: 3)
         )
 
@@ -125,7 +125,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.linear
         )
 
@@ -143,7 +143,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(120),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.linear
         )
 
@@ -161,7 +161,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.linear
         )
 
@@ -179,7 +179,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
-            duration: Fraction(3,4),
+            length: Fraction(3,4),
             easing: Tempo.Interpolation.Easing.linear
         )
 
@@ -197,7 +197,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.linear
         )
 
@@ -220,7 +220,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
@@ -238,7 +238,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
@@ -256,7 +256,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
-            duration: Fraction(1,1),
+            length: Fraction(1,1),
             easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
@@ -276,7 +276,7 @@ class TempoInterpolationTests: XCTestCase {
         let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
-            duration: Fraction(2049,2048),
+            length: Fraction(2049,2048),
             easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 

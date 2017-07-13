@@ -18,7 +18,7 @@ extension Tempo {
 
         /// Concrete duration of `Interpolation`, in seconds.
         public var duration: Double/*Seconds*/ {
-            return secondsOffset(for: metricalDuration)
+            return secondsOffset(for: length)
         }
 
         /// Start tempo.
@@ -28,7 +28,7 @@ extension Tempo {
         public let end: Tempo
 
         /// Metrical duration.
-        public let metricalDuration: Fraction
+        public let length: Fraction
 
         /// Easing of `Interpolation`.
         public let easing: Easing
@@ -40,22 +40,22 @@ extension Tempo {
         public init(
             start: Tempo = Tempo(60),
             end: Tempo = Tempo(60),
-            duration: Fraction = Fraction(1,4),
+            length: Fraction = Fraction(1,4),
             easing: Easing = .linear
         )
         {
             self.start = start
             self.end = end
-            self.metricalDuration = duration
+            self.length = length
             self.easing = easing
         }
 
         /// Creates a static `Interpolation` with the given `tempo`, lasting for the given
         /// metrical `duration`.
-        public init(tempo: Tempo, duration: Fraction = Fraction(1,4)) {
+        public init(tempo: Tempo, length: Fraction = Fraction(1,4)) {
             self.start = tempo
             self.end = tempo
-            self.metricalDuration = duration
+            self.length = length
             self.easing = .linear
         }
 
@@ -67,7 +67,7 @@ extension Tempo {
         ///
         public func tempo (at metricalOffset: Fraction) -> Tempo {
             let (start, end, _, _) = normalizedValues(offset: metricalOffset)
-            let x = (metricalOffset / metricalDuration).doubleValue
+            let x = (metricalOffset / length).doubleValue
             let ratio = end.beatsPerMinute / start.beatsPerMinute
             let xEased = easing.evaluate(at: x)
             let scaledBpm = start.beatsPerMinute * pow(ratio, xEased)
@@ -103,7 +103,7 @@ extension Tempo {
                 // 3. If Easing is linear, there is a simple and exact integral we can use
                 let a = start.durationOfBeat
                 let b = end.durationOfBeat
-                let x = (metricalOffset / metricalDuration).doubleValue
+                let x = (metricalOffset / length).doubleValue
                 let integralValue = (pow(b/a, x)-1) * a / log(b/a)
                 return integralValue * Double(duration.numerator)
 
@@ -141,14 +141,14 @@ extension Tempo {
             let lcm = [
                 start.subdivision,
                 end.subdivision,
-                metricalDuration.denominator,
+                length.denominator,
                 offset.denominator
-                ].lcm
+            ].lcm
             
             return (
                 start: start.respelling(subdivision: lcm),
                 end: end.respelling(subdivision: lcm),
-                duration: metricalDuration.scaling(denominator: lcm),
+                duration: length.scaling(denominator: lcm),
                 offset: offset.scaling(denominator: lcm)
             )
         }
@@ -159,7 +159,7 @@ extension Tempo.Interpolation: Fragmentable {
 
     public subscript(range: Range<Fraction>) -> Fragment {
         assert(range.lowerBound >= .unit)
-        assert(range.upperBound <= metricalDuration)
+        assert(range.upperBound <= length)
         return Fragment(self, in: range)
     }
 }

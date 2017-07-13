@@ -43,6 +43,6 @@ extension Tempo.Interpolation.Fragment {
 
     public init(_ interpolation: Tempo.Interpolation) {
         self.base = interpolation
-        self.range = .unit ..< interpolation.metricalDuration
+        self.range = .unit ..< interpolation.length
     }
 }

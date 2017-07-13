@@ -53,7 +53,7 @@ public struct Meter: Rational {
 extension Meter: MetricalDurationSpanning {
 
     /// - returns: The `MetricalDuration` of the `Meter`.
-    public var metricalDuration: Fraction {
+    public var length: Fraction {
         return Fraction(self)
     }
 }

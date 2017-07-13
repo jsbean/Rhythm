@@ -10,8 +10,10 @@ import Collections
 import ArithmeticTools
 
 // TODO: Move these to own file
-
-
+public protocol Spanning {
+    associatedtype Metric: SignedNumber
+    var length: Metric { get }
+}
 
 public protocol Fragmentable {
     associatedtype Fragment

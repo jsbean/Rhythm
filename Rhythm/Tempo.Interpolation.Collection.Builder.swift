@@ -42,7 +42,7 @@ extension Tempo.Interpolation.Collection {
                 let interpolation = Tempo.Interpolation(
                     start: startTempo,
                     end: startInterpolating ? tempo : startTempo,
-                    duration: offset - startOffset,
+                    length: offset - startOffset,
                     easing: .linear
                 )
                 add(.init(interpolation))

@@ -23,7 +23,7 @@ class TempoTests: XCTestCase {
         let interpolation = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(60),
-            duration: Fraction(4,4)
+            length: Fraction(4,4)
         )
 
         for beatOffset in 0...4 {
