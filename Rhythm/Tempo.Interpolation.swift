@@ -12,7 +12,7 @@ import ArithmeticTools
 extension Tempo {
 
     /// Interpolation between two `Tempo` values.
-    public struct Interpolation {
+    public struct Interpolation: MetricalDurationSpanner {
 
         // MARK: Instance Properties
 
