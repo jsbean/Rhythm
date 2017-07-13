@@ -8,7 +8,7 @@
 
 import ArithmeticTools
 
-extension Interpolation {
+extension Tempo.Interpolation {
 
     public struct Fragment: DuratedFragment {
 
@@ -18,19 +18,19 @@ extension Interpolation {
             return end - start
         }
 
-        public let base: Interpolation
+        public let base: Tempo.Interpolation
         public let range: Range<Fraction>
 
-        public init(_ interpolation: Interpolation, in range: Range<Fraction>) {
+        public init(_ interpolation: Tempo.Interpolation, in range: Range<Fraction>) {
             self.base = interpolation
             self.range = range
         }
 
         /// - Returns: `Interpolation.Fragment` in the given `range`.
-        public subscript (range: Range<Fraction>) -> Interpolation.Fragment {
+        public subscript (range: Range<Fraction>) -> Tempo.Interpolation.Fragment {
             assert(range.lowerBound >= self.range.lowerBound)
             assert(range.upperBound <= self.range.upperBound)
-            return Interpolation.Fragment(base, in: range)
+            return Tempo.Interpolation.Fragment(base, in: range)
         }
 
         public func secondsOffset(for metricalOffset: Fraction) -> Double {
@@ -39,9 +39,9 @@ extension Interpolation {
     }
 }
 
-extension Interpolation.Fragment {
+extension Tempo.Interpolation.Fragment {
 
-    public init(_ interpolation: Interpolation) {
+    public init(_ interpolation: Tempo.Interpolation) {
         self.base = interpolation
         self.range = .unit ..< interpolation.metricalDuration
     }

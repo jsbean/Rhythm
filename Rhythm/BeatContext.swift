@@ -34,7 +34,7 @@ public struct BeatContext {
     public init(
         meterContext: Meter.Context,
         beatOffset: MetricalDuration,
-        interpolation: Interpolation
+        interpolation: Tempo.Interpolation
     )
     {
         self.meterContext = meterContext

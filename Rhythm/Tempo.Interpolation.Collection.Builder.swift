@@ -9,13 +9,13 @@
 import Collections
 import ArithmeticTools
 
-extension Tempo.Collection {
+extension Tempo.Interpolation.Collection {
 
     public final class Builder: DuratedContainerBuilder {
 
-        typealias Product = Tempo.Collection
+        typealias Product = Tempo.Interpolation.Collection
 
-        internal var intermediate: SortedDictionary<Fraction,Interpolation.Fragment>
+        internal var intermediate: SortedDictionary<Fraction,Tempo.Interpolation.Fragment>
         internal var offset: Fraction
 
         private var last: (Fraction, Tempo, Bool)?
@@ -25,7 +25,7 @@ extension Tempo.Collection {
             self.offset = .unit
         }
 
-        @discardableResult func add(_ interpolation: Interpolation.Fragment) -> Builder {
+        @discardableResult func add(_ interpolation: Tempo.Interpolation.Fragment) -> Builder {
             self.intermediate.insert(interpolation, key: offset)
             last = (offset, interpolation.base.end, true)
             offset += interpolation.range.length
@@ -39,7 +39,7 @@ extension Tempo.Collection {
         ) -> Builder
         {
             if let (startOffset, startTempo, startInterpolating) = last {
-                let interpolation = Interpolation(
+                let interpolation = Tempo.Interpolation(
                     start: startTempo,
                     end: startInterpolating ? tempo : startTempo,
                     duration: offset - startOffset,

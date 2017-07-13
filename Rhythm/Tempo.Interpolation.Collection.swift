@@ -9,11 +9,11 @@
 import Collections
 import ArithmeticTools
 
-public extension Tempo {
+public extension Tempo.Interpolation {
 
     public struct Collection: DuratedContainer {
 
-        public typealias Storage = SortedDictionary<Fraction, Interpolation.Fragment>
+        public typealias Storage = SortedDictionary<Fraction, Tempo.Interpolation.Fragment>
 
         public let elements: Storage
 
@@ -22,15 +22,15 @@ public extension Tempo {
         }
 
         public init <S> (_ elements: S)
-            where S: Sequence, S.Iterator.Element == Interpolation.Fragment
+            where S: Sequence, S.Iterator.Element == Tempo.Interpolation.Fragment
         {
             self = Builder().add(elements).build()
         }
 
-        public init <S> (_ elements: [Interpolation])
-            where S: Sequence, S.Iterator.Element == Interpolation
+        public init <S> (_ elements: [Tempo.Interpolation])
+            where S: Sequence, S.Iterator.Element == Tempo.Interpolation
         {
-            self.init(elements.map { Interpolation.Fragment($0) })
+            self.init(elements.map { Tempo.Interpolation.Fragment($0) })
         }
 
         /// - FIXME: Use `Seconds` instead of `Double`
@@ -54,10 +54,10 @@ public extension Tempo {
     }
 }
 
-extension Tempo.Collection: Fragmentable {
+extension Tempo.Interpolation.Collection: Fragmentable {
 
     // FIXME: Decide assert or soft clipping out-of-range ranges
-    public subscript (range: Range<Fraction>) -> Tempo.Collection {
+    public subscript (range: Range<Fraction>) -> Tempo.Interpolation.Collection {
 
         assert(range.lowerBound >= .unit)
 
@@ -72,7 +72,7 @@ extension Tempo.Collection: Fragmentable {
         // Single interpolation
         if endIndex == startIndex {
             let (offset, element) = elements[startIndex]
-            return Tempo.Collection([.unit: element[range.shifted(by: offset)]])
+            return Tempo.Interpolation.Collection([.unit: element[range.shifted(by: offset)]])
         }
 
         let end = element(to: range.upperBound, at: endIndex)
@@ -87,7 +87,7 @@ extension Tempo.Collection: Fragmentable {
         return Builder().add(start + innards + end).build()
     }
 
-    private func elements(in range: CountableClosedRange<Int>) -> [Interpolation.Fragment] {
+    private func elements(in range: CountableClosedRange<Int>) -> [Tempo.Interpolation.Fragment] {
         return range
             .lazy
             .map { index in self.elements[index] }

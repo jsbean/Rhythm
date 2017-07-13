@@ -10,15 +10,15 @@ import Collections
 import ArithmeticTools
 @testable import Rhythm
 
-class InterpolationTests: XCTestCase {
+class TempoInterpolationTests: XCTestCase {
 
     func testTempoLinear_60to120() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
         
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -32,11 +32,11 @@ class InterpolationTests: XCTestCase {
 
     func testTempoPowerIn2_60to120() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent: 2)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent: 2)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -50,11 +50,11 @@ class InterpolationTests: XCTestCase {
 
     func testTempoPowerIn3_60to120() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent: 3)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent: 3)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -68,11 +68,11 @@ class InterpolationTests: XCTestCase {
 
     func testTempoLinear_120to60() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -86,11 +86,11 @@ class InterpolationTests: XCTestCase {
 
     func testTempoPowerIn2_120to60() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent: 2)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent: 2)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -104,11 +104,11 @@ class InterpolationTests: XCTestCase {
 
     func testTempoPowerIn3_120to60() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent: 3)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent: 3)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -122,11 +122,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetLinear_60to60() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -140,11 +140,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetLinear_120to120() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(120),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -158,11 +158,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetLinear_60to120_wholeNoteDuration() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -176,11 +176,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetLinear_60to120_dottedHalfDuration() {
         
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
             duration: Fraction(3,4),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
 
         let offsets = [Fraction(0,1), Fraction(3,16), Fraction(3,8), Fraction(9,16), Fraction(3,4)]
@@ -194,11 +194,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetLinear_120to60_wholeNoteDuration() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.linear
+            easing: Tempo.Interpolation.Easing.linear
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -217,11 +217,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetPowerIn2_60to60() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent:2)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -235,11 +235,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetPowerIn2_60to120() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(120),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent:2)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -253,11 +253,11 @@ class InterpolationTests: XCTestCase {
 
     func testSecondsOffsetPowerIn2_120to60() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
             duration: Fraction(1,1),
-            easing: Interpolation.Easing.powerIn(exponent:2)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1)]
@@ -273,11 +273,11 @@ class InterpolationTests: XCTestCase {
     // approximation resolution
     func testSecondsOffsetPowerIn2_120to60_tooSmallResolution() {
 
-        let interp = Interpolation(
+        let interp = Tempo.Interpolation(
             start: Tempo(120),
             end: Tempo(60),
             duration: Fraction(2049,2048),
-            easing: Interpolation.Easing.powerIn(exponent:2)
+            easing: Tempo.Interpolation.Easing.powerIn(exponent:2)
         )
 
         let offsets = [Fraction(0,1), Fraction(1,4), Fraction(1,2), Fraction(3,4), Fraction(1,1), Fraction(2049,2048)]

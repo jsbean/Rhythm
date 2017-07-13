@@ -20,7 +20,7 @@ class TempoTests: XCTestCase {
 
     func testInterpolationNoChange() {
 
-        let interpolation = Interpolation(
+        let interpolation = Tempo.Interpolation(
             start: Tempo(60),
             end: Tempo(60),
             duration: Fraction(4,4)

@@ -8,7 +8,7 @@
 
 import Darwin
 
-extension Interpolation {
+extension Tempo.Interpolation {
 
     /// Easing of `Interpolation`.
     public enum Easing {
