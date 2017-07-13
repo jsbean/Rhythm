@@ -412,18 +412,11 @@ class MeterCollectionTests: XCTestCase {
         ]
 
         let ranges = (eventOffsets + meters.duration).pairs
-
-        var i = 0
-        let fragments: [Meter.Collection] = ranges.map { start, end in
-            print("i: \(i)")
-            i += 1
-            return meters[Fraction(start)..<Fraction(end)]
-        }
-
+        let fragments = ranges.map { start, end in meters[Fraction(start)..<Fraction(end)] }
         let flattenedFragments = fragments.flatMap { fragment in fragment.elements.map { $0.1 } }
         XCTAssertEqual(fragments.count, 66)
         XCTAssertEqual(meters.elements.count, flattenedFragments.count)
-        //zip(meters.elements.map { $0.1 }.elements, flattenedFragments).forEach { XCTAssertEqual($0, $1) }
+        zip(meters.elements.map { $0.1 }, flattenedFragments).forEach { XCTAssertEqual($0,$1) }
     }
 }
 
