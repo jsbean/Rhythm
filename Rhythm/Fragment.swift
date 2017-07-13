@@ -62,7 +62,7 @@ extension DuratedContainer where Element.Fragment == Element {
             return .init([:])
         }
 
-        let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count - 1)
+        let endIndex = (indexOfElement(containing: range.upperBound, includingUpperBound: true) ?? elements.count - 1)
 
         let start = element(from: range.lowerBound, at: startIndex)
 
@@ -100,6 +100,40 @@ extension DuratedContainer where Element.Fragment == Element {
             .lazy
             .map { index in self.elements[index] }
             .map { _, element in element }
+    }
+
+    func indexOfElement(containing target: Fraction, includingUpperBound: Bool = false) -> Int? {
+
+        var start = 0
+        var end = elements.count
+
+        while start < end {
+
+            let mid = start + (end - start) / 2
+            let (offset, element) = elements[mid]
+
+            let lowerBound = offset
+            let upperBound = offset + element.range.length
+            if includingUpperBound {
+                if target > lowerBound && target <= upperBound {
+                    return mid
+                } else if target > upperBound {
+                    start = mid + 1
+                } else {
+                    end = mid
+                }
+            } else {
+                if target >= lowerBound && target < upperBound {
+                    return mid
+                } else if target >= offset + element.range.length {
+                    start = mid + 1
+                } else {
+                    end = mid
+                }
+            }
+        }
+
+        return nil
     }
 
     /// - Returns: The index of the element containing the given `target` offset.
