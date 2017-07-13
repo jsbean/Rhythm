@@ -23,11 +23,11 @@ extension Meter {
             self.elements = elements
         }
 
-        public init<S>(_ elements: S) where S : Sequence, S.Iterator.Element == Meter.Fragment {
+        public init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Meter.Fragment {
             self = Builder().add(elements).build()
         }
 
-        public init <S: Sequence> (_ elements: S) where S.Iterator.Element == Meter {
+        public init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Meter {
             self.init(elements.map { Meter.Fragment($0) })
         }
     }
