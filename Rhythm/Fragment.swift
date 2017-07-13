@@ -102,6 +102,12 @@ extension DuratedContainer where Element.Fragment == Element {
             .map { _, element in element }
     }
 
+    /// - Parameters:
+    ///   - includingUpperBound: Whether or not to include the `upperBound` of the `element.range`
+    ///     in the search, and to dismiss the `lowerBound`.
+    ///
+    /// - Returns: The index of the element containing the given `target` offset.
+    ///
     func indexOfElement(containing target: Fraction, includingUpperBound: Bool = false) -> Int? {
 
         var start = 0
