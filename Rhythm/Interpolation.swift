@@ -155,7 +155,9 @@ public struct Interpolation {
 extension Interpolation: Fragmentable {
 
     public subscript(range: Range<Fraction>) -> Fragment {
-        fatalError()
+        assert(range.lowerBound >= .unit)
+        assert(range.upperBound <= metricalDuration)
+        return Fragment(self, in: range)
     }
 }
 

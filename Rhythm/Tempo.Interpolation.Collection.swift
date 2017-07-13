@@ -1,5 +1,5 @@
 //
-//  Tempo.Collection.swift
+//  Tempo.Interpolation.Collection.swift
 //  Rhythm
 //
 //  Created by James Bean on 7/11/17.
