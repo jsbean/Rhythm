@@ -11,11 +11,7 @@ import ArithmeticTools
 
 // TODO: Move these to own file
 
-// FIXME: Move to dn-m/Collections
-public protocol Spanning {
-    associatedtype Metric: SignedNumber
-    var length: Metric { get }
-}
+
 
 public protocol Fragmentable {
     associatedtype Fragment
