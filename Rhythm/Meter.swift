@@ -50,7 +50,7 @@ public struct Meter: Rational {
     }
 }
 
-extension Meter: MetricalDurationSpanner {
+extension Meter: MetricalDurationSpanning {
 
     /// - returns: The `MetricalDuration` of the `Meter`.
     public var metricalDuration: Fraction {
