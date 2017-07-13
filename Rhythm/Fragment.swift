@@ -11,6 +11,8 @@ import ArithmeticTools
 
 // TODO: Move these to own file
 
+
+
 public protocol Fragmentable {
     associatedtype Fragment
     subscript(range: Range<Fraction>) -> Fragment { get }
@@ -108,6 +110,7 @@ extension DuratedContainer where Element.Fragment == Element {
     ///
     /// - Returns: The index of the element containing the given `target` offset.
     ///
+    // FIXME: It feels gross to have to duplicate this code.
     func indexOfElement(containing target: Fraction, includingUpperBound: Bool = false) -> Int? {
 
         var start = 0
