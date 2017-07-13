@@ -68,7 +68,10 @@ extension DuratedContainer where Element.Fragment == Element {
             return .init([:])
         }
 
-        let endIndex = (indexOfElement(containing: range.upperBound, includingUpperBound: true) ?? elements.count - 1)
+        let endIndex = (
+            indexOfElement(containing: range.upperBound, includingUpperBound: true)
+            ?? elements.count - 1
+        )
 
         let start = element(from: range.lowerBound, at: startIndex)
 
