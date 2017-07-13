@@ -9,5 +9,5 @@
 import ArithmeticTools
 
 public protocol MetricalDurationSpanning: Spanning {
-    var length: Fraction { get }
+    typealias Metric = Fraction
 }
