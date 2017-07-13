@@ -25,7 +25,7 @@ public protocol MetricalDurationSpanningContainer: Fragmentable, MetricalDuratio
 
     /// Creates a `MetricalDurationSpanningContainer` with the given `elements` in order, stored by
     /// their cumulative offset.
-    init <S: Sequence> (_ elements: S) where S.Iterator.Element == Element
+    init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Element
 }
 
 // FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
