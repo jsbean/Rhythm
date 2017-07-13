@@ -27,7 +27,7 @@ extension Tempo.Interpolation {
         }
 
         /// - Returns: `Interpolation.Fragment` in the given `range`.
-        public subscript (range: Range<Fraction>) -> Tempo.Interpolation.Fragment {
+        public subscript(range: Range<Fraction>) -> Tempo.Interpolation.Fragment {
             assert(range.lowerBound >= self.range.lowerBound)
             assert(range.upperBound <= self.range.upperBound)
             return Tempo.Interpolation.Fragment(base, in: range)

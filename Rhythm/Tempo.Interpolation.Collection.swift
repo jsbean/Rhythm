@@ -66,13 +66,16 @@ extension Tempo.Interpolation.Collection: Fragmentable {
         guard let startIndex = indexOfElement(containing: range.lowerBound) else {
             return .init([:])
         }
+
         let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
         let start = element(from: range.lowerBound, at: startIndex)
 
         // Single interpolation
         if endIndex == startIndex {
             let (offset, element) = elements[startIndex]
-            return Tempo.Interpolation.Collection([.unit: element[range.shifted(by: offset)]])
+            // FIXME: Use `range.shifted(by:)`
+            let range = offset ..< offset + element.range.length
+            return Tempo.Interpolation.Collection([.unit: element[range]])
         }
 
         let end = element(to: range.upperBound, at: endIndex)
