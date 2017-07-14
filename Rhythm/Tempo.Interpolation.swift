@@ -110,7 +110,7 @@ extension Tempo {
             default:
 
                 // Base case: rough approximation
-                let segmentsCount = Int(floor((offset / (1 /> resolution)).doubleValue))
+                let segmentsCount = Int(floor((offset / Fraction(1, resolution)).doubleValue))
 
                 let accum: Double = (0..<segmentsCount).reduce(.unit) { accum, cur in
                     let tempo = self.tempo(at: Fraction(cur, resolution))
