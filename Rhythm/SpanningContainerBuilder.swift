@@ -11,9 +11,9 @@ import ArithmeticTools
 
 public protocol SpanningContainerBuilder: class {
     associatedtype Product: SpanningContainer
-    typealias Element = Product.Element
-    var intermediate: SortedDictionary<Element.Metric,Element> { get set }
-    func add(_: Element) -> Self
+    typealias Spanner = Product.Spanner
+    var intermediate: SortedDictionary<Spanner.Metric,Spanner> { get set }
+    func add(_: Spanner) -> Self
 }
 
 extension SpanningContainerBuilder {

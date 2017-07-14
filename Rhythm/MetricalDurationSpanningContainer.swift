@@ -15,21 +15,21 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     // MARK: - Associated Types
 
     /// `MetricalDurationSpanningFragment`
-    associatedtype Element: MetricalDurationSpanningFragment
+    associatedtype Spanner: MetricalDurationSpanningFragment
 
     /// `MetricalDurationSpanningFragment` elements, stored by their offset.
-    var elements: SortedDictionary<Fraction,Element> { get }
+    var elements: SortedDictionary<Fraction,Spanner> { get }
 
     /// Creates a `MetricalDurationSpanningContainer` with the given `elements`.
-    init(_ elements: SortedDictionary<Fraction,Element>)
+    init(_ elements: SortedDictionary<Fraction,Spanner>)
 
     /// Creates a `MetricalDurationSpanningContainer` with the given `elements` in order, stored by
     /// their cumulative offset.
-    init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Element
+    init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Spanner
 }
 
 // FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
-extension MetricalDurationSpanningContainer where Element.Fragment == Element {
+extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner {
 
     public subscript (range: Range<Fraction>) -> Self {
 
@@ -71,17 +71,17 @@ extension MetricalDurationSpanningContainer where Element.Fragment == Element {
     }
 
 
-    public func element(from offset: Fraction, at index: Int) -> Element {
+    public func element(from offset: Fraction, at index: Int) -> Spanner {
         let (elementOffset, fragment) = elements[index]
         return fragment.from(offset - elementOffset)
     }
 
-    public func element(to offset: Fraction, at index: Int) -> Element {
+    public func element(to offset: Fraction, at index: Int) -> Spanner {
         let (elementOffset, fragment) = elements[index]
         return fragment.to(offset - elementOffset)
     }
 
-    public func elements(in range: CountableClosedRange<Int>) -> [Element] {
+    public func elements(in range: CountableClosedRange<Int>) -> [Spanner] {
         return range
             .lazy
             .map { index in self.elements[index] }
