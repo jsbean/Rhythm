@@ -13,10 +13,10 @@ extension Tempo.Interpolation.Collection {
 
     public final class Builder: MetricalDurationSpanningContainerBuilder {
 
-        typealias Product = Tempo.Interpolation.Collection
+        public typealias Product = Tempo.Interpolation.Collection
 
-        internal var intermediate: SortedDictionary<Fraction,Tempo.Interpolation.Fragment>
-        internal var offset: Fraction
+        public var intermediate: SortedDictionary<Fraction,Tempo.Interpolation.Fragment>
+        public var offset: Fraction
 
         private var last: (Fraction, Tempo, Bool)?
 
@@ -25,7 +25,9 @@ extension Tempo.Interpolation.Collection {
             self.offset = .unit
         }
 
-        @discardableResult func add(_ interpolation: Tempo.Interpolation.Fragment) -> Builder {
+        @discardableResult public func add(_ interpolation: Tempo.Interpolation.Fragment)
+            -> Builder
+        {
             self.intermediate.insert(interpolation, key: offset)
             last = (offset, interpolation.base.end, true)
             offset += interpolation.range.length

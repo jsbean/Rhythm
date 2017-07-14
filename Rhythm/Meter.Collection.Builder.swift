@@ -13,10 +13,10 @@ extension Meter.Collection {
 
     public final class Builder: MetricalDurationSpanningContainerBuilder {
 
-        typealias Product = Meter.Collection
+        public typealias Product = Meter.Collection
 
-        internal var intermediate: SortedDictionary<Fraction,Meter.Fragment>
-        internal var offset: Fraction
+        public var intermediate: SortedDictionary<Fraction,Meter.Fragment>
+        public var offset: Fraction
 
         public init() {
             self.intermediate = [:]
