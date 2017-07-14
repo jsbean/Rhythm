@@ -13,8 +13,8 @@ import ArithmeticTools
 public protocol SpanningContainer: AnyCollectionWrapping, Fragmentable, Spanning {
     associatedtype Spanner: Fragmentable, Spanning
     var elements: SortedDictionary<Spanner.Metric,Spanner> { get }
-    init(_ elements: SortedDictionary<Spanner.Metric,Spanner>)
-    init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Spanner
+    init(_: SortedDictionary<Spanner.Metric,Spanner>)
+    init <S> (_: S) where S: Sequence, S.Iterator.Element == Spanner
 }
 
 extension SpanningContainer {
