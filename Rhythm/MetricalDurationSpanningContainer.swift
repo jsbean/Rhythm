@@ -20,6 +20,8 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     // MARK: - Instance Properties
 
     /// `MetricalDurationSpanningFragment` elements, stored by their offset.
+    ///
+    // FIXME: This declaration should not be neceesary.
     var elements: SortedDictionary<Fraction,Spanner> { get }
 }
 
