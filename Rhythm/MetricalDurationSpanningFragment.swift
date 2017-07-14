@@ -14,6 +14,13 @@ public protocol MetricalDurationSpanningFragment: Fragmentable, MetricalDuration
     var range: Range<Fraction> { get }
 }
 
+extension MetricalDurationSpanningFragment {
+
+    public var length: Fraction {
+        return range.length
+    }
+}
+
 extension MetricalDurationSpanningFragment where Fragment == Self {
 
     func from(_ offset: Fraction) -> Self {
