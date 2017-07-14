@@ -9,9 +9,9 @@
 import Collections
 
 // FIXME: Move to dn-m/Collections
-public protocol SpanningContainer: Fragmentable {
+public protocol SpanningContainer: Fragmentable, Spanning {
 
-    associatedtype Element: SpanningFragment
+    associatedtype Element: Fragmentable, Spanning
 
     var elements: SortedDictionary<Element.Metric,Element> { get }
 

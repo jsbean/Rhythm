@@ -6,8 +6,19 @@
 //
 //
 
-// FIXME: Move to dn-m/Collections
+/// Interface for types which have a length of some `Metric`.
+///
+/// - TODO: Move to dn-m/Collections
+///
 public protocol Spanning {
+
+    // MARK: - Associated Types
+
+    /// Type of the `length` of the `Spanning` type.
     associatedtype Metric: SignedNumber, Hashable
+
+    // MARK: - Instance Properties
+
+    /// Length of the `Spanning` type in the given `Metric`.
     var length: Metric { get }
 }
