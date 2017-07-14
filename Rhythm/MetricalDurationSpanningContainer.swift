@@ -24,9 +24,6 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
 
     // MARK: - Initializers
 
-    /// Creates a `MetricalDurationSpanningContainer` with the given `elements`.
-    init(_ elements: SortedDictionary<Fraction,Spanner>)
-
     /// Creates a `MetricalDurationSpanningContainer` with the given `elements` in order, stored by
     /// their cumulative offset.
     init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Spanner

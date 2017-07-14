@@ -7,6 +7,7 @@
 //
 
 import Collections
+import ArithmeticTools
 
 // FIXME: Move to dn-m/Collections
 public protocol SpanningContainer: AnyCollectionWrapping, Fragmentable, Spanning {
