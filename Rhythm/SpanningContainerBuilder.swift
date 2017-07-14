@@ -1,5 +1,5 @@
 //
-//  Builder.swift
+//  SpanningContainerBuilder.swift
 //  Rhythm
 //
 //  Created by James Bean on 7/12/17.

@@ -91,8 +91,8 @@
 		07C265971F1669250058AD73 /* Fragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C265951F1669250058AD73 /* Fragment.swift */; };
 		07C2659C1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659B1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift */; };
 		07C2659D1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659B1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift */; };
-		07C2659F1F166FA70058AD73 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659E1F166FA70058AD73 /* Builder.swift */; };
-		07C265A01F166FA70058AD73 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659E1F166FA70058AD73 /* Builder.swift */; };
+		07C2659F1F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659E1F166FA70058AD73 /* SpanningContainerBuilder.swift */; };
+		07C265A01F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2659E1F166FA70058AD73 /* SpanningContainerBuilder.swift */; };
 		07C265A21F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */; };
 		07C265A31F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */; };
 		07C265A51F16C40C0058AD73 /* MeterCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C265A41F16C40C0058AD73 /* MeterCollectionTests.swift */; };
@@ -190,7 +190,7 @@
 		07C2658F1F1664A90058AD73 /* Tempo.Interpolation.Fragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Interpolation.Fragment.swift; path = Rhythm/Tempo.Interpolation.Fragment.swift; sourceTree = "<group>"; };
 		07C265951F1669250058AD73 /* Fragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fragment.swift; path = Rhythm/Fragment.swift; sourceTree = "<group>"; };
 		07C2659B1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Interpolation.Collection.Builder.swift; path = Rhythm/Tempo.Interpolation.Collection.Builder.swift; sourceTree = "<group>"; };
-		07C2659E1F166FA70058AD73 /* Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Builder.swift; path = Rhythm/Builder.swift; sourceTree = "<group>"; };
+		07C2659E1F166FA70058AD73 /* SpanningContainerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpanningContainerBuilder.swift; path = Rhythm/SpanningContainerBuilder.swift; sourceTree = "<group>"; };
 		07C265A11F167C000058AD73 /* Meter.Collection.Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Collection.Builder.swift; path = Rhythm/Meter.Collection.Builder.swift; sourceTree = "<group>"; };
 		07C265A41F16C40C0058AD73 /* MeterCollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeterCollectionTests.swift; path = RhythmTests/MeterCollectionTests.swift; sourceTree = "<group>"; };
 		1FBAF7D0355BC0D7DFCF5D1C /* Rhythm macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,7 +384,7 @@
 				077554891E1B41B700CF4A8A /* RhythmTree */,
 				07C265951F1669250058AD73 /* Fragment.swift */,
 				077E2EBB1F17BE43003D14FA /* Spanning */,
-				07C2659E1F166FA70058AD73 /* Builder.swift */,
+				07C2659E1F166FA70058AD73 /* SpanningContainerBuilder.swift */,
 			);
 			name = Rhythm;
 			sourceTree = "<group>";
@@ -612,7 +612,7 @@
 				077E2EAB1F178CCB003D14FA /* MetricalDurationSpanning.swift in Sources */,
 				07C2658B1F16608F0058AD73 /* Meter.Collection.swift in Sources */,
 				07A846CB1EDB7DDF0038757A /* Meter.Context.swift in Sources */,
-				07C265A01F166FA70058AD73 /* Builder.swift in Sources */,
+				07C265A01F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */,
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0771A6091ED4FE4000733CFF /* Tempo.Interpolation.swift in Sources */,
 				07C265911F1664A90058AD73 /* Tempo.Interpolation.Fragment.swift in Sources */,
@@ -665,7 +665,7 @@
 				077E2EAA1F178CCB003D14FA /* MetricalDurationSpanning.swift in Sources */,
 				0757B9391F15523E004247D9 /* Tempo.Interpolation.Collection.swift in Sources */,
 				07C2659C1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */,
-				07C2659F1F166FA70058AD73 /* Builder.swift in Sources */,
+				07C2659F1F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */,
 				075C304E1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				07C265871F165EAA0058AD73 /* Meter.Fragment.swift in Sources */,
 				07C2658A1F16608F0058AD73 /* Meter.Collection.swift in Sources */,
