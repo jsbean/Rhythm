@@ -17,11 +17,7 @@ extension Tempo.Interpolation {
             let end = base.secondsOffset(for: range.upperBound)
             return end - start
         }
-
-        public var length: Fraction {
-            return range.length
-        }
-
+        
         public let base: Tempo.Interpolation
         public let range: Range<Fraction>
 

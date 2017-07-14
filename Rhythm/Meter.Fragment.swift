@@ -12,10 +12,6 @@ extension Meter {
 
     public struct Fragment: MetricalDurationSpanningFragment {
 
-        public var length: Fraction {
-            return range.length
-        }
-
         public let base: Meter
         public let range: Range<Fraction>
 
