@@ -17,8 +17,12 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     /// `MetricalDurationSpanningFragment`
     associatedtype Spanner: MetricalDurationSpanningFragment
 
+    // MARK: - Instance Properties
+
     /// `MetricalDurationSpanningFragment` elements, stored by their offset.
     var elements: SortedDictionary<Fraction,Spanner> { get }
+
+    // MARK: - Initializers
 
     /// Creates a `MetricalDurationSpanningContainer` with the given `elements`.
     init(_ elements: SortedDictionary<Fraction,Spanner>)
