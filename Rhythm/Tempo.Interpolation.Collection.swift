@@ -15,10 +15,6 @@ public extension Tempo.Interpolation {
 
         public typealias Storage = SortedDictionary<Fraction, Tempo.Interpolation.Fragment>
 
-        public var length: Fraction {
-            return elements.keys.sum
-        }
-
         public let elements: Storage
 
         public init(_ elements: Storage) {

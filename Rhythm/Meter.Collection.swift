@@ -13,10 +13,6 @@ extension Meter {
 
     public struct Collection: MetricalDurationSpanningContainer {
 
-        public var length: Fraction {
-            return elements.keys.sum
-        }
-
         public let elements: SortedDictionary<Fraction, Meter.Fragment>
 
         public init(_ elements: SortedDictionary<Fraction, Meter.Fragment>) {

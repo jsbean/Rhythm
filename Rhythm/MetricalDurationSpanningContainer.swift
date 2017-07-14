@@ -28,6 +28,15 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Spanner
 }
 
+extension MetricalDurationSpanningContainer {
+
+    // MARK: - Spanning
+
+    public var length: Fraction {
+        return elements.keys.sum
+    }
+}
+
 // FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
 extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner {
 

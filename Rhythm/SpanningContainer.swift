@@ -18,6 +18,8 @@ public protocol SpanningContainer: AnyCollectionWrapping, Fragmentable, Spanning
 
 extension SpanningContainer {
 
+    // MARK: AnyCollectionWrapping
+
     public var collection: AnyCollection<(Spanner.Metric,Spanner)> {
         return AnyCollection(elements)
     }
