@@ -11,7 +11,7 @@ import ArithmeticTools
 
 extension Meter.Collection {
 
-    public final class Builder: DuratedContainerBuilder {
+    public final class Builder: SpanningContainerBuilder {
 
         typealias Product = Meter.Collection
 

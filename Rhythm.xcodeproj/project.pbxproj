@@ -69,6 +69,10 @@
 		077E2EB41F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EB21F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift */; };
 		077E2EB61F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EB51F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift */; };
 		077E2EB71F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EB51F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift */; };
+		077E2EB91F17BD93003D14FA /* SpanningContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EB81F17BD93003D14FA /* SpanningContainer.swift */; };
+		077E2EBA1F17BD93003D14FA /* SpanningContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EB81F17BD93003D14FA /* SpanningContainer.swift */; };
+		077E2EBD1F17BF57003D14FA /* SpanningFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EBC1F17BF57003D14FA /* SpanningFragment.swift */; };
+		077E2EBE1F17BF57003D14FA /* SpanningFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E2EBC1F17BF57003D14FA /* SpanningFragment.swift */; };
 		07A846CA1EDB7DDF0038757A /* Meter.Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A846C91EDB7DDF0038757A /* Meter.Context.swift */; };
 		07A846CB1EDB7DDF0038757A /* Meter.Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A846C91EDB7DDF0038757A /* Meter.Context.swift */; };
 		07B701C51EDA204500C946AD /* Tempo.Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B701C41EDA204500C946AD /* Tempo.Context.swift */; };
@@ -173,6 +177,8 @@
 		077E2EAF1F17BABA003D14FA /* Spanning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Spanning.swift; path = Rhythm/Spanning.swift; sourceTree = "<group>"; };
 		077E2EB21F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationSpanningContainer.swift; path = Rhythm/MetricalDurationSpanningContainer.swift; sourceTree = "<group>"; };
 		077E2EB51F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationSpanningFragment.swift; path = Rhythm/MetricalDurationSpanningFragment.swift; sourceTree = "<group>"; };
+		077E2EB81F17BD93003D14FA /* SpanningContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpanningContainer.swift; path = Rhythm/SpanningContainer.swift; sourceTree = "<group>"; };
+		077E2EBC1F17BF57003D14FA /* SpanningFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpanningFragment.swift; path = Rhythm/SpanningFragment.swift; sourceTree = "<group>"; };
 		07A846C91EDB7DDF0038757A /* Meter.Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meter.Context.swift; path = Rhythm/Meter.Context.swift; sourceTree = "<group>"; };
 		07B701C41EDA204500C946AD /* Tempo.Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tempo.Context.swift; path = Rhythm/Tempo.Context.swift; sourceTree = "<group>"; };
 		07BC8B211E4E599400605430 /* MetricalDurationTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricalDurationTreeTests.swift; path = RhythmTests/MetricalDurationTreeTests.swift; sourceTree = "<group>"; };
@@ -288,6 +294,16 @@
 			name = RhythmTree;
 			sourceTree = "<group>";
 		};
+		077E2EBB1F17BE43003D14FA /* Spanning */ = {
+			isa = PBXGroup;
+			children = (
+				077E2EAF1F17BABA003D14FA /* Spanning.swift */,
+				077E2EBC1F17BF57003D14FA /* SpanningFragment.swift */,
+				077E2EB81F17BD93003D14FA /* SpanningContainer.swift */,
+			);
+			name = Spanning;
+			sourceTree = "<group>";
+		};
 		0C2F3BB7816215EB53BF9C87 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,7 +379,7 @@
 				0771A6101ED501B000733CFF /* Meter */,
 				077554891E1B41B700CF4A8A /* RhythmTree */,
 				07C265951F1669250058AD73 /* Fragment.swift */,
-				077E2EAF1F17BABA003D14FA /* Spanning.swift */,
+				077E2EBB1F17BE43003D14FA /* Spanning */,
 				07C2659E1F166FA70058AD73 /* Builder.swift */,
 			);
 			name = Rhythm;
@@ -602,6 +618,8 @@
 				07C2659D1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */,
 				0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */,
 				07C265971F1669250058AD73 /* Fragment.swift in Sources */,
+				077E2EBA1F17BD93003D14FA /* SpanningContainer.swift in Sources */,
+				077E2EBE1F17BF57003D14FA /* SpanningFragment.swift in Sources */,
 				077E2EB41F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift in Sources */,
 				0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
@@ -652,6 +670,8 @@
 				07C265961F1669250058AD73 /* Fragment.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				072CBDA71E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
+				077E2EB91F17BD93003D14FA /* SpanningContainer.swift in Sources */,
+				077E2EBD1F17BF57003D14FA /* SpanningFragment.swift in Sources */,
 				077E2EB31F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
 				07A846CA1EDB7DDF0038757A /* Meter.Context.swift in Sources */,

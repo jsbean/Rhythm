@@ -18,6 +18,10 @@ extension Tempo.Interpolation {
             return end - start
         }
 
+        public var length: Fraction {
+            return range.length
+        }
+
         public let base: Tempo.Interpolation
         public let range: Range<Fraction>
 

@@ -15,4 +15,3 @@ public protocol Fragmentable {
     associatedtype Fragment
     subscript(range: Range<Fraction>) -> Fragment { get }
 }
-

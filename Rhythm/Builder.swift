@@ -9,7 +9,7 @@
 import Collections
 import ArithmeticTools
 
-protocol DuratedContainerBuilder: class {
+protocol SpanningContainerBuilder: class {
     associatedtype Product: MetricalDurationSpanningContainer
     typealias Element = Product.Element
     var intermediate: SortedDictionary<Fraction,Element> { get set }
@@ -17,7 +17,7 @@ protocol DuratedContainerBuilder: class {
     func add(_: Element) -> Self
 }
 
-extension DuratedContainerBuilder {
+extension SpanningContainerBuilder {
 
     @discardableResult public func add(_ element: Element) -> Self {
         self.intermediate.insert(element, key: offset)

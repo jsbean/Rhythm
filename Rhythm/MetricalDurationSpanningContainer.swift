@@ -10,7 +10,7 @@ import Collections
 import ArithmeticTools
 
 /// - Precondition: n + n.length = m
-public protocol MetricalDurationSpanningContainer: Fragmentable, MetricalDurationSpanning {
+public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDurationSpanning {
 
     // MARK: - Associated Types
 

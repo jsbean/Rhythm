@@ -8,6 +8,6 @@
 
 // FIXME: Move to dn-m/Collections
 public protocol Spanning {
-    associatedtype Metric: SignedNumber
+    associatedtype Metric: SignedNumber, Hashable
     var length: Metric { get }
 }
