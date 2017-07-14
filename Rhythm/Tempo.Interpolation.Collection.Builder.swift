@@ -11,7 +11,7 @@ import ArithmeticTools
 
 extension Tempo.Interpolation.Collection {
 
-    public final class Builder: SpanningContainerBuilder {
+    public final class Builder: MetricalDurationSpanningContainerBuilder {
 
         typealias Product = Tempo.Interpolation.Collection
 

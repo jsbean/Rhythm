@@ -7,4 +7,3 @@
 //
 
 public protocol SpanningFragment: Spanning, Fragmentable { }
-
