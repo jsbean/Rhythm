@@ -411,7 +411,7 @@ class MeterCollectionTests: XCTestCase {
             Fraction(2035,8)
         ]
 
-        let ranges = (eventOffsets + meters.duration).pairs
+        let ranges = (eventOffsets + meters.length).pairs
         let fragments = ranges.map { start, end in meters[Fraction(start)..<Fraction(end)] }
         let flattenedFragments = fragments.flatMap { fragment in fragment.elements.map { $0.1 } }
         XCTAssertEqual(fragments.count, 66)

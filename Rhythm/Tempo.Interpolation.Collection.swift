@@ -61,7 +61,7 @@ extension Tempo.Interpolation.Collection: Fragmentable {
 
         assert(range.lowerBound >= .unit)
 
-        let range = range.upperBound > duration ? range.lowerBound ..< duration : range
+        let range = range.upperBound > length ? range.lowerBound ..< length : range
 
         guard let startIndex = indexOfElement(containing: range.lowerBound) else {
             return .init([:])

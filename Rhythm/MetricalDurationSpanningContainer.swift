@@ -25,27 +25,28 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     var elements: SortedDictionary<Fraction,Spanner> { get }
 }
 
-extension MetricalDurationSpanningContainer {
+extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
 
     // MARK: - Spanning
 
+    // FIXME: Abstract to `SpanningContainer`.
     public var length: Fraction {
-        return elements.keys.sum
+        return elements.map { $0.1.length }.sum
     }
 }
 
 // FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
-extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner {
+extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, Spanner.Metric == Metric {
 
     public subscript (range: Range<Fraction>) -> Self {
 
         assert(range.lowerBound >= .unit)
 
-        guard range.lowerBound < duration else {
+        guard range.lowerBound < length else {
             return .init([])
         }
 
-        let range = range.upperBound > duration ? range.lowerBound ..< duration : range
+        let range = range.upperBound > length ? range.lowerBound ..< length : range
 
         guard let startIndex = indexOfElement(containing: range.lowerBound) else {
             return .init([])
@@ -136,14 +137,9 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner {
     }
 }
 
-extension MetricalDurationSpanningContainer {
-
-    public var duration: Fraction {
-        guard let (offset, element) = elements.last else { return .unit }
-        return offset + element.range.length
-    }
+extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
     
     public func contains(_ target: Fraction) -> Bool {
-        return (.unit ..< duration).contains(target)
+        return (.unit ..< length).contains(target)
     }
 }
