@@ -8,7 +8,7 @@
 
 import ArithmeticTools
 
-public protocol MetricalDurationSpanningFragment: Fragmentable, MetricalDurationSpanning {
+public protocol MetricalDurationSpanningFragment: SpanningFragment, MetricalDurationSpanning {
     associatedtype Base: Fragmentable
     var base: Base { get }
     var range: Range<Fraction> { get }
