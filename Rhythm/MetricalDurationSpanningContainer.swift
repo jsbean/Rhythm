@@ -10,8 +10,6 @@ import Collections
 import ArithmeticTools
 
 /// - Precondition: n + n.length = m
-// FIXME: Use constrained associated types in Swift 4:
-// https://github.com/apple/swift-evolution/blob/master/proposals/0142-associated-types-constraints.md
 public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDurationSpanning {
 
     // MARK: - Associated Types
@@ -24,6 +22,8 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     /// `MetricalDurationSpanningFragment` base, stored by their offset.
     ///
     // FIXME: This declaration should not be neceesary.
+    // FIXME: Use constrained associated types in Swift 4:
+    // https://github.com/apple/swift-evolution/blob/master/proposals/0142-associated-types-constraints.md
     var base: SortedDictionary<Fraction,Spanner> { get }
 }
 
@@ -75,26 +75,20 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
         }
 
         /// Three or more measures
-        let innards = base(in: startIndex + 1 ... endIndex - 1)
+        let innards = spanners(in: startIndex + 1 ... endIndex - 1)
         return .init(start + innards + end)
     }
 
-
+    // FIXME: Move to `SpanningContainer`.
     public func element(from offset: Fraction, at index: Int) -> Spanner {
         let (elementOffset, fragment) = base[index]
         return fragment.from(offset - elementOffset)
     }
 
+    // FIXME: Move to `SpanningContainer`.
     public func element(to offset: Fraction, at index: Int) -> Spanner {
         let (elementOffset, fragment) = base[index]
         return fragment.to(offset - elementOffset)
-    }
-
-    public func base(in range: CountableClosedRange<Int>) -> [Spanner] {
-        return range
-            .lazy
-            .map { index in self.base[index] }
-            .map { _, element in element }
     }
 
     /// - Parameters:

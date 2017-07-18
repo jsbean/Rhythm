@@ -16,3 +16,13 @@ public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fra
     init(_: SortedDictionary<Spanner.Metric,Spanner>)
     init <S> (_: S) where S: Sequence, S.Iterator.Element == Spanner
 }
+
+extension SpanningContainer {
+
+    public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
+        return range
+            .lazy
+            .map { index in self.base[index] }
+            .map { _, element in element }
+    }
+}
