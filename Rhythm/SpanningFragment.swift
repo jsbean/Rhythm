@@ -6,4 +6,4 @@
 //
 //
 
-public typealias SpanningFragment = Spanning & Fragmentable
+public protocol SpanningFragment: Spanning, Fragmentable { }
