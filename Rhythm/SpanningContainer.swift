@@ -22,7 +22,7 @@ public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fra
 
 extension SpanningContainer {
 
-    public static var zero: Self { return Self([]) }
+    public static var empty: Self { return Self([]) }
 
     public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
         return range.map { index in base.values[index] }
@@ -45,12 +45,12 @@ extension SpanningContainer where Spanner == Spanner.Fragment, Metric == Spanner
         assert(range.lowerBound >= .zero)
 
         guard range.lowerBound < length else {
-            return .zero
+            return .empty
         }
 
         let range = range.upperBound > length ? range.lowerBound ..< length : range
         guard let startIndex = indexOfElement(containing: range.lowerBound) else {
-            return .zero
+            return .empty
         }
 
         let endIndex = indexOfElement(containing: range.upperBound, includingUpperBound: true)
