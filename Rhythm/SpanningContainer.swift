@@ -10,36 +10,55 @@ import Algebra
 import Collections
 import ArithmeticTools
 
-// FIXME: Conform SpanningContainer to Additive
-
+/// Interface for values that contain a sequence of `SpanningFragment` type values.
 // FIXME: Move to dn-m/Collections
+// FIXME: Use constrained associated types in Swift 4
 public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fragmentable {
+
+    // MARK: - Associated Types
+
+    /// Type of value contained herein.
     associatedtype Spanner: SpanningFragment
+
+    // MARK: - Instance Properties
+
+    /// Backing storage of spanners.
     var base: SortedDictionary<Spanner.Metric,Spanner> { get }
+
+    // MARK: - Initializers
+
+    /// Creates a `SpanningContainer` with a pre-built internal representation of spanners.
     init(_: SortedDictionary<Spanner.Metric,Spanner>)
+
+    /// Creates a `SpanningContainer` with a sequence of spanners.
     init <S> (_: S) where S: Sequence, S.Iterator.Element == Spanner
 }
 
 extension SpanningContainer {
 
+    /// `SpanningContainer` with no spanners.
     public static var empty: Self { return Self([]) }
 
-    public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
-        return range.map { index in base.values[index] }
+    /// - Returns: An array of spanners in the given `range` of indices.
+    public subscript(range: CountableClosedRange<Int>) -> [Spanner] {
+        return range.map { base.values[$0] }
     }
 }
 
-// FIXME: Use constrained associated types in Swift 4
 extension SpanningContainer where Spanner == Spanner.Fragment, Metric == Spanner.Metric {
 
+    /// Length of `SpanningContainer`.
     public var length: Metric {
         return base.values.map { $0.length }.sum
     }
 
+    /// - Returns: `true` if the given `target` is contained within the `length` of 
+    /// `SpanninerContainer`. Otherwise, `false`.
     public func contains(_ target: Metric) -> Bool {
         return (.zero ..< length).contains(target)
     }
 
+    /// - Returns: New `SpanningContainer` in the given `range` of metrics.
     public subscript (range: Range<Metric>) -> Self {
 
         assert(range.lowerBound >= .zero)
@@ -61,23 +80,27 @@ extension SpanningContainer where Spanner == Spanner.Fragment, Metric == Spanner
             return .init([element[range.lowerBound - offset ..< range.upperBound - offset]])
         }
 
-        let start = element(from: range.lowerBound, at: startIndex)
-        let end = element(to: range.upperBound, at: endIndex)
+        let start = spanner(from: range.lowerBound, at: startIndex)
+        let end = spanner(to: range.upperBound, at: endIndex)
 
         if endIndex == startIndex + 1 {
             return .init([start,end])
         }
 
-        let innards = spanners(in: startIndex + 1 ... endIndex - 1)
+        let innards = self[startIndex + 1 ... endIndex - 1]
         return .init(start + innards + end)
     }
 
-    public func element(from offset: Metric, at index: Int) -> Spanner {
+    /// - Returns: Spanner at the given `index`, spanning from the given (global) `offset` to its
+    /// upper bound.
+    public func spanner(from offset: Metric, at index: Int) -> Spanner {
         let (elementOffset, fragment) = base[index]
         return fragment.from(offset - elementOffset)
     }
 
-    public func element(to offset: Metric, at index: Int) -> Spanner {
+    /// - Returns: Spanner at the given `index`, spanning from its lower bound, to the given 
+    /// (global) offset.
+    public func spanner(to offset: Metric, at index: Int) -> Spanner {
         let (elementOffset, fragment) = base[index]
         return fragment.to(offset - elementOffset)
     }
@@ -124,4 +147,3 @@ extension SpanningContainer where Spanner == Spanner.Fragment, Metric == Spanner
         return nil
     }
 }
-
