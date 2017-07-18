@@ -6,11 +6,12 @@
 //
 //
 
+import Algebra
 import Collections
 import ArithmeticTools
 
 public protocol Fragmentable {
     associatedtype Fragment
-    associatedtype Metric: SignedNumber
+    associatedtype Metric: SignedNumber, Additive
     subscript(range: Range<Metric>) -> Fragment { get }
 }

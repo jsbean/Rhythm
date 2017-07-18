@@ -15,7 +15,11 @@ public protocol MetricalDurationSpanningContainerBuilder: SpanningContainerBuild
     var offset: Fraction { get set }
 }
 
-extension MetricalDurationSpanningContainerBuilder {
+// FIXME: Constraints should not be necessary
+extension MetricalDurationSpanningContainerBuilder where
+    Product.Metric == Product.Spanner.Metric,
+    Product.Metric == Fraction
+{
 
     @discardableResult public func add(_ element: Spanner) -> Self {
         self.intermediate.insert(element, key: offset)

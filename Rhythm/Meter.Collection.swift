@@ -13,6 +13,8 @@ extension Meter {
 
     public struct Collection: MetricalDurationSpanningContainer {
 
+        public typealias Metric = Fraction
+
         public let base: SortedDictionary<Fraction,Meter.Fragment>
 
         public init(_ base: SortedDictionary<Fraction, Meter.Fragment>) {

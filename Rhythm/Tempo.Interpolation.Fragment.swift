@@ -12,6 +12,8 @@ extension Tempo.Interpolation {
 
     public struct Fragment: MetricalDurationSpanningFragment {
 
+        public typealias Metric = Fraction
+
         public var duration: Double {
             let start = base.secondsOffset(for: range.lowerBound)
             let end = base.secondsOffset(for: range.upperBound)

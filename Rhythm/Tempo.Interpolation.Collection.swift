@@ -13,7 +13,8 @@ public extension Tempo.Interpolation {
 
     public struct Collection: MetricalDurationSpanningContainer {
 
-        public typealias Storage = SortedDictionary<Fraction, Tempo.Interpolation.Fragment>
+        public typealias Metric = Fraction
+        public typealias Storage = SortedDictionary<Fraction,Tempo.Interpolation.Fragment>
 
         public let base: Storage
 

@@ -6,8 +6,11 @@
 //
 //
 
+import Algebra
 import Collections
 import ArithmeticTools
+
+// FIXME: Conform SpanningContainer to Additive
 
 // FIXME: Move to dn-m/Collections
 public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fragmentable {
@@ -19,29 +22,106 @@ public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fra
 
 extension SpanningContainer {
 
+    public static var zero: Self { return Self([]) }
+
     public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
         return range.map { index in base.values[index] }
     }
 }
 
-//extension SpanningContainer where Spanner.Fragment == Spanner, Spanner.Metric == Metric {
-//
-//    // FIXME: Abstract to `SpanningContainer`.
-//    public var length: Spanner.Fragment.Metric {
-//        return base.values.map { $0.length }.sum
-//    }
-//}
+// FIXME: Use constrained associated types in Swift 4
+extension SpanningContainer where
+    Spanner == Spanner.Fragment,
+    Metric == Spanner.Metric,
+    Metric: Additive
+{
 
-//
-//    // FIXME: Move to `SpanningContainer`.
-//    public func element(from offset: Metric, at index: Int) -> Spanner {
-//        let (elementOffset, fragment) = base[index]
-//        return fragment.from(offset - elementOffset)
-//    }
-//
-//    // FIXME: Move to `SpanningContainer`.
-//    public func element(to offset: Metric, at index: Int) -> Spanner {
-//        let (elementOffset, fragment) = base[index]
-//        return fragment.to(offset - elementOffset)
-//    }
-//}
+    public var length: Metric {
+        return base.values.map { $0.length }.sum
+    }
+
+    public subscript (range: Range<Metric>) -> Self {
+
+        assert(range.lowerBound >= .zero)
+
+        guard range.lowerBound < length else {
+            return .zero
+        }
+
+        let range = range.upperBound > length ? range.lowerBound ..< length : range
+        guard let startIndex = indexOfElement(containing: range.lowerBound) else {
+            return .zero
+        }
+
+        let endIndex = indexOfElement(containing: range.upperBound, includingUpperBound: true)
+            ?? base.count - 1
+
+        if endIndex == startIndex {
+            let (offset, element) = base[startIndex]
+            return .init([element[range.lowerBound - offset ..< range.upperBound - offset]])
+        }
+
+        let start = element(from: range.lowerBound, at: startIndex)
+        let end = element(to: range.upperBound, at: endIndex)
+
+        if endIndex == startIndex + 1 {
+            return .init([start,end])
+        }
+
+        let innards = spanners(in: startIndex + 1 ... endIndex - 1)
+        return .init(start + innards + end)
+    }
+
+    public func element(from offset: Metric, at index: Int) -> Spanner {
+        let (elementOffset, fragment) = base[index]
+        return fragment.from(offset - elementOffset)
+    }
+
+    public func element(to offset: Metric, at index: Int) -> Spanner {
+        let (elementOffset, fragment) = base[index]
+        return fragment.to(offset - elementOffset)
+    }
+
+    /// - Parameters:
+    ///   - includingUpperBound: Whether or not to include the `upperBound` of the `element.range`
+    ///     in the search, and to dismiss the `lowerBound`.
+    ///
+    /// - Returns: The index of the element containing the given `target` offset.
+    ///
+    // FIXME: It feels gross to have to duplicate this code.
+    public func indexOfElement(containing target: Metric, includingUpperBound: Bool = false)
+        -> Int?
+    {
+
+        var start = 0
+        var end = base.count
+
+        while start < end {
+
+            let mid = start + (end - start) / 2
+            let (offset, element) = base[mid]
+            let lowerBound = offset
+            let upperBound = offset + element.range.length
+            if includingUpperBound {
+                if target > lowerBound && target <= upperBound {
+                    return mid
+                } else if target > upperBound {
+                    start = mid + 1
+                } else {
+                    end = mid
+                }
+            } else {
+                if target >= lowerBound && target < upperBound {
+                    return mid
+                } else if target >= offset + element.range.length {
+                    start = mid + 1
+                } else {
+                    end = mid
+                }
+            }
+        }
+        
+        return nil
+    }
+}
+
