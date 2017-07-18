@@ -10,22 +10,6 @@ import Algebra
 import Collections
 import ArithmeticTools
 
-//extension Fraction: Additive {
-//
-//    /// - Returns: Composition of two of the same `Semigroup` type values.
-//    public static func <> (lhs: Fraction, rhs: Fraction) -> Fraction {
-//        return lhs + rhs
-//    }
-//
-//    public static var zero: Fraction {
-//        return Fraction(0,1)
-//    }
-//
-//    public static var identity: Fraction {
-//        return Fraction(0,1)
-//    }
-//}
-
 /// - Precondition: n + n.length = m
 public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDurationSpanning {
 
