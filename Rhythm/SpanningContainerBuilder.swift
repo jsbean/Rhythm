@@ -25,6 +25,9 @@ public protocol SpanningContainerBuilder: class {
     /// Intermediate storage which is converted into the `Product`.
     var intermediate: SortedDictionary<Spanner.Metric,Spanner> { get set }
 
+    /// Cumulative offset of spanners contained in `intermediate`.
+    var offset: Spanner.Metric { get set }
+
     // MARK: - Instance Methods
 
     /// Adds the given `Spanner` to the `intermediate`.
@@ -35,6 +38,16 @@ public protocol SpanningContainerBuilder: class {
 }
 
 extension SpanningContainerBuilder {
+
+    /// Adds each of the given `elements` to the `intermediate` with accumulating offsets.
+    ///
+    /// - Returns: `Self`.
+    @discardableResult public func add <S: Sequence> (_ elements: S) -> Self
+        where S.Iterator.Element == Spanner
+    {
+        elements.forEach { _ = add($0) }
+        return self
+    }
 
     /// Creates the final `Product` with the `intermediate`.
     public func build() -> Product {

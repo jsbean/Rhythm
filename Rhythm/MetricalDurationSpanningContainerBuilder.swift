@@ -9,10 +9,7 @@
 import Collections
 import ArithmeticTools
 
-public protocol MetricalDurationSpanningContainerBuilder: SpanningContainerBuilder {
-    associatedtype Product: MetricalDurationSpanningContainer
-    var offset: Fraction { get set }
-}
+public protocol MetricalDurationSpanningContainerBuilder: SpanningContainerBuilder { }
 
 // FIXME: Constraints should not be necessary
 extension MetricalDurationSpanningContainerBuilder where
@@ -20,16 +17,14 @@ extension MetricalDurationSpanningContainerBuilder where
     Product.Metric == Fraction
 {
 
+    /// Adds the given `element` to the `intermediate` with accumulativng offsets.
+    ///
+    /// - Returns: `Self`.
+    ///
+    // FIXME: This should be able to be abstracted to `SpanningContainerBuilder`.
     @discardableResult public func add(_ element: Spanner) -> Self {
         self.intermediate.insert(element, key: offset)
         offset += element.range.length
-        return self
-    }
-
-    @discardableResult public func add <S: Sequence> (_ elements: S) -> Self
-        where S.Iterator.Element == Spanner
-    {
-        elements.forEach { _ = add($0) }
         return self
     }
 }
