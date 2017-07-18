@@ -26,7 +26,7 @@ class MeterCollectionTests: XCTestCase {
     func testFragmentOutOfRange() {
         let collection = Meter.Collection([(4,4),(3,4),(5,4)].map(Meter.init))
         let fragment = collection[Fraction(13,4) ..< Fraction(14,4)]
-        XCTAssert(fragment.elements.isEmpty)
+        XCTAssert(fragment.base.isEmpty)
     }
 
     func testFragmentRangeWithinSingleMeter() {
@@ -49,14 +49,14 @@ class MeterCollectionTests: XCTestCase {
             Meter.Fragment(Meter(5,4), in: Fraction(0,4)..<Fraction(2,4))
         ]
 
-        XCTAssertEqual(fragment.elements.map { $0.1 }, expected)
+        XCTAssertEqual(fragment.base.map { $0.1 }, expected)
     }
 
     func testFragmentUpperBoundBeyondEnd() {
         let collection = Meter.Collection([(4,4),(3,4),(5,4)].map(Meter.init))
         let fragment = collection[Fraction(8,4) ..< Fraction(13,4)]
         let expected = [Meter.Fragment(Meter(5,4), in: Fraction(1,4)..<Fraction(5,4))]
-        XCTAssertEqual(fragment.elements.map { $0.1 }, expected)
+        XCTAssertEqual(fragment.base.map { $0.1 }, expected)
     }
 
     func testFragmentsFromTutschkuUnder() {
@@ -413,10 +413,10 @@ class MeterCollectionTests: XCTestCase {
 
         let ranges = (eventOffsets + meters.length).pairs
         let fragments = ranges.map { start, end in meters[Fraction(start)..<Fraction(end)] }
-        let flattenedFragments = fragments.flatMap { fragment in fragment.elements.map { $0.1 } }
+        let flattenedFragments = fragments.flatMap { fragment in fragment.base.map { $0.1 } }
         XCTAssertEqual(fragments.count, 66)
-        XCTAssertEqual(meters.elements.count, flattenedFragments.count)
-        zip(meters.elements.map { $0.1 }, flattenedFragments).forEach { XCTAssertEqual($0,$1) }
+        XCTAssertEqual(meters.base.count, flattenedFragments.count)
+        zip(meters.base.map { $0.1 }, flattenedFragments).forEach { XCTAssertEqual($0,$1) }
     }
 }
 

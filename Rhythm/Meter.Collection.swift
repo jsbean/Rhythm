@@ -13,18 +13,18 @@ extension Meter {
 
     public struct Collection: MetricalDurationSpanningContainer {
 
-        public let elements: SortedDictionary<Fraction, Meter.Fragment>
+        public let base: SortedDictionary<Fraction, Meter.Fragment>
 
-        public init(_ elements: SortedDictionary<Fraction, Meter.Fragment>) {
-            self.elements = elements
+        public init(_ base: SortedDictionary<Fraction, Meter.Fragment>) {
+            self.base = base
         }
 
-        public init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Meter.Fragment {
-            self = Builder().add(elements).build()
+        public init <S> (_ base: S) where S: Sequence, S.Iterator.Element == Meter.Fragment {
+            self = Builder().add(base).build()
         }
 
-        public init <S> (_ elements: S) where S: Sequence, S.Iterator.Element == Meter {
-            self.init(elements.map { Meter.Fragment($0) })
+        public init <S> (_ base: S) where S: Sequence, S.Iterator.Element == Meter {
+            self.init(base.map { Meter.Fragment($0) })
         }
     }
 }
@@ -32,6 +32,6 @@ extension Meter {
 extension Meter.Collection: Equatable {
 
     public static func == (lhs: Meter.Collection, rhs: Meter.Collection) -> Bool {
-        return lhs.elements == rhs.elements
+        return lhs.base == rhs.base
     }
 }

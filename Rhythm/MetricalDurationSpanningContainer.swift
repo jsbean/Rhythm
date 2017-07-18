@@ -19,10 +19,10 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
 
     // MARK: - Instance Properties
 
-    /// `MetricalDurationSpanningFragment` elements, stored by their offset.
+    /// `MetricalDurationSpanningFragment` base, stored by their offset.
     ///
     // FIXME: This declaration should not be neceesary.
-    var elements: SortedDictionary<Fraction,Spanner> { get }
+    var base: SortedDictionary<Fraction,Spanner> { get }
 }
 
 extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
@@ -31,7 +31,7 @@ extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
 
     // FIXME: Abstract to `SpanningContainer`.
     public var length: Fraction {
-        return elements.map { $0.1.length }.sum
+        return base.map { $0.1.length }.sum
     }
 }
 
@@ -54,14 +54,14 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
 
         let endIndex = (
             indexOfElement(containing: range.upperBound, includingUpperBound: true)
-                ?? elements.count - 1
+                ?? base.count - 1
         )
 
         let start = element(from: range.lowerBound, at: startIndex)
 
         // Single interpolation
         if endIndex == startIndex {
-            let (offset, element) = elements[startIndex]
+            let (offset, element) = base[startIndex]
             return .init([element[range.lowerBound - offset ..< range.upperBound - offset]])
         }
 
@@ -73,25 +73,25 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
         }
 
         /// Three or more measures
-        let innards = elements(in: startIndex + 1 ... endIndex - 1)
+        let innards = base(in: startIndex + 1 ... endIndex - 1)
         return .init(start + innards + end)
     }
 
 
     public func element(from offset: Fraction, at index: Int) -> Spanner {
-        let (elementOffset, fragment) = elements[index]
+        let (elementOffset, fragment) = base[index]
         return fragment.from(offset - elementOffset)
     }
 
     public func element(to offset: Fraction, at index: Int) -> Spanner {
-        let (elementOffset, fragment) = elements[index]
+        let (elementOffset, fragment) = base[index]
         return fragment.to(offset - elementOffset)
     }
 
-    public func elements(in range: CountableClosedRange<Int>) -> [Spanner] {
+    public func base(in range: CountableClosedRange<Int>) -> [Spanner] {
         return range
             .lazy
-            .map { index in self.elements[index] }
+            .map { index in self.base[index] }
             .map { _, element in element }
     }
 
@@ -105,12 +105,12 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
     func indexOfElement(containing target: Fraction, includingUpperBound: Bool = false) -> Int? {
 
         var start = 0
-        var end = elements.count
+        var end = base.count
 
         while start < end {
 
             let mid = start + (end - start) / 2
-            let (offset, element) = elements[mid]
+            let (offset, element) = base[mid]
 
             let lowerBound = offset
             let upperBound = offset + element.range.length

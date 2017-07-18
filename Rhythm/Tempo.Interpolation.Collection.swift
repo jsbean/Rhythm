@@ -15,16 +15,16 @@ public extension Tempo.Interpolation {
 
         public typealias Storage = SortedDictionary<Fraction, Tempo.Interpolation.Fragment>
 
-        public let elements: Storage
+        public let base: Storage
 
-        public init(_ elements: Storage) {
-            self.elements = elements
+        public init(_ base: Storage) {
+            self.base = base
         }
 
-        public init <S> (_ elements: S)
+        public init <S> (_ base: S)
             where S: Sequence, S.Iterator.Element == Tempo.Interpolation.Fragment
         {
-            self = Builder().add(elements).build()
+            self = Builder().add(base).build()
         }
 
         public init <S> (_ elements: [Tempo.Interpolation])
@@ -37,17 +37,17 @@ public extension Tempo.Interpolation {
         public func secondsOffset(for metricalOffset: Fraction) -> Double {
             assert(contains(metricalOffset))
             let index = indexOfElement(containing: metricalOffset)!
-            let (globalOffset, interpolation) = elements[index]
+            let (globalOffset, interpolation) = base[index]
             let internalOffset = metricalOffset - globalOffset
             let localSeconds = interpolation.secondsOffset(for: internalOffset)
             return secondsOffset(at: index) + localSeconds
         }
 
         public func secondsOffset(at index: Int) -> Double {
-            assert(elements.indices.contains(index))
+            assert(base.indices.contains(index))
             return (0..<index)
                 .lazy
-                .map { self.elements[$0] }
+                .map { self.base[$0] }
                 .map { _, interp in interp.duration }
                 .sum
         }
@@ -67,12 +67,12 @@ extension Tempo.Interpolation.Collection: Fragmentable {
             return .init([:])
         }
 
-        let endIndex = (indexOfElement(containing: range.upperBound) ?? elements.count) - 1
+        let endIndex = (indexOfElement(containing: range.upperBound) ?? base.count) - 1
         let start = element(from: range.lowerBound, at: startIndex)
 
         // Single interpolation
         if endIndex == startIndex {
-            let (offset, element) = elements[startIndex]
+            let (offset, element) = base[startIndex]
             // FIXME: Use `range.shifted(by:)`
             let range = offset ..< offset + element.range.length
             return Tempo.Interpolation.Collection([.unit: element[range]])
@@ -93,7 +93,7 @@ extension Tempo.Interpolation.Collection: Fragmentable {
     private func elements(in range: CountableClosedRange<Int>) -> [Tempo.Interpolation.Fragment] {
         return range
             .lazy
-            .map { index in self.elements[index] }
+            .map { index in self.base[index] }
             .map { _, meter in meter }
     }
 }
