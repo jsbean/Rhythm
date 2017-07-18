@@ -15,15 +15,5 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
 
     // MARK: - Associated Types
 
-    /// `MetricalDurationSpanningFragment`
-    associatedtype Spanner: MetricalDurationSpanningFragment
-
-    // MARK: - Instance Properties
-
-    /// `MetricalDurationSpanningFragment` base, stored by their offset.
-    ///
-    // FIXME: This declaration should not be neceesary.
-    // FIXME: Use constrained associated types in Swift 4:
-    // https://github.com/apple/swift-evolution/blob/master/proposals/0142-associated-types-constraints.md
-    var base: SortedDictionary<Fraction,Spanner> { get }
+    associatedtype Spanner: SpanningFragment, MetricalDurationSpanning
 }
