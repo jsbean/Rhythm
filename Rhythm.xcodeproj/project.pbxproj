@@ -305,8 +305,8 @@
 			isa = PBXGroup;
 			children = (
 				077E2EAF1F17BABA003D14FA /* Spanning.swift */,
-				07F68A5F1F1E38F800E74540 /* SpanningFragment.swift */,
 				07C265951F1669250058AD73 /* Fragmentable.swift */,
+				07F68A5F1F1E38F800E74540 /* SpanningFragment.swift */,
 				077E2EB81F17BD93003D14FA /* SpanningContainer.swift */,
 				07C2659E1F166FA70058AD73 /* SpanningContainerBuilder.swift */,
 			);
