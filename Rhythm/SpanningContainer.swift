@@ -30,14 +30,14 @@ extension SpanningContainer {
 }
 
 // FIXME: Use constrained associated types in Swift 4
-extension SpanningContainer where
-    Spanner == Spanner.Fragment,
-    Metric == Spanner.Metric,
-    Metric: Additive
-{
+extension SpanningContainer where Spanner == Spanner.Fragment, Metric == Spanner.Metric {
 
     public var length: Metric {
         return base.values.map { $0.length }.sum
+    }
+
+    public func contains(_ target: Metric) -> Bool {
+        return (.zero ..< length).contains(target)
     }
 
     public subscript (range: Range<Metric>) -> Self {

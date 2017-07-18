@@ -17,7 +17,7 @@ public protocol Spanning {
     // MARK: - Associated Types
 
     /// Type of the `length` of the `Spanning` type.
-    associatedtype Metric: SignedNumber, Hashable
+    associatedtype Metric: SignedNumber, Additive, Hashable
 
     // MARK: - Instance Properties
 

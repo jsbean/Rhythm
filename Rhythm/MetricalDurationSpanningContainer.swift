@@ -27,10 +27,3 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     // https://github.com/apple/swift-evolution/blob/master/proposals/0142-associated-types-constraints.md
     var base: SortedDictionary<Fraction,Spanner> { get }
 }
-
-extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
-    
-    public func contains(_ target: Spanner.Metric) -> Bool {
-        return (.zero ..< length).contains(target)
-    }
-}
