@@ -6,6 +6,7 @@
 //
 //
 
+import Algebra
 import Collections
 import ArithmeticTools
 
@@ -38,6 +39,17 @@ public protocol SpanningContainerBuilder: class {
 }
 
 extension SpanningContainerBuilder {
+
+    /// Adds the given `element` to the `intermediate` with accumulativng offsets.
+    ///
+    /// - Returns: `Self`.
+    ///
+    // FIXME: This should be able to be abstracted to `SpanningContainerBuilder`.
+    @discardableResult public func add(_ element: Spanner) -> Self {
+        self.intermediate.insert(element, key: offset)
+        offset = offset + element.range.length
+        return self
+    }
 
     /// Adds each of the given `elements` to the `intermediate` with accumulating offsets.
     ///
