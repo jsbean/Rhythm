@@ -24,7 +24,7 @@ extension Meter {
         }
 
         public init <S> (_ base: S) where S: Sequence, S.Iterator.Element == Meter {
-            self.init(base.map { Meter.Fragment($0) })
+            self.init(base.map(Meter.Fragment.init))
         }
     }
 }
