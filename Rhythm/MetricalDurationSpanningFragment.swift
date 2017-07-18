@@ -19,6 +19,7 @@ extension MetricalDurationSpanningFragment where Fragment == Self, Metric == Fra
     }
 
     func to(_ offset: Fraction) -> Self {
+        print("self.range: \(self.range); to offset: \(offset)")
         assert(offset <= self.range.upperBound)
         let range = self.range.lowerBound ..< offset
         return self[range]
