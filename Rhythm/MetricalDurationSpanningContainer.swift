@@ -10,6 +10,8 @@ import Collections
 import ArithmeticTools
 
 /// - Precondition: n + n.length = m
+// FIXME: Use constrained associated types in Swift 4:
+// https://github.com/apple/swift-evolution/blob/master/proposals/0142-associated-types-constraints.md
 public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDurationSpanning {
 
     // MARK: - Associated Types
@@ -31,7 +33,7 @@ extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
 
     // FIXME: Abstract to `SpanningContainer`.
     public var length: Fraction {
-        return base.map { $0.1.length }.sum
+        return base.values.map { $0.length }.sum
     }
 }
 
