@@ -11,7 +11,7 @@ import ArithmeticTools
 
 extension Meter {
 
-    public struct Collection: MetricalDurationSpanningContainer {
+    public struct Collection: SpanningContainer {
 
         public typealias Metric = Fraction
 

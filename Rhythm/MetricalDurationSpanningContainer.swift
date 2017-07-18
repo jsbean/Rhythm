@@ -18,3 +18,5 @@ public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDu
     /// Constraint of Spanner type.
     associatedtype Spanner: SpanningFragment, MetricalDurationSpanning
 }
+
+
