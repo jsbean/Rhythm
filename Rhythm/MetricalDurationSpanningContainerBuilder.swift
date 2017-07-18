@@ -11,7 +11,6 @@ import ArithmeticTools
 
 public protocol MetricalDurationSpanningContainerBuilder: SpanningContainerBuilder {
     associatedtype Product: MetricalDurationSpanningContainer
-    var intermediate: SortedDictionary<Fraction,Spanner> { get set }
     var offset: Fraction { get set }
 }
 
