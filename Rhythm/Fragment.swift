@@ -9,8 +9,6 @@
 import Collections
 import ArithmeticTools
 
-// TODO: Move these to own file
-
 public protocol Fragmentable {
     associatedtype Fragment
     subscript(range: Range<Fraction>) -> Fragment { get }
