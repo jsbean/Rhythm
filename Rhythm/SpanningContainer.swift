@@ -13,7 +13,6 @@ import ArithmeticTools
 public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fragmentable {
     associatedtype Spanner: SpanningFragment
     var base: SortedDictionary<Spanner.Metric,Spanner> { get }
-    var length: Metric { get }
     init(_: SortedDictionary<Spanner.Metric,Spanner>)
     init <S> (_: S) where S: Sequence, S.Iterator.Element == Spanner
 }
