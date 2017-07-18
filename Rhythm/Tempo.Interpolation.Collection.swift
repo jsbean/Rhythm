@@ -59,7 +59,7 @@ extension Tempo.Interpolation.Collection: Fragmentable {
     // FIXME: Decide assert or soft clipping out-of-range ranges
     public subscript (range: Range<Fraction>) -> Tempo.Interpolation.Collection {
 
-        assert(range.lowerBound >= .unit)
+        assert(range.lowerBound >= .zero)
 
         let range = range.upperBound > length ? range.lowerBound ..< length : range
 
@@ -75,7 +75,7 @@ extension Tempo.Interpolation.Collection: Fragmentable {
             let (offset, element) = base[startIndex]
             // FIXME: Use `range.shifted(by:)`
             let range = offset ..< offset + element.range.length
-            return Tempo.Interpolation.Collection([.unit: element[range]])
+            return Tempo.Interpolation.Collection([.zero: element[range]])
         }
 
         let end = element(to: range.upperBound, at: endIndex)

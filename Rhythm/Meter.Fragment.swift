@@ -21,7 +21,7 @@ extension Meter {
         // FIXME: Add range sanitation.
         public init(_ meter: Meter, in range: Range<Fraction>? = nil) {
             self.base = meter
-            self.range = range ?? .unit ..< Fraction(meter)
+            self.range = range ?? .zero ..< Fraction(meter)
         }
 
         /// - Returns: `Interpolation.Fragment` in the given `range`.
@@ -37,7 +37,7 @@ extension Meter.Fragment {
 
     public init(_ meter: Meter) {
         self.base = meter
-        self.range = .unit ..< Fraction(meter)
+        self.range = .zero ..< Fraction(meter)
     }
 }
 

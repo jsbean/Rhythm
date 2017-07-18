@@ -6,6 +6,7 @@
 //
 //
 
+import Algebra
 import Collections
 import ArithmeticTools
 
@@ -32,7 +33,7 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
 
     /// - Returns: `MetricalDurationTree` with the durations scaled by context.
     public var scaled: Tree<Fraction,Fraction> {
-        return zip(self, scaling) { duration, scaling in (duration * scaling).reduced }
+        return zip(self, scaling) { duration, scaling in (Fraction(duration) * scaling).reduced }
     }
 
     /// - returns: Array of tuples containing the scaled offset from the start of this

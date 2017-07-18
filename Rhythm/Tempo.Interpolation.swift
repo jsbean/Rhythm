@@ -87,7 +87,7 @@ extension Tempo {
 
             // First, guard against the easy cases
             // 1. Zero offset => zero output
-            guard metricalOffset != .unit else {
+            guard metricalOffset != .zero else {
                 return 0
             }
 
@@ -112,7 +112,7 @@ extension Tempo {
                 // Base case: rough approximation
                 let segmentsCount = Int(floor((offset / Fraction(1, resolution)).doubleValue))
 
-                let accum: Double = (0..<segmentsCount).reduce(.unit) { accum, cur in
+                let accum: Double = (0..<segmentsCount).reduce(.zero) { accum, cur in
                     let tempo = self.tempo(at: Fraction(cur, resolution))
                     let duration = tempo.duration(forBeatAt: resolution)
                     return accum + duration
@@ -158,7 +158,7 @@ extension Tempo {
 extension Tempo.Interpolation: Fragmentable {
 
     public subscript(range: Range<Fraction>) -> Fragment {
-        assert(range.lowerBound >= .unit)
+        assert(range.lowerBound >= .zero)
         assert(range.upperBound <= length)
         return Fragment(self, in: range)
     }

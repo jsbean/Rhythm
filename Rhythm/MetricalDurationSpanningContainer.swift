@@ -6,8 +6,25 @@
 //
 //
 
+import Algebra
 import Collections
 import ArithmeticTools
+
+//extension Fraction: Additive {
+//
+//    /// - Returns: Composition of two of the same `Semigroup` type values.
+//    public static func <> (lhs: Fraction, rhs: Fraction) -> Fraction {
+//        return lhs + rhs
+//    }
+//
+//    public static var zero: Fraction {
+//        return Fraction(0,1)
+//    }
+//
+//    public static var identity: Fraction {
+//        return Fraction(0,1)
+//    }
+//}
 
 /// - Precondition: n + n.length = m
 public protocol MetricalDurationSpanningContainer: SpanningContainer, MetricalDurationSpanning {
@@ -42,7 +59,7 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
 
     public subscript (range: Range<Fraction>) -> Self {
 
-        assert(range.lowerBound >= .unit)
+        assert(range.lowerBound >= .zero)
 
         guard range.lowerBound < length else {
             return .init([])
@@ -143,6 +160,6 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
 extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
     
     public func contains(_ target: Fraction) -> Bool {
-        return (.unit ..< length).contains(target)
+        return (.zero ..< length).contains(target)
     }
 }

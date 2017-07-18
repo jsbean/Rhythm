@@ -22,7 +22,7 @@ extension Tempo.Interpolation.Collection {
 
         public init() {
             self.intermediate = [:]
-            self.offset = .unit
+            self.offset = .zero
         }
 
         @discardableResult public func add(_ interpolation: Tempo.Interpolation.Fragment)

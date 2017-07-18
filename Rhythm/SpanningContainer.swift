@@ -13,6 +13,7 @@ import ArithmeticTools
 public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fragmentable {
     associatedtype Spanner: SpanningFragment
     var base: SortedDictionary<Spanner.Metric,Spanner> { get }
+    var length: Metric { get }
     init(_: SortedDictionary<Spanner.Metric,Spanner>)
     init <S> (_: S) where S: Sequence, S.Iterator.Element == Spanner
 }
@@ -28,6 +29,13 @@ extension SpanningContainer {
 }
 
 //extension SpanningContainer where Spanner.Fragment == Spanner, Spanner.Metric == Metric {
+//
+//    // FIXME: Abstract to `SpanningContainer`.
+//    public var length: Metric {
+//        return base.values.map { $0.length }.sum
+//    }
+//}
+
 //
 //    // FIXME: Move to `SpanningContainer`.
 //    public func element(from offset: Metric, at index: Int) -> Spanner {
