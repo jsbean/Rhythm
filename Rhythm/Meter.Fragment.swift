@@ -12,6 +12,9 @@ extension Meter {
 
     public struct Fragment: MetricalDurationSpanningFragment {
 
+        public typealias Metric = Fraction
+        public typealias Fragment = Meter.Fragment
+
         public let base: Meter
         public let range: Range<Fraction>
 

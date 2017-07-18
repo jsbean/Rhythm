@@ -1,5 +1,5 @@
 //
-//  Fragment.swift
+//  Fragmentable.swift
 //  Rhythm
 //
 //  Created by James Bean on 7/12/17.
@@ -11,5 +11,6 @@ import ArithmeticTools
 
 public protocol Fragmentable {
     associatedtype Fragment
-    subscript(range: Range<Fraction>) -> Fragment { get }
+    associatedtype Metric: SignedNumber
+    subscript(range: Range<Metric>) -> Fragment { get }
 }

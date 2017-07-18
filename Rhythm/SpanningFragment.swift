@@ -21,17 +21,17 @@ extension SpanningFragment {
     }
 }
 
-extension SpanningFragment where Fragment == Self {
-
-    func from(_ offset: Fraction) -> Self {
-        assert(offset >= self.range.lowerBound)
-        let range = offset ..< self.range.upperBound
-        return self[range]
-    }
-
-    func to(_ offset: Fraction) -> Self {
-        assert(offset <= self.range.upperBound)
-        let range = self.range.lowerBound ..< offset
-        return self[range]
-    }
-}
+//extension SpanningFragment where Fragment == Self {
+//
+//    func from(_ offset: Fraction) -> Self {
+//        assert(offset >= self.range.lowerBound)
+//        let range = offset ..< self.range.upperBound
+//        return self[range]
+//    }
+//
+//    func to(_ offset: Fraction) -> Self {
+//        assert(offset <= self.range.upperBound)
+//        let range = self.range.lowerBound ..< offset
+//        return self[range]
+//    }
+//}

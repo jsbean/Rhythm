@@ -38,7 +38,7 @@ extension MetricalDurationSpanningContainer where Spanner.Metric == Metric {
 }
 
 // FIXME: This method should not require this constraint. Will be evident in the type in Swift 4.
-extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, Spanner.Metric == Metric {
+extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, Spanner.Metric == Metric, Metric == Fraction {
 
     public subscript (range: Range<Fraction>) -> Self {
 
@@ -89,6 +89,13 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
     public func element(to offset: Fraction, at index: Int) -> Spanner {
         let (elementOffset, fragment) = base[index]
         return fragment.to(offset - elementOffset)
+    }
+
+    public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
+        return range
+            .lazy
+            .map { index in self.base[index] }
+            .map { _, element in element }
     }
 
     /// - Parameters:
