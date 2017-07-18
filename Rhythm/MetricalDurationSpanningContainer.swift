@@ -92,13 +92,6 @@ extension MetricalDurationSpanningContainer where Spanner.Fragment == Spanner, S
         return fragment.to(offset - elementOffset)
     }
 
-    public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
-        return range
-            .lazy
-            .map { index in self.base[index] }
-            .map { _, element in element }
-    }
-
     /// - Parameters:
     ///   - includingUpperBound: Whether or not to include the `upperBound` of the `element.range`
     ///     in the search, and to dismiss the `lowerBound`.

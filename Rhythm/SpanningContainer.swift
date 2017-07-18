@@ -19,12 +19,12 @@ public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fra
 
 extension SpanningContainer {
 
-//    public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
-//        return range
-//            .lazy
-//            .map { index in self.base[index] }
-//            .map { _, element in element }
-//    }
+    public func spanners(in range: CountableClosedRange<Int>) -> [Spanner] {
+        return range
+            .lazy
+            .map { index in self.base[index] }
+            .map { _, element in element }
+    }
 }
 
 //extension SpanningContainer where Spanner.Fragment == Spanner, Spanner.Metric == Metric {
