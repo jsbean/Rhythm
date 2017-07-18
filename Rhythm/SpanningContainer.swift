@@ -10,7 +10,7 @@ import Collections
 import ArithmeticTools
 
 // FIXME: Move to dn-m/Collections
-public protocol SpanningContainer: RandomAccessCollectionWrapping, Fragmentable, Spanning {
+public protocol SpanningContainer: RandomAccessCollectionWrapping, Spanning, Fragmentable {
     associatedtype Spanner: Fragmentable, Spanning
     var base: SortedDictionary<Spanner.Metric,Spanner> { get }
     init(_: SortedDictionary<Spanner.Metric,Spanner>)
