@@ -13,11 +13,6 @@ public struct Meter: Rational {
 
     // MARK: - Instance Properties
 
-    /// - returns: The `MetricalDuration` of the `Meter`.
-    public var metricalDuration: MetricalDuration {
-        return numerator /> denominator
-    }
-
     /// - returns: Array of `MetricalDuration` offsets of each beat in a meter.
     public var beatOffsets: [MetricalDuration] {
         return (0..<numerator).map { beat in MetricalDuration(beat, denominator) }
@@ -33,16 +28,7 @@ public struct Meter: Rational {
 
     /// Creates a `Meter` with the given `numerator` and `denominator`.
     public init(_ numerator: Beats, _ denominator: Subdivision) {
-
-        // TODO: Include denominators with power-of-two factors (28, 44, etc.),
-        guard denominator.isPowerOfTwo else {
-            fatalError("Cannot create a Meter with a non-power-of-two denominator")
-        }
-
-        guard numerator > 0 else {
-            fatalError("Cannot create a Meter with a numerator of 0")
-        }
-
+        assert(denominator.isPowerOfTwo, "Cannot create Meter with a non power-of-two denominator")
         self.numerator = numerator
         self.denominator = denominator
     }
@@ -61,6 +47,22 @@ public struct Meter: Rational {
     /// - returns: Duration in seconds of measure at the given `tempo`.
     public func duration(at tempo: Tempo) -> Double {
         return Double(numerator) * tempo.duration(forBeatAt: denominator)
+    }
+}
+
+extension Meter: MetricalDurationSpanning {
+
+    /// - returns: The `MetricalDuration` of the `Meter`.
+    public var length: Fraction {
+        return Fraction(self)
+    }
+}
+
+extension Meter: Fragmentable {
+
+    /// - Returns: `Meter.Fragment`
+    public subscript(range: Range<Fraction>) -> Fragment {
+        return Fragment(self, in: range)
     }
 }
 

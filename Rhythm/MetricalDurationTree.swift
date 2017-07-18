@@ -6,6 +6,7 @@
 //
 //
 
+import Algebra
 import Collections
 import ArithmeticTools
 
@@ -32,7 +33,7 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
 
     /// - Returns: `MetricalDurationTree` with the durations scaled by context.
     public var scaled: Tree<Fraction,Fraction> {
-        return zip(self, scaling) { duration, scaling in (duration * scaling).reduced }
+        return zip(self, scaling) { duration, scaling in (Fraction(duration) * scaling).reduced }
     }
 
     /// - returns: Array of tuples containing the scaled offset from the start of this
@@ -72,15 +73,15 @@ extension Tree where Branch == MetricalDuration, Leaf == MetricalDuration {
         self.init(newSubdivision, normalized)
     }
 
-    /// - Returns: The concrete offsets (in `Seconds`) of the leaves contained herein, when
-    /// starting at the given `offset`, within the given `structure`.
-    public func concreteOffsets <R: Rational> (
-        startingAt offset: R,
-        within structure: Meter.Structure
-    ) -> [Double]
-    {
-        return offsets.map { $0 + Fraction(offset) }.map(structure.concreteOffset)
-    }
+//    /// - Returns: The concrete offsets (in `Seconds`) of the leaves contained herein, when
+//    /// starting at the given `offset`, within the given `structure`.
+//    public func concreteOffsets <R: Rational> (
+//        startingAt offset: R,
+//        within structure: Meter.Structure
+//    ) -> [Double]
+//    {
+//        return offsets.map { $0 + Fraction(offset) }.map(structure.concreteOffset)
+//    }
 }
 
 /// - returns: A `MetricalDurationTree` with the given `subdivision` applied to each node.

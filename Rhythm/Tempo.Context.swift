@@ -24,7 +24,7 @@ extension Tempo {
         // MARK: - Initializers
 
         /// Creates a `Tempo.Context` with a given `interpolation` and `metricalOffset`.
-        public init <R: Rational> (interpolation: Interpolation, metricalOffset: R) {
+        public init(interpolation: Interpolation, metricalOffset: Fraction) {
             self.interpolation = interpolation
             self.tempo = interpolation.tempo(at: metricalOffset)
         }

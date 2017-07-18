@@ -8,6 +8,7 @@
 
 import ArithmeticTools
 
+// TODO: Move to `dn-m/MetronomeController`
 /// Information about a given beat within a `Meter`.
 public struct BeatContext {
 
@@ -33,14 +34,14 @@ public struct BeatContext {
     public init(
         meterContext: Meter.Context,
         beatOffset: MetricalDuration,
-        interpolation: Interpolation
+        interpolation: Tempo.Interpolation
     )
     {
         self.meterContext = meterContext
         self.beatOffset = beatOffset
         self.tempoContext = Tempo.Context(
             interpolation: interpolation,
-            metricalOffset: meterContext.offset + beatOffset
+            metricalOffset: Fraction(meterContext.offset + beatOffset)
         )
     }
 }
