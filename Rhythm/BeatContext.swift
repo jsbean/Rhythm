@@ -15,7 +15,9 @@ public struct BeatContext {
     
     /// - returns: Metrical offset from start of a `Meter.Structure`.
     public var metricalOffset: MetricalDuration {
-        return meterContext.offset + offset
+        let rangeOffsetFraction = meterContext.meter.range.lowerBound
+        let rangeOffset = rangeOffsetFraction.numerator /> rangeOffsetFraction.denominator
+        return meterContext.offset + offset - rangeOffset
     }
     
     /// Meter containing `BeatContext`.
