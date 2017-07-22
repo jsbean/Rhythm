@@ -10,10 +10,10 @@ extension Meter {
     
     public struct Context {
         
-        public let meter: Meter
+        public let meter: Meter.Fragment
         public let offset: MetricalDuration
         
-        public init(meter: Meter, at offset: MetricalDuration) {
+        public init(meter: Meter.Fragment, at offset: MetricalDuration) {
             self.meter = meter
             self.offset = offset
         }

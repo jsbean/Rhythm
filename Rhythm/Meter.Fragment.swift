@@ -23,7 +23,7 @@ extension Meter {
             var result: [Meter.Context] = []
             var offset = range.lowerBound
             while offset < range.upperBound {
-                let context = Context(meter: meter, at: offset.numerator /> offset.denominator)
+                let context = Context(meter: .init(meter), at: offset.numerator /> offset.denominator)
                 result.append(context)
                 offset += Fraction(1, range.lowerBound.denominator)
             }

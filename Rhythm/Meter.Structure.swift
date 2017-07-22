@@ -17,16 +17,16 @@ extension Meter {
         public final class Builder {
 
             private lazy var duration: MetricalDuration = {
-                return self.meters.map { $0.numerator /> $0.denominator }.sum
+                return self.meters.map { $0.range.length }.map { $0.numerator /> $0.denominator }.sum
             }()
 
-            private var meters: [Meter] = []
+            private var meters: [Meter.Fragment] = []
             private var tempoStratumBuilder = Tempo.Stratum.Builder()
 
             public init() { }
 
             public func addMeter(_ meter: Meter) {
-                meters.append(meter)
+                meters.append(.init(meter))
             }
 
             public func addTempo(
@@ -85,12 +85,12 @@ extension Meter {
         
         /// - returns: `BeatContext` values for each beat of each meter.
         public var beatContexts: [BeatContext] {
-            let meterOffsets = meters.map { $0.metricalDuration }.accumulatingRight
+            let meterOffsets = meters.map { $0.meter.metricalDuration }.accumulatingRight
             return zip(meters, meterOffsets).map(Meter.Context.init).flatMap { meterContext in
                 return meterContext.meter.beatOffsets.map { beatOffset in
                     return BeatContext(
                         meterContext: meterContext,
-                        offset: beatOffset
+                        offset: beatOffset.numerator /> beatOffset.denominator
                     )
                 }
             }
@@ -107,7 +107,7 @@ extension Meter {
         }
         
         /// `Meter` values contained herein.
-        public let meters: [Meter]
+        public let meters: [Meter.Fragment]
         
         /// `Tempo.Stratum` value contained herein.
         public let tempi: Tempo.Stratum
@@ -115,7 +115,7 @@ extension Meter {
         // MARK: - Initializers
         
         /// Creates a `Meter.Structure` with the given `meters` and `tempi`.
-        public init(meters: [Meter] = [], tempi: Tempo.Stratum = Tempo.Stratum()) {
+        public init(meters: [Meter.Fragment] = [], tempi: Tempo.Stratum = Tempo.Stratum()) {
             self.meters = meters
             self.tempi = tempi
         }
@@ -137,7 +137,7 @@ extension Meter {
                 var result: [Range<Fraction>] = []
                 var accum: Fraction = .unit
                 for meter in meters {
-                    let length = Fraction(meter)
+                    let length = meter.range.length
                     result.append(accum ..< accum + length)
                     accum += length
                 }
@@ -162,15 +162,13 @@ extension Meter {
                 if firstFragmentIndex == lastFragmentIndex { return [] }
                 return Array(
                     (firstFragmentIndex + 1 ..< lastFragmentIndex).map { index in
-                        let meter = meters[index]
-                        let fragment = Meter.Fragment(meter)
-                        return fragment
+                        return meters[index]
                     }
                 )
             }
 
             let firstOffsetInRange = Fraction(start) - ranges[firstFragmentIndex].lowerBound
-            let firstFragment = Meter.Fragment(meters[firstFragmentIndex], from: firstOffsetInRange)
+            let firstFragment = Meter.Fragment(meters[firstFragmentIndex].meter, from: firstOffsetInRange)
             let lastOffsetInRange = Fraction(end) - ranges[lastFragmentIndex].lowerBound
 
             // If the length of the last fragment will be zero, don't add it
@@ -178,7 +176,7 @@ extension Meter {
                 return firstFragment + innards
             }
 
-            let lastFragment = Meter.Fragment(meters[lastFragmentIndex], to: lastOffsetInRange)
+            let lastFragment = Meter.Fragment(meters[lastFragmentIndex].meter, to: lastOffsetInRange)
             return firstFragment + innards + lastFragment
         }
 

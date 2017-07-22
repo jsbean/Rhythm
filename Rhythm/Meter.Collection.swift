@@ -54,7 +54,7 @@ extension Meter {
             var result: [BeatContext] = []
             for (offset, fragment) in meters {
                 let offset = offset.numerator /> offset.denominator
-                let meterContext = Meter.Context(meter: fragment.meter, at: offset)
+                let meterContext = Meter.Context(meter: fragment, at: offset)
 
                 // FIXME: Use Collection-based Range type
                 // FIXME: In Swift 3.1 version, `Rational` is `Strideable`.

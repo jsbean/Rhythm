@@ -85,7 +85,6 @@ extension Meter.Structure.Fragment {
 
     /// Creates a `Meter.Structure.Fragment` identifcal to the given `meterStructure`.
     public init(_ meterStructure: Meter.Structure) {
-        let meters = meterStructure.meters.map { Meter.Fragment($0) }
-        self.init(meters: meters, tempi: meterStructure.tempi)
+        self.init(meters: meterStructure.meters, tempi: meterStructure.tempi)
     }
 }
