@@ -13,19 +13,16 @@ public extension Tempo.Interpolation {
 
     public struct Collection: SpanningContainer {
 
-        public typealias Metric = Fraction
+        public typealias Metric = Spanner.Metric
+        public typealias Spanner = Tempo.Interpolation.Fragment
 
-        public typealias Storage = SortedDictionary<Fraction,Tempo.Interpolation.Fragment>
+        public let base: SortedDictionary<Spanner.Metric,Spanner>
 
-        public let base: Storage
-
-        public init(_ base: Storage) {
+        public init(_ base: SortedDictionary<Spanner.Metric,Spanner>) {
             self.base = base
         }
 
-        public init <S> (_ base: S)
-            where S: Sequence, S.Iterator.Element == Tempo.Interpolation.Fragment
-        {
+        public init <S> (_ base: S) where S: Sequence, S.Iterator.Element == Spanner {
             self = Builder().add(base).build()
         }
 

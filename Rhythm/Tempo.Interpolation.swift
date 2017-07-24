@@ -6,7 +6,8 @@
 //
 //
 
-import Foundation
+import Darwin
+import Collections
 import ArithmeticTools
 
 extension Tempo {

@@ -258,13 +258,13 @@
 		0771A6051ED4FDAA00733CFF /* Tempo */ = {
 			isa = PBXGroup;
 			children = (
+				07B701C41EDA204500C946AD /* Tempo.Context.swift */,
+				075C304A1EB15E9F008DB1D6 /* Tempo.swift */,
 				0771A6071ED4FE4000733CFF /* Tempo.Interpolation.swift */,
 				0757B9321F155038004247D9 /* Tempo.Interpolation.Easing.swift */,
 				07C2658F1F1664A90058AD73 /* Tempo.Interpolation.Fragment.swift */,
-				075C304A1EB15E9F008DB1D6 /* Tempo.swift */,
 				0757B9381F15523E004247D9 /* Tempo.Interpolation.Collection.swift */,
 				07C2659B1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift */,
-				07B701C41EDA204500C946AD /* Tempo.Context.swift */,
 			);
 			name = Tempo;
 			sourceTree = "<group>";
@@ -613,6 +613,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077E2EB11F17BABA003D14FA /* Spanning.swift in Sources */,
+				07F68A611F1E38F800E74540 /* SpanningFragment.swift in Sources */,
+				07C265971F1669250058AD73 /* Fragmentable.swift in Sources */,
+				077E2EBA1F17BD93003D14FA /* SpanningContainer.swift in Sources */,
+				07C265A01F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */,
 				0771A5E81ED4B94E00733CFF /* Beats.swift in Sources */,
 				0771A5EB1ED4B99300733CFF /* Subdivision.swift in Sources */,
 				077E2EB71F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift in Sources */,
@@ -621,23 +626,18 @@
 				072CBDA81E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
 				075C304F1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				07C265881F165EAA0058AD73 /* Meter.Fragment.swift in Sources */,
-				077E2EB11F17BABA003D14FA /* Spanning.swift in Sources */,
 				077E2EAB1F178CCB003D14FA /* MetricalDurationSpanning.swift in Sources */,
 				07C2658B1F16608F0058AD73 /* Meter.Collection.swift in Sources */,
+				07C265A31F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */,
 				07A846CB1EDB7DDF0038757A /* Meter.Context.swift in Sources */,
-				07C265A01F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */,
 				075C304C1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				0771A6091ED4FE4000733CFF /* Tempo.Interpolation.swift in Sources */,
-				07F68A611F1E38F800E74540 /* SpanningFragment.swift in Sources */,
 				07C265911F1664A90058AD73 /* Tempo.Interpolation.Fragment.swift in Sources */,
 				0757B9341F155038004247D9 /* Tempo.Interpolation.Easing.swift in Sources */,
 				0757B93A1F15523E004247D9 /* Tempo.Interpolation.Collection.swift in Sources */,
-				07C265A31F167C000058AD73 /* Meter.Collection.Builder.swift in Sources */,
 				07C2659D1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */,
 				0771A5E21ED4ADA300733CFF /* BeatContext.swift in Sources */,
-				07C265971F1669250058AD73 /* Fragmentable.swift in Sources */,
 				077E2EC11F18CAC3003D14FA /* MetricalDurationSpanningContainerBuilder.swift in Sources */,
-				077E2EBA1F17BD93003D14FA /* SpanningContainer.swift in Sources */,
 				077E2EB41F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift in Sources */,
 				0743097B1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				0775547B1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
@@ -667,6 +667,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077E2EB91F17BD93003D14FA /* SpanningContainer.swift in Sources */,
+				07F68A601F1E38F800E74540 /* SpanningFragment.swift in Sources */,
+				077E2EC01F18CAC3003D14FA /* MetricalDurationSpanningContainerBuilder.swift in Sources */,
+				077E2EB31F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift in Sources */,
 				0771A5E71ED4B94E00733CFF /* Beats.swift in Sources */,
 				0771A5EA1ED4B99300733CFF /* Subdivision.swift in Sources */,
 				077E2EB61F17BCA2003D14FA /* MetricalDurationSpanningFragment.swift in Sources */,
@@ -674,15 +678,15 @@
 				0771A6081ED4FE4000733CFF /* Tempo.Interpolation.swift in Sources */,
 				07C265901F1664A90058AD73 /* Tempo.Interpolation.Fragment.swift in Sources */,
 				0757B9331F155038004247D9 /* Tempo.Interpolation.Easing.swift in Sources */,
+				0757B9391F15523E004247D9 /* Tempo.Interpolation.Collection.swift in Sources */,
+				07C2659C1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */,
 				075C304B1EB15E9F008DB1D6 /* Tempo.swift in Sources */,
 				077E2EB01F17BABA003D14FA /* Spanning.swift in Sources */,
 				077E2EAA1F178CCB003D14FA /* MetricalDurationSpanning.swift in Sources */,
-				0757B9391F15523E004247D9 /* Tempo.Interpolation.Collection.swift in Sources */,
-				07C2659C1F166E0E0058AD73 /* Tempo.Interpolation.Collection.Builder.swift in Sources */,
 				07C2659F1F166FA70058AD73 /* SpanningContainerBuilder.swift in Sources */,
 				075C304E1EB15EB0008DB1D6 /* Meter.swift in Sources */,
 				07C265871F165EAA0058AD73 /* Meter.Fragment.swift in Sources */,
-				07F68A601F1E38F800E74540 /* SpanningFragment.swift in Sources */,
+				07A846CA1EDB7DDF0038757A /* Meter.Context.swift in Sources */,
 				07C2658A1F16608F0058AD73 /* Meter.Collection.swift in Sources */,
 				0775548B1E1B41CB00CF4A8A /* MetricalContext.swift in Sources */,
 				0771A5E11ED4ADA300733CFF /* BeatContext.swift in Sources */,
@@ -690,11 +694,7 @@
 				07C265961F1669250058AD73 /* Fragmentable.swift in Sources */,
 				0743097A1E4419CB002B88A1 /* ProportionTree.swift in Sources */,
 				072CBDA71E4AB2CF00B5001B /* MetricalDurationTree.swift in Sources */,
-				077E2EC01F18CAC3003D14FA /* MetricalDurationSpanningContainerBuilder.swift in Sources */,
-				077E2EB91F17BD93003D14FA /* SpanningContainer.swift in Sources */,
-				077E2EB31F17BAF9003D14FA /* MetricalDurationSpanningContainer.swift in Sources */,
 				0775547A1E1B163600CF4A8A /* RhythmTree.swift in Sources */,
-				07A846CA1EDB7DDF0038757A /* Meter.Context.swift in Sources */,
 				07B701C51EDA204500C946AD /* Tempo.Context.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -960,6 +960,7 @@
 				PRODUCT_NAME = Rhythm;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
