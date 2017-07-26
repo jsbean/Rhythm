@@ -34,7 +34,7 @@ extension Tempo.Interpolation.Collection {
             return self
         }
 
-        @discardableResult public func addTempo(
+        @discardableResult public func add(
             _ tempo: Tempo,
             at offset: Fraction,
             interpolating: Bool = false

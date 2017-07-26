@@ -1,2 +1,2 @@
-github "dn-m/Collections" >= 2.4
-github "dn-m/ArithmeticTools" >= 0.12.5
+github "dn-m/Collections" == 2.4.3
+github "dn-m/ArithmeticTools" == 0.18.1
