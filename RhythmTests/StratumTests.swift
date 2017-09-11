@@ -80,6 +80,7 @@ class StratumTests: XCTestCase {
         let tempoStratum = builder.build()
         let fragment = tempoStratum.fragment(from: 333/>16, to: 513/>16)
         XCTAssertEqual(fragment.tempi.count, 3)
+        dump(fragment)
         // Assert keys
     }
 }

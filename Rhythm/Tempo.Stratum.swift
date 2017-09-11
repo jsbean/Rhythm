@@ -82,7 +82,8 @@ extension Tempo {
 //                let penultimate = result[result.endIndex - 1]
 //                let endOfPenultimate = penultimate.0 + penultimate.1.metricalDuration
                 //result.insert(endSegment, key: endOfPenultimate)
-                result.insert(endSegment, key: end - start)
+                //result.insert(endSegment, key: end - start)
+                result.insert(endSegment, key: end - start - endSegment.metricalDuration)
             }
 
             return Stratum(tempi: result)
