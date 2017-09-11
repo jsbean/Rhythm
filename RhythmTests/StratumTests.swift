@@ -70,34 +70,17 @@ class StratumTests: XCTestCase {
         XCTAssertEqual(fragment.tempi.count, 3)
     }
 
-    func testMeterStructureFragment() {
-
-        // Builder Tempo.Stratum
+    func testTempoStratumFragment() {
         let builder = Tempo.Stratum.Builder()
-        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
-        builder.addTempo(Tempo(120), at: 16/>4, interpolating: false)
-        builder.addTempo(Tempo(120), at: 32/>4, interpolating: true)
-        builder.addTempo(Tempo(240), at: 64/>4, interpolating: false)
-        let tempi = builder.build()
-        let meters = (0..<16).map { _ in Meter(4,4) }
-        let structure = Meter.Structure(meters: meters, tempi: tempi)
-        let fragment = structure.fragment(from: 7/>4, to: 48/>4)
-        XCTAssertEqual(fragment.tempi.tempi.count, 3)
-        dump(fragment.beatContexts)
-    }
-
-    func testFragmentWithZeros() {
-
-        let builder = Tempo.Stratum.Builder()
-        builder.addTempo(Tempo(60), at: .zero, interpolating: true)
-        builder.addTempo(Tempo(120), at: 180/>4, interpolating: false)
-        let stratum = builder.build()
-
-        let meters = (0..<44).map { _ in return Meter(4,4) }
-        let meterStructure = Meter.Structure(meters: meters, tempi: stratum)
-
-        let ranges = (0..<35).map { _ in MetricalDuration(5,4) }.accumulatingRight.adjacentPairs!
-        let fragments = ranges.map { start, end in meterStructure.fragment(from: start, to: end) }
+        builder.addTempo(Tempo(70), at: .zero)
+        builder.addTempo(Tempo(55), at: 70/>4)
+        builder.addTempo(Tempo(70), at: 98/>4)
+        builder.addTempo(Tempo(55), at: 100/>4)
+        builder.addTempo(Tempo(70), at: 154/>4)
+        let tempoStratum = builder.build()
+        let fragment = tempoStratum.fragment(from: 333/>16, to: 513/>16)
+        XCTAssertEqual(fragment.tempi.count, 3)
+        // Assert keys
     }
 }
 
