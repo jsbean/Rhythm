@@ -79,9 +79,10 @@ extension Tempo {
                 print("add end segment: \(endSegment) at: \(end - start)")
 
                 // FIXME: This is fixed in new versions dn-m/Music
-                let penultimate = result[result.endIndex - 1]
-                let endOfPenultimate = penultimate.0 + penultimate.1.metricalDuration
-                result.insert(endSegment, key: endOfPenultimate)
+//                let penultimate = result[result.endIndex - 1]
+//                let endOfPenultimate = penultimate.0 + penultimate.1.metricalDuration
+                //result.insert(endSegment, key: endOfPenultimate)
+                result.insert(endSegment, key: end - start)
             }
 
             return Stratum(tempi: result)
