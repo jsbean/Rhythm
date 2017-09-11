@@ -54,12 +54,10 @@ extension Tempo {
 
             var result = SortedDictionary<MetricalDuration,Interpolation>()
 
-            print("add start segment")
             // Add first segment
             result.insert(startSegment, key: .zero)
 
             if startInterpIndex == endInterpIndex {
-                print("single interp: \(result)")
                 return Stratum(tempi: result)
             }
 
@@ -67,22 +65,13 @@ extension Tempo {
 
             // Add the innards, if necessary
             if endInterpIndex > startInterpIndex + 1 {
-                print("add innards")
                 tempi[startInterpIndex + 1 ..< endInterpIndex].forEach { offset, interp in
-                    print("innard interp: \(interp)")
                     result.insert(interp, key: offset - start)
                 }
             }
 
             // Add last segment if it isn't at the end of the interpolation
             if endOffsetInInterp < endInterp.metricalDuration {
-                print("add end segment: \(endSegment) at: \(end - start)")
-
-                // FIXME: This is fixed in new versions dn-m/Music
-//                let penultimate = result[result.endIndex - 1]
-//                let endOfPenultimate = penultimate.0 + penultimate.1.metricalDuration
-                //result.insert(endSegment, key: endOfPenultimate)
-                //result.insert(endSegment, key: end - start)
                 result.insert(endSegment, key: end - start - endSegment.metricalDuration)
             }
 
