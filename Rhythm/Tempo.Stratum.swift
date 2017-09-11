@@ -18,7 +18,7 @@ extension Tempo {
         private var offsets: [Double] {
             return tempi.reduce([0]) { accum, interpolationContext in
                 let (_, interpolation) = interpolationContext
-                return accum + interpolation.duration
+                return accum + (accum.last! + interpolation.duration)
             }
         }
 
@@ -65,7 +65,7 @@ extension Tempo {
 
             let endSegment = endInterp.fragment(to: endOffsetInInterp)
 
-            // Add the innards
+            // Add the innards, if necessary
             if endInterpIndex > startInterpIndex + 1 {
                 print("add innards")
                 tempi[startInterpIndex + 1 ..< endInterpIndex].forEach { offset, interp in
@@ -95,8 +95,11 @@ extension Tempo {
         ///
         public func secondsOffset(for metricalOffset: MetricalDuration) -> Double {
 
+            //print("seconds offset for: \(metricalOffset)")
+
             // Metrical offset of and interpolation containing metrical offset
             let index = indexOfInterpolation(containing: metricalOffset)
+
             let (metricalOffsetOfInterpolation, interpolation) = tempi[index]
             
             // Metrical offset within interpolation
@@ -109,7 +112,7 @@ extension Tempo {
             let secondsOffsetInInterpolation = interpolation.secondsOffset(
                 metricalOffset: metricalOffsetInInterpolation
             )
-            
+
             // Return offset of interpolation adding offset within interpolation
             return secondsOffsetOfInterpolation + secondsOffsetInInterpolation
         }

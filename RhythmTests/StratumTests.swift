@@ -81,7 +81,10 @@ class StratumTests: XCTestCase {
         let fragment = tempoStratum.fragment(from: 333/>16, to: 513/>16)
         XCTAssertEqual(fragment.tempi.count, 3)
         dump(fragment)
-        // Assert keys
+        print("dur: \(fragment.duration)")
+        for i in 0..<100 {
+            print("\(i)/16 seconds: \(fragment.secondsOffset(for: i/>16))")
+        }
     }
 }
 
