@@ -15,6 +15,7 @@ extension Tempo {
     public struct Stratum {
         
         // TODO: Only compute this if `tempi` has been changed.
+        // FIXME: Use `accumulatingSum`
         private var offsets: [Double] {
             return tempi.reduce([0]) { accum, interpolationContext in
                 let (_, interpolation) = interpolationContext
@@ -71,7 +72,7 @@ extension Tempo {
             }
 
             // Add last segment if it isn't at the end of the interpolation
-            if endOffsetInInterp < endInterp.metricalDuration {
+            if endOffsetInInterp <= endInterp.metricalDuration {
                 result.insert(endSegment, key: end - start - endSegment.metricalDuration)
             }
 

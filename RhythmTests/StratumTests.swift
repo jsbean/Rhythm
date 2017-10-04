@@ -84,5 +84,15 @@ class StratumTests: XCTestCase {
             print("\(i)/16 seconds: \(fragment.secondsOffset(for: i/>16))")
         }
     }
+
+    func testTempoStratumFragmentAtEnd() {
+        let tempoStratum = Tempo.Stratum.Builder()
+            .addTempo(Tempo(70), at: .zero)
+            .addTempo(Tempo(55), at: 16/>4)
+            .addTempo(Tempo(55), at: 29/>4)
+            .build()
+        let fragment = tempoStratum.fragment(from: 2/>4, to: 29/>4)
+        XCTAssertEqual(fragment.tempi.count, 2)
+    }
 }
 
